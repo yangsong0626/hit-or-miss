@@ -1,0 +1,557 @@
+<title>Hit or Miss</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a trading-desk style readout feed — persona lens bar on top, summary strip, filterable feed of readout cards, class read-through panel and catalyst calendar on the side */
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --ink:#14202e; --muted:#5b6878; --line:#dfe4ea;
+  --accent:#1f4f8f; --accent-soft:#e3ecf8;
+  --pos:#1d7a4f; --pos-soft:#e2f3ea; --neg:#b3342b; --neg-soft:#fbe7e5; --mix:#a46a0a; --mix-soft:#fbf0dc;
+  --f-display:"Barlow Condensed","Noto Sans SC",system-ui,sans-serif;
+  --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f151c; --surface:#17202a; --ink:#e4eaf1; --muted:#97a4b4; --line:#2a3644;
+  --accent:#7fb0ef; --accent-soft:#1c2c42;
+  --pos:#5cc792; --pos-soft:#15301f; --neg:#f0857c; --neg-soft:#3a1b19; --mix:#e7b55a; --mix-soft:#33280f;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151c; --surface:#17202a; --ink:#e4eaf1; --muted:#97a4b4; --line:#2a3644;
+  --accent:#7fb0ef; --accent-soft:#1c2c42;
+  --pos:#5cc792; --pos-soft:#15301f; --neg:#f0857c; --neg-soft:#3a1b19; --mix:#e7b55a; --mix-soft:#33280f;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 48px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.brand h1{font-family:var(--f-display);font-weight:700;font-size:44px;line-height:1;margin:0;letter-spacing:.01em;text-wrap:balance}
+.brand h1 span{color:var(--accent)}
+.brand p{margin:6px 0 0;color:var(--muted);font-size:14px;max-width:60ch}
+.asof{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-align:right}
+
+.lens{margin-top:18px}
+.lens-label{font-size:12px;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.lens-row{display:flex;flex-wrap:wrap;gap:8px}
+.lens button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:6px;display:flex;flex-direction:column;align-items:flex-start;gap:0;min-width:0;text-align:left}
+.lens button b{font-weight:700;font-size:15px}
+.lens button small{color:var(--muted);font-size:12px}
+.lens button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 -3px 0 var(--accent)}
+.lens-note{margin:10px 0 0;font-size:13.5px;color:var(--muted);max-width:80ch}
+
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
+.strip div{background:var(--surface);padding:12px 14px}
+.strip .n{font-family:var(--f-display);font-size:34px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.strip .l{font-size:12.5px;color:var(--muted)}
+.n.pos{color:var(--pos)}.n.neg{color:var(--neg)}.n.mix{color:var(--mix)}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;margin-top:24px}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}.strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.filters input,.filters select{font:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);min-width:0}
+.filters input{flex:1 1 200px}
+.count{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-left:auto}
+
+.feed{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--line);padding:14px 16px;min-width:0}
+.card.pos{border-left-color:var(--pos)}.card.neg{border-left-color:var(--neg)}.card.mix{border-left-color:var(--mix)}
+.card-head{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.date{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.verdict{font-size:12px;font-weight:700;padding:1px 8px;border-radius:3px}
+.verdict.pos{background:var(--pos-soft);color:var(--pos)}.verdict.neg{background:var(--neg-soft);color:var(--neg)}.verdict.mix{background:var(--mix-soft);color:var(--mix)}
+.card h3{margin:4px 0 2px;font-size:18px;line-height:1.35;text-wrap:balance}
+.card h3 .trial{font-family:var(--f-display);font-weight:600;letter-spacing:.02em;color:var(--accent)}
+.meta{font-size:13px;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-size:12px;border:1px solid var(--line);padding:0 7px;border-radius:3px;color:var(--muted)}
+.endpoint{margin-top:10px;font-family:var(--f-mono);font-size:12.5px;background:var(--bg);padding:6px 10px;border-radius:4px;overflow-wrap:anywhere}
+.fact{margin:10px 0 0;font-size:14.5px}
+.take{margin-top:10px;padding:10px 12px;background:var(--accent-soft);border-radius:4px;font-size:14px}
+.take .who{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.04em;display:block;margin-bottom:2px}
+.src{margin-top:8px;font-size:12.5px}
+.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line)}
+
+aside section{background:var(--surface);border:1px solid var(--line);padding:14px 16px;margin-bottom:16px}
+aside h2{font-family:var(--f-display);font-size:22px;font-weight:600;margin:0 0 4px;letter-spacing:.02em}
+aside .sub{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.rt{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+.rt:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.rt h4{margin:0 0 4px;font-size:14.5px}
+.rt .dots{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12.5px;margin-bottom:4px}
+.dot::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:1px;background:var(--muted)}
+.dot.pos::before{background:var(--pos)}.dot.neg::before{background:var(--neg)}.dot.mix::before{background:var(--mix)}
+.rt p{margin:0;font-size:13.5px;color:var(--muted)}
+.cal{list-style:none;margin:0;padding:0}
+.cal li{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+.cal li:first-child{border-top:0}
+.cal .when{font-family:var(--f-mono);font-size:12px;color:var(--accent);font-weight:500}
+.who-list{margin:0;padding-left:18px;font-size:13.5px}
+.who-list li{margin-bottom:6px}
+.tabs{display:flex;gap:0;margin-top:22px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{font:inherit;font-size:15px;font-weight:700;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 16px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.subtabs{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 12px}
+.subtabs button{font:inherit;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer}
+.subtabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.subtabs b{font-family:var(--f-mono);font-weight:500;font-size:12px;margin-left:4px;opacity:.75}
+.setnote{font-size:13.5px;color:var(--muted);margin:0 0 12px;max-width:80ch}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:820px}
+th{text-align:left;font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface)}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.d{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+td .tt{font-weight:500}
+td .nct{font-family:var(--f-mono);font-size:11.5px}
+td .sm{color:var(--muted);font-size:12.5px}
+.sig{display:inline-block;font-family:var(--f-mono);font-size:11.5px;padding:1px 6px;border-radius:3px;background:var(--bg);color:var(--muted);margin:0 4px 3px 0}
+.sig.pos{background:var(--pos-soft);color:var(--pos)}.sig.neg{background:var(--neg-soft);color:var(--neg)}.sig.mix{background:var(--mix-soft);color:var(--mix)}
+.why{color:var(--neg);font-size:12.5px}
+.more{display:block;margin:12px auto 0;font:inherit;padding:7px 16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;cursor:pointer}
+.loader{border:2px dashed var(--line);background:var(--surface);padding:28px 20px;text-align:center}
+.loader.drag{border-color:var(--accent);background:var(--accent-soft)}
+.loader h3{margin:0 0 6px;font-size:17px}
+.loader p{margin:0 auto 12px;color:var(--muted);font-size:13.5px;max-width:60ch}
+.loader code{font-family:var(--f-mono);font-size:12.5px;background:var(--bg);padding:1px 6px;border-radius:3px}
+.loader label{display:inline-block;cursor:pointer;padding:8px 16px;border-radius:6px;background:var(--accent);color:var(--bg);font-weight:700}
+.loader input{position:absolute;opacity:0;width:1px;height:1px}
+.regmeta{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-left:auto}
+.pulse{margin-top:20px;background:var(--surface);border:1px solid var(--line);padding:16px}
+.pulse-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px}
+.pulse h2,.sec-title{font-family:var(--f-display);font-size:24px;font-weight:600;margin:0;letter-spacing:.02em}
+.sec-title{margin-top:28px}
+.pulse-counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.pulse-counts button{font:inherit;text-align:left;cursor:pointer;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;color:var(--ink);min-width:0}
+.pulse-counts button:hover{border-color:var(--accent)}
+.pulse-counts .n{font-family:var(--f-display);font-size:30px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.pulse-counts .l{font-size:12.5px;color:var(--muted)}
+.pulse-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.pulse-col h3{font-size:14px;margin:0 0 6px;display:flex;gap:6px;align-items:center}
+.pulse-col ol{list-style:none;margin:0;padding:0}
+.pulse-col li{padding:7px 0;border-top:1px solid var(--line);font-size:13.5px;line-height:1.45;min-width:0}
+.pulse-col li .tt{font-weight:500;overflow-wrap:anywhere}
+.pulse-col li .sm{color:var(--muted);font-size:12.5px;overflow-wrap:anywhere}
+.pulse-col .all{font:inherit;font-size:12.5px;background:none;border:0;color:var(--accent);cursor:pointer;padding:6px 0 0}
+@media (max-width:900px){.pulse-grid{grid-template-columns:minmax(0,1fr)}.pulse-counts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Hit <span>or</span> Miss</h1>
+      <p>临床试验读出追踪：主要终点达到还是落空。同一条读出，研发、BD、医生各看各的重点。</p>
+    </div>
+    <div class="asof">数据截至 2026-10-12<br>精选 15 条 · 注册库 1,890 条（企业申办 II/III 期）</div>
+  </header>
+
+  <div class="lens">
+    <div class="lens-label">我是</div>
+    <div class="lens-row" role="group" aria-label="选择视角">
+      <button id="lens-rd" data-lens="rd" aria-pressed="true"><b>研发</b><small>药化 · CADD · 转化</small></button>
+      <button id="lens-bd" data-lens="bd" aria-pressed="false"><b>BD / 投资</b><small>竞争格局 · 资产价值</small></button>
+      <button id="lens-md" data-lens="md" aria-pressed="false"><b>临床医生</b><small>人群 · 终点 · 标准治疗</small></button>
+    </div>
+    <p class="lens-note" id="lens-note"></p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button id="tab-cur" role="tab" aria-selected="true" data-tab="cur">精选解读</button>
+    <button id="tab-reg" role="tab" aria-selected="false" data-tab="reg">注册库全量 · 1,890</button>
+  </div>
+
+  <div id="panel-reg" hidden>
+    <div class="subtabs" id="subtabs"></div>
+    <p class="setnote" id="setnote"></p>
+    <div class="filters" id="regfilters" hidden>
+      <input id="rq" type="search" placeholder="搜药名、申办方、适应症、NCT 号…" aria-label="搜索注册库">
+      <select id="r-ta" aria-label="治疗领域"></select>
+      <select id="r-mod" aria-label="药物形式"></select>
+      <select id="r-ph" aria-label="分期"><option value="">全部分期</option><option value="3">含 III 期</option><option value="2">仅 II 期</option></select>
+      <span class="regmeta" id="regmeta"></span>
+    </div>
+    <div id="regbody"></div>
+  </div>
+
+  <div id="panel-cur">
+  <section class="pulse" id="pulse" hidden>
+    <div class="pulse-head">
+      <h2>注册库速览</h2>
+      <span class="regmeta" id="pulse-meta"></span>
+    </div>
+    <div class="pulse-counts" id="pulse-counts"></div>
+    <div class="pulse-grid" id="pulse-grid"></div>
+  </section>
+  <h2 class="sec-title">精选解读</h2>
+  <div class="strip" id="strip"></div>
+
+  <div class="grid">
+    <main>
+      <div class="filters">
+        <input id="q" type="search" placeholder="搜药名、公司、靶点、试验名…" aria-label="搜索">
+        <select id="f-out" aria-label="结果"><option value="">全部结果</option><option value="pos">达到主要终点</option><option value="neg">未达到</option><option value="mix">混合 / 待解读</option></select>
+        <select id="f-ta" aria-label="治疗领域"></select>
+        <select id="f-mod" aria-label="药物形式"></select>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="feed" id="feed"></div>
+    </main>
+
+    <aside>
+      <section>
+        <h2>同类联动</h2>
+        <p class="sub">同靶点或同技术路线的读出放在一起看，信号比单条更清楚。</p>
+        <div id="rt"></div>
+      </section>
+      <section>
+        <h2>接下来要看的</h2>
+        <p class="sub">已公开的读出与监管节点</p>
+        <ul class="cal" id="cal"></ul>
+      </section>
+      <section>
+        <h2>这个站给谁用</h2>
+        <ul class="who-list">
+          <li><b>研发</b>：关心机制有没有被验证、失败是靶点问题还是分子问题，对自己的项目有什么外推。</li>
+          <li><b>BD / 投资</b>：关心同类资产被重新定价、竞品时间线、谁可能成为交易标的。</li>
+          <li><b>临床医生</b>：关心入组人群、对照组是什么、能不能改变现有治疗。</li>
+          <li><b>医学事务 / 患者组织</b>：可直接用医生视角，读出时间与会议日程见右栏。</li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+  </div>
+
+  <footer>
+    注册库数据来自 ClinicalTrials.gov 官方 API；p 值取自登记的主要终点统计分析，只作信号参考，不等于官方「达到 / 未达到」判定。精选解读的事实部分来自公司公告与媒体报道，每条附来源，引用前请核对原始公告与会议摘要。「视角点评」是编辑解读，不构成投资或诊疗建议。日期标「约」的条目以来源发布时间估计。
+  </footer>
+</div>
+
+<script>
+const LENS = {
+  rd:{name:"研发视角", note:"每条卡片显示机制与形式层面的解读：靶点是否被验证、失败可能出在哪一层、对同类分子的外推。"},
+  bd:{name:"BD / 投资视角", note:"每条卡片显示竞争与价值层面的解读：谁受益、谁被重新定价、下一个关键节点。"},
+  md:{name:"临床医生视角", note:"每条卡片显示临床层面的解读：入组人群、对照与终点、对现有治疗意味着什么。"}
+};
+
+const D = [
+ {id:"furvent", date:"2026-10-06", disp:"2026-10-06", out:"neg", drug:"Firmonertinib", trial:"FURVENT", sponsor:"ArriVent BioPharma", phase:"III", ta:"肿瘤", ind:"NSCLC（EGFR 20 外显子插入）", mod:"小分子", target:"EGFR",
+  ep:"主要终点 PFS · 未达到",
+  fact:"三期 FURVENT 未达到无进展生存期主要终点，公司股价当日下跌约 47%。距公司完成 2.5 亿美元增发约五个月。",
+  rd:"同一人群里，Taiho/Cullinan 的 zipalertinib 联合化疗在 8 月期中分析阳性。两个 EGFR ex20ins 抑制剂结局相反，值得对比剂量、联合方案与选择性窗口，而不是简单归结为靶点问题。",
+  bd:"ex20ins 一线赛道从多家竞争变为 zipalertinib 领跑。ArriVent 基本只剩这一核心资产，后续看是否有其他适应症数据或被低价收购。",
+  md:"该药在 ex20ins 患者中的一线地位暂不成立，现阶段应关注 REZILIENT3 完整数据与 OS 成熟情况。",
+  src:"https://site.financialmodelingprep.com/market-news/notable-stock-decliners-october-6-2026", srcName:"FMP 市场新闻"},
+ {id:"b7h3", date:"2026-09-15", disp:"约 2026-09-15", out:"pos", drug:"Tam-peli (YL-201) / Ris-rez", trial:"两项中国三期", sponsor:"多家（中国）", phase:"III", ta:"肿瘤", ind:"复发小细胞肺癌", mod:"ADC", target:"B7-H3",
+  ep:"主要终点 OS · 均达到",
+  fact:"两个靶向 B7-H3 的 ADC 在中国三期试验中，均达到复发 SCLC 的总生存期主要终点。",
+  rd:"两个不同分子、相同靶点同时拿到 OS，说明 B7-H3 作为 ADC 靶点在 SCLC 中得到较强验证，差异化将转向载荷、DAR 与毒性谱。",
+  bd:"B7-H3 ADC 资产整体估值上修，海外权益与区域授权谈判筹码提高；同靶点后来者的窗口在收窄。",
+  md:"复发 SCLC 长期缺乏能延长 OS 的选择，这是有临床意义的信号。关注完整数据中的间质性肺病等 ADC 相关毒性。",
+  src:"https://www.bioworld.com/articles/683335-phase-iii-jupiter-06-study-of-toripalimab-plus-chemotherapy-meets-primary-endpoints", srcName:"BioWorld"},
+ {id:"harbor", date:"2026-09-08", disp:"2026-09-08", out:"neg", drug:"Del-desiran", trial:"HARBOR", sponsor:"Novartis", phase:"III", ta:"神经 / 罕见病", ind:"1 型强直性肌营养不良（DM1）", mod:"寡核苷酸偶联", target:"DMPK",
+  ep:"主要终点 握拳后松手时间 · 未达到 · 约 150 例 · 54 周",
+  fact:"HARBOR 在衡量肌强直严重度的松手时间上，未显示相对安慰剂的统计学显著改善。诺华股价当日下跌约 10%。",
+  rd:"递送到肌肉的寡核苷酸偶联物在三期首次检验未果。需要拆分：是肌肉组织递送不足、靶点敲低不够，还是终点对 54 周内的变化不敏感。",
+  bd:"DM1 赛道其他递送平台同样面临估值压力；诺华同一周两项三期失败，管线增长叙事受损。",
+  md:"DM1 仍无获批的疾病修饰疗法，现有对症管理不变。",
+  src:"https://www.xtb.com/en/market-analysis/novartis-shares-fall-the-most-since-2020-what-is-behind-the-10-decline", srcName:"XTB"},
+ {id:"horizon", date:"2026-09-04", disp:"约 2026-09 初", out:"neg", drug:"Pelacarsen", trial:"Lp(a)HORIZON", sponsor:"Novartis / Ionis", phase:"III", ta:"心血管 / 代谢", ind:"Lp(a) 升高的心血管病患者", mod:"反义寡核苷酸", target:"Lp(a)",
+  ep:"主要终点 主要心血管不良事件 · 未达到",
+  fact:"首个 Lp(a) 降低药物的心血管结局试验未能显著降低主要心血管事件风险。消息拖累整个 Lp(a) 板块，安进当日跌约 10%。",
+  rd:"这是对「降低 Lp(a) 就能减少事件」这一假设的第一次结局检验。要看降幅是否足够、人群 Lp(a) 基线是否够高，还是因果链本身比遗传学预测的弱。",
+  bd:"Lp(a) 类资产（siRNA、口服小分子）集体被重新定价，其后续结局试验从「确定性高」变为二元风险事件。",
+  md:"目前没有证据支持为降低心血管事件而专门降低 Lp(a)，现有降脂与危险因素管理不变。",
+  src:"https://pluang.com/en/news-feed/pemberitahuan-penyelidikan-novartis-suewallst", srcName:"Pluang"},
+ {id:"aspire", date:"2026-09-03", disp:"2026-09-03", out:"neg", drug:"Apazunersen (GTX-102)", trial:"Aspire", sponsor:"Ultragenyx", phase:"III", ta:"神经 / 罕见病", ind:"Angelman 综合征", mod:"反义寡核苷酸", target:"UBE3A-ATS",
+  ep:"主要终点 Bayley-4 认知原始分变化 · 未达到；关键次要终点同样未达到",
+  fact:"Aspire 主要终点和关键次要终点均未达到，公司股价下跌约 44%。",
+  rd:"鞘内 ASO 激活父源 UBE3A 的路径在三期未转化为认知获益。需区分是起效需要更长时间、给药年龄偏晚，还是 Bayley 量表对该人群不够敏感。",
+  bd:"Angelman 同机制竞品的估值和终点设计都会被追问；监管路径上，量表选择成为尽调重点。",
+  md:"Angelman 患儿的治疗仍以支持性干预为主。",
+  src:"https://www.bioworld.com/articles/733863-angelman-wings-clipped-by-ultragenyx-phase-iii-bust", srcName:"BioWorld"},
+ {id:"rez3", date:"2026-08-12", disp:"2026-08-12", out:"pos", drug:"Zipalertinib + 化疗", trial:"REZILIENT3", sponsor:"Taiho / Cullinan", phase:"III", ta:"肿瘤", ind:"一线 NSCLC（EGFR 20 外显子插入）", mod:"小分子", target:"EGFR",
+  ep:"主要终点 PFS · 期中分析达到 · IDMC 建议揭盲",
+  fact:"一线联合化疗对比单纯化疗，在预设期中分析中 PFS 统计学显著改善，独立数据监查委员会建议揭盲。",
+  rd:"和 10 月失败的 firmonertinib 构成同人群对照组，适合做选择性与剂量窗口的复盘。",
+  bd:"一线 ex20ins 的领跑者。完整数据将在国际会议披露，关注 OS 趋势与对现有疗法的差异。",
+  md:"完整数据公布前不改变实践，但有望成为 ex20ins 一线新选择。关注揭盲后交叉对 OS 的影响。",
+  src:"https://www.sec.gov/Archives/edgar/data/0001789972/000119312526347400/cgem-20260812.htm", srcName:"SEC 8-K"},
+ {id:"level", date:"2026-08-10", disp:"2026-08-10", out:"mix", drug:"TNX-103（口服左西孟旦）", trial:"LEVEL", sponsor:"Tenax Therapeutics", phase:"III", ta:"心血管 / 代谢", ind:"射血分数保留心衰相关肺高压（PH-HFpEF）", mod:"小分子", target:"钙增敏剂",
+  ep:"注册性三期 · 41 个北美中心 · 230+ 例 · 公司计划申请 C 类会议",
+  fact:"公司公布顶线结果后表示将与 FDA 进行 C 类会议讨论后续路径，结果在 ESC 2026 晚期突破会场报告。",
+  rd:"PH-HFpEF 没有获批药物，左西孟旦是老分子新剂型。需要看 ESC 完整数据中哪个终点支撑了「清晰路径」的说法。",
+  bd:"公司措辞偏谨慎，需读原始公告判断主要终点状态。监管会议结论是下一个定价节点。",
+  md:"在完整数据与监管意见出来前不建议外推。",
+  src:"https://investors.tenaxthera.com/node/12496/html", srcName:"Tenax 公告"},
+ {id:"sanreco", date:"2026-08-10", disp:"2026-08-10", out:"pos", drug:"Divesiran", trial:"SANRECO", sponsor:"Silence Therapeutics", phase:"II", ta:"血液", ind:"真性红细胞增多症", mod:"siRNA", target:"TMPRSS6",
+  ep:"主要终点 应答率 · 两个剂量组均达到（93% / 81%）",
+  fact:"两个剂量组均达到主要终点，应答率分别为 93% 和 81%。",
+  rd:"肝靶向 siRNA 调控铁代谢的路线在 PV 中继续得到支持；与肌肉、中枢递送的寡核苷酸本季的失败形成反差。",
+  bd:"PV 中铁调素路线的竞争格局值得重画，Silence 有进入三期的筹码。",
+  md:"有望减少放血依赖，但仍是二期数据，需三期确认长期安全性。",
+  src:"https://www.rttnews.com/3678739/biotech-stocks-at-52-week-highs-sln-29-abcl-34-on-positive-trial-data-cpix-cldx-bdsx.aspx", srcName:"RTTNews"},
+ {id:"shasta", date:"2026-07-22", disp:"2026-07-22", out:"pos", drug:"Plozasiran", trial:"SHASTA-3 / SHASTA-4", sponsor:"Arrowhead", phase:"III", ta:"心血管 / 代谢", ind:"严重高甘油三酯血症", mod:"siRNA", target:"APOC3",
+  ep:"两项三期 · 顶线阳性",
+  fact:"两项三期 SHASTA-3 和 SHASTA-4 顶线结果均为阳性。",
+  rd:"肝靶向 siRNA 打 APOC3 再次验证。肝脏递送是目前寡核苷酸最可靠的场景。",
+  bd:"sHTG 适应症扩展的关键一步，APOC3 赛道与反义药物的长效给药竞争加剧。",
+  md:"关注胰腺炎事件数据，这是严重高甘油三酯血症患者最在意的临床结局。",
+  src:"https://www.akrostec.com/indices/KGLB/events/2026-07-08t00-00-00z-sanofi-sny-other-44eff248", srcName:"Akrostec 事件汇总"},
+ {id:"c93", date:"2026-07-08", disp:"约 2026-07", out:"pos", drug:"Pembrolizumab 单药", trial:"KEYNOTE-C93", sponsor:"Merck", phase:"III", ta:"肿瘤", ind:"dMMR 晚期/复发子宫内膜癌一线", mod:"抗体", target:"PD-1",
+  ep:"双主要终点 PFS 达到 · OS 期中有改善但未成熟",
+  fact:"一线单药对比卡铂联合紫杉醇，PFS 达到主要终点；OS 期中分析显示改善但数据未成熟。",
+  rd:"dMMR 的高免疫原性让单药免疫治疗在一线直接挑战含铂化疗，是生物标志物驱动去化疗的范例。",
+  bd:"巩固 Keytruda 在妇瘤的地位，对其他 PD-(L)1 在 dMMR 子宫内膜癌的组合策略构成压力。",
+  md:"可能提供 dMMR 患者一线免化疗选择。OS 成熟前，与化疗联合免疫方案如何取舍仍需完整数据。",
+  src:"https://www.rttnews.com/3667147/merck-s-keytruda-phase-3-trial-meets-primary-endpoint-in-endometrial-cancer.aspx?type=bn", srcName:"RTTNews"},
+ {id:"triumph", date:"2026-07-01", disp:"约 2026 年中", out:"pos", drug:"Retatrutide", trial:"TRIUMPH-2 / TRIUMPH-3", sponsor:"Eli Lilly", phase:"III", ta:"心血管 / 代谢", ind:"肥胖", mod:"多肽", target:"GIP/GLP-1/GCG",
+  ep:"两项三期 · 顶线阳性 · 计划 2027 Q1 递交 BLA",
+  fact:"两项三期顶线阳性，礼来计划 2027 年第一季度向 FDA 递交申请。",
+  rd:"三靶点激动在三期继续兑现，胰高血糖素受体的加入带来的额外获益与心率、肝脏等安全性信号是机制研究重点。",
+  bd:"肥胖赛道下一代标准被抬高，二代 GLP-1 类资产的差异化门槛随之提高。",
+  md:"递交前不改变用药，但需关注减重幅度之外的耐受性与停药率。",
+  src:"https://www.akrostec.com/indices/KGLB/events/2026-07-08t00-00-00z-sanofi-sny-other-44eff248", srcName:"Akrostec 事件汇总"},
+ {id:"mt6", date:"2026-06-30", disp:"约 2026 年中", out:"pos", drug:"Teclistamab + Talquetamab", trial:"MonumenTAL-6", sponsor:"Johnson & Johnson", phase:"III", ta:"血液", ind:"早线复发/难治多发性骨髓瘤", mod:"双抗", target:"BCMA×CD3 / GPRC5D×CD3",
+  ep:"三期 · 顶线阳性",
+  fact:"两种双特异性抗体联用在较早线复发/难治多发性骨髓瘤中三期顶线阳性。",
+  rd:"双靶点 T 细胞衔接器联用前移，抗原逃逸问题有望被同时打两个靶点缓解。",
+  bd:"强生骨髓瘤组合优势扩大，对 CAR-T 和单靶点双抗在早线的空间构成挤压。",
+  md:"关注感染与细胞因子释放综合征在联用中的发生率，这决定社区医院能否推广。",
+  src:"https://www.akrostec.com/indices/KGLB/events/2026-07-08t00-00-00z-sanofi-sny-other-44eff248", srcName:"Akrostec 事件汇总"},
+ {id:"sentry", date:"2026-05-14", disp:"约 2026-05（ASCO 6/2 报告）", out:"pos", drug:"Selinexor + Ruxolitinib", trial:"SENTRY", sponsor:"Karyopharm", phase:"III", ta:"血液", ind:"一线骨髓纤维化", mod:"小分子", target:"XPO1 + JAK",
+  ep:"第一共同主要终点 SVR35（24 周）· 达到 · 353 例",
+  fact:"联合方案对比芦可替尼单药，达到第一共同主要终点 24 周脾体积缩小 35% 以上，获益持续。在 ASCO 2026 作晚期突破口头报告。",
+  rd:"核输出抑制与 JAK 联合在一线 MF 中取得 SVR35，第二共同主要终点（症状评分）的结果决定这条路径能否完整成立。",
+  bd:"一线 MF 联合方案竞争加剧，关注 sNDA 时间线与公司现金跑道。",
+  md:"关注第二共同主要终点和血小板、胃肠道耐受性，这在 MF 患者中决定实际可用性。",
+  src:"https://pharmanow.live/latest-news/karyopharm-phase3-endometrial-cancer-enrollment-complete-selinexor-2026", srcName:"Pharma Now"},
+ {id:"lugano", date:"2026-06-15", disp:"约 2026 年中", out:"mix", drug:"DURAVYU", trial:"LUGANO", sponsor:"EyePoint", phase:"III", ta:"眼科", ind:"湿性年龄相关性黄斑变性", mod:"缓释小分子 TKI", target:"VEGFR",
+  ep:"主要终点（全分析集）· 未达到 · 次要终点与注射负担获益明显",
+  fact:"全分析集未达到主要终点，但安全性与减少注射次数等次要终点表现较好。公司归因于对照组视力损失异常少等因素，第二项三期 LUCIA 预计第四季度读出。",
+  rd:"缓释 TKI 的非劣效设计对对照组表现极敏感。LUCIA 加入预设敏感性分析，是一次终点设计上的修正。",
+  bd:"整个价值取决于 LUCIA。如果 LUCIA 阳性，混合三期结果获批的先例会被拿来讨论。",
+  md:"现阶段抗 VEGF 注射仍是标准。减少注射负担对依从性差的患者有现实意义，但需等第二项试验确认。",
+  src:"https://quartr.com/events/eyepoint-inc-eypt-morgan-stanley-24th-annual-global-healthcare-conference_oneX4gG1", srcName:"Quartr 会议摘要"},
+ {id:"fianlimab", date:"2026-05-01", disp:"2026 上半年", out:"neg", drug:"Fianlimab + Cemiplimab", trial:"三期（转移性黑色素瘤）", sponsor:"Regeneron", phase:"III", ta:"肿瘤", ind:"转移性黑色素瘤", mod:"抗体", target:"LAG-3 + PD-1",
+  ep:"主要终点 PFS · 未达到统计学显著 · 高剂量组中位 PFS 数值上多 5.1 个月",
+  fact:"高剂量联合对比帕博利珠单抗单药，PFS 未达统计学显著，数值上中位 PFS 多 5.1 个月。与 Opdualag 头对头的三期仍在进行。",
+  rd:"LAG-3 联合的增量获益仍难稳定证明。数值差异大但不显著，提示方差、人群异质性或统计设计问题。",
+  bd:"分析师下调评级，这原本是公司上半年最重要的催化剂。LAG-3 赛道的第二个产品空间受压。",
+  md:"Opdualag 仍是唯一获批的 LAG-3 组合，现有一线选择不变。",
+  src:"https://finance.yahoo.com/sectors/healthcare/articles/regeneron-slides-melanoma-study-misses-101925777.html", srcName:"Yahoo Finance"}
+];
+
+const RT = [
+ {t:"EGFR 20 外显子插入：同人群，两种结局", items:[["rez3","Zipalertinib 阳性","pos"],["furvent","Firmonertinib 失败","neg"]], p:"两个月内同一一线人群出现一成一败，是做分子级复盘的好样本。"},
+ {t:"寡核苷酸：递送到哪里决定成败", items:[["shasta","APOC3 siRNA（肝）","pos"],["sanreco","TMPRSS6 siRNA（肝）","pos"],["harbor","DMPK 偶联物（肌肉）","neg"],["aspire","UBE3A ASO（中枢）","neg"],["horizon","Lp(a) ASO（肝，结局终点）","neg"]], p:"肝靶向、生物标志物终点成功率高；肝外递送或硬结局终点仍是难点。"},
+ {t:"B7-H3 ADC：靶点得到双重验证", items:[["b7h3","两个分子 OS 阳性","pos"]], p:"竞争焦点从「靶点能不能做」转向「谁的毒性谱更好」。"},
+ {t:"Lp(a)：第一个结局试验落空", items:[["horizon","Pelacarsen 失败","neg"]], p:"同类 siRNA 与口服小分子的结局试验风险被重新评估。"}
+];
+
+const CAL = [
+ ["10-25","ESMO 2026（马德里）：Combi-TED，Tedopi 二线 NSCLC 联合方案"],
+ ["Q4 2026","EyePoint LUCIA 三期（湿性 AMD）读出，决定 DURAVYU 申报"],
+ ["Q4 2026","Cinclus HEEALING1 三期顶线（linaprazan glurate，糜烂性食管炎）"],
+ ["待定","REZILIENT3 完整数据在国际会议披露"],
+ ["待定","Tenax 与 FDA 的 C 类会议结论"],
+ ["Q1 2027","礼来 retatrutide 向 FDA 递交申请"],
+ ["2027 初","OSE ARTEMIA 三期期中无效性分析"]
+];
+
+const OUT = {pos:"达到主要终点", neg:"未达到", mix:"混合 / 待解读"};
+let lens = "rd";
+try{ const s = localStorage.getItem("readout-lens"); if(s && LENS[s]) lens = s; }catch(e){}
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function fillSelect(el, label, key){
+  const vals = [...new Set(D.map(d => d[key]))].sort((a,b)=>a.localeCompare(b,"zh"));
+  el.innerHTML = `<option value="">${label}</option>` + vals.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join("");
+}
+fillSelect($("f-ta"), "全部领域", "ta");
+fillSelect($("f-mod"), "全部药物形式", "mod");
+
+function renderStrip(){
+  const c = {pos:0,neg:0,mix:0}; D.forEach(d => c[d.out]++);
+  $("strip").innerHTML = `
+    <div><div class="n">${D.length}</div><div class="l">收录读出</div></div>
+    <div><div class="n pos">${c.pos}</div><div class="l">达到主要终点</div></div>
+    <div><div class="n neg">${c.neg}</div><div class="l">未达到</div></div>
+    <div><div class="n mix">${c.mix}</div><div class="l">混合 / 待解读</div></div>`;
+}
+
+function render(){
+  const q = $("q").value.trim().toLowerCase(), fo = $("f-out").value, ft = $("f-ta").value, fm = $("f-mod").value;
+  const rows = D.filter(d => (!fo || d.out===fo) && (!ft || d.ta===ft) && (!fm || d.mod===fm) &&
+    (!q || [d.drug,d.trial,d.sponsor,d.ind,d.target,d.mod].join(" ").toLowerCase().includes(q)))
+    .sort((a,b) => b.date.localeCompare(a.date));
+  $("count").textContent = `${rows.length} / ${D.length} 条`;
+  $("feed").innerHTML = rows.length ? rows.map(d => `
+    <article class="card ${d.out}" id="c-${d.id}">
+      <div class="card-head"><span class="date">${esc(d.disp)}</span><span class="verdict ${d.out}">${OUT[d.out]}</span><span class="meta">${esc(d.phase)} 期 · ${esc(d.sponsor)}</span></div>
+      <h3>${esc(d.drug)} <span class="trial">${esc(d.trial)}</span></h3>
+      <div class="meta">${esc(d.ind)}</div>
+      <div class="tags"><span class="tag">${esc(d.ta)}</span><span class="tag">${esc(d.mod)}</span><span class="tag">靶点 ${esc(d.target)}</span></div>
+      <div class="endpoint">${esc(d.ep)}</div>
+      <p class="fact">${esc(d.fact)}</p>
+      <div class="take"><span class="who">${LENS[lens].name}</span>${esc(d[lens])}</div>
+      <div class="src">来源：<a href="${esc(d.src)}" target="_blank" rel="noopener">${esc(d.srcName)}</a></div>
+    </article>`).join("") : `<div class="empty">没有符合条件的读出，试试清空筛选。</div>`;
+}
+
+function renderSide(){
+  const byId = Object.fromEntries(D.map(d => [d.id,d]));
+  $("rt").innerHTML = RT.map(r => `<div class="rt"><h4>${esc(r.t)}</h4><div class="dots">${r.items.map(([id,l,o]) => `<a class="dot ${o}" href="#c-${id}">${esc(l)}</a>`).join("")}</div><p>${esc(r.p)}</p></div>`).join("");
+  $("cal").innerHTML = CAL.map(([w,t]) => `<li><span class="when">${esc(w)}</span><span>${esc(t)}</span></li>`).join("");
+}
+
+function setLens(l){
+  lens = l;
+  document.querySelectorAll(".lens button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lens===l ? "true":"false"));
+  $("lens-note").textContent = LENS[l].note;
+  try{ localStorage.setItem("readout-lens", l); }catch(e){}
+  render();
+  if (REG) renderReg();
+}
+
+/* ---------- 注册库全量 ---------- */
+const SETS = {
+  results:{name:"新公布结果", date:"results", dl:"结果公布", note:"最近在 ClinicalTrials.gov 公布结果的 II/III 期试验。p 值来自登记的主要终点分析，绿色表示至少一个主要终点 p<0.05。注意：法规要求结果在主要完成后约一年内登记，所以这里常常晚于新闻读出。"},
+  completed:{name:"刚完成待公布", date:"pcd", dl:"主要完成", note:"主要完成日在最近 120 天、尚未登记结果的试验。数据已锁或即将锁定，顶线新闻通常在这个窗口内出现。"},
+  upcoming:{name:"即将完成", date:"pcd", dl:"预计完成", note:"未来半年内到达主要完成日的 III 期试验，是 BD 和投资最关心的催化剂日历。日期为申办方登记的预估值，经常推迟。"},
+  stopped:{name:"提前终止", date:"updated", dl:"最近更新", note:"最近更新为终止、暂停或撤回的 II/III 期试验，附申办方填写的停止原因。很多项目在这里先露出信号，早于任何新闻稿。"}
+};
+let REG = null, regSet = "results", regLimit = 200;
+const LENSCOL = {rd:"干预 · 药物形式", bd:"申办方 · 合作方", md:"主要终点"};
+
+function fmtP(p){ if(p==null) return null; return p<0.001 ? "p<0.001" : "p="+(p<0.01?p.toFixed(3):p.toFixed(2)); }
+
+function loaderHTML(msg){
+  return `<div class="loader" id="drop">
+    <h3>载入注册库数据</h3>
+    <p>${msg||"在你的电脑上运行 <code>python fetch_trials.py</code>，会生成 <code>trials.json</code>。把它拖到这里，或点下面的按钮选择文件。"}</p>
+    <label for="regfile">选择 trials.json</label><input id="regfile" type="file" accept=".json,application/json">
+  </div>`;
+}
+function bindLoader(){
+  const drop = $("drop"), inp = $("regfile"); if(!drop) return;
+  const read = f => { const r = new FileReader(); r.onload = () => { try{ setReg(JSON.parse(r.result)); }catch(e){ $("regbody").innerHTML = loaderHTML("这个文件不是有效的 trials.json，请重新运行脚本后再试。"); bindLoader(); } }; r.readAsText(f); };
+  inp.addEventListener("change", () => inp.files[0] && read(inp.files[0]));
+  drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("drag"); });
+  drop.addEventListener("dragleave", () => drop.classList.remove("drag"));
+  drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("drag"); e.dataTransfer.files[0] && read(e.dataTransfer.files[0]); });
+}
+
+function setReg(data){
+  if(!data || !data.sets){ throw new Error("bad"); }
+  REG = data;
+  const all = Object.values(REG.sets).flat();
+  const opts = (key,label) => `<option value="">${label}</option>` + [...new Set(all.map(t=>t[key]))].sort((a,b)=>a.localeCompare(b,"zh")).map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
+  $("r-ta").innerHTML = opts("ta","全部领域");
+  $("r-mod").innerHTML = opts("mod","全部药物形式");
+  $("regfilters").hidden = false;
+  renderSubtabs(); renderReg(); renderPulse();
+}
+
+function renderSubtabs(){
+  $("subtabs").innerHTML = Object.entries(SETS).map(([k,s]) =>
+    `<button data-set="${k}" aria-pressed="${k===regSet}">${s.name}${REG?`<b>${REG.sets[k]?.length??0}</b>`:""}</button>`).join("");
+  $("setnote").textContent = SETS[regSet].note;
+  $("subtabs").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { regSet = b.dataset.set; regLimit = 200; renderSubtabs(); REG ? renderReg() : null; }));
+}
+
+function signal(t){
+  if(regSet==="stopped") return `<span class="sig neg">${esc(t.status)}</span>${t.why?`<div class="why">${esc(t.why)}</div>`:""}`;
+  if(regSet==="results"){
+    const ps = (t.pvals||[]).filter(x=>x.p!=null);
+    if(!ps.length) return `<span class="sig">无登记统计分析</span>`;
+    return ps.map(x => `<span class="sig ${x.p<0.05?"pos":"neg"}" title="${esc(x.title)}">${fmtP(x.p)}</span>`).join("");
+  }
+  if(regSet==="completed") return `<span class="sig mix">待公布</span>`;
+  return `<span class="sig">${esc(t.status.replace(/_/g," ").toLowerCase())}</span>`;
+}
+
+function lensCell(t){
+  if(lens==="rd") return `${esc((t.interventions||[]).join("；"))}<div class="sm">${esc(t.mod)}</div>`;
+  if(lens==="bd") return `${esc(t.sponsor)}${t.collab?.length?`<div class="sm">合作：${esc(t.collab.join("、"))}</div>`:""}`;
+  return `${esc((t.primary||[])[0]||"—")}`;
+}
+
+function renderReg(){
+  const s = SETS[regSet], q = $("rq").value.trim().toLowerCase(), ta = $("r-ta").value, md = $("r-mod").value, ph = $("r-ph").value;
+  let rows = (REG.sets[regSet]||[]).filter(t =>
+    (!ta || t.ta===ta) && (!md || t.mod===md) &&
+    (!ph || (ph==="3" ? t.phase.includes("3") : !t.phase.includes("3"))) &&
+    (!q || [t.nct,t.title,t.acronym,t.sponsor,...(t.conditions||[]),...(t.interventions||[])].join(" ").toLowerCase().includes(q)));
+  const dir = regSet==="upcoming" ? 1 : -1;
+  rows.sort((a,b) => dir * String(a[s.date]||"").localeCompare(String(b[s.date]||"")));
+  $("regmeta").textContent = `${rows.length} 条 · 数据生成于 ${REG.generated}${REG.industry_only?" · 仅企业申办":""}`;
+  const shown = rows.slice(0, regLimit);
+  $("regbody").innerHTML = rows.length ? `<div class="tablewrap"><table>
+    <thead><tr><th>${s.dl}</th><th>试验</th><th>适应症</th><th>${LENSCOL[lens]}</th><th>${regSet==="stopped"?"状态 · 原因":regSet==="results"?"主要终点 p 值":"状态"}</th></tr></thead>
+    <tbody>${shown.map(t => `<tr>
+      <td class="d">${esc(t[s.date]||"—")}</td>
+      <td><div class="tt">${esc(t.acronym||t.title)}</div>${t.acronym?`<div class="sm">${esc(t.title)}</div>`:""}<div class="sm"><a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""}${lens!=="bd"?` · ${esc(t.sponsor)}`:""}</div></td>
+      <td>${esc((t.conditions||[]).slice(0,2).join("；"))}<div class="sm">${esc(t.ta)}</div></td>
+      <td>${lensCell(t)}</td>
+      <td>${signal(t)}</td></tr>`).join("")}</tbody></table></div>
+    ${rows.length>regLimit?`<button class="more" id="more">再显示 200 条（共 ${rows.length}）</button>`:""}`
+    : `<div class="empty">没有符合条件的试验，试试清空筛选。</div>`;
+  const m = $("more"); if(m) m.addEventListener("click", () => { regLimit += 200; renderReg(); });
+}
+["rq","r-ta","r-mod","r-ph"].forEach(id => $(id).addEventListener("input", () => { regLimit = 200; renderReg(); }));
+
+function showTab(t){
+  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t ? "true":"false"));
+  $("panel-cur").hidden = t!=="cur"; $("panel-reg").hidden = t!=="reg";
+  try{ localStorage.setItem("readout-tab", t); }catch(e){}
+}
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+
+renderSubtabs();
+$("regbody").innerHTML = loaderHTML(); bindLoader();
+function goSet(k){ regSet = k; regLimit = 200; renderSubtabs(); if (REG) renderReg(); showTab("reg"); window.scrollTo({top:0}); }
+
+function renderPulse(){
+  const S = REG.sets, p3 = t => t.phase.includes("3");
+  $("pulse").hidden = false;
+  $("pulse-meta").textContent = `ClinicalTrials.gov · 企业申办 II/III 期 · 数据生成于 ${REG.generated}`;
+  const sig = S.results.filter(t => (t.pvals||[]).some(x => x.p!=null && x.p<0.05)).length;
+  $("pulse-counts").innerHTML = [
+    ["results", S.results.length, `新公布结果（${sig} 条主要终点 p<0.05）`],
+    ["completed", S.completed.length, "刚完成、结果待公布"],
+    ["upcoming", S.upcoming.length, "III 期半年内到达主要完成"],
+    ["stopped", S.stopped.length, "提前终止 / 暂停 / 撤回"]
+  ].map(([k,n,l]) => `<button data-go="${k}"><div class="n">${n.toLocaleString()}</div><div class="l">${l}</div></button>`).join("");
+  const by = (k, f, key, dir) => S[k].filter(f).sort((a,b) => dir*String(a[key]||"").localeCompare(String(b[key]||""))).slice(0,6);
+  const li = (t, extra) => `<li><div class="tt">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</div><div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.sponsor)}</div><div class="sm">${extra}</div></li>`;
+  const cols = [
+    {k:"results", h:`<span class="sig pos">p&lt;0.05</span>III 期新结果`, rows: by("results", t => p3(t) && (t.pvals||[]).some(x=>x.p!=null&&x.p<0.05), "results", -1),
+     ex: t => `${esc(t.results)} · ${(t.pvals||[]).filter(x=>x.p!=null).map(x=>fmtP(x.p)).slice(0,2).join(" / ")} · <a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a>`},
+    {k:"stopped", h:`<span class="sig neg">终止</span>II/III 期提前终止`, rows: by("stopped", t => t.status==="TERMINATED" && t.why, "updated", -1),
+     ex: t => `${esc(t.updated)} · ${esc(t.why.slice(0,70))}${t.why.length>70?"…":""}`},
+    {k:"upcoming", h:`<span class="sig mix">将至</span>最近到期的 III 期`, rows: by("upcoming", t => (t.n||0) >= 300, "pcd", 1),
+     ex: t => `预计 ${esc(t.pcd)} · ${t.n} 例 · ${esc(t.ta)}`}
+  ];
+  $("pulse-grid").innerHTML = cols.map(c => `<div class="pulse-col"><h3>${c.h}</h3><ol>${c.rows.map(t => li(t, c.ex(t))).join("")}</ol><button class="all" data-go="${c.k}">查看全部 →</button></div>`).join("");
+  document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => goSet(b.dataset.go)));
+}
+
+(function loadEmbedded(){
+  try{
+    const el = document.getElementById("trials-data");
+    if (!el) return;
+    setReg(JSON.parse(el.textContent));
+  }catch(e){ /* 内嵌数据异常时保留拖入文件的入口 */ }
+})();
+try{ const t = localStorage.getItem("readout-tab"); if(t==="reg") showTab("reg"); }catch(e){}
+if (location.hash === "#registry") showTab("reg");
+renderStrip(); renderSide(); setLens(lens);
+document.querySelectorAll(".lens button").forEach(b => b.addEventListener("click", () => setLens(b.dataset.lens)));
+["q","f-out","f-ta","f-mod"].forEach(id => $(id).addEventListener("input", render));
+</script>
