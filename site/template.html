@@ -7,6 +7,7 @@
   --bg:#f3f5f7; --surface:#ffffff; --ink:#14202e; --muted:#5b6878; --line:#dfe4ea;
   --accent:#1f4f8f; --accent-soft:#e3ecf8;
   --pos:#1d7a4f; --pos-soft:#e2f3ea; --neg:#b3342b; --neg-soft:#fbe7e5; --mix:#a46a0a; --mix-soft:#fbf0dc;
+  --s1:#1f4f8f; --s2:#c08a1e; --s3:#178a8f; --s4:#c2493f;
   --f-display:"Barlow Condensed","Noto Sans SC",system-ui,sans-serif;
   --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -15,11 +16,13 @@
   --bg:#0f151c; --surface:#17202a; --ink:#e4eaf1; --muted:#97a4b4; --line:#2a3644;
   --accent:#7fb0ef; --accent-soft:#1c2c42;
   --pos:#5cc792; --pos-soft:#15301f; --neg:#f0857c; --neg-soft:#3a1b19; --mix:#e7b55a; --mix-soft:#33280f;
+  --s1:#7fb0ef; --s2:#e7b55a; --s3:#4cc3c9; --s4:#f0857c;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f151c; --surface:#17202a; --ink:#e4eaf1; --muted:#97a4b4; --line:#2a3644;
   --accent:#7fb0ef; --accent-soft:#1c2c42;
   --pos:#5cc792; --pos-soft:#15301f; --neg:#f0857c; --neg-soft:#3a1b19; --mix:#e7b55a; --mix-soft:#33280f;
+  --s1:#7fb0ef; --s2:#e7b55a; --s3:#4cc3c9; --s4:#f0857c;
   color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
@@ -136,6 +139,74 @@ td .sm{color:var(--muted);font-size:12.5px}
 .pulse-col li .sm{color:var(--muted);font-size:12.5px;overflow-wrap:anywhere}
 .pulse-col .all{font:inherit;font-size:12.5px;background:none;border:0;color:var(--accent);cursor:pointer;padding:6px 0 0}
 @media (max-width:900px){.pulse-grid{grid-template-columns:minmax(0,1fr)}.pulse-counts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---- dashboard views ---- */
+.panel{margin-top:4px}
+.block{margin-top:20px;background:var(--surface);border:1px solid var(--line);padding:16px;min-width:0}
+.block-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
+.block h2{font-family:var(--f-display);font-size:24px;font-weight:600;margin:0;letter-spacing:.02em}
+.block .sub{font-size:13.5px;color:var(--muted);margin:6px 0 12px;max-width:85ch}
+.block .filters{margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:inherit;font-size:13px;border:0;background:var(--surface);color:var(--muted);padding:5px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+table.mx,table.co{min-width:680px}
+.mx th,.mx td{padding:0;border-bottom:1px solid var(--line)}
+.mx thead th{padding:8px 10px;white-space:nowrap}
+.mx tbody th{text-align:left;font-weight:500;font-size:13.5px;padding:8px 10px;white-space:nowrap}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.mx button.cell{display:block;width:100%;font:inherit;font-family:var(--f-mono);font-size:13px;text-align:right;background:none;border:0;color:var(--ink);padding:9px 10px;cursor:pointer}
+.mx button.cell:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.mx button.cell small{display:block;font-size:10.5px;color:var(--muted)}
+.mx .zero{display:block;text-align:right;padding:9px 10px;color:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
+.legend i,.co-sets h4 i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.co td{padding:8px 10px;vertical-align:middle}
+.co .rk{color:var(--muted);font-family:var(--f-mono);font-size:12px;width:36px}
+.co-name{font:inherit;font-weight:700;font-size:14.5px;background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-align:left}
+.co-name::after{content:" ▸";color:var(--muted);font-size:11px}
+.co-name[aria-expanded="true"]::after{content:" ▾"}
+.co-name:hover{color:var(--accent)}
+.co .barh{width:42%;min-width:220px}
+.sbar{display:flex;height:12px;border-radius:2px;overflow:hidden;gap:1px;background:var(--line)}
+.sbar i{display:block;min-width:2px}
+.segn{display:flex;gap:10px;font-family:var(--f-mono);font-size:11.5px;margin-top:3px}
+.co-detail td{background:var(--bg);padding:12px}
+.co-sets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.co-sets h4{margin:0 0 6px;font-size:13px}
+.co-sets ol{list-style:none;margin:0;padding:0}
+.co-sets li{font-size:13px;padding:5px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.co-sets .sm,.sh-item .sm{color:var(--muted);font-size:12px}
+.co-sets .all{font:inherit;font-size:12.5px;background:none;border:0;color:var(--accent);cursor:pointer;padding:6px 0 0}
+@media (max-width:900px){.co-sets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tl-wrap{border:1px solid var(--line)}
+.tl-svg{display:block}
+.tl-svg text{fill:var(--muted);font-family:var(--f-body)}
+.tl-svg .tl-m{font-family:var(--f-mono);font-size:12px;fill:var(--ink)}
+.tl-svg .tl-c{font-family:var(--f-mono);font-size:11px}
+.tl-svg .tl-ta{font-size:13px;fill:var(--ink)}
+.tl-dot{fill:var(--s1);fill-opacity:.55;stroke:var(--s1);stroke-width:1.2;cursor:pointer}
+.tl-dot.rough{fill:var(--surface);fill-opacity:1}
+.tl-dot.dim{opacity:.15}
+.tl-dot.hit{fill:var(--s4);stroke:var(--s4);fill-opacity:.8}
+.tl-dot.sel,.tl-dot:focus-visible{stroke:var(--ink);stroke-width:2.5;outline:none}
+.tl-detail{margin-top:12px}
+.tl-card{border:1px solid var(--line);border-left:4px solid var(--s1);padding:12px 14px;background:var(--surface)}
+.tl-card h3{margin:4px 0 2px;font-size:17px}
+.why-bars{display:grid;gap:4px;margin-bottom:14px;max-width:720px}
+.why-row{display:grid;grid-template-columns:150px minmax(0,1fr) 90px;gap:10px;align-items:center;font:inherit;font-size:13.5px;background:none;border:1px solid transparent;border-radius:4px;padding:4px 6px;color:var(--ink);cursor:pointer;text-align:left}
+.why-row:hover{border-color:var(--line)}
+.why-row[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.wb{height:12px;background:var(--bg);border-radius:2px;overflow:hidden}
+.wb i{display:block;height:100%}
+.wn{font-family:var(--f-mono);font-size:12.5px;text-align:right}
+.wn small{color:var(--muted)}
+.sh-list{display:flex;flex-direction:column}
+.sh-item{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.sh-side{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.sh-main h3{margin:0;font-size:16px;overflow-wrap:anywhere}
+.sh-why{margin:6px 0;font-size:13.5px;color:var(--ink);border-left:3px solid var(--line);padding-left:10px;overflow-wrap:anywhere}
+@media (max-width:600px){.sh-item{grid-template-columns:minmax(0,1fr)}.sh-side{flex-direction:row}.why-row{grid-template-columns:110px minmax(0,1fr) 70px}}
 footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
 </style>
@@ -160,11 +231,98 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
   </div>
 
   <div class="tabs" role="tablist">
-    <button id="tab-cur" role="tab" aria-selected="true" data-tab="cur">精选解读</button>
-    <button id="tab-reg" role="tab" aria-selected="false" data-tab="reg">注册库全量 · 1,890</button>
+    <button id="tab-ov" role="tab" aria-selected="true" data-tab="ov">总览</button>
+    <button id="tab-co" role="tab" aria-selected="false" data-tab="co">公司</button>
+    <button id="tab-tl" role="tab" aria-selected="false" data-tab="tl">时间轴</button>
+    <button id="tab-sh" role="tab" aria-selected="false" data-tab="sh">被搁置的资产</button>
+    <button id="tab-cur" role="tab" aria-selected="false" data-tab="cur">精选解读</button>
+    <button id="tab-reg" role="tab" aria-selected="false" data-tab="reg">全部试验</button>
   </div>
 
-  <div id="panel-reg" hidden>
+  <div id="panel-ov" class="panel">
+    <section class="pulse" id="pulse" hidden>
+      <div class="pulse-head">
+        <h2>注册库速览</h2>
+        <span class="regmeta" id="pulse-meta"></span>
+      </div>
+      <div class="pulse-counts" id="pulse-counts"></div>
+    </section>
+    <section class="block" id="mx-block" hidden>
+      <div class="block-head">
+        <h2>领域 × 状态</h2>
+        <div class="seg" role="group" aria-label="矩阵的列">
+          <button id="mx-st" data-mx="status" aria-pressed="true">按状态</button>
+          <button id="mx-md" data-mx="mod" aria-pressed="false">按药物形式</button>
+        </div>
+      </div>
+      <p class="sub" id="mx-note"></p>
+      <div class="tablewrap"><table class="mx" id="mx"></table></div>
+    </section>
+    <section class="block" id="lists-block" hidden>
+      <div class="block-head"><h2>本期值得看</h2></div>
+      <div class="pulse-grid" id="pulse-grid"></div>
+    </section>
+  </div>
+
+  <div id="panel-co" class="panel" hidden>
+    <section class="block">
+      <div class="block-head">
+        <h2>公司记分卡</h2>
+        <div class="legend" id="co-legend"></div>
+      </div>
+      <p class="sub">子公司和历史名称已归到母公司，比如 Genentech 归到 Roche，Janssen 归到 Johnson &amp; Johnson。点公司名展开它的全部试验。</p>
+      <div class="filters">
+        <input id="co-q" type="search" placeholder="搜公司…" aria-label="搜公司">
+        <select id="co-sort" aria-label="排序">
+          <option value="total">按试验总数</option>
+          <option value="results">按新公布结果</option>
+          <option value="pipe">按待公布 + 即将完成</option>
+          <option value="stopped">按提前终止数</option>
+          <option value="rate">按终止占比（≥10 条）</option>
+        </select>
+        <select id="co-ta" aria-label="治疗领域"></select>
+        <span class="regmeta" id="co-meta"></span>
+      </div>
+      <div class="tablewrap"><table class="co" id="co"></table></div>
+      <button class="more" id="co-more" hidden></button>
+    </section>
+  </div>
+
+  <div id="panel-tl" class="panel" hidden>
+    <section class="block">
+      <div class="block-head"><h2>催化剂时间轴</h2></div>
+      <p class="sub">未来半年到达主要完成日的 III 期试验，按治疗领域分行。点越大入组越多。实心点是精确到日的日期，空心点是只填到月份的粗略预估。点一个点查看详情。</p>
+      <div class="filters">
+        <input id="tl-q" type="search" placeholder="高亮公司或药名…" aria-label="高亮公司或药名">
+        <select id="tl-n" aria-label="入组人数">
+          <option value="0">全部规模</option>
+          <option value="300">入组 ≥ 300</option>
+          <option value="1000">入组 ≥ 1,000</option>
+        </select>
+        <span class="regmeta" id="tl-meta"></span>
+      </div>
+      <div class="tablewrap tl-wrap" id="tl-wrap"></div>
+      <div class="tl-detail" id="tl-detail"><p class="sub">还没有选中试验。</p></div>
+    </section>
+  </div>
+
+  <div id="panel-sh" class="panel" hidden>
+    <section class="block">
+      <div class="block-head"><h2>被搁置的资产</h2></div>
+      <p class="sub">提前终止、暂停或撤回的 II/III 期试验，按申办方填写的原因归类。因「申办方决定 / 战略」停下的项目，往往不是药本身不行，对 BD 来说可能是授权引进或收购的线索。注意这一类也包含只写了「申办方决定终止」、没有说明具体原因的条目。</p>
+      <div class="why-bars" id="why-bars"></div>
+      <div class="filters">
+        <input id="sh-q" type="search" placeholder="搜药名、公司、适应症、原因…" aria-label="搜索被搁置的资产">
+        <select id="sh-ta" aria-label="治疗领域"></select>
+        <select id="sh-ph" aria-label="分期"><option value="">全部分期</option><option value="3">含 III 期</option><option value="2">仅 II 期</option></select>
+        <span class="regmeta" id="sh-meta"></span>
+      </div>
+      <div class="sh-list" id="sh-list"></div>
+      <button class="more" id="sh-more" hidden></button>
+    </section>
+  </div>
+
+  <div id="panel-reg" class="panel" hidden>
     <div class="subtabs" id="subtabs"></div>
     <p class="setnote" id="setnote"></p>
     <div class="filters" id="regfilters" hidden>
@@ -177,16 +335,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
     <div id="regbody"></div>
   </div>
 
-  <div id="panel-cur">
-  <section class="pulse" id="pulse" hidden>
-    <div class="pulse-head">
-      <h2>注册库速览</h2>
-      <span class="regmeta" id="pulse-meta"></span>
-    </div>
-    <div class="pulse-counts" id="pulse-counts"></div>
-    <div class="pulse-grid" id="pulse-grid"></div>
-  </section>
-  <h2 class="sec-title">精选解读</h2>
+  <div id="panel-cur" class="panel" hidden>
   <div class="strip" id="strip"></div>
 
   <div class="grid">
@@ -424,7 +573,8 @@ const SETS = {
   results:{name:"新公布结果", date:"results", dl:"结果公布", note:"最近在 ClinicalTrials.gov 公布结果的 II/III 期试验。p 值来自登记的主要终点分析，绿色表示至少一个主要终点 p<0.05。注意：法规要求结果在主要完成后约一年内登记，所以这里常常晚于新闻读出。"},
   completed:{name:"刚完成待公布", date:"pcd", dl:"主要完成", note:"主要完成日在最近 120 天、尚未登记结果的试验。数据已锁或即将锁定，顶线新闻通常在这个窗口内出现。"},
   upcoming:{name:"即将完成", date:"pcd", dl:"预计完成", note:"未来半年内到达主要完成日的 III 期试验，是 BD 和投资最关心的催化剂日历。日期为申办方登记的预估值，经常推迟。"},
-  stopped:{name:"提前终止", date:"updated", dl:"最近更新", note:"最近更新为终止、暂停或撤回的 II/III 期试验，附申办方填写的停止原因。很多项目在这里先露出信号，早于任何新闻稿。"}
+  stopped:{name:"提前终止", date:"updated", dl:"最近更新", note:"最近更新为终止、暂停或撤回的 II/III 期试验，附申办方填写的停止原因。很多项目在这里先露出信号，早于任何新闻稿。"},
+  all:{name:"四类合并", date:null, dl:"日期", note:"新公布结果、待公布、即将完成、提前终止四类合在一起，状态列标明每条属于哪一类。"}
 };
 let REG = null, regSet = "results", regLimit = 200;
 const LENSCOL = {rd:"干预 · 药物形式", bd:"申办方 · 合作方", md:"主要终点"};
@@ -450,12 +600,17 @@ function bindLoader(){
 function setReg(data){
   if(!data || !data.sets){ throw new Error("bad"); }
   REG = data;
+  Object.entries(REG.sets).forEach(([k,v]) => v.forEach(t => { t._set = k; t.group = t.group || t.sponsor; }));
   const all = Object.values(REG.sets).flat();
+  REG.all = all;
   const opts = (key,label) => `<option value="">${label}</option>` + [...new Set(all.map(t=>t[key]))].sort((a,b)=>a.localeCompare(b,"zh")).map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
   $("r-ta").innerHTML = opts("ta","全部领域");
   $("r-mod").innerHTML = opts("mod","全部药物形式");
   $("regfilters").hidden = false;
-  renderSubtabs(); renderReg(); renderPulse();
+  const taOpts = opts("ta","全部领域");
+  $("co-ta").innerHTML = taOpts; $("sh-ta").innerHTML = taOpts;
+  renderSubtabs(); renderReg(); renderPulse(); renderMatrix(); renderCompanies(); renderShelved();
+  if (!$("panel-tl").hidden) renderTimeline();
 }
 
 function renderSubtabs(){
@@ -466,7 +621,12 @@ function renderSubtabs(){
 }
 
 function signal(t){
-  if(regSet==="stopped") return `<span class="sig neg">${esc(t.status)}</span>${t.why?`<div class="why">${esc(t.why)}</div>`:""}`;
+  const k = t._set || regSet;
+  const pre = regSet==="all" ? `<span class="sig">${SETS[k].name}</span>` : "";
+  return pre + signalFor(k, t);
+}
+function signalFor(regSet, t){
+  if(regSet==="stopped") return `<span class="sig neg">${esc(t.status)}</span>${t.why_cat?`<span class="sig">${esc(t.why_cat)}</span>`:""}${t.why?`<div class="why">${esc(t.why)}</div>`:""}`;
   if(regSet==="results"){
     const ps = (t.pvals||[]).filter(x=>x.p!=null);
     if(!ps.length) return `<span class="sig">无登记统计分析</span>`;
@@ -484,18 +644,19 @@ function lensCell(t){
 
 function renderReg(){
   const s = SETS[regSet], q = $("rq").value.trim().toLowerCase(), ta = $("r-ta").value, md = $("r-mod").value, ph = $("r-ph").value;
-  let rows = (REG.sets[regSet]||[]).filter(t =>
+  const dkey = t => SETS[t._set||regSet].date;
+  let rows = (regSet==="all" ? REG.all : (REG.sets[regSet]||[])).filter(t =>
     (!ta || t.ta===ta) && (!md || t.mod===md) &&
     (!ph || (ph==="3" ? t.phase.includes("3") : !t.phase.includes("3"))) &&
-    (!q || [t.nct,t.title,t.acronym,t.sponsor,...(t.conditions||[]),...(t.interventions||[])].join(" ").toLowerCase().includes(q)));
+    (!q || [t.nct,t.title,t.acronym,t.sponsor,t.group,...(t.conditions||[]),...(t.interventions||[])].join(" ").toLowerCase().includes(q)));
   const dir = regSet==="upcoming" ? 1 : -1;
-  rows.sort((a,b) => dir * String(a[s.date]||"").localeCompare(String(b[s.date]||"")));
+  rows.sort((a,b) => dir * String(a[dkey(a)]||"").localeCompare(String(b[dkey(b)]||"")));
   $("regmeta").textContent = `${rows.length} 条 · 数据生成于 ${REG.generated}${REG.industry_only?" · 仅企业申办":""}`;
   const shown = rows.slice(0, regLimit);
   $("regbody").innerHTML = rows.length ? `<div class="tablewrap"><table>
     <thead><tr><th>${s.dl}</th><th>试验</th><th>适应症</th><th>${LENSCOL[lens]}</th><th>${regSet==="stopped"?"状态 · 原因":regSet==="results"?"主要终点 p 值":"状态"}</th></tr></thead>
     <tbody>${shown.map(t => `<tr>
-      <td class="d">${esc(t[s.date]||"—")}</td>
+      <td class="d">${esc(t[dkey(t)]||"—")}</td>
       <td><div class="tt">${esc(t.acronym||t.title)}</div>${t.acronym?`<div class="sm">${esc(t.title)}</div>`:""}<div class="sm"><a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""}${lens!=="bd"?` · ${esc(t.sponsor)}`:""}</div></td>
       <td>${esc((t.conditions||[]).slice(0,2).join("；"))}<div class="sm">${esc(t.ta)}</div></td>
       <td>${lensCell(t)}</td>
@@ -506,20 +667,203 @@ function renderReg(){
 }
 ["rq","r-ta","r-mod","r-ph"].forEach(id => $(id).addEventListener("input", () => { regLimit = 200; renderReg(); }));
 
+const TABS = ["ov","co","tl","sh","cur","reg"];
 function showTab(t){
+  if (!TABS.includes(t)) t = "ov";
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t ? "true":"false"));
-  $("panel-cur").hidden = t!=="cur"; $("panel-reg").hidden = t!=="reg";
-  try{ localStorage.setItem("readout-tab", t); }catch(e){}
+  TABS.forEach(k => { $("panel-"+k).hidden = k!==t; });
+  try{ localStorage.setItem("hom-tab", t); }catch(e){}
+  if (t==="tl" && REG) renderTimeline();
 }
+function goReg(set, ta, mod, q){
+  regSet = set; regLimit = 200;
+  $("r-ta").value = ta || ""; $("r-mod").value = mod || ""; $("rq").value = q || ""; $("r-ph").value = "";
+  renderSubtabs(); renderReg(); showTab("reg");
+  $("panel-reg").scrollIntoView({block:"start"});
+}
+
+/* ---------- 总览：领域 × 状态矩阵 ---------- */
+let mxMode = "status";
+const shade = (v, max, tok) => max>0 && v>0 ? `background:color-mix(in srgb, var(${tok}) ${Math.round(6 + 40*v/max)}%, transparent)` : "";
+function taOrder(rows){
+  const c = {}; rows.forEach(t => c[t.ta] = (c[t.ta]||0)+1);
+  return Object.keys(c).sort((a,b) => (a==="其他")-(b==="其他") || c[b]-c[a]);
+}
+function renderMatrix(){
+  $("mx-block").hidden = false;
+  const all = REG.all, tas = taOrder(all);
+  document.querySelectorAll("[data-mx]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mx===mxMode));
+  let head, body;
+  if (mxMode === "status"){
+    $("mx-note").textContent = "每格是该领域在这一类里的试验数，颜色越深数量越多。两列占比单独着色：p<0.05 占比只统计登记了 p 值的新结果，终止占比是提前终止数除以该领域全部试验数。点格子查看对应试验。";
+    const st = tas.map(ta => {
+      const r = all.filter(t => t.ta===ta), by = k => r.filter(t => t._set===k);
+      const withP = by("results").filter(t => (t.pvals||[]).some(x => x.p!=null));
+      const sig = withP.filter(t => t.pvals.some(x => x.p!=null && x.p<0.05)).length;
+      return {ta, n:r.length, results:by("results").length, completed:by("completed").length, upcoming:by("upcoming").length,
+              stopped:by("stopped").length, sig, withP:withP.length};
+    });
+    const mx = k => Math.max(...st.map(s => s[k]));
+    const rates = st.map(s => s.withP>=5 ? s.sig/s.withP : null), srates = st.map(s => s.stopped/s.n);
+    const mr = Math.max(...rates.filter(x=>x!=null)), ms = Math.max(...srates);
+    head = `<tr><th>治疗领域</th><th class="num">全部</th><th class="num">新公布结果</th><th class="num">p&lt;0.05 占比</th><th class="num">待公布</th><th class="num">即将完成</th><th class="num">提前终止</th><th class="num">终止占比</th></tr>`;
+    body = st.map((s,i) => `<tr><th scope="row">${esc(s.ta)}</th>
+      <td class="num"><button class="cell" data-g="all" data-ta="${esc(s.ta)}">${s.n}</button></td>
+      ${["results"].map(k => `<td class="num" style="${shade(s[k],mx(k),"--accent")}"><button class="cell" data-g="${k}" data-ta="${esc(s.ta)}">${s[k]}</button></td>`).join("")}
+      <td class="num" style="${rates[i]!=null?shade(rates[i],mr,"--pos"):""}"><button class="cell" data-g="results" data-ta="${esc(s.ta)}">${rates[i]!=null?Math.round(rates[i]*100)+"%":"—"}<small>${s.sig}/${s.withP}</small></button></td>
+      ${["completed","upcoming","stopped"].map(k => `<td class="num" style="${shade(s[k],mx(k),"--accent")}"><button class="cell" data-g="${k}" data-ta="${esc(s.ta)}">${s[k]}</button></td>`).join("")}
+      <td class="num" style="${shade(srates[i],ms,"--neg")}"><button class="cell" data-g="stopped" data-ta="${esc(s.ta)}">${Math.round(srates[i]*100)}%</button></td></tr>`).join("");
+  } else {
+    $("mx-note").textContent = "每格是该领域里这种药物形式的试验数（四类合计），颜色越深越拥挤。「代号分子」是只有研发代号、无法从名字判断形式的分子。点格子查看对应试验。";
+    const mc = {}; all.forEach(t => { if (t.mod!=="其他") mc[t.mod]=(mc[t.mod]||0)+1; });
+    const mods = Object.keys(mc).sort((a,b) => mc[b]-mc[a]);
+    const cnt = {}; all.forEach(t => { const k = t.ta+"|"+t.mod; cnt[k]=(cnt[k]||0)+1; });
+    const max = Math.max(...tas.flatMap(ta => mods.map(m => cnt[ta+"|"+m]||0)));
+    head = `<tr><th>治疗领域</th>${mods.map(m => `<th class="num">${esc(m)}</th>`).join("")}</tr>`;
+    body = tas.map(ta => `<tr><th scope="row">${esc(ta)}</th>${mods.map(m => { const v = cnt[ta+"|"+m]||0;
+      return `<td class="num" style="${shade(v,max,"--accent")}">${v?`<button class="cell" data-g="all" data-ta="${esc(ta)}" data-mod="${esc(m)}">${v}</button>`:`<span class="zero">·</span>`}</td>`; }).join("")}</tr>`).join("");
+  }
+  $("mx").innerHTML = `<thead>${head}</thead><tbody>${body}</tbody>`;
+  $("mx").querySelectorAll("button.cell").forEach(b => b.addEventListener("click", () => goReg(b.dataset.g, b.dataset.ta, b.dataset.mod)));
+}
+document.querySelectorAll("[data-mx]").forEach(b => b.addEventListener("click", () => { mxMode = b.dataset.mx; renderMatrix(); }));
+
+/* ---------- 公司记分卡 ---------- */
+const SEGS = [["results","新公布结果","--s1"],["completed","待公布","--s2"],["upcoming","即将完成","--s3"],["stopped","提前终止","--s4"]];
+let coLimit = 30; const coOpen = new Set();
+$("co-legend").innerHTML = SEGS.map(([k,l,c]) => `<span><i style="background:var(${c})"></i>${l}</span>`).join("");
+function companyStats(ta){
+  const m = new Map();
+  REG.all.forEach(t => {
+    if (ta && t.ta!==ta) return;
+    let c = m.get(t.group);
+    if (!c){ c = {name:t.group, total:0, results:0, completed:0, upcoming:0, stopped:0, sig:0, withP:0, tas:{}, trials:[]}; m.set(t.group, c); }
+    c.total++; c[t._set]++; c.tas[t.ta]=(c.tas[t.ta]||0)+1; c.trials.push(t);
+    if (t._set==="results" && (t.pvals||[]).some(x=>x.p!=null)){ c.withP++; if (t.pvals.some(x=>x.p!=null&&x.p<0.05)) c.sig++; }
+  });
+  return [...m.values()];
+}
+function renderCompanies(){
+  const q = $("co-q").value.trim().toLowerCase(), sort = $("co-sort").value, ta = $("co-ta").value;
+  let cs = companyStats(ta).filter(c => !q || c.name.toLowerCase().includes(q));
+  const key = {total:c=>c.total, results:c=>c.results, pipe:c=>c.completed+c.upcoming, stopped:c=>c.stopped, rate:c=>c.stopped/c.total}[sort];
+  if (sort==="rate") cs = cs.filter(c => c.total>=10);
+  cs.sort((a,b) => key(b)-key(a) || b.total-a.total);
+  $("co-meta").textContent = `${cs.length} 家公司`;
+  const shown = cs.slice(0, coLimit), maxT = Math.max(1, ...shown.map(c=>c.total));
+  $("co").innerHTML = `<thead><tr><th class="num">#</th><th>公司</th><th class="num">试验</th><th class="barh">构成</th><th class="num">p&lt;0.05</th><th class="num">终止占比</th></tr></thead><tbody>` +
+    shown.map((c,i) => {
+      const tops = Object.entries(c.tas).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v]) => `${esc(k)} ${v}`).join(" · ");
+      const open = coOpen.has(c.name);
+      const row = `<tr class="co-row"><td class="num rk">${i+1}</td>
+        <td><button class="co-name" data-co="${esc(c.name)}" aria-expanded="${open}">${esc(c.name)}</button><div class="sm">${tops}</div></td>
+        <td class="num">${c.total}</td>
+        <td class="barh"><div class="sbar" style="width:${Math.max(4,100*c.total/maxT)}%">${SEGS.map(([k,l,col]) => c[k]?`<i style="flex:${c[k]};background:var(${col})" title="${l} ${c[k]}"></i>`:"").join("")}</div>
+          <div class="segn">${SEGS.map(([k,l,col]) => `<span style="color:var(${col})" title="${l}">${c[k]}</span>`).join("")}</div></td>
+        <td class="num">${c.withP?`${c.sig}/${c.withP}`:"—"}</td>
+        <td class="num">${Math.round(100*c.stopped/c.total)}%</td></tr>`;
+      if (!open) return row;
+      return row + `<tr class="co-detail"><td colspan="6"><div class="co-sets">${SEGS.map(([k,l,col]) => {
+        const ts = c.trials.filter(t => t._set===k).sort((a,b) => String(b[SETS[k].date]||"").localeCompare(String(a[SETS[k].date]||"")));
+        return `<div><h4><i style="background:var(${col})"></i>${l} <b>${ts.length}</b></h4><ol>${ts.slice(0,8).map(t => `<li><a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</a><div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.phase)} 期 · ${esc(t[SETS[k].date]||"")}</div>${k==="stopped"&&t.why_cat?`<div class="sm">${esc(t.why_cat)}</div>`:""}</li>`).join("")}</ol>${ts.length>8?`<button class="all" data-coall="${k}" data-co="${esc(c.name)}">全部 ${ts.length} 条 →</button>`:""}</div>`;
+      }).join("")}</div></td></tr>`;
+    }).join("") + `</tbody>`;
+  $("co").querySelectorAll(".co-name").forEach(b => b.addEventListener("click", () => { const n = b.dataset.co; coOpen.has(n) ? coOpen.delete(n) : coOpen.add(n); renderCompanies(); }));
+  $("co").querySelectorAll("[data-coall]").forEach(b => b.addEventListener("click", () => goReg(b.dataset.coall, $("co-ta").value, "", b.dataset.co)));
+  const more = $("co-more"); more.hidden = cs.length <= coLimit;
+  more.textContent = `再显示 30 家（共 ${cs.length} 家）`;
+}
+$("co-more").addEventListener("click", () => { coLimit += 30; renderCompanies(); });
+["co-q","co-sort","co-ta"].forEach(id => $(id).addEventListener("input", () => { coLimit = 30; renderCompanies(); }));
+
+/* ---------- 催化剂时间轴 ---------- */
+const SVGNS = "http://www.w3.org/2000/svg";
+function hash(s){ let h = 0; for (const ch of s) h = (h*31 + ch.charCodeAt(0)) >>> 0; return h; }
+function parseD(s){ const [y,m,d] = s.split("-").map(Number); return {date:new Date(y, m-1, d||15), rough:!d}; }
+function renderTimeline(){
+  const wrap = $("tl-wrap"), minN = +$("tl-n").value, q = $("tl-q").value.trim().toLowerCase();
+  const rows = REG.sets.upcoming.filter(t => (t.n||0) >= minN && t.pcd);
+  const g = REG.generated.split("-").map(Number), start = new Date(g[0], g[1]-1, 1), end = new Date(g[0], g[1]-1+7, 1);
+  const tas = taOrder(rows), W = Math.max(760, wrap.clientWidth - 2), L = 132, R = 16, T = 44, LH = 58, H = T + tas.length*LH + 8;
+  const x = d => L + (d - start) / (end - start) * (W - L - R);
+  const months = []; for (let i = 0; i < 7; i++) months.push(new Date(g[0], g[1]-1+i, 1));
+  const mcount = months.map(m => rows.filter(t => { const d = parseD(t.pcd).date; return d.getFullYear()===m.getFullYear() && d.getMonth()===m.getMonth(); }).length);
+  let s = `<svg xmlns="${SVGNS}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" class="tl-svg" role="img" aria-label="即将完成的 III 期试验时间轴">`;
+  months.forEach((m,i) => { const x0 = x(m), x1 = x(months[i+1] || end);
+    s += `<rect x="${x0}" y="${T-4}" width="${x1-x0}" height="${H-T}" fill="${i%2?"var(--bg)":"var(--surface)"}"/>`;
+    s += `<text x="${x0+6}" y="16" class="tl-m">${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,"0")}</text><text x="${x0+6}" y="32" class="tl-c">${mcount[i]} 项</text>`; });
+  tas.forEach((ta,i) => { const y = T + i*LH;
+    s += `<line x1="${L}" x2="${W-R}" y1="${y+LH}" y2="${y+LH}" stroke="var(--line)"/>`;
+    s += `<text x="${L-10}" y="${y+LH/2+4}" text-anchor="end" class="tl-ta">${esc(ta)}</text>`; });
+  const hit = t => !q || [t.group,t.sponsor,t.acronym,t.title,...(t.interventions||[])].join(" ").toLowerCase().includes(q);
+  rows.slice().sort((a,b) => (b.n||0)-(a.n||0)).forEach(t => {
+    const {date, rough} = parseD(t.pcd), li = tas.indexOf(t.ta); if (li < 0 || date < start || date >= end) return;
+    const r = Math.min(12, Math.max(3, 2 + Math.sqrt(t.n||1)/5)), cy = T + li*LH + 6 + r + (hash(t.nct) % Math.max(1, LH - 12 - 2*r));
+    const on = hit(t);
+    s += `<circle cx="${x(date).toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" data-nct="${esc(t.nct)}" tabindex="0" role="button" class="tl-dot${rough?" rough":""}${on?"":" dim"}${q&&on?" hit":""}"><title>${esc((t.acronym||t.title).slice(0,80))} · ${esc(t.group)} · ${esc(t.pcd)}</title></circle>`;
+  });
+  s += `</svg>`;
+  wrap.innerHTML = s;
+  const peak = mcount.indexOf(Math.max(...mcount)), pm = months[peak];
+  const inPeak = rows.filter(t => { const d = parseD(t.pcd); return d.date.getFullYear()===pm.getFullYear() && d.date.getMonth()===pm.getMonth(); });
+  const roughPeak = inPeak.filter(t => parseD(t.pcd).rough || /-(30|31)$/.test(t.pcd)).length;
+  $("tl-meta").textContent = `${rows.length} 项 · 高峰在 ${pm.getMonth()+1} 月（${mcount[peak]} 项，其中 ${roughPeak} 项只填到月份或填在月末，多为粗略预估）`;
+  const byNct = new Map(rows.map(t => [t.nct, t]));
+  wrap.querySelectorAll(".tl-dot").forEach(c => {
+    const pick = () => { wrap.querySelectorAll(".tl-dot.sel").forEach(e => e.classList.remove("sel")); c.classList.add("sel"); showTl(byNct.get(c.dataset.nct)); };
+    c.addEventListener("click", pick); c.addEventListener("keydown", e => { if (e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(); } });
+  });
+}
+function showTl(t){
+  const rough = parseD(t.pcd).rough;
+  $("tl-detail").innerHTML = `<div class="tl-card"><div class="card-head"><span class="date">预计 ${esc(t.pcd)}${rough?"（只填到月份）":""}</span><span class="meta">${esc(t.phase)} 期 · ${t.n||"?"} 例 · ${esc(t.ta)} · ${esc(t.mod)}</span></div>
+    <h3>${esc(t.acronym || t.title)}</h3>${t.acronym?`<div class="meta">${esc(t.title)}</div>`:""}
+    <div class="meta">${esc(t.group)}${t.group!==t.sponsor?`（${esc(t.sponsor)}）`:""} · ${esc((t.conditions||[]).join("；"))}</div>
+    <div class="endpoint">干预：${esc((t.interventions||[]).join("；")||"—")}<br>主要终点：${esc((t.primary||[])[0]||"—")}</div>
+    <div class="src"><a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a></div></div>`;
+}
+["tl-q","tl-n"].forEach(id => $(id).addEventListener("input", () => REG && renderTimeline()));
+let rzT; window.addEventListener("resize", () => { clearTimeout(rzT); rzT = setTimeout(() => { if (REG && !$("panel-tl").hidden) renderTimeline(); }, 200); });
+
+/* ---------- 被搁置的资产 ---------- */
+let shCat = "申办方决定 / 战略", shLimit = 40;
+const WHY_COLOR = {"申办方决定 / 战略":"--accent","疗效 / 无效性":"--mix","安全性":"--neg","入组 / 运营":"--s3"};
+function renderShelved(){
+  const S = REG.sets.stopped, c = {}; S.forEach(t => c[t.why_cat||"未填写"] = (c[t.why_cat||"未填写"]||0)+1);
+  const cats = Object.keys(c).sort((a,b) => c[b]-c[a]), max = Math.max(...Object.values(c));
+  $("why-bars").innerHTML = `<button class="why-row" data-why="" aria-pressed="${shCat===""}"><span class="wl">全部原因</span><span class="wb"><i style="width:100%;background:var(--muted)"></i></span><span class="wn">${S.length}</span></button>` +
+    cats.map(k => `<button class="why-row" data-why="${esc(k)}" aria-pressed="${shCat===k}"><span class="wl">${esc(k)}</span><span class="wb"><i style="width:${100*c[k]/max}%;background:var(${WHY_COLOR[k]||"--muted"})"></i></span><span class="wn">${c[k]} <small>${Math.round(100*c[k]/S.length)}%</small></span></button>`).join("");
+  $("why-bars").querySelectorAll(".why-row").forEach(b => b.addEventListener("click", () => { shCat = b.dataset.why; shLimit = 40; renderShelved(); }));
+  const q = $("sh-q").value.trim().toLowerCase(), ta = $("sh-ta").value, ph = $("sh-ph").value;
+  const rows = S.filter(t => (!shCat || (t.why_cat||"未填写")===shCat) && (!ta || t.ta===ta) &&
+      (!ph || (ph==="3" ? t.phase.includes("3") : !t.phase.includes("3"))) &&
+      (!q || [t.group,t.sponsor,t.title,t.acronym,t.why,...(t.conditions||[]),...(t.interventions||[])].join(" ").toLowerCase().includes(q)))
+    .sort((a,b) => String(b.updated).localeCompare(String(a.updated)));
+  $("sh-meta").textContent = `${rows.length} 项`;
+  $("sh-list").innerHTML = rows.length ? rows.slice(0, shLimit).map(t => `<article class="sh-item">
+      <div class="sh-side"><span class="date">${esc(t.updated)}</span><span class="sig neg">${esc({TERMINATED:"终止",SUSPENDED:"暂停",WITHDRAWN:"撤回"}[t.status]||t.status)}</span></div>
+      <div class="sh-main"><h3>${esc((t.interventions||[]).slice(0,2).join(" + ") || t.acronym || t.title)}</h3>
+        <div class="meta"><b>${esc(t.group)}</b> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""} · ${esc(t.ta)} · ${esc((t.conditions||[]).slice(0,2).join("；"))}</div>
+        ${t.why?`<p class="sh-why">“${esc(t.why)}”</p>`:""}
+        <div class="sm">${esc(t.acronym||t.title)} · <a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a></div></div>
+    </article>`).join("") : `<div class="empty">没有符合条件的项目，试试清空筛选。</div>`;
+  const more = $("sh-more"); more.hidden = rows.length <= shLimit; more.textContent = `再显示 40 项（共 ${rows.length} 项）`;
+}
+$("sh-more").addEventListener("click", () => { shLimit += 40; renderShelved(); });
+["sh-q","sh-ta","sh-ph"].forEach(id => $(id).addEventListener("input", () => { shLimit = 40; renderShelved(); }));
 document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
 
 renderSubtabs();
 $("regbody").innerHTML = loaderHTML(); bindLoader();
-function goSet(k){ regSet = k; regLimit = 200; renderSubtabs(); if (REG) renderReg(); showTab("reg"); window.scrollTo({top:0}); }
+function goSet(k){
+  if (k==="stopped"){ shCat = ""; renderShelved(); showTab("sh"); return; }
+  if (k==="upcoming"){ showTab("tl"); return; }
+  goReg(k);
+}
 
 function renderPulse(){
   const S = REG.sets, p3 = t => t.phase.includes("3");
-  $("pulse").hidden = false;
+  $("pulse").hidden = false; $("lists-block").hidden = false;
   $("pulse-meta").textContent = `ClinicalTrials.gov · 企业申办 II/III 期 · 数据生成于 ${REG.generated}`;
   const sig = S.results.filter(t => (t.pvals||[]).some(x => x.p!=null && x.p<0.05)).length;
   $("pulse-counts").innerHTML = [
@@ -529,7 +873,7 @@ function renderPulse(){
     ["stopped", S.stopped.length, "提前终止 / 暂停 / 撤回"]
   ].map(([k,n,l]) => `<button data-go="${k}"><div class="n">${n.toLocaleString()}</div><div class="l">${l}</div></button>`).join("");
   const by = (k, f, key, dir) => S[k].filter(f).sort((a,b) => dir*String(a[key]||"").localeCompare(String(b[key]||""))).slice(0,6);
-  const li = (t, extra) => `<li><div class="tt">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</div><div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.sponsor)}</div><div class="sm">${extra}</div></li>`;
+  const li = (t, extra) => `<li><div class="tt">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</div><div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.group)}</div><div class="sm">${extra}</div></li>`;
   const cols = [
     {k:"results", h:`<span class="sig pos">p&lt;0.05</span>III 期新结果`, rows: by("results", t => p3(t) && (t.pvals||[]).some(x=>x.p!=null&&x.p<0.05), "results", -1),
      ex: t => `${esc(t.results)} · ${(t.pvals||[]).filter(x=>x.p!=null).map(x=>fmtP(x.p)).slice(0,2).join(" / ")} · <a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a>`},
@@ -549,8 +893,13 @@ function renderPulse(){
     setReg(JSON.parse(el.textContent));
   }catch(e){ /* 内嵌数据异常时保留拖入文件的入口 */ }
 })();
-try{ const t = localStorage.getItem("readout-tab"); if(t==="reg") showTab("reg"); }catch(e){}
-if (location.hash === "#registry") showTab("reg");
+(function initTab(){
+  const h = location.hash.slice(1);
+  if (TABS.includes(h)) return showTab(h);
+  if (h === "registry") return showTab("reg");
+  let t = null; try{ t = localStorage.getItem("hom-tab"); }catch(e){}
+  showTab(t || "ov");
+})();
 renderStrip(); renderSide(); setLens(lens);
 document.querySelectorAll(".lens button").forEach(b => b.addEventListener("click", () => setLens(b.dataset.lens)));
 ["q","f-out","f-ta","f-mod"].forEach(id => $(id).addEventListener("input", render));

@@ -89,6 +89,88 @@ TA_RULES = [
     (r"\brare\b|lysosomal|fabry|gaucher|pompe|mucopolysacch|amyloidosis|phenylketon|hemochrom|porphyri|achondroplas|growth hormone|osteogenesis|hypophosphat", "罕见病 / 遗传"),
 ]
 
+# ---------- 申办方归并：子公司与历史名称归到母公司 ----------
+SPONSOR_GROUPS = [
+    (r"Hoffmann-La Roche|Genentech|Chugai|\bRoche\b", "Roche"),
+    (r"AstraZeneca|MedImmune|Alexion|Acerta", "AstraZeneca"),
+    (r"Merck Sharp|\bMSD\b|Merck & Co|Organon", "MSD"),
+    (r"Merck KGaA|EMD Serono|SpringWorks", "Merck KGaA"),
+    (r"GlaxoSmithKline|\bGSK\b|ViiV", "GSK"),
+    (r"Novartis|Sandoz", "Novartis"),
+    (r"Eli Lilly|\bLilly\b|Loxo", "Eli Lilly"),
+    (r"AbbVie|Allergan|Pharmacyclics|Cerevel", "AbbVie"),
+    (r"Pfizer|Seagen|Arena Pharm|Biohaven Pharm|Global Blood", "Pfizer"),
+    (r"Janssen|Johnson & Johnson|Actelion|Intra-Cellular", "Johnson & Johnson"),
+    (r"Sanofi|Genzyme|Bioverativ", "Sanofi"),
+    (r"Bristol|Celgene|Karuna|Mirati|\bBMS\b|Juno", "Bristol Myers Squibb"),
+    (r"Amgen|Horizon Therapeutics|ChemoCentryx", "Amgen"),
+    (r"Novo Nordisk", "Novo Nordisk"),
+    (r"Takeda|Shire|Millennium", "Takeda"),
+    (r"Boehringer", "Boehringer Ingelheim"),
+    (r"Bayer", "Bayer"),
+    (r"Gilead|Kite|CymaBay", "Gilead"),
+    (r"Regeneron", "Regeneron"),
+    (r"Daiichi", "Daiichi Sankyo"),
+    (r"Astellas", "Astellas"),
+    (r"Otsuka", "Otsuka"),
+    (r"Ipsen|Albireo", "Ipsen"),
+    (r"BeiGene|BeOne", "BeOne (BeiGene)"),
+    (r"HengRui|Hengrui|Shengdi|Suncadia", "Hengrui"),
+    (r"Moderna", "Moderna"),
+    (r"BioNTech", "BioNTech"),
+    (r"Teva", "Teva"),
+    (r"\bUCB\b", "UCB"),
+    (r"Vertex", "Vertex"),
+    (r"Biogen", "Biogen"),
+    (r"Incyte", "Incyte"),
+    (r"CSL", "CSL"),
+    (r"Innovent", "Innovent"),
+    (r"Kelun", "Kelun-Biotech"),
+    (r"Chia Tai Tianqing", "CTTQ"),
+]
+_SUFFIX = re.compile(r"(,|\.|\s)\s*(Inc\.?|Incorporated|LLC|L\.L\.C\.|Ltd\.?|Limited|GmbH|AG|SE|S\.?A\.?S?|S\.p\.A\.?|SRL|B\.V\.|A/S|AB|plc|PLC|"
+                     r"Corporation|Corp\.?|Co\.?,?|Company|and Co)\.?$", re.I)
+
+
+def sponsor_group(name):
+    for pat, g in SPONSOR_GROUPS:
+        if re.search(pat, name, re.I):
+            return g
+    s = re.split(r",\s*(a|an)\s+.*(company|subsidiary)", name, flags=re.I)[0]
+    for _ in range(3):
+        s = _SUFFIX.sub("", s).strip(" ,.")
+    s = re.sub(r"\s+(Research (&|and) Development|R&D|Development|Pharmaceuticals?|Pharma|Biopharma(ceuticals)?|"
+               r"Therapeutics|Biotherapeutics|Biosciences?|Biotechnology|Biotech|Biologics|Medicine|Holdings?)(\s.*)?$", "", s, flags=re.I)
+    return s.strip(" ,.") or name
+
+
+# ---------- 终止原因归类 ----------
+WHY_RULES = [
+    # 明确的商业 / 战略措辞，以及「与安全性、疗效无关」的否定句，优先判定
+    (r"non-safety|other than safety|not as a result of|(not|unrelated|no)\W+(\w+\W+){0,4}(safety|efficacy)|business|strateg|portfolio|"
+     r"commercial|corporate|priorit|pipeline|development (program|plan|policy)|stop the development|redirect|focus (its )?resources|"
+     r"wind down|acquisition|acquired|merger|licens", "申办方决定 / 战略"),
+    (r"safety|adverse|toxicit|tolerab|death", "安全性"),
+    (r"futil|efficacy|lack of (\w+ )?(benefit|effect|response)|limited ([\w-]+ )?activity|lack of (\w+ )?activity|did not meet|not met|interim|"
+     r"unlikely to|not demonstrat|benefit.risk|clinical benefit|DSMB|DMC|data monitoring", "疗效 / 无效性"),
+    (r"enrol|recruit|accru|feasib|eligible|event rate|operational", "入组 / 运营"),
+    (r"fund|resources|financ", "资金"),
+    (r"regulat|FDA|EMA|health authority|clinical hold", "监管"),
+    # 只说「申办方决定」而没有具体原因的，最后兜底
+    (r"sponsor('s)? (decision|request)|sponsor decided|request of the sponsor|by (the )?sponsor|sponsor cancel|company decision|"
+     r"decided not to|not to (proceed|continue|initiate)|administrative", "申办方决定 / 战略"),
+]
+
+
+def why_cat(why, status):
+    if not why:
+        return "未填写"
+    for pat, label in WHY_RULES:
+        if re.search(pat, why, re.I):
+            return label
+    return "其他"
+
+
 PLACEBO = re.compile(r"^(placebo|vehicle|saline|sham|standard of care|best supportive care|matching placebo)", re.I)
 
 
@@ -138,6 +220,8 @@ def pick(study):
         "title": ident.get("briefTitle", ""),
         "acronym": ident.get("acronym", ""),
         "sponsor": (spons.get("leadSponsor") or {}).get("name", ""),
+        "group": sponsor_group((spons.get("leadSponsor") or {}).get("name", "")),
+        "why_cat": why_cat(stat.get("whyStopped", ""), stat.get("overallStatus", "")) if stat.get("overallStatus") in ("TERMINATED", "SUSPENDED", "WITHDRAWN") else "",
         "collab": [c.get("name", "") for c in spons.get("collaborators", [])][:3],
         "phase": "/".join(x.replace("PHASE", "") for x in design.get("phases", [])),
         "n": (design.get("enrollmentInfo") or {}).get("count"),
@@ -201,6 +285,8 @@ def reclassify(path):
             t["interventions"] = [x for x in t["interventions"] if not PLACEBO.match(x.strip())]
             t["mod"] = classify(" ".join(t["interventions"]), MOD_RULES, "其他")
             t["ta"] = classify(" ".join(t["conditions"]) + " " + t["title"], TA_RULES, "其他")
+            t["group"] = sponsor_group(t["sponsor"])
+            t["why_cat"] = why_cat(t.get("why", ""), t["status"]) if t["status"] in ("TERMINATED", "SUSPENDED", "WITHDRAWN") else ""
     with open(path, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, separators=(",", ":"))
 
