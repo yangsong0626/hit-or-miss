@@ -181,6 +181,191 @@ def classify(text, rules, default):
     return default
 
 
+def _num(x):
+    try:
+        return float(str(x).replace(",", "").strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def _pval(raw):
+    raw = str(raw or "").strip()
+    m = re.search(r"\d*\.?\d+(?:[eE]-?\d+)?", raw)
+    if not m:
+        return None
+    try:
+        v = float(m.group())
+    except ValueError:
+        return None
+    return v * 0.999 if raw.startswith("<") else v
+
+
+def details(study):
+    """从注册库记录里提取判断成败所需的证据：设计、对照、主要终点的数值与统计分析、严重不良事件。"""
+    p = study.get("protocolSection", {})
+    design, arms = p.get("designModule", {}), p.get("armsInterventionsModule", {})
+    di = design.get("designInfo", {}) or {}
+    arm_types = [a.get("type", "") for a in arms.get("armGroups", [])]
+    if any(t in ("PLACEBO_COMPARATOR", "SHAM_COMPARATOR") for t in arm_types):
+        comp = "placebo"
+    elif "ACTIVE_COMPARATOR" in arm_types:
+        comp = "active"
+    elif di.get("interventionModel") == "SINGLE_GROUP" or len(arm_types) <= 1:
+        comp = "none"
+    else:
+        comp = "other"
+    out = {
+        "alloc": di.get("allocation", ""), "model": di.get("interventionModel", ""),
+        "mask": (di.get("maskingInfo") or {}).get("masking", ""),
+        "ntype": (design.get("enrollmentInfo") or {}).get("type", ""),
+        "comp": comp, "arms": [{"l": a.get("label", "")[:60], "t": a.get("type", "")} for a in arms.get("armGroups", [])][:5],
+    }
+    rs = study.get("resultsSection", {})
+    prims = []
+    for om in rs.get("outcomeMeasuresModule", {}).get("outcomeMeasures", []):
+        if om.get("type") != "PRIMARY" or len(prims) >= 2:
+            continue
+        gt = {g.get("id"): g.get("title", "")[:50] for g in om.get("groups", [])}
+        dn = {}
+        for d in om.get("denoms", [])[:1]:
+            for c in d.get("counts", []):
+                dn[c.get("groupId")] = _num(c.get("value"))
+        meas = []
+        try:
+            meas = om["classes"][0]["categories"][0]["measurements"]
+        except (KeyError, IndexError):
+            pass
+        groups = [{"t": gt.get(m.get("groupId"), ""), "v": _num(m.get("value")), "lo": _num(m.get("lowerLimit")),
+                   "hi": _num(m.get("upperLimit")), "n": dn.get(m.get("groupId"))} for m in meas[:4]]
+        ans = []
+        for a in om.get("analyses", [])[:3]:
+            ans.append({"pt": a.get("paramType", ""), "est": _num(a.get("paramValue")), "lo": _num(a.get("ciLowerLimit")),
+                        "hi": _num(a.get("ciUpperLimit")), "ci": a.get("ciPctValue", ""), "p": _pval(a.get("pValue")),
+                        "praw": str(a.get("pValue", ""))[:12], "m": a.get("statisticalMethod", "")[:40],
+                        "ni": a.get("nonInferiorityType", ""), "g": [gt.get(g, "") for g in a.get("groupIds", [])][:3]})
+        prims.append({"title": om.get("title", "")[:160], "tf": om.get("timeFrame", "")[:80], "unit": om.get("unitOfMeasure", "")[:40],
+                      "pm": om.get("paramType", ""), "groups": groups, "an": ans})
+    out["prim"] = prims
+    sae = []
+    for g in rs.get("adverseEventsModule", {}).get("eventGroups", [])[:5]:
+        sae.append({"t": g.get("title", "")[:50], "s": g.get("seriousNumAffected"), "r": g.get("seriousNumAtRisk"),
+                    "d": g.get("deathsNumAffected")})
+    out["sae"] = sae
+    return out
+
+
+RATIO = re.compile(r"ratio|HR|OR\b|RR\b", re.I)
+
+
+def _fmt(x):
+    if x is None:
+        return "?"
+    return f"{x:.2f}" if abs(x) < 100 else f"{x:.0f}"
+
+
+def assess(t):
+    """按注册库证据给出判定（verdict）、证据要点（ev）和可能原因（why）。都是规则推断，不替代原始数据。"""
+    dt = t.get("dt") or {}
+    ev, why = [], []
+    comp = dt.get("comp", "")
+    comp_txt = {"placebo": "安慰剂对照", "active": "活性药物对照", "none": "单臂无对照", "other": "多组对比"}.get(comp, "")
+    design = "，".join(x for x in [
+        "随机" if dt.get("alloc") == "RANDOMIZED" else ("非随机" if dt.get("alloc") == "NON_RANDOMIZED" else ""),
+        {"NONE": "开放标签", "SINGLE": "单盲", "DOUBLE": "双盲", "TRIPLE": "三盲", "QUADRUPLE": "四盲"}.get(dt.get("mask", ""), ""),
+        comp_txt] if x)
+    if design:
+        ev.append(f"设计：{design}")
+    if t.get("n"):
+        ev.append(f"{'实际' if dt.get('ntype') == 'ACTUAL' else '计划'}入组 {t['n']} 例")
+
+    # 严重不良事件：第一组视为试验组，最后一组视为对照组（注册库按登记顺序，可能不准）
+    sae = [g for g in dt.get("sae", []) if g.get("r")]
+    sae_gap = None
+    if len(sae) >= 2:
+        rates = [(g["t"], 100 * (g.get("s") or 0) / g["r"]) for g in sae]
+        ev.append("严重不良事件：" + "；".join(f"{a} {b:.0f}%" for a, b in rates[:3]))
+        sae_gap = max(r for _, r in rates) - min(r for _, r in rates)
+
+    if t.get("_set") == "stopped" or t.get("status") in ("TERMINATED", "SUSPENDED", "WITHDRAWN"):
+        if t.get("_set") == "stopped":
+            verdict = "终止"
+            if t.get("why_cat"):
+                why.append(f"申办方给出的原因归为「{t['why_cat']}」")
+            if t.get("status") == "WITHDRAWN":
+                why.append("试验在入组第一位受试者前撤回")
+            elif dt.get("ntype") == "ACTUAL" and t.get("n") is not None and t["n"] < 50:
+                why.append(f"终止时只入组了 {t['n']} 例，数据不足以判断药物本身")
+            return {"verdict": verdict, "ev": ev, "why": why}
+
+    prims = dt.get("prim", [])
+    tested = []
+    for pr in prims:
+        an = [a for a in pr.get("an", []) if a.get("p") is not None]
+        if an:
+            best = min(an, key=lambda a: a["p"])
+            tested.append((pr, best))
+    for pr, a in tested:
+        null = 1.0 if RATIO.search(a.get("pt", "")) else 0.0
+        eff = f"{a['pt'] or '效应'} {_fmt(a['est'])}" if a.get("est") is not None else ""
+        ci = f"（{a.get('ci') or 95}% CI {_fmt(a['lo'])}–{_fmt(a['hi'])}）" if a.get("lo") is not None and a.get("hi") is not None else ""
+        ev.insert(len([e for e in ev if e.startswith("主要终点")]), f"主要终点「{pr['title'][:60]}」：{eff}{ci}，p={a['praw'] or _fmt(a['p'])}".replace("：，", "："))
+        a["_null"] = null
+    if not tested:
+        g = prims[0]["groups"] if prims else []
+        if prims and g:
+            ev.insert(0, f"主要终点「{prims[0]['title'][:60]}」：" + "；".join(f"{x['t']} {_fmt(x['v'])}{prims[0]['unit'] and ' ' + prims[0]['unit'][:12]}" for x in g[:3]))
+        verdict = "描述性" if comp in ("none", "") or not prims else "未登记检验"
+        if verdict == "描述性":
+            why.append("单臂或无对照设计，注册库只登记了描述性数据，无法用统计检验判断成败，需要和历史对照或同类药物比较")
+        else:
+            why.append("有对照组但没有登记主要终点的统计检验，只能看两组数值的差距")
+        return {"verdict": verdict, "ev": ev, "why": why}
+
+    sig = [a["p"] < 0.05 for _, a in tested]
+    verdict = "达到" if all(sig) else ("未达到" if not any(sig) else "部分达到")
+    n = t.get("n") or 0
+    for (pr, a), ok in zip(tested, sig):
+        null, est, lo, hi = a["_null"], a.get("est"), a.get("lo"), a.get("hi")
+        ni = "NON_INFERIORITY" in (a.get("ni") or "") or "EQUIVALENCE" in (a.get("ni") or "")
+        if ok:
+            if ni:
+                why.append("这是非劣效检验，达到意味着不比对照差，不代表更好")
+            elif est is not None and lo is not None and hi is not None:
+                dist = min(abs(lo - null), abs(hi - null))
+                why.append("置信区间离无效线很远，效应稳健" if dist > 0.25 * max(abs(hi - lo), 1e-9) else "置信区间贴近无效线，效应偏小，需看次要终点和亚组是否一致")
+        else:
+            if est is not None and lo is not None and hi is not None and lo < null < hi:
+                width = hi - lo
+                if abs(est - null) < 0.25 * width or (null == 1.0 and abs(est - 1) < 0.06):
+                    why.append("点估计几乎落在无效线上，两组基本没有差别，更像药物本身无效")
+                else:
+                    why.append("点估计偏向一侧但置信区间跨过无效线，可能是效应偏小或样本量不足以检出")
+            elif a.get("p") is not None and a["p"] < 0.15:
+                why.append(f"p={_fmt(a['p'])} 接近显著，可能是把握度不足，而非完全无效")
+    if verdict != "达到":
+        if comp == "active":
+            why.append("对照组是活性药物，要超越现有疗法的门槛高于安慰剂对照")
+        if n and n < 100:
+            why.append(f"样本量只有 {n} 例，检出中等效应的把握度有限")
+        if t.get("status") == "TERMINATED":
+            why.append("试验提前终止，实际入组少于计划，统计把握度下降")
+        if dt.get("comp") == "placebo":
+            g = (tested[0][0].get("groups") or [])
+            vals = [x["v"] for x in g if x.get("v") is not None]
+            if len(vals) >= 2 and max(abs(v) for v in vals) > 0 and (max(vals) - min(vals)) / max(abs(v) for v in vals) < 0.15:
+                why.append("各组数值非常接近，安慰剂组反应可能偏高")
+    else:
+        if comp == "placebo":
+            why.append("对照为安慰剂，证明了「有效」，但和现有疗法谁更好还需头对头数据")
+        elif comp == "active":
+            why.append("在活性药物对照下胜出，临床意义更强")
+        if dt.get("mask") == "NONE":
+            why.append("开放标签设计，主观终点可能有偏倚")
+    if sae_gap is not None and sae_gap >= 5:
+        why.append(f"各组严重不良事件率相差 {sae_gap:.0f} 个百分点，安全性需要关注")
+    return {"verdict": verdict, "ev": ev, "why": why}
+
+
 def pick(study):
     p = study.get("protocolSection", {})
     ident, stat = p.get("identificationModule", {}), p.get("statusModule", {})
@@ -236,6 +421,7 @@ def pick(study):
         "pvals": pvals[:3],
         "mod": classify(" ".join(interventions), MOD_RULES, "其他"),
         "ta": classify(" ".join(conditions) + " " + ident.get("briefTitle", ""), TA_RULES, "其他"),
+        "dt": details(study),
     }
 
 
@@ -270,6 +456,12 @@ def main():
     }
     out = {"generated": today.isoformat(), "window_days": a.days, "industry_only": not a.all_sponsors,
            "sets": {k: [pick(s) for s in v] for k, v in sets.items()}}
+    for k, v in out["sets"].items():
+        for t in v:
+            t["_set"] = k
+            if k in ("results", "stopped"):
+                t["as"] = assess(t)
+            t.pop("_set")
     with open(a.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
     counts = ", ".join(f"{k} {len(v)}" for k, v in out["sets"].items())
@@ -287,6 +479,12 @@ def reclassify(path):
             t["ta"] = classify(" ".join(t["conditions"]) + " " + t["title"], TA_RULES, "其他")
             t["group"] = sponsor_group(t["sponsor"])
             t["why_cat"] = why_cat(t.get("why", ""), t["status"]) if t["status"] in ("TERMINATED", "SUSPENDED", "WITHDRAWN") else ""
+    for k, v in d["sets"].items():
+        for t in v:
+            if k in ("results", "stopped") and "dt" in t:
+                t["_set"] = k
+                t["as"] = assess(t)
+                t.pop("_set")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(d, f, ensure_ascii=False, separators=(",", ":"))
 
