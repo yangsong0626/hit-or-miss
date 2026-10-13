@@ -207,6 +207,29 @@ table.mx,table.co{min-width:680px}
 .sh-main h3{margin:0;font-size:16px;overflow-wrap:anywhere}
 .sh-why{margin:6px 0;font-size:13.5px;color:var(--ink);border-left:3px solid var(--line);padding-left:10px;overflow-wrap:anywhere}
 @media (max-width:600px){.sh-item{grid-template-columns:minmax(0,1fr)}.sh-side{flex-direction:row}.why-row{grid-template-columns:110px minmax(0,1fr) 70px}}
+.vd{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:3px;margin:0 4px 3px 0;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.vd.pos{background:var(--pos-soft);color:var(--pos);border-color:transparent}.vd.neg{background:var(--neg-soft);color:var(--neg);border-color:transparent}.vd.mix{background:var(--mix-soft);color:var(--mix);border-color:transparent}
+.sig.ana{background:var(--accent-soft);color:var(--accent)}
+.tbtn{font:inherit;background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-align:left;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.tbtn:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.tt.tbtn{font-weight:500}
+tr.is-open td{background:var(--accent-soft)}
+tr.detail td{background:var(--bg);padding:12px 14px}
+.dtl{display:flex;flex-direction:column;gap:10px;max-width:min(980px, calc(100vw - 72px));position:sticky;left:14px}
+.dtl-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.dtl-note{padding:10px 12px;background:var(--accent-soft);border-radius:4px;font-size:14px;line-height:1.65}
+.dtl-note .who{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.04em;margin-right:8px}
+.dtl-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.dtl h5{margin:0 0 4px;font-size:13px}.dtl h5 small{font-weight:400;color:var(--muted)}
+.dtl ul{margin:0;padding-left:18px;font-size:13.5px}.dtl li{margin-bottom:4px;overflow-wrap:anywhere}
+@media (max-width:700px){.dtl-cols{grid-template-columns:minmax(0,1fr)}}
+.sbar.big{height:18px;border-radius:3px}
+.vd-leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px}
+.vd-l{font:inherit;font-size:13px;background:none;border:0;padding:2px 0;color:var(--ink);cursor:pointer}
+.vd-l i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.vd-l b{font-family:var(--f-mono);font-weight:500;font-size:12px;color:var(--muted)}
+.vd-l:hover{color:var(--accent)}
+.sh-main .dtl-note{margin:6px 0}
 footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
 </style>
@@ -257,6 +280,12 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
       </div>
       <p class="sub" id="mx-note"></p>
       <div class="tablewrap"><table class="mx" id="mx"></table></div>
+    </section>
+    <section class="block" id="vd-block" hidden>
+      <div class="block-head"><h2>成败分析</h2><span class="regmeta" id="vd-meta"></span></div>
+      <p class="sub">每条有结果或已终止的试验都按注册库数据判定成败，并给出证据和可能原因。重要的 III 期读出另有人工分析。点试验名查看完整分析。</p>
+      <div class="vd-bar" id="vd-bar"></div>
+      <div class="pulse-grid" id="vd-grid"></div>
     </section>
     <section class="block" id="lists-block" hidden>
       <div class="block-head"><h2>本期值得看</h2></div>
@@ -330,6 +359,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
       <select id="r-ta" aria-label="治疗领域"></select>
       <select id="r-mod" aria-label="药物形式"></select>
       <select id="r-ph" aria-label="分期"><option value="">全部分期</option><option value="3">含 III 期</option><option value="2">仅 II 期</option></select>
+      <select id="r-vd" aria-label="判定"><option value="">全部判定</option><option value="_note">有人工分析</option><option value="达到">达到</option><option value="未达到">未达到</option><option value="部分达到">部分达到</option><option value="存疑">存疑</option><option value="描述性">描述性（无对照检验）</option><option value="无统计检验">无统计检验</option><option value="终止">终止</option><option value="正常结束">正常结束</option></select>
       <span class="regmeta" id="regmeta"></span>
     </div>
     <div id="regbody"></div>
@@ -609,13 +639,13 @@ function setReg(data){
   $("regfilters").hidden = false;
   const taOpts = opts("ta","全部领域");
   $("co-ta").innerHTML = taOpts; $("sh-ta").innerHTML = taOpts;
-  renderSubtabs(); renderReg(); renderPulse(); renderMatrix(); renderCompanies(); renderShelved();
+  renderSubtabs(); renderReg(); renderPulse(); renderMatrix(); renderVerdicts(); renderCompanies(); renderShelved();
   if (!$("panel-tl").hidden) renderTimeline();
 }
 
 function renderSubtabs(){
   $("subtabs").innerHTML = Object.entries(SETS).map(([k,s]) =>
-    `<button data-set="${k}" aria-pressed="${k===regSet}">${s.name}${REG?`<b>${REG.sets[k]?.length??0}</b>`:""}</button>`).join("");
+    `<button data-set="${k}" aria-pressed="${k===regSet}">${s.name}${REG?`<b>${(k==="all"?REG.all:REG.sets[k])?.length??0}</b>`:""}</button>`).join("");
   $("setnote").textContent = SETS[regSet].note;
   $("subtabs").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { regSet = b.dataset.set; regLimit = 200; renderSubtabs(); REG ? renderReg() : null; }));
 }
@@ -625,12 +655,14 @@ function signal(t){
   const pre = regSet==="all" ? `<span class="sig">${SETS[k].name}</span>` : "";
   return pre + signalFor(k, t);
 }
+const VCLS = {"达到":"pos","未达到":"neg","部分达到":"mix","存疑":"mix","终止":"neg","正常结束":"","描述性":"","无统计检验":""};
+const vchip = t => t.as ? `<span class="vd ${VCLS[t.as.verdict]??""}">${esc(t.as.verdict)}</span>` : "";
+const noteMark = t => t.note ? `<span class="sig ana" title="有人工分析">分析</span>` : "";
 function signalFor(regSet, t){
-  if(regSet==="stopped") return `<span class="sig neg">${esc(t.status)}</span>${t.why_cat?`<span class="sig">${esc(t.why_cat)}</span>`:""}${t.why?`<div class="why">${esc(t.why)}</div>`:""}`;
+  if(regSet==="stopped") return `${vchip(t)}${t.why_cat?`<span class="sig">${esc(t.why_cat)}</span>`:""}${noteMark(t)}${t.why?`<div class="why">${esc(t.why)}</div>`:""}`;
   if(regSet==="results"){
     const ps = (t.pvals||[]).filter(x=>x.p!=null);
-    if(!ps.length) return `<span class="sig">无登记统计分析</span>`;
-    return ps.map(x => `<span class="sig ${x.p<0.05?"pos":"neg"}" title="${esc(x.title)}">${fmtP(x.p)}</span>`).join("");
+    return vchip(t) + noteMark(t) + (ps.length ? `<div>${ps.map(x => `<span class="sig ${x.p<0.05?"pos":"neg"}" title="${esc(x.title)}">${fmtP(x.p)}</span>`).join("")}</div>` : "");
   }
   if(regSet==="completed") return `<span class="sig mix">待公布</span>`;
   return `<span class="sig">${esc(t.status.replace(/_/g," ").toLowerCase())}</span>`;
@@ -642,11 +674,30 @@ function lensCell(t){
   return `${esc((t.primary||[])[0]||"—")}`;
 }
 
+const regOpen = new Set();
+function detailHTML(t){
+  const a = t.as;
+  const arms = (t.dt?.arms||[]).map(x => x.l).filter(Boolean).join(" ｜ ");
+  return `<div class="dtl">
+    ${a?`<div class="dtl-head">${vchip(t)}<span class="sm">${{"达到":"所有登记了检验的主要终点都 p<0.05","未达到":"登记了检验的主要终点都没有达到 p<0.05","部分达到":"部分主要终点达到","存疑":"注册库数据与公开报道不一致，以原始公告为准","描述性":"没有统计检验，只能看数值","无统计检验":"有对照但未登记检验","终止":"提前终止、暂停或撤回","正常结束":"提前关闭但目标已完成"}[a.verdict]||""}</span></div>`:""}
+    ${t.note?`<div class="dtl-note"><span class="who">分析</span>${esc(t.note)}</div>`:""}
+    ${a?`<div class="dtl-cols"><div><h5>注册库证据</h5><ul>${a.ev.map(e => `<li>${esc(e)}</li>`).join("")||"<li>无</li>"}</ul></div>
+      <div><h5>可能原因 <small>按注册库数据自动推断</small></h5><ul>${a.why.map(e => `<li>${esc(e)}</li>`).join("")||"<li>注册库数据不足以推断原因</li>"}</ul></div></div>`:""}
+    ${arms?`<div class="sm">分组：${esc(arms)}</div>`:""}
+    ${t.why?`<div class="sm">申办方原话：“${esc(t.why)}”</div>`:""}
+    <div class="sm"><a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">在 ClinicalTrials.gov 查看 ${esc(t.nct)} →</a></div>
+  </div>`;
+}
+function openTrial(nct){
+  const t = REG.all.find(x => x.nct===nct); if (!t) return;
+  regOpen.add(nct); goReg(t._set, "", "", nct);
+}
 function renderReg(){
-  const s = SETS[regSet], q = $("rq").value.trim().toLowerCase(), ta = $("r-ta").value, md = $("r-mod").value, ph = $("r-ph").value;
+  const s = SETS[regSet], q = $("rq").value.trim().toLowerCase(), ta = $("r-ta").value, md = $("r-mod").value, ph = $("r-ph").value, vd = $("r-vd").value;
   const dkey = t => SETS[t._set||regSet].date;
   let rows = (regSet==="all" ? REG.all : (REG.sets[regSet]||[])).filter(t =>
     (!ta || t.ta===ta) && (!md || t.mod===md) &&
+    (!vd || (vd==="_note" ? !!t.note : t.as?.verdict===vd)) &&
     (!ph || (ph==="3" ? t.phase.includes("3") : !t.phase.includes("3"))) &&
     (!q || [t.nct,t.title,t.acronym,t.sponsor,t.group,...(t.conditions||[]),...(t.interventions||[])].join(" ").toLowerCase().includes(q)));
   const dir = regSet==="upcoming" ? 1 : -1;
@@ -654,18 +705,19 @@ function renderReg(){
   $("regmeta").textContent = `${rows.length} 条 · 数据生成于 ${REG.generated}${REG.industry_only?" · 仅企业申办":""}`;
   const shown = rows.slice(0, regLimit);
   $("regbody").innerHTML = rows.length ? `<div class="tablewrap"><table>
-    <thead><tr><th>${s.dl}</th><th>试验</th><th>适应症</th><th>${LENSCOL[lens]}</th><th>${regSet==="stopped"?"状态 · 原因":regSet==="results"?"主要终点 p 值":"状态"}</th></tr></thead>
-    <tbody>${shown.map(t => `<tr>
+    <thead><tr><th>${s.dl}</th><th>试验</th><th>适应症</th><th>${LENSCOL[lens]}</th><th>${regSet==="stopped"?"判定 · 原因":regSet==="results"?"判定 · 主要终点 p 值":"状态"}</th></tr></thead>
+    <tbody>${shown.map(t => { const open = regOpen.has(t.nct), can = !!(t.as || t.note); return `<tr class="${open?"is-open":""}">
       <td class="d">${esc(t[dkey(t)]||"—")}</td>
-      <td><div class="tt">${esc(t.acronym||t.title)}</div>${t.acronym?`<div class="sm">${esc(t.title)}</div>`:""}<div class="sm"><a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""}${lens!=="bd"?` · ${esc(t.sponsor)}`:""}</div></td>
+      <td>${can?`<button class="tt tbtn" data-open="${esc(t.nct)}" aria-expanded="${open}">${esc(t.acronym||t.title)}</button>`:`<div class="tt">${esc(t.acronym||t.title)}</div>`}${t.acronym?`<div class="sm">${esc(t.title)}</div>`:""}<div class="sm"><a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""}${lens!=="bd"?` · ${esc(t.group)}`:""}</div></td>
       <td>${esc((t.conditions||[]).slice(0,2).join("；"))}<div class="sm">${esc(t.ta)}</div></td>
       <td>${lensCell(t)}</td>
-      <td>${signal(t)}</td></tr>`).join("")}</tbody></table></div>
+      <td>${signal(t)}</td></tr>${open?`<tr class="detail"><td colspan="5">${detailHTML(t)}</td></tr>`:""}`; }).join("")}</tbody></table></div>
     ${rows.length>regLimit?`<button class="more" id="more">再显示 200 条（共 ${rows.length}）</button>`:""}`
     : `<div class="empty">没有符合条件的试验，试试清空筛选。</div>`;
   const m = $("more"); if(m) m.addEventListener("click", () => { regLimit += 200; renderReg(); });
+  $("regbody").querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", () => { const n = b.dataset.open; regOpen.has(n) ? regOpen.delete(n) : regOpen.add(n); renderReg(); }));
 }
-["rq","r-ta","r-mod","r-ph"].forEach(id => $(id).addEventListener("input", () => { regLimit = 200; renderReg(); }));
+["rq","r-ta","r-mod","r-ph","r-vd"].forEach(id => $(id).addEventListener("input", () => { regLimit = 200; renderReg(); }));
 
 const TABS = ["ov","co","tl","sh","cur","reg"];
 function showTab(t){
@@ -677,7 +729,7 @@ function showTab(t){
 }
 function goReg(set, ta, mod, q){
   regSet = set; regLimit = 200;
-  $("r-ta").value = ta || ""; $("r-mod").value = mod || ""; $("rq").value = q || ""; $("r-ph").value = "";
+  $("r-ta").value = ta || ""; $("r-mod").value = mod || ""; $("rq").value = q || ""; $("r-ph").value = ""; $("r-vd").value = "";
   renderSubtabs(); renderReg(); showTab("reg");
   $("panel-reg").scrollIntoView({block:"start"});
 }
@@ -695,18 +747,18 @@ function renderMatrix(){
   document.querySelectorAll("[data-mx]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mx===mxMode));
   let head, body;
   if (mxMode === "status"){
-    $("mx-note").textContent = "每格是该领域在这一类里的试验数，颜色越深数量越多。两列占比单独着色：p<0.05 占比只统计登记了 p 值的新结果，终止占比是提前终止数除以该领域全部试验数。点格子查看对应试验。";
+    $("mx-note").textContent = "每格是该领域在这一类里的试验数，颜色越深数量越多。两列占比单独着色：达到率是新结果中判定为「达到」的比例，只统计登记了统计检验的试验，终止占比是提前终止数除以该领域全部试验数。点格子查看对应试验。";
     const st = tas.map(ta => {
       const r = all.filter(t => t.ta===ta), by = k => r.filter(t => t._set===k);
-      const withP = by("results").filter(t => (t.pvals||[]).some(x => x.p!=null));
-      const sig = withP.filter(t => t.pvals.some(x => x.p!=null && x.p<0.05)).length;
+      const judged = by("results").filter(t => ["达到","未达到","部分达到"].includes(t.as?.verdict));
+      const withP = judged, sig = judged.filter(t => t.as.verdict==="达到").length;
       return {ta, n:r.length, results:by("results").length, completed:by("completed").length, upcoming:by("upcoming").length,
               stopped:by("stopped").length, sig, withP:withP.length};
     });
     const mx = k => Math.max(...st.map(s => s[k]));
     const rates = st.map(s => s.withP>=5 ? s.sig/s.withP : null), srates = st.map(s => s.stopped/s.n);
     const mr = Math.max(...rates.filter(x=>x!=null)), ms = Math.max(...srates);
-    head = `<tr><th>治疗领域</th><th class="num">全部</th><th class="num">新公布结果</th><th class="num">p&lt;0.05 占比</th><th class="num">待公布</th><th class="num">即将完成</th><th class="num">提前终止</th><th class="num">终止占比</th></tr>`;
+    head = `<tr><th>治疗领域</th><th class="num">全部</th><th class="num">新公布结果</th><th class="num">达到率</th><th class="num">待公布</th><th class="num">即将完成</th><th class="num">提前终止</th><th class="num">终止占比</th></tr>`;
     body = st.map((s,i) => `<tr><th scope="row">${esc(s.ta)}</th>
       <td class="num"><button class="cell" data-g="all" data-ta="${esc(s.ta)}">${s.n}</button></td>
       ${["results"].map(k => `<td class="num" style="${shade(s[k],mx(k),"--accent")}"><button class="cell" data-g="${k}" data-ta="${esc(s.ta)}">${s[k]}</button></td>`).join("")}
@@ -727,6 +779,32 @@ function renderMatrix(){
   $("mx").querySelectorAll("button.cell").forEach(b => b.addEventListener("click", () => goReg(b.dataset.g, b.dataset.ta, b.dataset.mod)));
 }
 document.querySelectorAll("[data-mx]").forEach(b => b.addEventListener("click", () => { mxMode = b.dataset.mx; renderMatrix(); }));
+
+/* ---------- 成败分析 ---------- */
+const VORDER = [["达到","--pos"],["部分达到","--mix"],["存疑","--s2"],["未达到","--neg"],["无统计检验","--line"],["描述性","--muted"]];
+function firstSentence(s){ const m = String(s||"").match(/^[^。]*。[^。]*。?/); return (m ? m[0] : s).slice(0, 120); }
+function renderVerdicts(){
+  $("vd-block").hidden = false;
+  const R = REG.sets.results, c = {}; R.forEach(t => { const v = t.as?.verdict||"无统计检验"; c[v]=(c[v]||0)+1; });
+  const notes = new Set(REG.all.filter(t => t.note).map(t => t.nct)).size;
+  $("vd-meta").textContent = `${R.length} 条新结果 · ${REG.sets.stopped.length} 条终止 · ${notes} 条有人工分析`;
+  $("vd-bar").innerHTML = `<div class="sbar big">${VORDER.map(([k,col]) => c[k]?`<i style="flex:${c[k]};background:var(${col})" title="${k} ${c[k]}"></i>`:"").join("")}</div>
+    <div class="vd-leg">${VORDER.map(([k,col]) => c[k]?`<button class="vd-l" data-vd="${k}"><i style="background:var(${col})"></i>${k} <b>${c[k]}</b></button>`:"").join("")}</div>`;
+  $("vd-bar").querySelectorAll("[data-vd]").forEach(b => b.addEventListener("click", () => { goReg("results"); $("r-vd").value = b.dataset.vd; renderReg(); }));
+  const vrank = {"未达到":0,"部分达到":1};
+  const pick = (rows) => rows.filter(t => t.note).sort((a,b) => (vrank[a.as?.verdict]??2)-(vrank[b.as?.verdict]??2) || (b.n||0)-(a.n||0)).slice(0,5);
+  const cols = [
+    {h:`<span class="vd neg">未达到</span>III 期为什么失败`, rows: pick(REG.sets.results.filter(t => ["未达到","部分达到"].includes(t.as?.verdict)))},
+    {h:`<span class="vd pos">达到</span>III 期为什么成功`, rows: pick(REG.sets.results.filter(t => t.as?.verdict==="达到"))},
+    {h:`<span class="vd neg">终止</span>III 期为什么停下`, rows: pick(REG.sets.stopped.filter(t => t.as?.verdict==="终止" && /疗效/.test(t.note||"")))}
+  ];
+  $("vd-grid").innerHTML = cols.map(c => `<div class="pulse-col"><h3>${c.h}</h3><ol>${c.rows.map(t => `<li>
+      <button class="tbtn tt" data-ot="${esc(t.nct)}">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</button>
+      <div class="sm">${esc(t.group)} · ${esc((t.conditions||[])[0]||"")} · ${t.n||"?"} 例</div>
+      <div class="sm">${esc(firstSentence(t.note))}</div></li>`).join("")}</ol></div>`).join("");
+  $("vd-grid").querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openTrial(b.dataset.ot)));
+  $("r-vd").querySelector('option[value="_note"]').textContent = `有人工分析（${notes}）`;
+}
 
 /* ---------- 公司记分卡 ---------- */
 const SEGS = [["results","新公布结果","--s1"],["completed","待公布","--s2"],["upcoming","即将完成","--s3"],["stopped","提前终止","--s4"]];
@@ -765,10 +843,11 @@ function renderCompanies(){
       if (!open) return row;
       return row + `<tr class="co-detail"><td colspan="6"><div class="co-sets">${SEGS.map(([k,l,col]) => {
         const ts = c.trials.filter(t => t._set===k).sort((a,b) => String(b[SETS[k].date]||"").localeCompare(String(a[SETS[k].date]||"")));
-        return `<div><h4><i style="background:var(${col})"></i>${l} <b>${ts.length}</b></h4><ol>${ts.slice(0,8).map(t => `<li><a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</a><div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.phase)} 期 · ${esc(t[SETS[k].date]||"")}</div>${k==="stopped"&&t.why_cat?`<div class="sm">${esc(t.why_cat)}</div>`:""}</li>`).join("")}</ol>${ts.length>8?`<button class="all" data-coall="${k}" data-co="${esc(c.name)}">全部 ${ts.length} 条 →</button>`:""}</div>`;
+        return `<div><h4><i style="background:var(${col})"></i>${l} <b>${ts.length}</b></h4><ol>${ts.slice(0,8).map(t => `<li>${t.as||t.note?`<button class="tbtn" data-ot="${esc(t.nct)}">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</button>`:`<a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</a>`} ${vchip(t)}${noteMark(t)}<div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.phase)} 期 · ${esc(t[SETS[k].date]||"")}</div>${k==="stopped"&&t.why_cat?`<div class="sm">${esc(t.why_cat)}</div>`:""}</li>`).join("")}</ol>${ts.length>8?`<button class="all" data-coall="${k}" data-co="${esc(c.name)}">全部 ${ts.length} 条 →</button>`:""}</div>`;
       }).join("")}</div></td></tr>`;
     }).join("") + `</tbody>`;
   $("co").querySelectorAll(".co-name").forEach(b => b.addEventListener("click", () => { const n = b.dataset.co; coOpen.has(n) ? coOpen.delete(n) : coOpen.add(n); renderCompanies(); }));
+  $("co").querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openTrial(b.dataset.ot)));
   $("co").querySelectorAll("[data-coall]").forEach(b => b.addEventListener("click", () => goReg(b.dataset.coall, $("co-ta").value, "", b.dataset.co)));
   const more = $("co-more"); more.hidden = cs.length <= coLimit;
   more.textContent = `再显示 30 家（共 ${cs.length} 家）`;
@@ -841,10 +920,11 @@ function renderShelved(){
     .sort((a,b) => String(b.updated).localeCompare(String(a.updated)));
   $("sh-meta").textContent = `${rows.length} 项`;
   $("sh-list").innerHTML = rows.length ? rows.slice(0, shLimit).map(t => `<article class="sh-item">
-      <div class="sh-side"><span class="date">${esc(t.updated)}</span><span class="sig neg">${esc({TERMINATED:"终止",SUSPENDED:"暂停",WITHDRAWN:"撤回"}[t.status]||t.status)}</span></div>
+      <div class="sh-side"><span class="date">${esc(t.updated)}</span>${t.as?.verdict==="正常结束"?vchip(t):""}<span class="sig neg">${esc({TERMINATED:"终止",SUSPENDED:"暂停",WITHDRAWN:"撤回"}[t.status]||t.status)}</span></div>
       <div class="sh-main"><h3>${esc((t.interventions||[]).slice(0,2).join(" + ") || t.acronym || t.title)}</h3>
         <div class="meta"><b>${esc(t.group)}</b> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""} · ${esc(t.ta)} · ${esc((t.conditions||[]).slice(0,2).join("；"))}</div>
         ${t.why?`<p class="sh-why">“${esc(t.why)}”</p>`:""}
+        ${t.note?`<div class="dtl-note"><span class="who">分析</span>${esc(t.note)}</div>`:""}
         <div class="sm">${esc(t.acronym||t.title)} · <a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a></div></div>
     </article>`).join("") : `<div class="empty">没有符合条件的项目，试试清空筛选。</div>`;
   const more = $("sh-more"); more.hidden = rows.length <= shLimit; more.textContent = `再显示 40 项（共 ${rows.length} 项）`;

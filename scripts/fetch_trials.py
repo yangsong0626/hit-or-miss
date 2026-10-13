@@ -93,7 +93,7 @@ TA_RULES = [
 SPONSOR_GROUPS = [
     (r"Hoffmann-La Roche|Genentech|Chugai|\bRoche\b", "Roche"),
     (r"AstraZeneca|MedImmune|Alexion|Acerta", "AstraZeneca"),
-    (r"Merck Sharp|\bMSD\b|Merck & Co|Organon", "MSD"),
+    (r"Merck Sharp|\bMSD\b|Merck & Co", "MSD"),
     (r"Merck KGaA|EMD Serono|SpringWorks", "Merck KGaA"),
     (r"GlaxoSmithKline|\bGSK\b|ViiV", "GSK"),
     (r"Novartis|Sandoz", "Novartis"),
@@ -145,18 +145,22 @@ def sponsor_group(name):
 
 
 # ---------- 终止原因归类 ----------
+# 先去掉「与安全性 / 疗效无关」这类否定句，避免把否定当成原因
+NEGATED = re.compile(r"\b(not|no|unrelated|non)[\s-]+((related|due|driven|based|attributable|linked|associated|because|any|new|or|and|"
+                     r"unexpected|to|by|on|of|the|a|an|result|change|changes|in|with)[\s-]+){0,6}(safety|efficacy|benefit.risk)"
+                     r"(\s+(concerns?|issues?|reasons?|signals?|risks?|findings?))?|other than safety|not as a result of [^.,;]*", re.I)
 WHY_RULES = [
-    # 明确的商业 / 战略措辞，以及「与安全性、疗效无关」的否定句，优先判定
-    (r"non-safety|other than safety|not as a result of|(not|unrelated|no)\W+(\w+\W+){0,4}(safety|efficacy)|business|strateg|portfolio|"
-     r"commercial|corporate|priorit|pipeline|development (program|plan|policy)|stop the development|redirect|focus (its )?resources|"
-     r"wind down|acquisition|acquired|merger|licens", "申办方决定 / 战略"),
-    (r"safety|adverse|toxicit|tolerab|death", "安全性"),
-    (r"futil|efficacy|lack of (\w+ )?(benefit|effect|response)|limited ([\w-]+ )?activity|lack of (\w+ )?activity|did not meet|not met|interim|"
-     r"unlikely to|not demonstrat|benefit.risk|clinical benefit|DSMB|DMC|data monitoring", "疗效 / 无效性"),
-    (r"enrol|recruit|accru|feasib|eligible|event rate|operational", "入组 / 运营"),
+    (r"precaution|PK finding", "安全性"),
+    (r"futil|efficacy|lack of (\w+ )?(benefit|effect|response|activity)|limited ([\w-]+ )?activity|did not (meet|improve|demonstrate|achieve)|"
+     r"not met|interim|unlikely to|not demonstrat|benefit.risk|clinical benefit|DSMB|DMC|IDMC|IDMEAC|data monitoring|negative results", "疗效 / 无效性"),
+    (r"had been demonstrated|objectives? (were |was )?(met|achieved)|completion of (overall )?program objectives|"
+     r"sufficient to perform the analysis|no further .*(required|necessary)|no longer (necessary|required|needed)", "目标已达成"),
+    (r"safety (concern|signal|issue|risk|finding|evaluation|review)|adverse|toxicit|tolerab|death|\bSAE\b|pericardial|hepatotox", "安全性"),
+    (r"enrol|recruit|accru|feasib|eligible|event rate|operational|standard of care|clinical practice", "入组 / 运营"),
+    (r"business|strateg|portfolio|commercial|corporate|priorit|pipeline|development (program|plan|policy)|stop the development|"
+     r"redirect|focus (its )?resources|wind down|acquisition|acquired|merger|licens|book of business", "申办方决定 / 战略"),
     (r"fund|resources|financ", "资金"),
     (r"regulat|FDA|EMA|health authority|clinical hold", "监管"),
-    # 只说「申办方决定」而没有具体原因的，最后兜底
     (r"sponsor('s)? (decision|request)|sponsor decided|request of the sponsor|by (the )?sponsor|sponsor cancel|company decision|"
      r"decided not to|not to (proceed|continue|initiate)|administrative", "申办方决定 / 战略"),
 ]
@@ -165,10 +169,11 @@ WHY_RULES = [
 def why_cat(why, status):
     if not why:
         return "未填写"
+    text = NEGATED.sub(" ", why)
     for pat, label in WHY_RULES:
-        if re.search(pat, why, re.I):
+        if re.search(pat, text, re.I):
             return label
-    return "其他"
+    return "申办方决定 / 战略" if text != why else "其他"
 
 
 PLACEBO = re.compile(r"^(placebo|vehicle|saline|sham|standard of care|best supportive care|matching placebo)", re.I)
@@ -288,7 +293,7 @@ def assess(t):
 
     if t.get("_set") == "stopped" or t.get("status") in ("TERMINATED", "SUSPENDED", "WITHDRAWN"):
         if t.get("_set") == "stopped":
-            verdict = "终止"
+            verdict = "正常结束" if t.get("why_cat") == "目标已达成" else "终止"
             if t.get("why_cat"):
                 why.append(f"申办方给出的原因归为「{t['why_cat']}」")
             if t.get("status") == "WITHDRAWN":
@@ -314,7 +319,7 @@ def assess(t):
         g = prims[0]["groups"] if prims else []
         if prims and g:
             ev.insert(0, f"主要终点「{prims[0]['title'][:60]}」：" + "；".join(f"{x['t']} {_fmt(x['v'])}{prims[0]['unit'] and ' ' + prims[0]['unit'][:12]}" for x in g[:3]))
-        verdict = "描述性" if comp in ("none", "") or not prims else "未登记检验"
+        verdict = "描述性" if comp in ("none", "") or not prims else "无统计检验"
         if verdict == "描述性":
             why.append("单臂或无对照设计，注册库只登记了描述性数据，无法用统计检验判断成败，需要和历史对照或同类药物比较")
         else:
@@ -332,7 +337,7 @@ def assess(t):
                 why.append("这是非劣效检验，达到意味着不比对照差，不代表更好")
             elif est is not None and lo is not None and hi is not None:
                 dist = min(abs(lo - null), abs(hi - null))
-                why.append("置信区间离无效线很远，效应稳健" if dist > 0.25 * max(abs(hi - lo), 1e-9) else "置信区间贴近无效线，效应偏小，需看次要终点和亚组是否一致")
+                why.append("置信区间离无效线较远，效应稳健" if dist > 0.3 * max(abs(est - null), 1e-9) else "置信区间贴近无效线，效应幅度有限，需看次要终点和亚组是否一致")
         else:
             if est is not None and lo is not None and hi is not None and lo < null < hi:
                 width = hi - lo
@@ -355,6 +360,8 @@ def assess(t):
             if len(vals) >= 2 and max(abs(v) for v in vals) > 0 and (max(vals) - min(vals)) / max(abs(v) for v in vals) < 0.15:
                 why.append("各组数值非常接近，安慰剂组反应可能偏高")
     else:
+        if comp == "none":
+            why.append("单臂试验，p 值来自与基线或预设阈值的比较，不是与对照组比较，证据强度低于随机对照")
         if comp == "placebo":
             why.append("对照为安慰剂，证明了「有效」，但和现有疗法谁更好还需头对头数据")
         elif comp == "active":
@@ -363,7 +370,7 @@ def assess(t):
             why.append("开放标签设计，主观终点可能有偏倚")
     if sae_gap is not None and sae_gap >= 5:
         why.append(f"各组严重不良事件率相差 {sae_gap:.0f} 个百分点，安全性需要关注")
-    return {"verdict": verdict, "ev": ev, "why": why}
+    return {"verdict": verdict, "ev": ev, "why": list(dict.fromkeys(why))}
 
 
 def pick(study):
