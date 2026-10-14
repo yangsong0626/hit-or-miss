@@ -1,0 +1,46 @@
+{
+ "_about": "靶点红黑榜的映射：只给受试药物（不是对照药）标靶点。NCT 号对应注册库试验，id 对应 curated.json 里的精选读出。结局取自试验判定：达到 = 红，未达到或因疗效终止 = 黑，部分达到 = 平。因战略、入组等非疗效原因终止的不计入。",
+ "outcome_override": {
+  "NCT03834493": "neg", "NCT04191096": "neg", "NCT03833167": "neg", "NCT06029439": "neg", "NCT05518149": "neg",
+  "NCT03631199": "neg", "NCT05746559": "neg", "NCT01129674": "neg", "NCT01487083": "neg", "NCT05712694": "neg",
+  "NCT05018585": "neg", "NCT03906071": "neg", "NCT06420297": "neg", "NCT05163314": "neg", "NCT04365868": "neg",
+  "NCT04855747": "neg", "NCT05226598": "neg", "NCT04738487": "neg", "NCT04374136": "neg"
+ },
+ "trials": {
+  "NCT04527991": "TROP2", "NCT04655976": "TIM-3", "NCT04533529": "食欲素受体 OX2R", "NCT03867084": "PD-1 / PD-L1",
+  "NCT05952856": "PCSK9", "NCT04797104": "PCSK9", "NCT03872401": "PCSK9",
+  "NCT05398445": "OX40", "NCT05651711": "OX40", "NCT05704738": "OX40", "NCT05724199": "OX40",
+  "NCT04607421": "BRAF", "NCT06034743": "醛固酮合酶 CYP11B2", "NCT05305547": "SARS-CoV-2 3CL 蛋白酶",
+  "NCT05748483": "CGRP / CGRP 受体", "NCT05861427": "CGRP / CGRP 受体", "NCT05810038": "CGRP / CGRP 受体", "NCT05989048": "CGRP / CGRP 受体",
+  "NCT04246177": "PD-1 / PD-L1",
+  "NCT06045221": "GLP-1R", "NCT05872620": "GLP-1R", "NCT06109311": "GLP-1R", "NCT05869903": "GLP-1R", "NCT05971940": "GLP-1R",
+  "NCT05649137": "GLP-1R", "NCT05646706": "GLP-1R", "NCT05035095": "GLP-1R",
+  "NCT04028492": "NK1 受体", "NCT05603754": "Wnt 通路", "NCT03742518": "Wnt 通路",
+  "NCT06039189": "IL-23 / IL-23R", "NCT06220604": "IL-23 / IL-23R", "NCT06095115": "IL-23 / IL-23R", "NCT06143878": "IL-23 / IL-23R", "NCT06095102": "IL-23 / IL-23R",
+  "NCT04811092": "激活素信号（ActRII 配体）", "NCT04717414": "激活素信号（ActRII 配体）",
+  "NCT05528172": "ROCK", "NCT04351555": "EGFR", "NCT04493853": "AKT",
+  "NCT03088540": "PD-1 / PD-L1", "NCT03409614": "PD-1 / PD-L1", "NCT04660344": "PD-1 / PD-L1", "NCT03456063": "PD-1 / PD-L1",
+  "NCT03834493": "PD-1 / PD-L1", "NCT04191096": "PD-1 / PD-L1", "NCT03833167": "PD-1 / PD-L1",
+  "NCT04374136": "Sortilin / 颗粒体蛋白", "NCT04173273": "S1P 受体", "NCT05456191": "BCR-ABL",
+  "NCT03737643": "PARP", "NCT04475939": "PARP", "NCT04729387": "PI3Kα",
+  "NCT03924895": "Nectin-4", "NCT02104674": "IL-13", "NCT01867125": "IL-13",
+  "NCT04746924": "TIGIT", "NCT04513925": "TIGIT", "NCT05226598": "TIGIT", "NCT04738487": "TIGIT",
+  "NCT05132582": "HER2", "NCT05113251": "HER2", "NCT04751487": "IL-33", "NCT04548999": "CD20",
+  "NCT04072354": "TAAR1", "NCT04092686": "TAAR1", "NCT05145413": "毒蕈碱受体 M1/M4",
+  "NCT05257408": "糖皮质激素受体", "NCT05398263": "TSLP", "NCT05582395": "心肌肌球蛋白",
+  "NCT06029439": "κ 阿片受体", "NCT05518149": "κ 阿片受体", "NCT03631199": "IL-1β", "NCT05746559": "补体 C5",
+  "NCT01129674": "mGlu2/3 受体", "NCT01487083": "mGlu2/3 受体", "NCT05712694": "精氨酸代谢", "NCT05018585": "GAD65（抗原特异性免疫）",
+  "NCT03906071": "TAM / VEGFR 多靶点", "NCT06420297": "催产素受体", "NCT05163314": "胆固醇 24-羟化酶", "NCT04365868": "半乳糖凝集素-3",
+  "NCT04855747": "NMDA 受体"
+ },
+ "curated": {
+  "furvent": "EGFR", "rez3": "EGFR", "b7h3": "B7-H3", "harbor": "DMPK", "horizon": "Lp(a)", "aspire": "UBE3A-ATS",
+  "sanreco": "TMPRSS6", "shasta": "APOC3", "c93": "PD-1 / PD-L1", "triumph": "GIP / GLP-1 / 胰高血糖素受体", "triumph-1": "GIP / GLP-1 / 胰高血糖素受体",
+  "mt6": "BCMA / GPRC5D", "sentry": "XPO1", "xport-ec-042": "XPO1", "fianlimab": "LAG-3",
+  "aloft-ipf": "LPA1", "action-1": "SSTR2", "oasiz-301": "CD40L", "unity": "FcRn", "fusion": "FUS", "azure-1": "HBsAg",
+  "interpath-001": "个体化新抗原", "ahead-merit": "HPV16 E6/E7", "cardio-ttransform": "TTR", "hickory": "碱性磷酸酶（酶替代）",
+  "brunello": "Wnt 通路", "harmoni-gi1": "PD-1 × VEGF", "atlas-uc": "TL1A", "arise-pd": "GPR6", "acacia-hcm": "心肌肌球蛋白",
+  "bruin-cll-313": "BTK", "propel-3": "FGFR3", "zupreme-2": "胰淀素受体", "synchronize-1": "GLP-1R / 胰高血糖素受体",
+  "clarity-gastric-01": "CLDN18.2", "iza-bren": "EGFR × HER3", "trofuse-005": "TROP2"
+ }
+}

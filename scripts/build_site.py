@@ -21,6 +21,21 @@ for v in d["sets"].values():
         if x.get("verdict") and t.get("as"):
             t["as"]["verdict"] = x["verdict"]
 d["notes_count"] = n
+base = os.path.dirname(data)
+cur_path, tg_path = os.path.join(base, "curated.json"), os.path.join(base, "targets.json")
+cur = json.load(open(cur_path, encoding="utf-8")) if os.path.exists(cur_path) else {"readouts": [], "readthrough": [], "calendar": []}
+tg = json.load(open(tg_path, encoding="utf-8")) if os.path.exists(tg_path) else {"trials": {}, "curated": {}}
+ov = tg.get("outcome_override", {})
+for v in d["sets"].values():
+    for t in v:
+        if t.get("nct") in tg["trials"]:
+            t["tgt"] = tg["trials"][t["nct"]]
+            if t["nct"] in ov:
+                t["tgt_out"] = ov[t["nct"]]
+for c in cur["readouts"]:
+    if c["id"] in tg["curated"]:
+        c["tgt"] = tg["curated"][c["id"]]
+d["curated"] = cur
 js = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 tag = '<script id="trials-data" type="application/json">' + js + "</script>\n"
 marker = "\n<script>\n"
