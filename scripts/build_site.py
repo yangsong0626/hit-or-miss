@@ -21,6 +21,19 @@ for v in d["sets"].values():
         if x.get("verdict") and t.get("as"):
             t["as"]["verdict"] = x["verdict"]
 d["notes_count"] = n
+
+# 药物形式：页面只需要每个干预的名字、细类和角色，描述和别名不内嵌，减小页面体积
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import modality  # noqa: E402
+for v in d["sets"].values():
+    for t in v:
+        if "modg" not in t:
+            t["mod"], t["mods"] = modality.classify_trial(t)
+            t["modg"] = modality.GROUPS.get(t["mod"], "未识别")
+        t["iv"] = [{"n": iv["n"], "m": modality.classify_one(iv), "r": iv.get("r", "x")}
+                   for iv in (t.get("iv") or []) if not modality.PLACEBO.search(iv.get("n") or "")][:6]
+d["mod_order"] = modality.ORDER
+d["mod_groups"] = modality.GROUPS
 base = os.path.dirname(data)
 cur_path, tg_path = os.path.join(base, "curated.json"), os.path.join(base, "targets.json")
 cur = json.load(open(cur_path, encoding="utf-8")) if os.path.exists(cur_path) else {"readouts": [], "readthrough": [], "calendar": []}

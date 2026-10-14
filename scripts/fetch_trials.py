@@ -13,7 +13,7 @@ Hit or Miss · ClinicalTrials.gov 全量抓取脚本
     python fetch_trials.py --all-sponsors # 包含学术、政府申办
     python fetch_trials.py --days 365     # 回看窗口（默认 180 天）
 """
-import argparse, json, re, sys, time, urllib.parse, urllib.request
+import argparse, json, os, re, sys, time, urllib.parse, urllib.request
 from datetime import date, timedelta
 
 API = "https://clinicaltrials.gov/api/v2/studies"
@@ -53,6 +53,10 @@ def fetch_all(advanced, status=None, cap=3000, label=""):
 
 
 # ---------- 分类启发式（可自行扩充） ----------
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import modality  # noqa: E402
+
+# 旧版药物形式规则，已由 scripts/modality.py 取代，保留作参考
 MOD_RULES = [
     (r"vedotin|deruxtecan|govitecan|tecan\b|rezetecan|pelitecan|ozogamicin|mafodotin|emtansine|tesirine|soravtansine|\bADC\b", "ADC"),
     (r"leucel|autoleucel|CAR[- ]?T|cabtagene|\w+cel\b|cell therapy|stem cell|T[- ]cells?\b|NK cells?\b", "细胞治疗"),
@@ -426,7 +430,7 @@ def pick(study):
         "interventions": interventions[:4],
         "primary": [o.get("measure", "")[:160] for o in prim[:2]],
         "pvals": pvals[:3],
-        "mod": classify(" ".join(interventions), MOD_RULES, "其他"),
+        "iv": modality.iv_records(arms),
         "ta": classify(" ".join(conditions) + " " + ident.get("briefTitle", ""), TA_RULES, "其他"),
         "dt": details(study),
     }
@@ -465,6 +469,7 @@ def main():
            "sets": {k: [pick(s) for s in v] for k, v in sets.items()}}
     for k, v in out["sets"].items():
         for t in v:
+            set_mod(t)
             t["_set"] = k
             if k in ("results", "stopped"):
                 t["as"] = assess(t)
@@ -475,6 +480,11 @@ def main():
     print(f"完成：{counts} → {a.out}", file=sys.stderr)
 
 
+def set_mod(t):
+    t["mod"], t["mods"] = modality.classify_trial(t)
+    t["modg"] = modality.GROUPS.get(t["mod"], "未识别")
+
+
 def reclassify(path):
     """不重新联网，只按最新规则重算已有 trials.json 的领域和药物形式。"""
     with open(path, encoding="utf-8") as f:
@@ -482,7 +492,7 @@ def reclassify(path):
     for v in d["sets"].values():
         for t in v:
             t["interventions"] = [x for x in t["interventions"] if not PLACEBO.match(x.strip())]
-            t["mod"] = classify(" ".join(t["interventions"]), MOD_RULES, "其他")
+            set_mod(t)
             t["ta"] = classify(" ".join(t["conditions"]) + " " + t["title"], TA_RULES, "其他")
             t["group"] = sponsor_group(t["sponsor"])
             t["why_cat"] = why_cat(t.get("why", ""), t["status"]) if t["status"] in ("TERMINATED", "SUSPENDED", "WITHDRAWN") else ""
