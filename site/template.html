@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hit or Miss</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -200,6 +204,43 @@ table.mx,table.co{min-width:680px}
 @media (max-width:900px){.mo-top{grid-template-columns:minmax(0,1fr)}
   .co-detail td>.co-sets,.co-detail td>.mo-dwrap{position:sticky;left:12px;max-width:calc(100vw - 100px)}}
 @media (max-width:560px){.co-sets{grid-template-columns:minmax(0,1fr)}}
+.sig.tg{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.ls-how{margin:4px 0 14px;font-size:13.5px;color:var(--muted)}
+.ls-how summary{cursor:pointer;color:var(--accent);font-weight:600}
+.ls-how ul{margin:8px 0 0;padding-left:18px}.ls-how li{margin:3px 0}
+.ls-chart-wrap{border:1px solid var(--line);background:var(--surface);padding:10px 10px 6px;margin-bottom:16px}
+.ls-chart{overflow-x:auto}
+.ls-chart svg{display:block}
+.ls-chart .ax{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.ls-chart .axt{font-size:12px;fill:var(--muted)}
+.ls-chart .zone{font-size:12px;font-weight:700;opacity:.75}
+.ls-chart .lbl{font-size:11px;fill:var(--ink);pointer-events:none;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.ls-chart circle{cursor:pointer;stroke:var(--surface);stroke-width:1}
+.ls-chart circle:hover,.ls-chart circle.sel{stroke:var(--ink);stroke-width:2}
+.ls-leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--muted);padding:6px 4px 0}
+.ls-leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.ls .ph{display:flex;height:12px;border-radius:2px;overflow:hidden;gap:1px;background:var(--line);min-width:4px}
+.ls .ph i{display:block;min-width:2px}
+.ls .phn{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:3px;white-space:nowrap}
+.ls .ev{font-family:var(--f-mono);font-size:12.5px;white-space:nowrap}
+.ls .ev .p{color:var(--pos)}.ls .ev .n{color:var(--neg)}
+.ls-tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;margin:1px 4px 1px 0}
+.ls-tag.fail{background:var(--neg-soft);color:var(--neg)}
+.ls .mods{font-size:12px;color:var(--muted)}
+.ls-progs{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.ls-progs th:nth-child(1){width:52px}.ls-progs th:nth-child(4){width:22%}.ls-progs th:nth-child(5){width:88px}
+.ls-sub>div{min-width:0}
+.ls th{white-space:nowrap}
+.ls-progs th{font-size:12px;color:var(--muted);font-weight:600;text-align:left;padding:4px 8px;border-bottom:1px solid var(--line)}
+.ls-progs td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+.ls-progs .phb{font-family:var(--f-mono);font-size:12px;font-weight:700;white-space:nowrap}
+.ls-sub{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px}
+.ls-sub h4{margin:0 0 6px;font-size:13px}
+.ls-sub ol{list-style:none;margin:0;padding:0}
+.ls-sub li{font-size:13px;padding:5px 0;border-top:1px solid var(--line)}
+@media (max-width:900px){.ls-sub{grid-template-columns:minmax(0,1fr)}}
+.co-detail td>.ls-dwrap{}
+@media (max-width:900px){.co-detail td>.ls-dwrap{position:sticky;left:12px;max-width:calc(100vw - 100px)}}
 .tl-wrap{border:1px solid var(--line)}
 .tl-svg{display:block}
 .tl-svg text{fill:var(--muted);font-family:var(--f-body)}
@@ -334,6 +375,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
     <button id="tab-ov" role="tab" aria-selected="true" data-tab="ov">总览</button>
     <button id="tab-co" role="tab" aria-selected="false" data-tab="co">公司</button>
     <button id="tab-mo" role="tab" aria-selected="false" data-tab="mo">药物形式</button>
+    <button id="tab-ls" role="tab" aria-selected="false" data-tab="ls">靶点赛道</button>
     <button id="tab-tl" role="tab" aria-selected="false" data-tab="tl">时间轴</button>
     <button id="tab-sh" role="tab" aria-selected="false" data-tab="sh">被搁置的资产</button>
     <button id="tab-tg" role="tab" aria-selected="false" data-tab="tg">靶点红黑榜</button>
@@ -416,6 +458,47 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
         <span class="regmeta" id="mo-meta"></span>
       </div>
       <div class="tablewrap"><table class="co mo" id="mo"></table></div>
+    </section>
+  </div>
+
+  <div id="panel-ls" class="panel" hidden>
+    <section class="block">
+      <div class="block-head"><h2>靶点赛道</h2><span class="regmeta" id="ls-meta"></span></div>
+      <p class="sub">把近两年新登记的 I、I/II、II 期试验和本站的 II/III 期数据按受试药的靶点合在一起，看每个靶点上有几家公司、推进到哪一期、用什么药物形式、最近有没有新玩家，以及有没有 II/III 期阳性或失败读出。同一家公司的同一个药算一个项目。适合药化和 CADD 判断「还能不能追」：已经被临床验证、但做的公司不多的靶点，是追赶型项目的候选。</p>
+      <details class="ls-how"><summary>判断规则和局限</summary>
+        <ul>
+          <li><b>已验证</b>：有 II/III 期读出达到主要终点，或已有 III 期项目。</li>
+          <li><b>可追赶</b>：已验证，且在研公司不超过 6 家。<b>红海</b>：已验证，公司 10 家以上。<b>已验证 · 竞争中</b>：介于两者之间。</li>
+          <li><b>早期蓝海</b>：最高只到 I/II 期，公司不超过 3 家。<b>早期扎堆</b>：还没验证，公司已有 6 家以上。</li>
+          <li><b>有失败信号</b>：未达到或因疗效 / 安全性终止的读出不少于达到的读出。</li>
+          <li>选了某种药物形式时，拥挤度只按这种形式的项目算（比如只看小分子的竞争），「是否已验证」仍按全部形式算，因为靶点生物学的验证不分形式。</li>
+          <li>靶点从注册信息自动识别，只认「XX 抑制剂 / 激动剂 / 抗体 / ADC」「anti-XX」「targeting XX」这类机制写法。早期试验里约四分之一能识别，其余只有研发代号、没写机制，所以项目数和公司数是下限。只收企业申办、在 ClinicalTrials.gov 登记的试验，只在中国或欧盟登记的项目看不到。</li>
+        </ul>
+      </details>
+      <div class="filters">
+        <input id="ls-q" type="search" placeholder="搜靶点、公司、药名…" aria-label="搜靶点">
+        <select id="ls-mod" aria-label="药物形式">
+          <option value="">全部药物形式</option>
+          <option value="小分子">小分子（含降解剂）</option>
+          <option value="蛋白 / 抗体">蛋白 / 抗体（含 ADC、双抗）</option>
+          <option value="多肽">多肽</option>
+          <option value="核酸">核酸</option>
+          <option value="细胞 / 基因">细胞 / 基因治疗</option>
+          <option value="放射性药物">放射性药物</option>
+        </select>
+        <select id="ls-ta" aria-label="治疗领域"></select>
+        <select id="ls-tag" aria-label="判断"><option value="">全部判断</option></select>
+        <select id="ls-sort" aria-label="排序">
+          <option value="prog">按项目数</option>
+          <option value="co">按公司数</option>
+          <option value="new">按近 12 个月新进</option>
+          <option value="phase">按最高阶段</option>
+          <option value="chase">可追赶优先</option>
+        </select>
+      </div>
+      <div class="ls-chart-wrap"><div class="ls-chart" id="ls-chart"></div><div class="ls-leg" id="ls-leg"></div></div>
+      <div class="tablewrap"><table class="co ls" id="ls"></table></div>
+      <button class="more" id="ls-more" hidden></button>
     </section>
   </div>
 
@@ -617,9 +700,32 @@ const SETS = {
   completed:{name:"刚完成待公布", date:"pcd", dl:"主要完成", note:"主要完成日在最近 120 天、尚未登记结果的试验。数据已锁或即将锁定，顶线新闻通常在这个窗口内出现。"},
   upcoming:{name:"即将完成", date:"pcd", dl:"预计完成", note:"未来半年内到达主要完成日的 III 期试验，是 BD 和投资最关心的催化剂日历。日期为申办方登记的预估值，经常推迟。"},
   stopped:{name:"提前终止", date:"updated", dl:"最近更新", note:"最近更新为终止、暂停或撤回的 II/III 期试验，附申办方填写的停止原因。很多项目在这里先露出信号，早于任何新闻稿。"},
-  all:{name:"四类合并", date:null, dl:"日期", note:"新公布结果、待公布、即将完成、提前终止四类合在一起，状态列标明每条属于哪一类。"}
+  all:{name:"四类合并", date:null, dl:"日期", note:"新公布结果、待公布、即将完成、提前终止四类合在一起，状态列标明每条属于哪一类。"},
+  active:{name:"在研 II/III 期", date:"fp", dl:"首次登记", note:""},
+  early:{name:"早期新进", date:"fp", dl:"首次登记", note:"近两年新登记的企业申办 I 期、I/II 期和 II 期试验（已去掉生物等效、药物相互作用、物质平衡、肝肾功能等临床药理研究），用来看谁刚进入哪个靶点。靶点从注册信息自动识别，约四分之一能识别出来。"}
 };
 let REG = null, regSet = "results", regLimit = 200;
+/* 早期新进（I/II 期）单独放在 early.json，用到时再加载 */
+let EARLY = null, ACTIVE = [], earlyErr = "", earlyP = null;
+function prepSlim(t, set){
+  t._set = set; t.group = t.group || t.sponsor;
+  t.iv = (t.iv||[]).map(iv => ({...iv, r: iv.r || "x"}));
+  t.interventions = t.iv.map(iv => iv.n); t.mods = t.mods || [t.mod]; t.primary = t.primary || [];
+  return t;
+}
+function loadEarly(){
+  if (EARLY) return Promise.resolve(EARLY);
+  if (earlyP) return earlyP;
+  const get = f => fetch(f, {cache:"no-cache"}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  earlyP = Promise.all([get("early.json"), get("active.json").catch(() => ({trials: []}))])
+    .then(([e, a]) => {
+      EARLY = (e.trials||[]).map(t => prepSlim(t, "early"));
+      ACTIVE = (a.trials||[]).map(t => prepSlim(t, "active"));
+      return EARLY;
+    })
+    .catch(() => { EARLY = []; earlyErr = "早期试验数据没有加载出来。直接用浏览器打开本地文件时会被拦截，部署到网站上即可正常显示。"; return EARLY; });
+  return earlyP;
+}
 const LENSCOL = {rd:"干预 · 药物形式", bd:"申办方 · 合作方", md:"主要终点"};
 
 function fmtP(p){ if(p==null) return null; return p<0.001 ? "p<0.001" : "p="+(p<0.01?p.toFixed(3):p.toFixed(2)); }
@@ -655,16 +761,18 @@ function setReg(data){
   }).join("");
   $("regfilters").hidden = false;
   const taOpts = opts("ta","全部领域");
-  $("co-ta").innerHTML = taOpts; $("sh-ta").innerHTML = taOpts; $("tg-ta").innerHTML = taOpts; $("mo-ta").innerHTML = taOpts;
+  $("co-ta").innerHTML = taOpts; $("sh-ta").innerHTML = taOpts; $("tg-ta").innerHTML = taOpts; $("mo-ta").innerHTML = taOpts; $("ls-ta").innerHTML = taOpts;
   renderSubtabs(); renderReg(); renderPulse(); renderMatrix(); renderVerdicts(); renderCompanies(); renderModality(); renderShelved(); renderTargets(); renderAsof();
   if (!$("panel-tl").hidden) renderTimeline();
 }
 
 function renderSubtabs(){
-  $("subtabs").innerHTML = Object.entries(SETS).map(([k,s]) =>
-    `<button data-set="${k}" aria-pressed="${k===regSet}">${s.name}${REG?`<b>${(k==="all"?REG.all:REG.sets[k])?.length??0}</b>`:""}</button>`).join("");
+  $("subtabs").innerHTML = Object.entries(SETS).filter(([k]) => k !== "active").map(([k,s]) =>
+    `<button data-set="${k}" aria-pressed="${k===regSet}">${s.name}${REG?`<b>${k==="early" ? (EARLY ? EARLY.length : (REG.early_n||"…")) : ((k==="all"?REG.all:REG.sets[k])?.length??0)}</b>`:""}</button>`).join("");
   $("setnote").textContent = SETS[regSet].note;
-  $("subtabs").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { regSet = b.dataset.set; regLimit = 200; renderSubtabs(); REG ? renderReg() : null; }));
+  $("subtabs").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { regSet = b.dataset.set; regLimit = 200; renderSubtabs();
+    if (regSet === "early" && !EARLY) { $("regbody").innerHTML = `<div class="empty">正在加载早期试验…</div>`; loadEarly().then(() => { renderSubtabs(); renderReg(); }); return; }
+    REG ? renderReg() : null; }));
 }
 
 function signal(t){
@@ -682,6 +790,7 @@ function signalFor(regSet, t){
     return vchip(t) + noteMark(t) + (ps.length ? `<div>${ps.map(x => `<span class="sig ${x.p<0.05?"pos":"neg"}" title="${esc(x.title)}">${fmtP(x.p)}</span>`).join("")}</div>` : "");
   }
   if(regSet==="completed") return `<span class="sig mix">待公布</span>`;
+  if(regSet==="early") return `<span class="sig">${esc((t.status||"").replace(/_/g," ").toLowerCase())}</span>${t.hv?`<span class="sig" title="招募健康受试者">健康受试者</span>`:""}${(t.tg||[]).map(g => `<span class="sig tg">${esc(g)}</span>`).join("")}`;
   return `<span class="sig">${esc(t.status.replace(/_/g," ").toLowerCase())}</span>`;
 }
 
@@ -712,7 +821,8 @@ function openTrial(nct){
 function renderReg(){
   const s = SETS[regSet], q = $("rq").value.trim().toLowerCase(), ta = $("r-ta").value, md = $("r-mod").value, ph = $("r-ph").value, vd = $("r-vd").value;
   const dkey = t => SETS[t._set||regSet].date;
-  let rows = (regSet==="all" ? REG.all : (REG.sets[regSet]||[])).filter(t =>
+  if (regSet === "early" && !EARLY) { $("regbody").innerHTML = `<div class="empty">正在加载早期试验…</div>`; loadEarly().then(renderReg); return; }
+  let rows = (regSet==="all" ? REG.all : regSet==="early" ? EARLY : (REG.sets[regSet]||[])).filter(t =>
     (!ta || t.ta===ta) && (!md || (md.startsWith("g:") ? modGroup(t.mod)===md.slice(2) : t.mod===md)) &&
     (!vd || (vd==="_note" ? !!t.note : t.as?.verdict===vd)) &&
     (!ph || (ph==="3" ? t.phase.includes("3") : !t.phase.includes("3"))) &&
@@ -737,13 +847,14 @@ function renderReg(){
 }
 ["rq","r-ta","r-mod","r-ph","r-vd"].forEach(id => $(id).addEventListener("input", () => { regLimit = 200; renderReg(); }));
 
-const TABS = ["ov","co","mo","tl","sh","tg","cur","reg"];
+const TABS = ["ov","co","mo","ls","tl","sh","tg","cur","reg"];
 function showTab(t){
   if (!TABS.includes(t)) t = "ov";
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t ? "true":"false"));
   TABS.forEach(k => { $("panel-"+k).hidden = k!==t; });
   try{ localStorage.setItem("hom-tab", t); }catch(e){}
   if (t==="tl" && REG) renderTimeline();
+  if (t==="ls" && REG) { if (EARLY) renderLandscape(); else { $("ls-meta").textContent = "正在加载早期试验…"; loadEarly().then(renderLandscape); } }
 }
 function goReg(set, ta, mod, q){
   regSet = set; regLimit = 200;
@@ -825,7 +936,7 @@ function renderVerdicts(){
 }
 
 /* ---------- 试验详情页 ---------- */
-const byNct = () => (REG ? new Map(REG.all.map(t => [t.nct, t])) : new Map());
+const byNct = () => { const m = new Map(ACTIVE.map(t => [t.nct, t])); (EARLY||[]).forEach(t => m.set(t.nct, t)); (REG?.all||[]).forEach(t => m.set(t.nct, t)); return m; };
 let lastFocus = null, dpPrevHash = "";
 function fmtV(v){ return v==null ? "—" : (Math.abs(v) >= 100 ? v.toFixed(0) : String(+v.toFixed(2))); }
 function primTable(pr){
@@ -890,18 +1001,21 @@ function openDetail(kind, id, fromHash){
     const t = M.get(id); if (!t) return;
     const c = D.find(x => x.nct === t.nct);
     title = t.acronym || t.title; crumb = SETS[t._set]?.name || "试验";
+    const isEarly = t._set === "early" || t._set === "active";
     const sameT = t.tgt ? [...D.filter(x => x.tgt === t.tgt && x.nct !== t.nct).map(x => ({kind:"c", d:x})), ...REG.all.filter(x => x.tgt === t.tgt && x.nct !== t.nct).map(x => ({kind:"t", t:x}))] : [];
     const sameCo = REG.all.filter(x => x.group === t.group && x.nct !== t.nct && (x.as || x.note)).sort((a,b) => (b.n||0)-(a.n||0)).map(x => ({kind:"t", t:x}));
     const sameDrug = (t.interventions||[])[0] ? REG.all.filter(x => x.nct !== t.nct && (x.interventions||[])[0] && (x.interventions[0].split(/[ (]/)[0].toLowerCase() === t.interventions[0].split(/[ (]/)[0].toLowerCase())).map(x => ({kind:"t", t:x})) : [];
     html = `<header class="dp-head ${VCLS[t.as?.verdict]||""}"><div class="card-head"><span class="date">${esc(t[SETS[t._set]?.date]||"")}</span>${vchip(t)}<span class="meta">${esc(t.phase)} 期 · ${esc(t.group)} · ${SETS[t._set]?.name||""}</span></div>
         <h2 id="dp-title">${esc(t.acronym || t.title)}</h2>${t.acronym?`<div class="meta">${esc(t.title)}</div>`:""}
-        <div class="tags"><span class="tag">${esc(t.ta)}</span><span class="tag">${esc(t.mod)}</span>${t.tgt?`<span class="tag">靶点 ${esc(t.tgt)}</span>`:""}<a class="tag" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)} ↗</a></div></header>
+        <div class="tags"><span class="tag">${esc(t.ta)}</span><span class="tag">${esc(t.mod)}</span>${t.tgt?`<span class="tag">靶点 ${esc(t.tgt)}</span>`:(t.tg||[]).length?`<span class="tag" title="从注册信息自动识别">靶点 ${esc(t.tg.join(" × "))}（自动）</span>`:""}<a class="tag" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)} ↗</a></div></header>
       ${t.note?`<section class="dp-sec"><h4>分析</h4><div class="dtl-note">${esc(t.note)}</div></section>`:""}
       ${c?`<section class="dp-sec"><h4>精选解读</h4><p class="sm">这项试验也在精选解读中，有三种视角的点评。</p><button class="more-link" data-oc="${esc(c.id)}">查看精选解读 →</button></section>`:""}
+      ${isEarly?`<section class="dp-sec"><p class="sm">${t._set==="early"?"这是近两年新登记的早期试验":"这是正在进行的 II/III 期试验"}，本站只保留了基本信息（用于靶点赛道），入组标准、分组和终点见 ClinicalTrials.gov 原始记录。</p></section>`:""}
       ${registryHTML(t)}
       ${relatedHTML(sameDrug, "同一药物的其他试验")}
       ${relatedHTML(sameT, `同靶点（${esc(t.tgt||"")}）的其他读出`)}
       ${relatedHTML(sameCo, `${esc(t.group)} 的其他试验`)}
+      ${(t.tg||[]).length?`<section class="dp-sec"><h4>靶点赛道</h4><p class="sm">看看这些靶点上还有哪些公司、推进到哪一期。</p>${t.tg.map(g => `<button class="more-link" data-ls="${esc(g)}">${esc(g)} 赛道 →</button>`).join(" ")}</section>`:""}
       <section class="dp-sec"><h4>来源</h4><ul><li><a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">ClinicalTrials.gov ${esc(t.nct)}</a></li></ul><p class="sm">判定和原因按注册库登记数据生成；「分析」为人工撰写，引用前请核对原始公告。</p></section>`;
   }
   const dp = $("detail");
@@ -912,6 +1026,7 @@ function openDetail(kind, id, fromHash){
   dp.scrollTop = 0; $("dp-close").focus({preventScroll:true});
   $("dp-body").querySelectorAll("[data-oc]").forEach(b => b.addEventListener("click", () => openDetail("c", b.dataset.oc)));
   $("dp-body").querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));
+  $("dp-body").querySelectorAll("[data-ls]").forEach(b => b.addEventListener("click", () => { closeDetail(); goLandscape(b.dataset.ls); }));
   const h = `${kind}-${id}`;
   if (!fromHash && location.hash.slice(1) !== h) { try { history.pushState(null, "", "#" + h); } catch(e) { location.hash = h; } }
 }
@@ -925,6 +1040,7 @@ $("dp-close").addEventListener("click", () => closeDetail());
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("detail").hidden) closeDetail(); });
 function routeHash(){
   const m = location.hash.match(/^#(c|t)-([A-Za-z0-9._~-]+)$/);
+  if (m && m[1]==="t" && !byNct().has(m[2]) && !EARLY) { loadEarly().then(() => openDetail("t", m[2], true)); return; }
   if (m) openDetail(m[1], m[2], true); else closeDetail(true);
 }
 window.addEventListener("hashchange", routeHash);
@@ -1099,6 +1215,182 @@ function renderModality(){
   $("mo").querySelectorAll("[data-mota]").forEach(b => b.addEventListener("click", () => goReg("all", b.dataset.mota, b.dataset.mod)));
 }
 ["mo-sort","mo-ta","mo-ph"].forEach(id => $(id).addEventListener("input", renderModality));
+
+/* ---------- 靶点赛道 ---------- */
+const LS_TAG = {"可追赶":"--pos","已验证 · 竞争中":"--s3","红海":"--neg","早期扎堆":"--mix","早期蓝海":"--accent","早期 · 少量竞争":"--muted"};
+const PH_LBL = {1:"I",1.5:"I/II",2:"II",2.5:"II/III",3:"III",4:"IV"};
+const PH_BINS = ["I","I/II","II","III"];
+const phCol = i => `color-mix(in srgb, var(--accent) ${[28,48,72,100][i]}%, var(--surface))`;
+const phNum = p => { const s = String(p||""); if (s.includes("3")) return s.includes("2") ? 2.5 : 3; if (s.includes("2")) return s.includes("1") ? 1.5 : 2; if (s.includes("4")) return 4; return 1; };
+const phBin = ph => ph < 1.5 ? 0 : ph < 2 ? 1 : ph < 2.5 ? 2 : 3;
+let lsLimit = 40; const lsOpen = new Set(); let lsRows = [];
+function drugKey(t){
+  const iv = (t.iv||[]).find(x => x.r !== "c" && !/器械/.test(x.m||"")) || {n: (t.interventions||[])[0] || t.nct, m: t.mod};
+  return nameKey(iv.n || "", iv.m || t.mod, t.nct);
+}
+function nameKey(nm, m, fallback){
+  const code = nm.match(/\b[A-Za-z]{1,6}(?:-[A-Za-z]{1,2})?-?\d{2,}[A-Za-z0-9]*\b|\b[A-Z]{2,4} \d{4,}\b/);
+  const word = nm.split(/[\s(,;:+/]/).filter(w => w && !/^(part|dose|cohort|arm|phase|low|high|open|blinded|single|multiple|\d)/i.test(w))[0] || nm;
+  const n = code ? code[0] : word;
+  return {k: n.toLowerCase().replace(/[^a-z0-9]/g, "") || fallback || nm, n: n.slice(0, 40), m};
+}
+function lsBuild(){
+  const fmod = $("ls-mod").value, ta = $("ls-ta").value;
+  const g0 = REG.generated.split("-").map(Number), cut = new Date(g0[0]-1, g0[1]-1, g0[2]).toISOString().slice(0,10);
+  const all = new Map(); ACTIVE.forEach(t => all.set(t.nct, t)); (EARLY||[]).forEach(t => all.set(t.nct, t)); REG.all.forEach(t => all.set(t.nct, t));
+  const curN = new Set(D.map(d => d.nct).filter(Boolean));
+  const T = new Map();
+  const get = g => { let o = T.get(g); if (!o){ o = {g, progs:new Map(), allProgs:new Map(), hit:0, miss:0, stop:0, ev:[], tas:{}}; T.set(g, o); } return o; };
+  all.forEach(t => {
+    if (!(t.tg||[]).length || (ta && t.ta !== ta)) return;
+    const ph = phNum(t.phase), co = t.group || t.sponsor, done = new Set();
+    const pairs = (t.tgm||[]).length ? t.tgm : t.tg.map(g => ({g}));
+    pairs.forEach(pr => {
+      const g = pr.g, o = get(g);
+      let dk = pr.n ? nameKey(pr.n, pr.m || t.mod, t.nct) : drugKey(t);
+      if (modGroup(dk.m) === "未识别" && modGroup(t.mod) !== "未识别") dk = {...dk, m: t.mod};
+      const key = co + "|" + dk.k;
+      const add = map => { let p = map.get(key); if (!p){ p = {co, drug:dk.n, m:dk.m, mg:modGroup(dk.m), ph:0, first:"9999", trials:[]}; map.set(key, p); }
+        p.ph = Math.max(p.ph, ph); if (t.fp && t.fp < p.first) p.first = t.fp; p.trials.push(t); };
+      add(o.allProgs);
+      if (!fmod || modGroup(dk.m) === fmod) add(o.progs);
+      if (done.has(g)) return; done.add(g);
+      o.tas[t.ta] = (o.tas[t.ta]||0) + 1;
+      if (curN.has(t.nct) || ph < 2) return;
+      const v = t.as?.verdict;
+      if (t._set==="results" && v==="达到"){ o.hit++; o.ev.push({r:"hit", t}); }
+      else if (t._set==="results" && (v==="未达到" || t.tgt_out==="neg")){ o.miss++; o.ev.push({r:"miss", t}); }
+      else if (t._set==="stopped" && (["疗效 / 无效性","安全性"].includes(t.why_cat) || t.tgt_out==="neg")){ o.stop++; o.ev.push({r:"stop", t}); }
+    });
+  });
+  D.forEach(d => (d.tg||[]).forEach(g => {
+    if (ta && d.ta !== ta) return;
+    const o = get(g);
+    if (d.out==="pos"){ o.hit++; o.ev.push({r:"hit", d}); } else if (d.out==="neg"){ o.miss++; o.ev.push({r:"miss", d}); }
+  }));
+  return [...T.values()].map(o => {
+    const ps = [...o.progs.values()], aps = [...o.allProgs.values()];
+    if (!ps.length) return null;
+    const nco = new Set(ps.map(p => p.co)).size, maxPh = Math.max(...ps.map(p => p.ph));
+    const val = o.hit > 0 || aps.some(p => p.ph >= 2.5);
+    const fails = o.miss + o.stop;
+    const tag = val ? (nco >= 10 ? "红海" : nco <= 6 ? "可追赶" : "已验证 · 竞争中")
+                    : (maxPh <= 1.5 && nco <= 3 ? "早期蓝海" : nco >= 6 ? "早期扎堆" : "早期 · 少量竞争");
+    const bins = [0,0,0,0]; ps.forEach(p => bins[phBin(p.ph)]++);
+    const mg = {}; ps.forEach(p => mg[p.mg] = (mg[p.mg]||0) + 1);
+    return {g:o.g, ps, nco, maxPh, val, tag, fail: fails > 0 && fails >= o.hit, hit:o.hit, miss:o.miss, stop:o.stop, ev:o.ev,
+            newN: ps.filter(p => p.first >= cut && p.first !== "9999" && p.ph <= 2).length, bins, mg,
+            sm: ps.filter(p => p.mg === "小分子").length, tas:o.tas};
+  }).filter(Boolean);
+}
+const tagChip = r => `<span class="ls-tag" style="background:color-mix(in srgb, var(${LS_TAG[r.tag]}) 16%, transparent);color:var(${LS_TAG[r.tag]})">${esc(r.tag)}</span>${r.fail?`<span class="ls-tag fail" title="未达到或因疗效 / 安全性终止的读出不少于阳性读出">有失败信号</span>`:""}`;
+function lsChart(rows){
+  const wrap = $("ls-chart"), pts = rows.filter(r => r.ps.length >= 2 || rows.length < 40);
+  if (!pts.length){ wrap.innerHTML = `<p class="sm" style="padding:8px">没有符合条件的靶点。</p>`; $("ls-leg").innerHTML = ""; return; }
+  const W = Math.max(640, wrap.clientWidth || 640), H = 400, L = 54, R = 18, Tp = 26, B = 44;
+  const cols = [1, 1.5, 2, 2.5, 3], cw = (W - L - R) / cols.length;
+  const xOf = ph => L + cw * (cols.indexOf(Math.min(3, ph)) + .5);
+  const maxCo = Math.max(10, ...pts.map(r => r.nco)), ly = v => Tp + (1 - Math.log(v) / Math.log(maxCo * 1.15)) * (H - Tp - B);
+  let sv = `<svg xmlns="${SVGNS}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="靶点赛道散点图：横轴最高阶段，纵轴公司数">`;
+  const zone = (x0, x1, y0, y1, col, txt, anchor) => {
+    sv += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="var(${col})" opacity=".07"/>`;
+    sv += `<text class="zone" x="${anchor==="end"?x1-6:x0+6}" y="${y0+14}" text-anchor="${anchor||"start"}" fill="var(${col})">${txt}</text>`; };
+  const xIII = L + cw * 3, yb = H - B, y6 = ly(6.5), y10 = ly(9.5), y3 = ly(3.5);
+  zone(xIII, W - R, y6, yb, "--pos", "可追赶", "end");
+  zone(xIII, W - R, Tp, y10, "--neg", "红海", "end");
+  zone(L, L + cw * 3, Tp, y6, "--mix", "早期扎堆");
+  zone(L, L + cw * 2, y3, yb, "--accent", "早期蓝海");
+  cols.forEach((c, i) => { const x = L + cw * (i + .5);
+    sv += `<line x1="${L + cw*i}" x2="${L + cw*i}" y1="${Tp}" y2="${yb}" stroke="var(--line)"/>`;
+    sv += `<text class="ax" x="${x}" y="${yb + 16}" text-anchor="middle">${PH_LBL[c]} 期</text>`; });
+  [1, 2, 3, 5, 10, 20, 40].filter(v => v <= maxCo).forEach(v => {
+    sv += `<line x1="${L}" x2="${W-R}" y1="${ly(v)}" y2="${ly(v)}" stroke="var(--line)" stroke-dasharray="2 3"/><text class="ax" x="${L-8}" y="${ly(v)+4}" text-anchor="end">${v}</text>`; });
+  sv += `<text class="axt" x="${L + (W-L-R)/2}" y="${H - 6}" text-anchor="middle">最高阶段（按项目）</text>`;
+  sv += `<text class="axt" transform="translate(14 ${Tp + (H-Tp-B)/2}) rotate(-90)" text-anchor="middle">在研公司数</text>`;
+  const placed = [], labelled = new Set(pts.slice().sort((a,b) => b.ps.length - a.ps.length).slice(0, 26).map(r => r.g));
+  pts.forEach(r => { if (r.tag === "可追赶" && r.ps.length >= 2) labelled.add(r.g); });
+  pts.slice().sort((a,b) => b.ps.length - a.ps.length).forEach(r => {
+    const h = hash(r.g), x = xOf(r.maxPh) + ((h % 1000) / 1000 - .5) * cw * .7, y = ly(r.nco) + (((h >> 10) % 100) / 100 - .5) * 10;
+    const rad = Math.min(18, 3.5 + Math.sqrt(r.ps.length) * 1.9);
+    r._x = x; r._y = y; r._r = rad;
+    sv += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rad.toFixed(1)}" fill="var(${LS_TAG[r.tag]})" fill-opacity="${r.val?.85:.55}" data-lsg="${esc(r.g)}" class="${lsOpen.has(r.g)?"sel":""}"><title>${esc(r.g)}：${r.ps.length} 个项目，${r.nco} 家公司，最高 ${PH_LBL[Math.min(3,r.maxPh)]||""} 期${r.hit?`，${r.hit} 项阳性读出`:""}</title></circle>`;
+  });
+  pts.filter(r => labelled.has(r.g)).sort((a,b) => b.ps.length - a.ps.length).forEach(r => {
+    const tw = r.g.length * 6.5 + 4, lx = r._x + r._r + 3, lyy = r._y + 4;
+    if (lx + tw > W - 2 || placed.some(b => lx < b[0] + b[2] && lx + tw > b[0] && Math.abs(lyy - b[1]) < 12)) return;
+    placed.push([lx, lyy, tw]);
+    sv += `<text class="lbl" x="${lx.toFixed(1)}" y="${lyy.toFixed(1)}">${esc(r.g)}</text>`;
+  });
+  sv += `</svg>`;
+  wrap.innerHTML = sv;
+  $("ls-leg").innerHTML = Object.entries(LS_TAG).map(([k, c]) => `<span><i style="background:var(${c})"></i>${k}</span>`).join("") + `<span>点越大项目越多；颜色深的已验证</span>`;
+  wrap.querySelectorAll("[data-lsg]").forEach(c => c.addEventListener("click", () => lsFocus(c.dataset.lsg)));
+}
+function lsFocus(g){
+  lsOpen.add(g);
+  const i = lsRows.findIndex(r => r.g === g); if (i >= lsLimit) lsLimit = i + 10;
+  renderLandscapeTable();
+  const b = [...document.querySelectorAll("#ls [data-lsr]")].find(x => x.dataset.lsr === g); if (b) b.closest("tr").scrollIntoView({block:"center"});
+  $("ls-chart").querySelectorAll("circle").forEach(c => c.classList.toggle("sel", lsOpen.has(c.dataset.lsg)));
+}
+function goLandscape(g){
+  showTab("ls");
+  const go = () => { $("ls-q").value = ""; $("ls-tag").value = ""; renderLandscape(); lsFocus(g); };
+  EARLY ? go() : loadEarly().then(go);
+}
+function renderLandscape(){
+  if (!REG || !EARLY) return;
+  const all = lsBuild(), q = $("ls-q").value.trim().toLowerCase(), tg = $("ls-tag").value, sort = $("ls-sort").value;
+  const tagC = {}; all.forEach(r => tagC[r.tag] = (tagC[r.tag]||0) + 1);
+  const cur = $("ls-tag").value;
+  $("ls-tag").innerHTML = `<option value="">全部判断</option>` + Object.keys(LS_TAG).map(k => `<option value="${esc(k)}">${esc(k)}（${tagC[k]||0}）</option>`).join("") + `<option value="_fail">有失败信号</option>`;
+  $("ls-tag").value = cur;
+  let rows = all.filter(r => (!tg || (tg === "_fail" ? r.fail : r.tag === tg)) &&
+    (!q || r.g.toLowerCase().includes(q) || r.ps.some(p => (p.co + " " + p.drug).toLowerCase().includes(q))));
+  const key = {prog:r => r.ps.length, co:r => r.nco, new:r => r.newN, phase:r => r.maxPh * 100 + r.hit * 10 + r.ps.length,
+               chase:r => (r.tag==="可追赶"?1000:r.tag==="早期蓝海"?500:0) - r.nco * 10 + r.hit * 5 + r.ps.length}[sort];
+  rows.sort((a,b) => key(b) - key(a) || b.ps.length - a.ps.length || a.g.localeCompare(b.g));
+  lsRows = rows;
+  const withTg = EARLY.filter(t => (t.tg||[]).length).length;
+  $("ls-meta").textContent = earlyErr || `${rows.length} 个靶点 · ${rows.reduce((a,r) => a + r.ps.length, 0)} 个项目 · 早期试验 ${EARLY.length.toLocaleString()} 项中 ${withTg.toLocaleString()} 项识别出靶点${ACTIVE.length?` · 另含在研 II/III 期 ${ACTIVE.length.toLocaleString()} 项`:""}`;
+  lsChart(rows);
+  renderLandscapeTable();
+}
+function renderLandscapeTable(){
+  const rows = lsRows, shown = rows.slice(0, lsLimit);
+  const maxP = Math.max(1, ...shown.map(r => r.ps.length));
+  $("ls").innerHTML = `<thead><tr><th>靶点</th><th class="barh">项目（按最高阶段）</th><th class="num">公司</th><th class="num" title="最早一项试验在近 12 个月登记、目前还在 II 期及以前的项目">近 12 月新进</th><th class="num">小分子</th><th class="num" title="II/III 期读出：达到 / 未达到 / 因疗效或安全性终止">临床读出</th><th>判断</th></tr></thead><tbody>` +
+    (shown.map(r => {
+      const open = lsOpen.has(r.g);
+      const tas = Object.entries(r.tas).sort((a,b) => b[1]-a[1]).slice(0,2).map(([k]) => esc(k)).join(" · ");
+      const mods = Object.entries(r.mg).sort((a,b) => b[1]-a[1]).map(([k,v]) => `${esc(k)} ${v}`).join(" · ");
+      const row = `<tr class="co-row"><td><button class="co-name" data-lsr="${esc(r.g)}" aria-expanded="${open}">${esc(r.g)}</button><div class="sm">${tas}</div><div class="mods">${mods}</div></td>
+        <td class="barh"><div class="ph" style="width:${Math.max(4, 100*r.ps.length/maxP)}%">${r.bins.map((v,i) => v?`<i style="flex:${v};background:${phCol(i)}" title="${PH_BINS[i]} 期 ${v}"></i>`:"").join("")}</div>
+          <div class="phn">${r.bins.map((v,i) => `${PH_BINS[i]} ${v}`).join(" · ")}</div></td>
+        <td class="num">${r.nco}</td><td class="num">${r.newN||"·"}</td><td class="num">${r.sm||"·"}</td>
+        <td class="num ev">${r.hit||r.miss||r.stop?`<span class="p">${r.hit}</span> / <span class="n">${r.miss}</span> / <span class="n">${r.stop}</span>`:"—"}</td>
+        <td>${tagChip(r)}</td></tr>`;
+      if (!open) return row;
+      const ps = r.ps.slice().sort((a,b) => b.ph - a.ph || a.co.localeCompare(b.co));
+      const progs = `<table class="ls-progs"><thead><tr><th>阶段</th><th>公司</th><th>药物</th><th>形式</th><th>首次登记</th></tr></thead><tbody>${ps.slice(0, 60).map(p => {
+        const lt = p.trials.slice().sort((a,b) => phNum(b.phase) - phNum(a.phase) || String(b.fp||"").localeCompare(String(a.fp||"")))[0];
+        return `<tr><td class="phb">${PH_LBL[Math.min(4,p.ph)]||"?"}</td><td>${esc(p.co)}</td><td><button class="tbtn" data-ot="${esc(lt.nct)}">${esc(p.drug)}</button>${p.trials.length>1?` <span class="sm">${p.trials.length} 项试验</span>`:""}</td><td class="sm">${esc(p.m||"")}</td><td class="sm">${esc(p.first==="9999"?"—":p.first)}</td></tr>`;
+      }).join("")}</tbody></table>${ps.length>60?`<p class="sm">只显示前 60 个项目，共 ${ps.length} 个。</p>`:""}`;
+      const ev = r.ev.slice(0, 12).map(e => e.d
+        ? `<li><span class="verdict ${e.d.out}">${OUT[e.d.out]}</span> <button class="tbtn" data-oc="${esc(e.d.id)}">${esc(e.d.drug)} ${esc(e.d.trial)}</button><div class="sm">${esc(e.d.sponsor)} · ${esc(e.d.phase)} 期 · 精选解读</div></li>`
+        : `<li>${e.r==="stop"?`<span class="vd neg">终止</span>`:vchip(e.t)} <button class="tbtn" data-ot="${esc(e.t.nct)}">${esc(e.t.acronym || (e.t.interventions||[])[0] || e.t.title)}</button><div class="sm">${esc(e.t.group)} · ${esc(e.t.phase)} 期${e.r==="stop"?` · ${esc(e.t.why_cat)}`:""}</div></li>`).join("");
+      return row + `<tr class="co-detail"><td colspan="7"><div class="ls-dwrap"><div class="ls-sub">
+        <div><h4>项目 <small class="sm">${ps.length} 个 · ${r.nco} 家公司</small></h4>${progs}</div>
+        <div><h4>II/III 期读出</h4>${ev?`<ol>${ev}</ol>`:`<p class="sm">本站数据里还没有这个靶点的 II/III 期读出。</p>`}</div>
+      </div></div></td></tr>`;
+    }).join("") || `<tr><td colspan="7" class="empty">${earlyErr ? esc(earlyErr) : "没有符合条件的靶点，试试清空筛选。"}</td></tr>`) + `</tbody>`;
+  $("ls").querySelectorAll("[data-lsr]").forEach(b => b.addEventListener("click", () => { const g = b.dataset.lsr; lsOpen.has(g) ? lsOpen.delete(g) : lsOpen.add(g); renderLandscapeTable(); $("ls-chart").querySelectorAll("circle").forEach(c => c.classList.toggle("sel", lsOpen.has(c.dataset.lsg))); }));
+  $("ls").querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));
+  $("ls").querySelectorAll("[data-oc]").forEach(b => b.addEventListener("click", () => openDetail("c", b.dataset.oc)));
+  const more = $("ls-more"); more.hidden = rows.length <= lsLimit; more.textContent = `再显示 40 个靶点（共 ${rows.length} 个）`;
+}
+$("ls-more").addEventListener("click", () => { lsLimit += 40; renderLandscapeTable(); });
+["ls-q","ls-mod","ls-ta","ls-tag","ls-sort"].forEach(id => $(id).addEventListener("input", () => { lsLimit = 40; renderLandscape(); }));
 
 /* ---------- 催化剂时间轴 ---------- */
 const SVGNS = "http://www.w3.org/2000/svg";

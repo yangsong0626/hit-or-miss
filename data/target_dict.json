@@ -1,0 +1,2358 @@
+{
+ "targets": {
+  "_about": "靶点 → 别名。默认不区分大小写，连字符和空格可互换；cs: 前缀表示区分大小写，re: 前缀表示原样正则。",
+  "KRAS G12C": [
+   "re:KRAS[\\s-]?G12C",
+   "re:G12C"
+  ],
+  "KRAS G12D": [
+   "re:KRAS[\\s-]?G12D",
+   "re:G12D"
+  ],
+  "KRAS（泛 / 其他突变）": [
+   "re:pan[\\s-]?KRAS",
+   "re:KRAS(?![\\s-]?G12[CD])",
+   "re:KRAS[\\s-]?G12V",
+   "re:G12V"
+  ],
+  "RAS（泛 / RAS-ON）": [
+   "re:pan[\\s-]?RAS",
+   "re:RAS\\s?\\(ON\\)",
+   "RAS-ON",
+   "re:RAS\\(ON\\)",
+   "cs:RAS"
+  ],
+  "SHP2": [
+   "SHP2",
+   "SHP-2",
+   "PTPN11"
+  ],
+  "SOS1": [
+   "SOS1"
+  ],
+  "EGFR": [
+   "cs:EGFR",
+   "epidermal growth factor receptor",
+   "cs:EGFRm"
+  ],
+  "HER2": [
+   "HER2",
+   "ERBB2",
+   "HER-2"
+  ],
+  "HER3": [
+   "HER3",
+   "ERBB3"
+  ],
+  "c-MET": [
+   "cs:c-MET",
+   "cs:cMET",
+   "cs:c-Met",
+   "cs:MET",
+   "hepatocyte growth factor receptor"
+  ],
+  "ALK": [
+   "cs:ALK",
+   "anaplastic lymphoma kinase"
+  ],
+  "ROS1": [
+   "ROS1"
+  ],
+  "RET": [
+   "cs:RET"
+  ],
+  "TRK (NTRK)": [
+   "NTRK",
+   "pan-TRK",
+   "TRKA",
+   "TRK"
+  ],
+  "FGFR2": [
+   "FGFR2"
+  ],
+  "FGFR3": [
+   "FGFR3"
+  ],
+  "FGFR4": [
+   "FGFR4"
+  ],
+  "FGFR（泛）": [
+   "re:FGFR(?![1-4])",
+   "FGFR1",
+   "pan-FGFR",
+   "FGFR1-3",
+   "FGFR1/2/3"
+  ],
+  "BRAF": [
+   "BRAF",
+   "BRAF V600E",
+   "re:BRAF[\\s-]?V600"
+  ],
+  "RAF（泛）": [
+   "pan-RAF",
+   "re:RAF(?![A-Za-z0-9])",
+   "CRAF",
+   "RAF dimer"
+  ],
+  "MEK": [
+   "MEK",
+   "MEK1/2",
+   "MEK1",
+   "MAP2K1"
+  ],
+  "ERK": [
+   "ERK",
+   "ERK1/2"
+  ],
+  "PI3Kα": [
+   "re:PI3K[\\s-]?(?:α|alpha|a)(?![A-Za-z])",
+   "PIK3CA",
+   "p110α",
+   "p110 alpha",
+   "PI3K alpha"
+  ],
+  "PI3Kδ": [
+   "re:PI3K[\\s-]?(?:δ|delta|d)(?![A-Za-z])",
+   "PIK3CD",
+   "p110δ"
+  ],
+  "PI3K（其他）": [
+   "re:PI3K(?![\\s-]?(?:α|alpha|δ|delta|a\\b|d\\b))"
+  ],
+  "AKT": [
+   "cs:AKT",
+   "AKT1",
+   "pan-AKT"
+  ],
+  "mTOR": [
+   "mTOR",
+   "mTORC1"
+  ],
+  "CDK4/6": [
+   "CDK4/6",
+   "CDK 4/6",
+   "CDK4",
+   "CDK6"
+  ],
+  "CDK2": [
+   "CDK2"
+  ],
+  "CDK7": [
+   "CDK7"
+  ],
+  "CDK9": [
+   "CDK9"
+  ],
+  "PLK1": [
+   "PLK1",
+   "PLK-1"
+  ],
+  "Aurora A": [
+   "Aurora A",
+   "Aurora kinase A",
+   "AURKA"
+  ],
+  "WEE1": [
+   "WEE1",
+   "WEE-1"
+  ],
+  "PKMYT1": [
+   "PKMYT1",
+   "MYT1"
+  ],
+  "ATR": [
+   "cs:ATR"
+  ],
+  "ATM": [
+   "cs:ATM"
+  ],
+  "DNA-PK": [
+   "DNA-PK",
+   "DNA-PKcs"
+  ],
+  "PARP1": [
+   "PARP1",
+   "PARP-1",
+   "PARP1-selective"
+  ],
+  "PARP（泛）": [
+   "re:PARP(?![\\s-]?1\\b)",
+   "PARP inhibitor"
+  ],
+  "PARP7": [
+   "PARP7"
+  ],
+  "POLQ (Polθ)": [
+   "POLQ",
+   "Polθ",
+   "Pol theta",
+   "polymerase theta",
+   "DNA polymerase theta"
+  ],
+  "PRMT5": [
+   "PRMT5",
+   "MTA-cooperative PRMT5",
+   "PRMT5-MTA"
+  ],
+  "MAT2A": [
+   "MAT2A"
+  ],
+  "WRN": [
+   "cs:WRN",
+   "Werner helicase",
+   "WRN helicase"
+  ],
+  "USP1": [
+   "USP1"
+  ],
+  "KAT6": [
+   "KAT6",
+   "KAT6A",
+   "KAT6A/B"
+  ],
+  "EZH2": [
+   "EZH2",
+   "EZH1/2"
+  ],
+  "Menin": [
+   "menin",
+   "menin-KMT2A",
+   "menin-MLL"
+  ],
+  "BCL-2": [
+   "BCL-2",
+   "BCL2"
+  ],
+  "BCL-XL": [
+   "BCL-XL",
+   "BCL-xL",
+   "BCLXL"
+  ],
+  "MCL-1": [
+   "MCL-1",
+   "MCL1"
+  ],
+  "IDH1": [
+   "IDH1",
+   "mIDH1"
+  ],
+  "IDH2": [
+   "IDH2",
+   "mIDH2"
+  ],
+  "FLT3": [
+   "FLT3",
+   "FLT-3"
+  ],
+  "KIT": [
+   "cs:KIT",
+   "c-KIT",
+   "cs:c-Kit",
+   "CD117"
+  ],
+  "PDGFR": [
+   "PDGFR",
+   "PDGFRA",
+   "PDGFRα"
+  ],
+  "VEGF / VEGFR": [
+   "VEGF",
+   "VEGFR",
+   "VEGFR2",
+   "VEGF-A",
+   "VEGFR-2",
+   "KDR",
+   "vascular endothelial growth factor"
+  ],
+  "Ang-2": [
+   "Ang-2",
+   "Ang2",
+   "angiopoietin-2",
+   "ANGPT2"
+  ],
+  "BTK": [
+   "BTK",
+   "Bruton's tyrosine kinase",
+   "Bruton tyrosine kinase"
+  ],
+  "BCR-ABL": [
+   "BCR-ABL",
+   "BCR::ABL1",
+   "ABL1",
+   "cs:ABL",
+   "BCR-ABL1"
+  ],
+  "JAK1": [
+   "JAK1"
+  ],
+  "JAK2": [
+   "JAK2"
+  ],
+  "JAK（泛）": [
+   "re:JAK(?![\\s-]?[123]\\b)",
+   "JAK1/2",
+   "JAK1/JAK2",
+   "JAK3"
+  ],
+  "TYK2": [
+   "TYK2"
+  ],
+  "SYK": [
+   "cs:SYK"
+  ],
+  "IRAK4": [
+   "IRAK4",
+   "IRAK-4"
+  ],
+  "RIPK1": [
+   "RIPK1",
+   "RIP1 kinase"
+  ],
+  "HPK1": [
+   "HPK1",
+   "MAP4K1"
+  ],
+  "CBL-B": [
+   "CBL-B",
+   "Cbl-b",
+   "CBLB"
+  ],
+  "DGKζ / DGKα": [
+   "DGKζ",
+   "DGKz",
+   "DGK zeta",
+   "DGKα",
+   "DGK alpha",
+   "DGKa",
+   "re:DGK(?![A-Za-z])"
+  ],
+  "AXL": [
+   "cs:AXL"
+  ],
+  "CSF1R": [
+   "CSF1R",
+   "CSF-1R"
+  ],
+  "HIF-2α": [
+   "HIF-2α",
+   "HIF-2 alpha",
+   "HIF2α",
+   "HIF-2a",
+   "HIF2a",
+   "re:HIF-?2"
+  ],
+  "ER (ESR1)": [
+   "estrogen receptor",
+   "oestrogen receptor",
+   "ESR1",
+   "ERα",
+   "cs:ER",
+   "SERD",
+   "CERAN",
+   "PROTAC ER"
+  ],
+  "AR": [
+   "androgen receptor",
+   "cs:AR"
+  ],
+  "GR（糖皮质激素受体）": [
+   "glucocorticoid receptor",
+   "糖皮质激素受体"
+  ],
+  "SMARCA2": [
+   "SMARCA2",
+   "BRM"
+  ],
+  "BRD4 / BET": [
+   "BRD4",
+   "re:BET(?![a-z])",
+   "bromodomain and extra-terminal"
+  ],
+  "BRD9": [
+   "BRD9"
+  ],
+  "BCL6": [
+   "BCL6"
+  ],
+  "STAT3": [
+   "STAT3"
+  ],
+  "STAT6": [
+   "STAT6"
+  ],
+  "IKZF1/3 (Ikaros/Aiolos)": [
+   "IKZF1",
+   "IKZF3",
+   "Ikaros",
+   "Aiolos",
+   "IKZF1/3",
+   "CELMoD"
+  ],
+  "GSPT1": [
+   "GSPT1"
+  ],
+  "CK1α": [
+   "CK1α",
+   "CK1a",
+   "CK1 alpha",
+   "CSNK1A1"
+  ],
+  "LSD1": [
+   "LSD1",
+   "KDM1A"
+  ],
+  "HDAC": [
+   "HDAC",
+   "HDAC6",
+   "HDAC1/2",
+   "histone deacetylase"
+  ],
+  "XPO1": [
+   "XPO1",
+   "exportin 1",
+   "exportin-1"
+  ],
+  "PRC2 / EED": [
+   "EED"
+  ],
+  "CDC7": [
+   "CDC7"
+  ],
+  "TEAD": [
+   "TEAD",
+   "YAP/TEAD",
+   "TEAD1"
+  ],
+  "KIF18A": [
+   "KIF18A"
+  ],
+  "CDK12/13": [
+   "CDK12",
+   "CDK13"
+  ],
+  "PIM": [
+   "PIM1",
+   "pan-PIM",
+   "re:PIM(?![a-z])"
+  ],
+  "Hedgehog / SMO": [
+   "Smoothened",
+   "cs:SMO",
+   "Hedgehog"
+  ],
+  "Wnt 通路": [
+   "Wnt",
+   "porcupine",
+   "PORCN"
+  ],
+  "NRF2 / KEAP1": [
+   "NRF2",
+   "KEAP1"
+  ],
+  "PKC": [
+   "PKCθ",
+   "PKC-theta",
+   "re:PKC(?![A-Za-z])"
+  ],
+  "Galectin": [
+   "galectin-3",
+   "galectin-1",
+   "Gal-3"
+  ],
+  "PD-1 / PD-L1": [
+   "PD-1",
+   "PD-L1",
+   "PD1",
+   "PDL1",
+   "programmed death-1",
+   "programmed cell death protein 1",
+   "programmed death-ligand 1",
+   "programmed death ligand 1"
+  ],
+  "CTLA-4": [
+   "CTLA-4",
+   "CTLA4"
+  ],
+  "LAG-3": [
+   "LAG-3",
+   "LAG3"
+  ],
+  "TIM-3": [
+   "TIM-3",
+   "TIM3"
+  ],
+  "TIGIT": [
+   "TIGIT"
+  ],
+  "OX40": [
+   "OX40",
+   "OX-40",
+   "CD134"
+  ],
+  "OX40L": [
+   "OX40L",
+   "OX40 ligand",
+   "OX40-L"
+  ],
+  "4-1BB": [
+   "4-1BB",
+   "CD137",
+   "41BB"
+  ],
+  "CD40": [
+   "re:CD40(?![\\s-]?L)"
+  ],
+  "CD40L": [
+   "CD40L",
+   "CD40 ligand",
+   "CD154"
+  ],
+  "ICOS": [
+   "ICOS"
+  ],
+  "GITR": [
+   "GITR"
+  ],
+  "NKG2A": [
+   "NKG2A"
+  ],
+  "ILT2 / ILT4 (LILRB)": [
+   "ILT2",
+   "ILT4",
+   "LILRB1",
+   "LILRB2",
+   "LILRB4"
+  ],
+  "CCR8": [
+   "CCR8"
+  ],
+  "CD47": [
+   "CD47"
+  ],
+  "SIRPα": [
+   "SIRPα",
+   "SIRPa",
+   "SIRP-alpha",
+   "SIRP alpha"
+  ],
+  "CD73": [
+   "CD73"
+  ],
+  "CD39": [
+   "CD39"
+  ],
+  "Adenosine A2A/A2B": [
+   "A2A receptor",
+   "A2AR",
+   "A2B receptor",
+   "A2BR",
+   "adenosine receptor"
+  ],
+  "TROP2": [
+   "TROP2",
+   "TROP-2",
+   "TACSTD2"
+  ],
+  "Nectin-4": [
+   "Nectin-4",
+   "Nectin4"
+  ],
+  "B7-H3": [
+   "B7-H3",
+   "B7H3",
+   "CD276"
+  ],
+  "B7-H4": [
+   "B7-H4",
+   "B7H4",
+   "VTCN1"
+  ],
+  "CLDN18.2": [
+   "CLDN18.2",
+   "Claudin 18.2",
+   "Claudin18.2",
+   "CLDN 18.2",
+   "claudin-18.2",
+   "CLDN18"
+  ],
+  "CLDN6": [
+   "CLDN6",
+   "Claudin 6",
+   "claudin-6"
+  ],
+  "DLL3": [
+   "DLL3"
+  ],
+  "FRα (FOLR1)": [
+   "FRα",
+   "FRa",
+   "FOLR1",
+   "folate receptor alpha",
+   "folate receptor α",
+   "folate receptor-alpha"
+  ],
+  "CDH6": [
+   "CDH6",
+   "cadherin-6",
+   "cadherin 6"
+  ],
+  "CDH17": [
+   "CDH17",
+   "cadherin 17",
+   "cadherin-17"
+  ],
+  "GPC3": [
+   "GPC3",
+   "glypican-3",
+   "glypican 3"
+  ],
+  "Mesothelin": [
+   "mesothelin",
+   "MSLN"
+  ],
+  "CEACAM5": [
+   "CEACAM5",
+   "CEA"
+  ],
+  "PSMA": [
+   "PSMA",
+   "FOLH1"
+  ],
+  "FAP": [
+   "cs:FAP",
+   "fibroblast activation protein"
+  ],
+  "SSTR2": [
+   "SSTR2",
+   "somatostatin receptor 2",
+   "somatostatin receptor"
+  ],
+  "EpCAM": [
+   "EpCAM"
+  ],
+  "MUC1 / MUC16": [
+   "MUC1",
+   "MUC16",
+   "CA125"
+  ],
+  "STEAP1": [
+   "STEAP1",
+   "STEAP-1"
+  ],
+  "ROR1": [
+   "ROR1"
+  ],
+  "PTK7": [
+   "PTK7"
+  ],
+  "组织因子 (TF)": [
+   "tissue factor",
+   "cs:TF"
+  ],
+  "LIV-1": [
+   "LIV-1",
+   "SLC39A6",
+   "LIV1"
+  ],
+  "ITGB6 / αvβ6": [
+   "ITGB6",
+   "αvβ6",
+   "integrin beta-6",
+   "alphavbeta6",
+   "avb6"
+  ],
+  "CD70": [
+   "CD70"
+  ],
+  "GPRC5D": [
+   "GPRC5D"
+  ],
+  "BCMA": [
+   "BCMA",
+   "TNFRSF17"
+  ],
+  "FcRH5": [
+   "FcRH5",
+   "FCRL5"
+  ],
+  "CD19": [
+   "CD19"
+  ],
+  "CD20": [
+   "CD20"
+  ],
+  "CD22": [
+   "CD22"
+  ],
+  "CD30": [
+   "CD30"
+  ],
+  "CD33": [
+   "CD33"
+  ],
+  "CD123": [
+   "CD123",
+   "IL-3Rα",
+   "IL3RA"
+  ],
+  "CD38": [
+   "CD38"
+  ],
+  "CLL1 / CD371": [
+   "CLL1",
+   "CLL-1",
+   "CLEC12A",
+   "CD371"
+  ],
+  "CD7": [
+   "CD7"
+  ],
+  "CD3": [
+   "CD3",
+   "CD3ε",
+   "CD3e"
+  ],
+  "CD28": [
+   "CD28"
+  ],
+  "CD16A": [
+   "CD16A",
+   "CD16a"
+  ],
+  "NKG2D": [
+   "NKG2D"
+  ],
+  "HLA-G": [
+   "HLA-G"
+  ],
+  "KK-LC-1 / MAGE / NY-ESO-1 (TCR)": [
+   "NY-ESO-1",
+   "MAGE-A4",
+   "MAGE-A3",
+   "PRAME",
+   "KK-LC-1",
+   "re:MAGE-?A\\d"
+  ],
+  "TGF-β": [
+   "TGF-β",
+   "TGF-beta",
+   "TGFβ",
+   "TGF-b",
+   "TGFb",
+   "TGF beta",
+   "TGF-β1"
+  ],
+  "IL-2 (受体)": [
+   "IL-2",
+   "IL2",
+   "interleukin-2",
+   "IL-2R",
+   "IL-2Rβγ",
+   "CD25"
+  ],
+  "IL-15": [
+   "IL-15",
+   "IL15",
+   "interleukin-15"
+  ],
+  "IL-12": [
+   "IL-12",
+   "IL12",
+   "interleukin-12"
+  ],
+  "STING": [
+   "STING"
+  ],
+  "TLR7/8/9": [
+   "TLR7",
+   "TLR8",
+   "TLR9",
+   "TLR7/8",
+   "TLR-7",
+   "TLR-9"
+  ],
+  "TLR4": [
+   "TLR4",
+   "TLR-4"
+  ],
+  "IL-23 / IL-23R": [
+   "IL-23",
+   "IL23",
+   "IL-23R",
+   "IL-23p19",
+   "interleukin-23",
+   "p19",
+   "IL-12/23"
+  ],
+  "IL-17A/F": [
+   "IL-17",
+   "IL17",
+   "IL-17A",
+   "IL-17F",
+   "IL-17A/F",
+   "IL-17RA",
+   "interleukin-17"
+  ],
+  "IL-13": [
+   "IL-13",
+   "IL13",
+   "interleukin-13"
+  ],
+  "IL-4Rα": [
+   "IL-4Rα",
+   "IL-4R",
+   "IL4R",
+   "IL-4Ra",
+   "IL-4 receptor",
+   "IL-4R alpha",
+   "re:IL-?4(?![0-9])"
+  ],
+  "IL-5 / IL-5R": [
+   "IL-5",
+   "IL5",
+   "IL-5R",
+   "IL-5Rα",
+   "interleukin-5"
+  ],
+  "IL-6 / IL-6R": [
+   "IL-6",
+   "IL6",
+   "IL-6R",
+   "interleukin-6"
+  ],
+  "IL-1β / IL-1R": [
+   "IL-1β",
+   "IL-1b",
+   "IL-1beta",
+   "IL1β",
+   "IL-1R",
+   "IL-1RAP",
+   "IL-1α",
+   "interleukin-1"
+  ],
+  "IL-33 / ST2": [
+   "IL-33",
+   "IL33",
+   "ST2",
+   "interleukin-33"
+  ],
+  "TSLP": [
+   "TSLP",
+   "thymic stromal lymphopoietin"
+  ],
+  "IL-31 / IL-31RA": [
+   "IL-31",
+   "IL31",
+   "IL-31RA",
+   "IL-31R"
+  ],
+  "IL-36R": [
+   "IL-36",
+   "IL-36R",
+   "IL36R"
+  ],
+  "IL-18": [
+   "IL-18",
+   "IL18"
+  ],
+  "IL-22": [
+   "IL-22",
+   "IL22"
+  ],
+  "IL-7R": [
+   "IL-7R",
+   "IL7R",
+   "IL-7Rα"
+  ],
+  "TNF": [
+   "TNF",
+   "TNF-α",
+   "TNFα",
+   "TNF-alpha",
+   "tumor necrosis factor"
+  ],
+  "TL1A": [
+   "TL1A",
+   "TNFSF15"
+  ],
+  "FcRn": [
+   "FcRn",
+   "neonatal Fc receptor"
+  ],
+  "BAFF / APRIL": [
+   "BAFF",
+   "APRIL",
+   "BLyS",
+   "TACI"
+  ],
+  "CD6": [
+   "CD6"
+  ],
+  "IFNAR / I 型干扰素": [
+   "IFNAR",
+   "IFNAR1",
+   "type I interferon",
+   "IFN-α",
+   "IFNα"
+  ],
+  "BDCA2": [
+   "BDCA2",
+   "BDCA-2",
+   "CD303"
+  ],
+  "补体 C5": [
+   "re:C5(?![a-z0-9])",
+   "C5a",
+   "C5aR",
+   "C5aR1",
+   "complement component 5",
+   "complement C5"
+  ],
+  "补体 C3": [
+   "re:C3(?![a-z0-9])",
+   "complement C3"
+  ],
+  "补体因子 B": [
+   "factor B",
+   "CFB",
+   "complement factor B"
+  ],
+  "补体因子 D": [
+   "factor D",
+   "CFD",
+   "complement factor D"
+  ],
+  "MASP-2 / MASP-3": [
+   "MASP-2",
+   "MASP2",
+   "MASP-3",
+   "MASP3"
+  ],
+  "C1s / C1q": [
+   "C1s",
+   "C1q"
+  ],
+  "MRGPRX2": [
+   "MRGPRX2"
+  ],
+  "S1P 受体": [
+   "S1P",
+   "S1P1",
+   "S1PR1",
+   "sphingosine-1-phosphate"
+  ],
+  "α4β7 整合素": [
+   "α4β7",
+   "alpha4beta7",
+   "a4b7",
+   "integrin α4β7",
+   "MAdCAM"
+  ],
+  "NLRP3": [
+   "NLRP3"
+  ],
+  "PDE4": [
+   "PDE4",
+   "PDE4B",
+   "PDE-4",
+   "PDE3/4",
+   "phosphodiesterase 4"
+  ],
+  "Kallikrein (KLKB1)": [
+   "plasma kallikrein",
+   "KLKB1",
+   "prekallikrein"
+  ],
+  "因子 XII": [
+   "factor XII",
+   "FXII",
+   "FXIIa"
+  ],
+  "缓激肽 B2 受体": [
+   "bradykinin B2",
+   "B2 receptor",
+   "bradykinin receptor"
+  ],
+  "H4R / 组胺": [
+   "histamine H4",
+   "H4R"
+  ],
+  "CCR4": [
+   "CCR4"
+  ],
+  "CXCR4": [
+   "CXCR4"
+  ],
+  "CXCR1/2": [
+   "CXCR1",
+   "CXCR2",
+   "CXCR1/2"
+  ],
+  "KLK5 / KLK7": [
+   "KLK5",
+   "KLK7"
+  ],
+  "GLP-1R": [
+   "GLP-1",
+   "GLP1",
+   "GLP-1R",
+   "GLP-1 receptor",
+   "glucagon-like peptide-1",
+   "glucagon-like peptide 1"
+  ],
+  "GIPR": [
+   "GIP",
+   "GIPR",
+   "GIP receptor",
+   "glucose-dependent insulinotropic"
+  ],
+  "胰高血糖素受体 (GCGR)": [
+   "glucagon receptor",
+   "GCGR",
+   "re:glucagon(?=[\\s/-]+(?:receptor|and|agonist))",
+   "胰高血糖素受体"
+  ],
+  "胰淀素受体": [
+   "amylin",
+   "calcitonin receptor",
+   "DACRA"
+  ],
+  "PCSK9": [
+   "PCSK9"
+  ],
+  "Lp(a)": [
+   "Lp(a)",
+   "re:Lp\\(a\\)",
+   "lipoprotein(a)",
+   "re:lipoprotein\\s?\\(a\\)",
+   "apo(a)",
+   "re:apo\\(a\\)",
+   "cs:LPA"
+  ],
+  "ANGPTL3": [
+   "ANGPTL3",
+   "angiopoietin-like 3",
+   "angiopoietin-like protein 3"
+  ],
+  "APOC3": [
+   "APOC3",
+   "ApoC-III",
+   "apoC3",
+   "apolipoprotein C-III",
+   "apolipoprotein C3"
+  ],
+  "CETP": [
+   "CETP"
+  ],
+  "凝血因子 XI": [
+   "factor XI",
+   "factor XIa",
+   "FXI",
+   "FXIa",
+   "Factor 11"
+  ],
+  "醛固酮合酶 (CYP11B2)": [
+   "aldosterone synthase",
+   "CYP11B2"
+  ],
+  "盐皮质激素受体": [
+   "mineralocorticoid receptor",
+   "re:\\bMR antagonist"
+  ],
+  "心肌肌球蛋白": [
+   "cardiac myosin",
+   "myosin"
+  ],
+  "sGC": [
+   "sGC",
+   "soluble guanylate cyclase",
+   "soluble guanylyl cyclase"
+  ],
+  "NPR1 / 利钠肽受体": [
+   "NPR1",
+   "NPR-A",
+   "natriuretic peptide receptor"
+  ],
+  "Relaxin (RXFP1)": [
+   "RXFP1",
+   "relaxin"
+  ],
+  "APJ (Apelin)": [
+   "APJ",
+   "apelin"
+  ],
+  "SGLT2": [
+   "SGLT2",
+   "SGLT-2",
+   "SGLT1/2"
+  ],
+  "THR-β": [
+   "THR-β",
+   "THRβ",
+   "THR-beta",
+   "thyroid hormone receptor beta",
+   "thyroid hormone receptor-β"
+  ],
+  "FGF21": [
+   "FGF21",
+   "FGF-21"
+  ],
+  "FXR": [
+   "FXR",
+   "farnesoid X receptor"
+  ],
+  "ACC": [
+   "cs:ACC",
+   "acetyl-CoA carboxylase"
+  ],
+  "FASN": [
+   "FASN",
+   "fatty acid synthase"
+  ],
+  "DGAT2": [
+   "DGAT2"
+  ],
+  "HSD17B13": [
+   "HSD17B13",
+   "17β-HSD13"
+  ],
+  "PNPLA3": [
+   "PNPLA3"
+  ],
+  "激活素 / ActRII": [
+   "ActRII",
+   "ActRIIA",
+   "ActRIIB",
+   "activin",
+   "activin receptor"
+  ],
+  "Myostatin / GDF8": [
+   "myostatin",
+   "GDF8",
+   "GDF-8"
+  ],
+  "MC4R": [
+   "MC4R",
+   "melanocortin-4",
+   "melanocortin 4"
+  ],
+  "CB1": [
+   "CB1",
+   "cannabinoid receptor 1",
+   "cannabinoid-1"
+  ],
+  "Ketohexokinase (KHK)": [
+   "KHK",
+   "ketohexokinase"
+  ],
+  "内皮素受体": [
+   "endothelin",
+   "ETA receptor",
+   "ETAR"
+  ],
+  "APOL1": [
+   "APOL1"
+  ],
+  "TTR": [
+   "TTR",
+   "transthyretin"
+  ],
+  "GDF15 / GFRAL": [
+   "GDF15",
+   "GDF-15",
+   "GFRAL"
+  ],
+  "Ghrelin / GHSR": [
+   "ghrelin",
+   "GHSR"
+  ],
+  "Lp-PLA2": [
+   "Lp-PLA2"
+  ],
+  "SCD1": [
+   "SCD1"
+  ],
+  "ALK7": [
+   "ALK7"
+  ],
+  "Urat1 / 尿酸": [
+   "URAT1",
+   "xanthine oxidase"
+  ],
+  "GPR40 / GPR119": [
+   "GPR40",
+   "GPR119",
+   "FFAR1"
+  ],
+  "肾素 / AGT": [
+   "angiotensinogen",
+   "re:\\bAGT\\b",
+   "renin"
+  ],
+  "Vasopressin V2": [
+   "vasopressin V2",
+   "V2 receptor",
+   "V2R"
+  ],
+  "Na/K / NHE3": [
+   "NHE3"
+  ],
+  "毒蕈碱受体 M1/M4": [
+   "muscarinic",
+   "M1/M4",
+   "M4 receptor",
+   "M1 receptor",
+   "CHRM4",
+   "CHRM1",
+   "re:\\bM4\\b(?=\\s+(?:positive|PAM|agonist|receptor))"
+  ],
+  "TAAR1": [
+   "TAAR1"
+  ],
+  "食欲素受体": [
+   "orexin",
+   "OX2R",
+   "OX1R",
+   "OX2",
+   "hypocretin"
+  ],
+  "NMDA 受体": [
+   "NMDA",
+   "GluN2B",
+   "NR2B",
+   "N-methyl-D-aspartate"
+  ],
+  "AMPA 受体": [
+   "AMPA"
+  ],
+  "GABA-A 受体": [
+   "GABA-A",
+   "GABAA",
+   "GABA A",
+   "re:GABA[\\s-]?A\\b"
+  ],
+  "Kv7 (KCNQ)": [
+   "Kv7",
+   "KCNQ2",
+   "KCNQ2/3",
+   "Kv7.2/7.3",
+   "Kv7.2"
+  ],
+  "Nav1.7 / Nav1.8": [
+   "Nav1.7",
+   "Nav1.8",
+   "NaV1.8",
+   "NaV1.7",
+   "SCN9A",
+   "SCN10A"
+  ],
+  "Nav（其他）": [
+   "Nav1.6",
+   "Nav1.1",
+   "Nav1.2"
+  ],
+  "CGRP / CGRP 受体": [
+   "CGRP",
+   "calcitonin gene-related peptide",
+   "PACAP",
+   "PAC1"
+  ],
+  "5-HT2A": [
+   "5-HT2A",
+   "5HT2A",
+   "serotonin 2A"
+  ],
+  "5-HT（其他）": [
+   "5-HT1A",
+   "5-HT4",
+   "5-HT2C",
+   "5-HT3",
+   "5-HT1F",
+   "5-HT6"
+  ],
+  "多巴胺受体": [
+   "dopamine D1",
+   "D1 receptor",
+   "D1/D5",
+   "dopamine receptor",
+   "D3 receptor",
+   "dopamine D2"
+  ],
+  "LRRK2": [
+   "LRRK2"
+  ],
+  "α-突触核蛋白": [
+   "alpha-synuclein",
+   "α-synuclein",
+   "a-synuclein",
+   "SNCA"
+  ],
+  "Tau": [
+   "re:\\btau\\b",
+   "MAPT"
+  ],
+  "β-淀粉样蛋白": [
+   "amyloid beta",
+   "amyloid-beta",
+   "amyloid-β",
+   "Aβ",
+   "re:\\bAbeta\\b",
+   "re:amyloid(?! A)"
+  ],
+  "TREM2": [
+   "TREM2"
+  ],
+  "SARM1": [
+   "SARM1"
+  ],
+  "GCase / GBA": [
+   "GCase",
+   "GBA1",
+   "glucocerebrosidase"
+  ],
+  "κ 阿片受体": [
+   "kappa opioid",
+   "κ-opioid",
+   "KOR",
+   "kappa-opioid"
+  ],
+  "μ 阿片受体": [
+   "mu opioid",
+   "μ-opioid",
+   "mu-opioid",
+   "MOR"
+  ],
+  "SV2A": [
+   "SV2A"
+  ],
+  "TRPV1 / TRPA1 / TRPM": [
+   "TRPV1",
+   "TRPA1",
+   "TRPM8",
+   "TRPC5",
+   "TRPV4",
+   "TRPC6"
+  ],
+  "mGluR": [
+   "mGluR5",
+   "mGluR2",
+   "mGlu2",
+   "mGlu5",
+   "mGluR2/3",
+   "metabotropic glutamate"
+  ],
+  "Sortilin / 颗粒体蛋白": [
+   "sortilin",
+   "progranulin",
+   "re:\\bGRN\\b"
+  ],
+  "HTT": [
+   "HTT",
+   "huntingtin"
+  ],
+  "SOD1": [
+   "SOD1"
+  ],
+  "C9orf72": [
+   "C9orf72"
+  ],
+  "UBE3A": [
+   "UBE3A"
+  ],
+  "MECP2": [
+   "MECP2"
+  ],
+  "SMN2": [
+   "SMN2",
+   "SMN"
+  ],
+  "DMPK": [
+   "DMPK"
+  ],
+  "DUX4": [
+   "DUX4"
+  ],
+  "Dystrophin（外显子跳跃）": [
+   "exon skipping",
+   "dystrophin",
+   "exon 51",
+   "exon 53",
+   "exon 45",
+   "exon 44"
+  ],
+  "Sigma-1": [
+   "sigma-1",
+   "σ1 receptor",
+   "S1R"
+  ],
+  "H3 受体": [
+   "histamine H3",
+   "H3 receptor",
+   "H3R"
+  ],
+  "P2X3": [
+   "P2X3",
+   "P2X7"
+  ],
+  "NK1 受体": [
+   "NK1",
+   "NK-1",
+   "neurokinin-1",
+   "neurokinin 1",
+   "NK3",
+   "NK1/NK3",
+   "neurokinin-3"
+  ],
+  "PDE10A": [
+   "PDE10A",
+   "PDE10"
+  ],
+  "OGA (O-GlcNAcase)": [
+   "O-GlcNAcase",
+   "re:\\bOGA\\b"
+  ],
+  "FAAH / MAGL": [
+   "FAAH",
+   "MAGL"
+  ],
+  "TMPRSS6 / 铁调素": [
+   "TMPRSS6",
+   "hepcidin",
+   "ferroportin",
+   "matriptase-2"
+  ],
+  "ALK2 (ACVR1)": [
+   "ALK2",
+   "ACVR1",
+   "ALK-2"
+  ],
+  "CNP / NPR-B": [
+   "CNP",
+   "C-type natriuretic peptide",
+   "NPR-B",
+   "NPR2"
+  ],
+  "丙酮酸激酶 (PKR)": [
+   "pyruvate kinase",
+   "PKR activator",
+   "re:\\bPKR\\b",
+   "PKLR"
+  ],
+  "TFPI": [
+   "TFPI",
+   "tissue factor pathway inhibitor"
+  ],
+  "抗凝血酶": [
+   "antithrombin"
+  ],
+  "EPO / HIF-PH": [
+   "HIF-PH",
+   "HIF prolyl hydroxylase",
+   "PHD inhibitor"
+  ],
+  "TfR1": [
+   "TfR1",
+   "transferrin receptor"
+  ],
+  "CFTR": [
+   "CFTR"
+  ],
+  "ENaC": [
+   "ENaC"
+  ],
+  "LPA1": [
+   "LPA1",
+   "LPAR1",
+   "lysophosphatidic acid receptor 1"
+  ],
+  "αvβ1 / αvβ6 整合素（纤维化）": [
+   "αvβ1",
+   "avb1"
+  ],
+  "ROCK": [
+   "ROCK",
+   "ROCK2",
+   "Rho kinase",
+   "Rho-associated"
+  ],
+  "Autotaxin": [
+   "autotaxin",
+   "ENPP2"
+  ],
+  "ENPP1": [
+   "ENPP1"
+  ],
+  "PAH": [
+   "re:\\bPAH\\b(?! )",
+   "phenylalanine hydroxylase"
+  ],
+  "OTC / 尿素循环": [
+   "ornithine transcarbamylase",
+   "re:\\bOTC\\b"
+  ],
+  "Hb / HbF 诱导": [
+   "fetal hemoglobin",
+   "HbF",
+   "BCL11A"
+  ],
+  "VWF": [
+   "VWF",
+   "von Willebrand factor"
+  ],
+  "GPVI": [
+   "GPVI",
+   "glycoprotein VI"
+  ],
+  "P2Y12": [
+   "P2Y12"
+  ],
+  "PAR4": [
+   "PAR4",
+   "PAR-4"
+  ],
+  "HTRA1": [
+   "HTRA1"
+  ],
+  "VAP-1": [
+   "VAP-1",
+   "AOC3",
+   "SSAO"
+  ],
+  "Tie2": [
+   "Tie2",
+   "Tie-2"
+  ],
+  "RBP4": [
+   "RBP4",
+   "retinol binding protein 4"
+  ],
+  "HSP90": [
+   "HSP90"
+  ],
+  "DHODH": [
+   "DHODH"
+  ],
+  "Elastase / DPP1": [
+   "DPP1",
+   "cathepsin C",
+   "neutrophil elastase"
+  ],
+  "ADAMTS5 / 软骨": [
+   "ADAMTS5",
+   "ADAMTS-5"
+  ],
+  "ITK": [
+   "ITK"
+  ],
+  "RORγt": [
+   "RORγt",
+   "RORgt",
+   "RORγ",
+   "ROR gamma t",
+   "RORC"
+  ],
+  "胰岛素受体": [
+   "insulin receptor"
+  ],
+  "AT1 受体": [
+   "AT1 receptor",
+   "angiotensin II type 1"
+  ],
+  "miR-124 (obefazimod)": [
+   "miR-124"
+  ],
+  "FVIII 模拟 (FIXa × FX)": [
+   "FVIIIa mimetic",
+   "factor VIII mimetic",
+   "FIXa/FX",
+   "FIXa x FX"
+  ]
+ },
+ "drugs": {
+  "_about": "常见药名 → 靶点。只收受试药常用的；匹配时忽略大小写和符号。",
+  "sotorasib": "KRAS G12C",
+  "adagrasib": "KRAS G12C",
+  "divarasib": "KRAS G12C",
+  "olomorasib": "KRAS G12C",
+  "glecirasib": "KRAS G12C",
+  "garsorasib": "KRAS G12C",
+  "fulzerasib": "KRAS G12C",
+  "elironrasib": "KRAS G12C",
+  "zoldonrasib": "KRAS G12D",
+  "daraxonrasib": "RAS（泛 / RAS-ON）",
+  "RMC-6236": "RAS（泛 / RAS-ON）",
+  "RMC-9805": "KRAS G12D",
+  "RMC-6291": "KRAS G12C",
+  "osimertinib": "EGFR",
+  "amivantamab": [
+   "EGFR",
+   "c-MET"
+  ],
+  "lazertinib": "EGFR",
+  "furmonertinib": "EGFR",
+  "sunvozertinib": "EGFR",
+  "zipalertinib": "EGFR",
+  "firmonertinib": "EGFR",
+  "silevertinib": "EGFR",
+  "trastuzumab deruxtecan": "HER2",
+  "zanidatamab": "HER2",
+  "tucatinib": "HER2",
+  "zongertinib": "HER2",
+  "sevabertinib": "HER2",
+  "disitamab vedotin": "HER2",
+  "trastuzumab rezetecan": "HER2",
+  "SHR-A1811": "HER2",
+  "patritumab deruxtecan": "HER3",
+  "izalontamab brengitecan": [
+   "EGFR",
+   "HER3"
+  ],
+  "BL-B01D1": [
+   "EGFR",
+   "HER3"
+  ],
+  "datopotamab deruxtecan": "TROP2",
+  "sacituzumab govitecan": "TROP2",
+  "sacituzumab tirumotecan": "TROP2",
+  "SKB264": "TROP2",
+  "enfortumab vedotin": "Nectin-4",
+  "ifinatamab deruxtecan": "B7-H3",
+  "raludotatug deruxtecan": "CDH6",
+  "telisotuzumab vedotin": "c-MET",
+  "mirvetuximab soravtansine": "FRα (FOLR1)",
+  "rinatabart sesutecan": "FRα (FOLR1)",
+  "luveltamab tazevibulin": "FRα (FOLR1)",
+  "tisotumab vedotin": "组织因子 (TF)",
+  "zolbetuximab": "CLDN18.2",
+  "tarlatamab": [
+   "DLL3",
+   "CD3"
+  ],
+  "obrixtamig": "DLL3",
+  "pembrolizumab": "PD-1 / PD-L1",
+  "nivolumab": "PD-1 / PD-L1",
+  "atezolizumab": "PD-1 / PD-L1",
+  "durvalumab": "PD-1 / PD-L1",
+  "cemiplimab": "PD-1 / PD-L1",
+  "tislelizumab": "PD-1 / PD-L1",
+  "toripalimab": "PD-1 / PD-L1",
+  "sintilimab": "PD-1 / PD-L1",
+  "camrelizumab": "PD-1 / PD-L1",
+  "serplulimab": "PD-1 / PD-L1",
+  "retifanlimab": "PD-1 / PD-L1",
+  "dostarlimab": "PD-1 / PD-L1",
+  "penpulimab": "PD-1 / PD-L1",
+  "benmelstobart": "PD-1 / PD-L1",
+  "adebrelimab": "PD-1 / PD-L1",
+  "sugemalimab": "PD-1 / PD-L1",
+  "ivonescimab": [
+   "PD-1 / PD-L1",
+   "VEGF / VEGFR"
+  ],
+  "AK112": [
+   "PD-1 / PD-L1",
+   "VEGF / VEGFR"
+  ],
+  "cadonilimab": [
+   "PD-1 / PD-L1",
+   "CTLA-4"
+  ],
+  "AK104": [
+   "PD-1 / PD-L1",
+   "CTLA-4"
+  ],
+  "pumitamig": [
+   "PD-1 / PD-L1",
+   "VEGF / VEGFR"
+  ],
+  "BNT327": [
+   "PD-1 / PD-L1",
+   "VEGF / VEGFR"
+  ],
+  "SSGJ-707": [
+   "PD-1 / PD-L1",
+   "VEGF / VEGFR"
+  ],
+  "volrustomig": [
+   "PD-1 / PD-L1",
+   "CTLA-4"
+  ],
+  "rilvegostomig": [
+   "PD-1 / PD-L1",
+   "TIGIT"
+  ],
+  "tobemstomig": [
+   "PD-1 / PD-L1",
+   "LAG-3"
+  ],
+  "acasunlimab": [
+   "PD-1 / PD-L1",
+   "4-1BB"
+  ],
+  "ipilimumab": "CTLA-4",
+  "tremelimumab": "CTLA-4",
+  "relatlimab": "LAG-3",
+  "fianlimab": "LAG-3",
+  "favezelimab": "LAG-3",
+  "tiragolumab": "TIGIT",
+  "domvanalimab": "TIGIT",
+  "belrestotug": "TIGIT",
+  "vibostolimab": "TIGIT",
+  "ociperlimab": "TIGIT",
+  "cobolimab": "TIM-3",
+  "sabatolimab": "TIM-3",
+  "bevacizumab": "VEGF / VEGFR",
+  "aflibercept": "VEGF / VEGFR",
+  "ramucirumab": "VEGF / VEGFR",
+  "faricimab": [
+   "VEGF / VEGFR",
+   "Ang-2"
+  ],
+  "fruquintinib": "VEGF / VEGFR",
+  "axitinib": "VEGF / VEGFR",
+  "lenvatinib": "VEGF / VEGFR",
+  "zanzalintinib": "VEGF / VEGFR",
+  "cabozantinib": "VEGF / VEGFR",
+  "sitravatinib": "VEGF / VEGFR",
+  "rivoceranib": "VEGF / VEGFR",
+  "anlotinib": "VEGF / VEGFR",
+  "surufatinib": "VEGF / VEGFR",
+  "alectinib": "ALK",
+  "lorlatinib": "ALK",
+  "brigatinib": "ALK",
+  "ensartinib": "ALK",
+  "iruplinalkib": "ALK",
+  "NVL-655": "ALK",
+  "neladalkib": "ALK",
+  "repotrectinib": "ROS1",
+  "taletrectinib": "ROS1",
+  "zidesamtinib": "ROS1",
+  "NVL-520": "ROS1",
+  "selpercatinib": "RET",
+  "pralsetinib": "RET",
+  "larotrectinib": "TRK (NTRK)",
+  "entrectinib": "ROS1",
+  "capmatinib": "c-MET",
+  "tepotinib": "c-MET",
+  "savolitinib": "c-MET",
+  "vebreltinib": "c-MET",
+  "dabrafenib": "BRAF",
+  "encorafenib": "BRAF",
+  "vemurafenib": "BRAF",
+  "tovorafenib": "RAF（泛）",
+  "naporafenib": "RAF（泛）",
+  "belvarafenib": "RAF（泛）",
+  "trametinib": "MEK",
+  "binimetinib": "MEK",
+  "cobimetinib": "MEK",
+  "mirdametinib": "MEK",
+  "selumetinib": "MEK",
+  "avutometinib": "RAF（泛）",
+  "alpelisib": "PI3Kα",
+  "inavolisib": "PI3Kα",
+  "RLY-2608": "PI3Kα",
+  "zovegalisib": "PI3Kα",
+  "STX-478": "PI3Kα",
+  "capivasertib": "AKT",
+  "ipatasertib": "AKT",
+  "everolimus": "mTOR",
+  "palbociclib": "CDK4/6",
+  "ribociclib": "CDK4/6",
+  "abemaciclib": "CDK4/6",
+  "dalpiciclib": "CDK4/6",
+  "atirmociclib": "CDK4/6",
+  "PF-07220060": "CDK4/6",
+  "samuraciclib": "CDK7",
+  "INX-315": "CDK2",
+  "BLU-222": "CDK2",
+  "PF-07104091": "CDK2",
+  "olaparib": "PARP（泛）",
+  "niraparib": "PARP（泛）",
+  "talazoparib": "PARP（泛）",
+  "rucaparib": "PARP（泛）",
+  "fuzuloparib": "PARP（泛）",
+  "senaparib": "PARP（泛）",
+  "saruparib": "PARP1",
+  "AZD5305": "PARP1",
+  "atamparib": "PARP7",
+  "fulvestrant": "ER (ESR1)",
+  "elacestrant": "ER (ESR1)",
+  "camizestrant": "ER (ESR1)",
+  "imlunestrant": "ER (ESR1)",
+  "giredestrant": "ER (ESR1)",
+  "vepdegestrant": "ER (ESR1)",
+  "palazestrant": "ER (ESR1)",
+  "lasofoxifene": "ER (ESR1)",
+  "OP-1250": "ER (ESR1)",
+  "ARV-471": "ER (ESR1)",
+  "enzalutamide": "AR",
+  "apalutamide": "AR",
+  "darolutamide": "AR",
+  "rezvilutamide": "AR",
+  "luxdegalutamide": "AR",
+  "BMS-986365": "AR",
+  "ARV-766": "AR",
+  "pocenbrodib": "BRD4 / BET",
+  "ibrutinib": "BTK",
+  "acalabrutinib": "BTK",
+  "zanubrutinib": "BTK",
+  "pirtobrutinib": "BTK",
+  "orelabrutinib": "BTK",
+  "nemtabrutinib": "BTK",
+  "rilzabrutinib": "BTK",
+  "remibrutinib": "BTK",
+  "fenebrutinib": "BTK",
+  "tolebrutinib": "BTK",
+  "evobrutinib": "BTK",
+  "NX-5948": "BTK",
+  "BGB-16673": "BTK",
+  "venetoclax": "BCL-2",
+  "sonrotoclax": "BCL-2",
+  "lisaftoclax": "BCL-2",
+  "navitoclax": "BCL-XL",
+  "revumenib": "Menin",
+  "ziftomenib": "Menin",
+  "bleximenib": "Menin",
+  "enzomenib": "Menin",
+  "asciminib": "BCR-ABL",
+  "olverembatinib": "BCR-ABL",
+  "ponatinib": "BCR-ABL",
+  "imatinib": "BCR-ABL",
+  "dasatinib": "BCR-ABL",
+  "nilotinib": "BCR-ABL",
+  "ivosidenib": "IDH1",
+  "olutasidenib": "IDH1",
+  "vorasidenib": "IDH1",
+  "enasidenib": "IDH2",
+  "gilteritinib": "FLT3",
+  "quizartinib": "FLT3",
+  "midostaurin": "FLT3",
+  "selinexor": "XPO1",
+  "tazemetostat": "EZH2",
+  "valemetostat": "EZH2",
+  "tulmimetostat": "EZH2",
+  "belzutifan": "HIF-2α",
+  "casdatifan": "HIF-2α",
+  "iberdomide": "IKZF1/3 (Ikaros/Aiolos)",
+  "mezigdomide": "IKZF1/3 (Ikaros/Aiolos)",
+  "golcadomide": "IKZF1/3 (Ikaros/Aiolos)",
+  "cemsidomide": "IKZF1/3 (Ikaros/Aiolos)",
+  "teclistamab": [
+   "BCMA",
+   "CD3"
+  ],
+  "elranatamab": [
+   "BCMA",
+   "CD3"
+  ],
+  "linvoseltamab": [
+   "BCMA",
+   "CD3"
+  ],
+  "etentamig": [
+   "BCMA",
+   "CD3"
+  ],
+  "talquetamab": [
+   "GPRC5D",
+   "CD3"
+  ],
+  "forimtamig": [
+   "GPRC5D",
+   "CD3"
+  ],
+  "cevostamab": [
+   "FcRH5",
+   "CD3"
+  ],
+  "belantamab mafodotin": "BCMA",
+  "ciltacabtagene autoleucel": "BCMA",
+  "idecabtagene vicleucel": "BCMA",
+  "anitocabtagene autoleucel": "BCMA",
+  "arlocabtagene autoleucel": "GPRC5D",
+  "daratumumab": "CD38",
+  "isatuximab": "CD38",
+  "felzartamab": "CD38",
+  "mezagitamab": "CD38",
+  "glofitamab": [
+   "CD20",
+   "CD3"
+  ],
+  "epcoritamab": [
+   "CD20",
+   "CD3"
+  ],
+  "mosunetuzumab": [
+   "CD20",
+   "CD3"
+  ],
+  "odronextamab": [
+   "CD20",
+   "CD3"
+  ],
+  "rituximab": "CD20",
+  "obinutuzumab": "CD20",
+  "ocrelizumab": "CD20",
+  "ofatumumab": "CD20",
+  "ublituximab": "CD20",
+  "blinatumomab": [
+   "CD19",
+   "CD3"
+  ],
+  "tafasitamab": "CD19",
+  "loncastuximab tesirine": "CD19",
+  "inebilizumab": "CD19",
+  "obexelimab": "CD19",
+  "axicabtagene ciloleucel": "CD19",
+  "tisagenlecleucel": "CD19",
+  "lisocabtagene maraleucel": "CD19",
+  "obecabtagene autoleucel": "CD19",
+  "rapcabtagene autoleucel": "CD19",
+  "KYV-101": "CD19",
+  "YTB323": "CD19",
+  "CTL019": "CD19",
+  "brentuximab vedotin": "CD30",
+  "magrolimab": "CD47",
+  "evorpacept": "CD47",
+  "pivekimab sunirine": "CD123",
+  "tagraxofusp": "CD123",
+  "lutetium (177Lu) vipivotide tetraxetan": "PSMA",
+  "177Lu-PSMA-617": "PSMA",
+  "vipivotide": "PSMA",
+  "flotufolastat": "PSMA",
+  "piflufolastat": "PSMA",
+  "177Lu-DOTATATE": "SSTR2",
+  "oxodotreotide": "SSTR2",
+  "RYZ101": "SSTR2",
+  "octreotide": "SSTR2",
+  "lanreotide": "SSTR2",
+  "paltusotine": "SSTR2",
+  "semaglutide": "GLP-1R",
+  "liraglutide": "GLP-1R",
+  "dulaglutide": "GLP-1R",
+  "exenatide": "GLP-1R",
+  "orforglipron": "GLP-1R",
+  "danuglipron": "GLP-1R",
+  "aleniglipron": "GLP-1R",
+  "ecnoglutide": "GLP-1R",
+  "efpeglenatide": "GLP-1R",
+  "MET097": "GLP-1R",
+  "ROSE-010": "GLP-1R",
+  "tirzepatide": [
+   "GLP-1R",
+   "GIPR"
+  ],
+  "retatrutide": [
+   "GLP-1R",
+   "GIPR",
+   "胰高血糖素受体 (GCGR)"
+  ],
+  "survodutide": [
+   "GLP-1R",
+   "胰高血糖素受体 (GCGR)"
+  ],
+  "mazdutide": [
+   "GLP-1R",
+   "胰高血糖素受体 (GCGR)"
+  ],
+  "IBI362": [
+   "GLP-1R",
+   "胰高血糖素受体 (GCGR)"
+  ],
+  "pemvidutide": [
+   "GLP-1R",
+   "胰高血糖素受体 (GCGR)"
+  ],
+  "efinopegdutide": [
+   "GLP-1R",
+   "胰高血糖素受体 (GCGR)"
+  ],
+  "cotadutide": [
+   "GLP-1R",
+   "胰高血糖素受体 (GCGR)"
+  ],
+  "HRS9531": [
+   "GLP-1R",
+   "GIPR"
+  ],
+  "MariTide": [
+   "GLP-1R",
+   "GIPR"
+  ],
+  "maridebart cafraglutide": [
+   "GLP-1R",
+   "GIPR"
+  ],
+  "bofanglutide": "GLP-1R",
+  "GZR18": "GLP-1R",
+  "cagrilintide": "胰淀素受体",
+  "CagriSema": [
+   "胰淀素受体",
+   "GLP-1R"
+  ],
+  "amycretin": [
+   "胰淀素受体",
+   "GLP-1R"
+  ],
+  "petrelintide": "胰淀素受体",
+  "eloralintide": "胰淀素受体",
+  "LY3841136": "胰淀素受体",
+  "insulin icodec": "胰岛素受体",
+  "efsitora": "胰岛素受体",
+  "insulin efsitora alfa": "胰岛素受体",
+  "GZR4": "胰岛素受体",
+  "evolocumab": "PCSK9",
+  "alirocumab": "PCSK9",
+  "inclisiran": "PCSK9",
+  "enlicitide": "PCSK9",
+  "MK-0616": "PCSK9",
+  "lerodalcibep": "PCSK9",
+  "tafolecimab": "PCSK9",
+  "recaticimab": "PCSK9",
+  "ebronucimab": "PCSK9",
+  "AZD0780": "PCSK9",
+  "pelacarsen": "Lp(a)",
+  "olpasiran": "Lp(a)",
+  "lepodisiran": "Lp(a)",
+  "zerlasiran": "Lp(a)",
+  "muvalaplin": "Lp(a)",
+  "TQJ230": "Lp(a)",
+  "olezarsen": "APOC3",
+  "plozasiran": "APOC3",
+  "evinacumab": "ANGPTL3",
+  "zodasiran": "ANGPTL3",
+  "solbinsiran": "ANGPTL3",
+  "obicetrapib": "CETP",
+  "asundexian": "凝血因子 XI",
+  "milvexian": "凝血因子 XI",
+  "abelacimab": "凝血因子 XI",
+  "osocimab": "凝血因子 XI",
+  "REGN7508": "凝血因子 XI",
+  "REGN9933": "凝血因子 XI",
+  "baxdrostat": "醛固酮合酶 (CYP11B2)",
+  "lorundrostat": "醛固酮合酶 (CYP11B2)",
+  "vicadrostat": "醛固酮合酶 (CYP11B2)",
+  "dexfadrostat": "醛固酮合酶 (CYP11B2)",
+  "finerenone": "盐皮质激素受体",
+  "balcinrenone": "盐皮质激素受体",
+  "ocedurenone": "盐皮质激素受体",
+  "spironolactone": "盐皮质激素受体",
+  "eplerenone": "盐皮质激素受体",
+  "mavacamten": "心肌肌球蛋白",
+  "aficamten": "心肌肌球蛋白",
+  "MYK-224": "心肌肌球蛋白",
+  "omecamtiv mecarbil": "心肌肌球蛋白",
+  "vericiguat": "sGC",
+  "riociguat": "sGC",
+  "zilebesiran": "肾素 / AGT",
+  "empagliflozin": "SGLT2",
+  "dapagliflozin": "SGLT2",
+  "sotagliflozin": "SGLT2",
+  "canagliflozin": "SGLT2",
+  "resmetirom": "THR-β",
+  "denifanstat": "FASN",
+  "efruxifermin": "FGF21",
+  "pegozafermin": "FGF21",
+  "efimosfermin": "FGF21",
+  "obeticholic acid": "FXR",
+  "sotatercept": "激活素 / ActRII",
+  "luspatercept": "激活素 / ActRII",
+  "bimagrumab": "激活素 / ActRII",
+  "KER-012": "激活素 / ActRII",
+  "taldefgrobep": "Myostatin / GDF8",
+  "apitegromab": "Myostatin / GDF8",
+  "setmelanotide": "MC4R",
+  "acoramidis": "TTR",
+  "tafamidis": "TTR",
+  "vutrisiran": "TTR",
+  "eplontersen": "TTR",
+  "patisiran": "TTR",
+  "nexiguran ziclumeran": "TTR",
+  "NTLA-2001": "TTR",
+  "atrasentan": "内皮素受体",
+  "sparsentan": [
+   "内皮素受体",
+   "AT1 受体"
+  ],
+  "aprocitentan": "内皮素受体",
+  "inaxaplin": "APOL1",
+  "risankizumab": "IL-23 / IL-23R",
+  "guselkumab": "IL-23 / IL-23R",
+  "mirikizumab": "IL-23 / IL-23R",
+  "tildrakizumab": "IL-23 / IL-23R",
+  "icotrokinra": "IL-23 / IL-23R",
+  "JNJ-77242113": "IL-23 / IL-23R",
+  "JNJ-2113": "IL-23 / IL-23R",
+  "ustekinumab": "IL-23 / IL-23R",
+  "secukinumab": "IL-17A/F",
+  "ixekizumab": "IL-17A/F",
+  "bimekizumab": "IL-17A/F",
+  "izokibep": "IL-17A/F",
+  "sonelokimab": "IL-17A/F",
+  "netakimab": "IL-17A/F",
+  "xeligekimab": "IL-17A/F",
+  "gumokimab": "IL-17A/F",
+  "dupilumab": "IL-4Rα",
+  "stapokibart": "IL-4Rα",
+  "CM310": "IL-4Rα",
+  "rademikibart": "IL-4Rα",
+  "comekibart": "IL-4Rα",
+  "lebrikizumab": "IL-13",
+  "tralokinumab": "IL-13",
+  "eblasakimab": "IL-13",
+  "cendakimab": "IL-13",
+  "mepolizumab": "IL-5 / IL-5R",
+  "benralizumab": "IL-5 / IL-5R",
+  "reslizumab": "IL-5 / IL-5R",
+  "depemokimab": "IL-5 / IL-5R",
+  "tezepelumab": "TSLP",
+  "verekitug": "TSLP",
+  "ecleralimab": "TSLP",
+  "solrikitug": "TSLP",
+  "lunsekimig": [
+   "TSLP",
+   "IL-13"
+  ],
+  "itepekimab": "IL-33 / ST2",
+  "tozorakimab": "IL-33 / ST2",
+  "astegolimab": "IL-33 / ST2",
+  "nemolizumab": "IL-31 / IL-31RA",
+  "vixarelimab": "IL-31 / IL-31RA",
+  "spesolimab": "IL-36R",
+  "tocilizumab": "IL-6 / IL-6R",
+  "sarilumab": "IL-6 / IL-6R",
+  "ziltivekimab": "IL-6 / IL-6R",
+  "clazakizumab": "IL-6 / IL-6R",
+  "pacibekitug": "IL-6 / IL-6R",
+  "TOUR006": "IL-6 / IL-6R",
+  "satralizumab": "IL-6 / IL-6R",
+  "canakinumab": "IL-1β / IL-1R",
+  "anakinra": "IL-1β / IL-1R",
+  "rilonacept": "IL-1β / IL-1R",
+  "lutikizumab": "IL-1β / IL-1R",
+  "adalimumab": "TNF",
+  "infliximab": "TNF",
+  "etanercept": "TNF",
+  "golimumab": "TNF",
+  "certolizumab pegol": "TNF",
+  "tulisokibart": "TL1A",
+  "duvakitug": "TL1A",
+  "afimkibart": "TL1A",
+  "RVT-3101": "TL1A",
+  "rocatinlimab": "OX40",
+  "amlitelimab": "OX40L",
+  "telazorlimab": "OX40",
+  "efgartigimod": "FcRn",
+  "nipocalimab": "FcRn",
+  "batoclimab": "FcRn",
+  "rozanolixizumab": "FcRn",
+  "IMVT-1402": "FcRn",
+  "efgartigimod alfa": "FcRn",
+  "atacicept": "BAFF / APRIL",
+  "telitacicept": "BAFF / APRIL",
+  "povetacicept": "BAFF / APRIL",
+  "sibeprenlimab": "BAFF / APRIL",
+  "belimumab": "BAFF / APRIL",
+  "ianalumab": "BAFF / APRIL",
+  "zigakibart": "BAFF / APRIL",
+  "frexalimab": "CD40L",
+  "dazodalibep": "CD40L",
+  "dapirolizumab pegol": "CD40L",
+  "iscalimab": "CD40",
+  "SAR441344": "CD40L",
+  "anifrolumab": "IFNAR / I 型干扰素",
+  "litifilimab": "BDCA2",
+  "deucravacitinib": "TYK2",
+  "zasocitinib": "TYK2",
+  "ESK-001": "TYK2",
+  "envudeucitinib": "TYK2",
+  "upadacitinib": "JAK1",
+  "abrocitinib": "JAK1",
+  "filgotinib": "JAK1",
+  "ivarmacitinib": "JAK1",
+  "povorcitinib": "JAK1",
+  "tofacitinib": "JAK（泛）",
+  "baricitinib": "JAK（泛）",
+  "ruxolitinib": "JAK（泛）",
+  "ritlecitinib": "JAK（泛）",
+  "deuruxolitinib": "JAK（泛）",
+  "momelotinib": "JAK（泛）",
+  "ozanimod": "S1P 受体",
+  "etrasimod": "S1P 受体",
+  "ponesimod": "S1P 受体",
+  "siponimod": "S1P 受体",
+  "fingolimod": "S1P 受体",
+  "vedolizumab": "α4β7 整合素",
+  "obefazimod": "miR-124 (obefazimod)",
+  "eculizumab": "补体 C5",
+  "ravulizumab": "补体 C5",
+  "crovalimab": "补体 C5",
+  "pozelimab": "补体 C5",
+  "zilucoplan": "补体 C5",
+  "gefurulimab": "补体 C5",
+  "pegcetacoplan": "补体 C3",
+  "iptacopan": "补体因子 B",
+  "danicopan": "补体因子 D",
+  "vemircopan": "补体因子 D",
+  "narsoplimab": "MASP-2 / MASP-3",
+  "sutimlimab": "C1s / C1q",
+  "riliprubart": "C1s / C1q",
+  "avacopan": "补体 C5",
+  "barzolvolimab": "KIT",
+  "briquilimab": "KIT",
+  "bezuclastinib": "KIT",
+  "avapritinib": "KIT",
+  "elenestinib": "KIT",
+  "EVO756": "MRGPRX2",
+  "roflumilast": "PDE4",
+  "apremilast": "PDE4",
+  "orismilast": "PDE4",
+  "nerandomilast": "PDE4",
+  "ensifentrine": "PDE4",
+  "BI 1015550": "PDE4",
+  "mufemilast": "PDE4",
+  "admilparant": "LPA1",
+  "BMS-986278": "LPA1",
+  "bexotegrast": "ITGB6 / αvβ6",
+  "PLN-74809": "ITGB6 / αvβ6",
+  "KarXT": "毒蕈碱受体 M1/M4",
+  "xanomeline": "毒蕈碱受体 M1/M4",
+  "emraclidine": "毒蕈碱受体 M1/M4",
+  "NBI-1117568": "毒蕈碱受体 M1/M4",
+  "ulotaront": "TAAR1",
+  "ralmitaront": "TAAR1",
+  "suvorexant": "食欲素受体",
+  "lemborexant": "食欲素受体",
+  "daridorexant": "食欲素受体",
+  "oveporexton": "食欲素受体",
+  "TAK-861": "食欲素受体",
+  "alixorexton": "食欲素受体",
+  "ALKS 2680": "食欲素受体",
+  "ORX750": "食欲素受体",
+  "esketamine": "NMDA 受体",
+  "zuranolone": "GABA-A 受体",
+  "ganaxolone": "GABA-A 受体",
+  "darigabat": "GABA-A 受体",
+  "azetukalner": "Kv7 (KCNQ)",
+  "XEN1101": "Kv7 (KCNQ)",
+  "BHV-7000": "Kv7 (KCNQ)",
+  "suzetrigine": "Nav1.7 / Nav1.8",
+  "VX-548": "Nav1.7 / Nav1.8",
+  "VX-993": "Nav1.7 / Nav1.8",
+  "rimegepant": "CGRP / CGRP 受体",
+  "atogepant": "CGRP / CGRP 受体",
+  "ubrogepant": "CGRP / CGRP 受体",
+  "zavegepant": "CGRP / CGRP 受体",
+  "erenumab": "CGRP / CGRP 受体",
+  "fremanezumab": "CGRP / CGRP 受体",
+  "galcanezumab": "CGRP / CGRP 受体",
+  "eptinezumab": "CGRP / CGRP 受体",
+  "lasmiditan": "5-HT（其他）",
+  "lecanemab": "β-淀粉样蛋白",
+  "donanemab": "β-淀粉样蛋白",
+  "aducanumab": "β-淀粉样蛋白",
+  "remternetug": "β-淀粉样蛋白",
+  "trontinemab": "β-淀粉样蛋白",
+  "gantenerumab": "β-淀粉样蛋白",
+  "valiltramiprosate": "β-淀粉样蛋白",
+  "E2814": "Tau",
+  "bepranemab": "Tau",
+  "BIIB080": "Tau",
+  "posdinemab": "Tau",
+  "prasinezumab": "α-突触核蛋白",
+  "BIIB122": "LRRK2",
+  "aticaprant": "κ 阿片受体",
+  "navacaprant": "κ 阿片受体",
+  "difelikefalin": "κ 阿片受体",
+  "nalbuphine": "κ 阿片受体",
+  "tradipitant": "NK1 受体",
+  "aprepitant": "NK1 受体",
+  "elinzanetant": "NK1 受体",
+  "fezolinetant": "NK1 受体",
+  "bexicaserin": "5-HT（其他）",
+  "LP352": "5-HT（其他）",
+  "fenfluramine": "5-HT（其他）",
+  "psilocybin": "5-HT2A",
+  "COMP360": "5-HT2A",
+  "CYB003": "5-HT2A",
+  "GM-2505": "5-HT2A",
+  "bretisilocin": "5-HT2A",
+  "tominersen": "HTT",
+  "tofersen": "SOD1",
+  "nusinersen": "SMN2",
+  "risdiplam": "SMN2",
+  "del-desiran": "DMPK",
+  "AOC 1001": "DMPK",
+  "DYNE-101": "DMPK",
+  "zorevunersen": "Nav（其他）",
+  "elsunersen": "Nav（其他）",
+  "ION582": "UBE3A",
+  "rugonersen": "UBE3A",
+  "GTX-102": "UBE3A",
+  "latozinemab": "Sortilin / 颗粒体蛋白",
+  "AL001": "Sortilin / 颗粒体蛋白",
+  "rusfertide": "TMPRSS6 / 铁调素",
+  "sapablursen": "TMPRSS6 / 铁调素",
+  "SLN124": "TMPRSS6 / 铁调素",
+  "vamifeport": "TMPRSS6 / 铁调素",
+  "divesiran": "TMPRSS6 / 铁调素",
+  "mitapivat": "丙酮酸激酶 (PKR)",
+  "etavopivat": "丙酮酸激酶 (PKR)",
+  "tebapivat": "丙酮酸激酶 (PKR)",
+  "fitusiran": "抗凝血酶",
+  "concizumab": "TFPI",
+  "marstacimab": "TFPI",
+  "PF-06741086": "TFPI",
+  "Mim8": "FVIII 模拟 (FIXa × FX)",
+  "emicizumab": "FVIII 模拟 (FIXa × FX)",
+  "vosoritide": "CNP / NPR-B",
+  "navepegritide": "CNP / NPR-B",
+  "infigratinib": "FGFR3",
+  "garadacimab": "因子 XII",
+  "donidalorsen": "Kallikrein (KLKB1)",
+  "sebetralstat": "Kallikrein (KLKB1)",
+  "lanadelumab": "Kallikrein (KLKB1)",
+  "berotralstat": "Kallikrein (KLKB1)",
+  "deucrictibant": "缓激肽 B2 受体",
+  "ivacaftor": "CFTR",
+  "vanzacaftor": "CFTR",
+  "elexacaftor": "CFTR",
+  "tezacaftor": "CFTR",
+  "pirfenidone": "TGF-β",
+  "nintedanib": "VEGF / VEGFR",
+  "seralutinib": "PDGFR",
+  "belumosudil": "ROCK",
+  "netarsudil": "ROCK",
+  "sevasemten": "心肌肌球蛋白",
+  "EDG-5506": "心肌肌球蛋白",
+  "givinostat": "HDAC",
+  "vamorolone": "GR（糖皮质激素受体）",
+  "pabinafusp alfa": "TfR1",
+  "tividenofusp alfa": "TfR1",
+  "zifibancimig": [
+   "VEGF / VEGFR",
+   "Ang-2"
+  ],
+  "tarcocimab": "VEGF / VEGFR",
+  "axitinib intravitreal": "VEGF / VEGFR",
+  "EYP-1901": "VEGF / VEGFR",
+  "vorolanib": "VEGF / VEGFR",
+  "OTX-TKI": "VEGF / VEGFR",
+  "avacincaptad pegol": "补体 C5",
+  "bardoxolone": "NRF2 / KEAP1",
+  "omaveloxolone": "NRF2 / KEAP1",
+  "verinurad": "Urat1 / 尿酸",
+  "dotinurad": "Urat1 / 尿酸",
+  "tigulixostat": "Urat1 / 尿酸",
+  "AR882": "Urat1 / 尿酸",
+  "denecimig": "FVIII 模拟 (FIXa × FX)",
+  "NXT007": "FVIII 模拟 (FIXa × FX)",
+  "telisotuzumab": "c-MET",
+  "vimseltinib": "CSF1R",
+  "pimicotinib": "CSF1R",
+  "IBI302": [
+   "VEGF / VEGFR",
+   "补体 C3"
+  ]
+ }
+}

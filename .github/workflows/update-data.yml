@@ -25,6 +25,6 @@ jobs:
         run: |
           git config user.name "readout-bot"
           git config user.email "readout-bot@users.noreply.github.com"
-          git add data/trials.json docs/index.html
+          git add data/trials.json docs/index.html docs/early.json docs/active.json
           git diff --cached --quiet || git commit -m "Update trial data $(date -u +%Y-%m-%d)"
           git push

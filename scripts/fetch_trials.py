@@ -35,8 +35,10 @@ def get(params):
             time.sleep(wait)
 
 
-def fetch_all(advanced, status=None, cap=3000, label=""):
+def fetch_all(advanced, status=None, cap=3000, label="", fields=None):
     params = {"filter.advanced": advanced, "pageSize": 200, "format": "json"}
+    if fields:
+        params["fields"] = fields
     if status:
         params["filter.overallStatus"] = ",".join(status)
     out, token = [], None
@@ -433,7 +435,32 @@ def pick(study):
         "iv": modality.iv_records(arms),
         "ta": classify(" ".join(conditions) + " " + ident.get("briefTitle", ""), TA_RULES, "其他"),
         "dt": details(study),
+        "sum": re.sub(r"\s+", " ", (p.get("descriptionModule", {}) or {}).get("briefSummary", ""))[:700],
+        "kw": (cond.get("keywords") or [])[:8],
+        "fp": d("studyFirstPostDateStruct"),
+        "hv": (p.get("eligibilityModule", {}) or {}).get("healthyVolunteers"),
     }
+
+
+# 早期试验里的临床药理研究（生物等效、相互作用、物质平衡、肝肾功能、制剂比较等）不反映靶点布局，过滤掉
+CLINPHARM = re.compile(
+    r"bioequivalen|bio-equivalen|bioavailab|food effect|effect of food|fed (and|vs\.?|versus) fast|fasted and fed|"
+    r"drug[- ]drug interaction|\bDDI\b|interaction (study|potential|between)|effects? of .{0,60} on the pharmacokinetics|"
+    r"affects? (the )?(blood )?levels? of|changes? how the body processes|on (the )?pharmacokinetics of|\b(vs\.?|versus) [A-Z][A-Za-z]+®|mass balance|\[14C\]|\b14C[- ]|radiolabell?ed|absorption, metabolism|\bADME\b|"
+    r"hepatic impairment|renal impairment|liver impairment|kidney impairment|thorough QT|\bQTc? (study|interval)|"
+    r"biosimilar|reference product|EU-approved|US-licensed|EU-sourced|US-sourced|pharmacokinetic similarity|"
+    r"comparative pharmacokinetic|relative bioavailability|formulations? (comparison|bridging)|"
+    r"(tablet|capsule|solution|suspension|formulation)s? (versus|vs\.?|compared (with|to)) |"
+    r"in healthy (chinese|japanese|korean) .{0,40}(pharmacokinetic|PK)|ethnic sensitivity|bridging study",
+    re.I)
+
+
+def slim_early(t):
+    """早期试验只保留靶点赛道需要的字段（明细证据不需要）。"""
+    t.pop("dt", None)
+    t.pop("pvals", None)
+    t["primary"] = [x[:100] for x in (t.get("primary") or [])[:1]]
+    return t
 
 
 def main():
@@ -441,6 +468,8 @@ def main():
     ap.add_argument("--days", type=int, default=180, help="回看窗口天数")
     ap.add_argument("--ahead", type=int, default=180, help="催化剂日历前瞻天数")
     ap.add_argument("--all-sponsors", action="store_true", help="包含非企业申办")
+    ap.add_argument("--early-days", type=int, default=730, help="早期新进（I/II 期）回看天数，0 表示不抓")
+    ap.add_argument("--no-active", dest="active", action="store_false", help="不抓在研 II/III 期全量（靶点赛道用）")
     ap.add_argument("--out", default="trials.json")
     a = ap.parse_args()
 
@@ -467,6 +496,32 @@ def main():
     }
     out = {"generated": today.isoformat(), "window_days": a.days, "industry_only": not a.all_sponsors,
            "sets": {k: [pick(s) for s in v] for k, v in sets.items()}}
+
+    # 早期新进：近 a.early_days 天新登记的 I、I/II、II 期（靶点赛道用），去掉临床药理研究
+    if a.early_days:
+        since = (today - timedelta(days=a.early_days)).isoformat()
+        fp = f"AREA[StudyFirstPostDate]RANGE[{since},MAX]"
+        early_q = {
+            "I 期": f"{base} AND AREA[Phase]PHASE1 AND NOT AREA[Phase]PHASE2 AND {fp}",
+            "I/II 期": f"{base} AND AREA[Phase]PHASE1 AND AREA[Phase]PHASE2 AND {fp}",
+            "II 期": f"{base} AND AREA[Phase]PHASE2 AND NOT AREA[Phase](PHASE1 OR PHASE3) AND {fp}",
+        }
+        early, seen, dropped = [], set(), 0
+        for lab, q in early_q.items():
+            for s in fetch_all(q, cap=8000, label=f"早期新进 {lab}"):
+                ident = s.get("protocolSection", {}).get("identificationModule", {})
+                if ident.get("nctId") in seen:
+                    continue
+                seen.add(ident.get("nctId"))
+                if CLINPHARM.search(ident.get("briefTitle", "") + " " + ident.get("officialTitle", "")):
+                    dropped += 1
+                    continue
+                t = slim_early(pick(s))
+                set_mod(t)
+                early.append(t)
+        out["early"] = early
+        out["early_days"] = a.early_days
+        print(f"早期新进：保留 {len(early)} 项，过滤临床药理研究 {dropped} 项", file=sys.stderr)
     for k, v in out["sets"].items():
         for t in v:
             set_mod(t)
@@ -476,6 +531,34 @@ def main():
             t.pop("_set")
     with open(a.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
+
+    # 在研 II/III 期全量（靶点赛道看拥挤度用）：只取需要的字段，写到同目录的 active.json，构建时再抽靶点
+    if a.active:
+        fields = ("NCTId,BriefTitle,Acronym,OfficialTitle,Phase,OverallStatus,LeadSponsorName,CollaboratorName,Condition,Keyword,"
+                  "InterventionType,InterventionName,InterventionDescription,InterventionOtherName,InterventionArmGroupLabel,"
+                  "ArmGroupLabel,ArmGroupType,StudyFirstPostDate,BriefSummary,EnrollmentCount,PrimaryCompletionDate,LastUpdatePostDate")
+        act_status = ["RECRUITING", "ACTIVE_NOT_RECRUITING", "NOT_YET_RECRUITING", "ENROLLING_BY_INVITATION"]
+        rows, seen = [], set()
+        for lab, q in (("II 期", f"{base} AND AREA[Phase]PHASE2 AND NOT AREA[Phase]PHASE3"), ("III 期", f"{base} AND AREA[Phase]PHASE3")):
+            try:
+                got = fetch_all(q, status=act_status, cap=20000, label=f"在研 {lab}", fields=fields)
+            except Exception as e:  # 字段参数不被接受时退回全量
+                print(f"  按字段抓取失败（{e}），改为全量", file=sys.stderr)
+                got = fetch_all(q, status=act_status, cap=20000, label=f"在研 {lab}")
+            for st in got:
+                nct = st.get("protocolSection", {}).get("identificationModule", {}).get("nctId")
+                if nct in seen:
+                    continue
+                seen.add(nct)
+                t = slim_early(pick(st))
+                for k in ("primary", "results", "why", "why_cat", "hv"):
+                    t.pop(k, None)
+                set_mod(t)
+                rows.append(t)
+        ap_ = os.path.join(os.path.dirname(os.path.abspath(a.out)), "active.json")
+        with open(ap_, "w", encoding="utf-8") as f:
+            json.dump({"generated": today.isoformat(), "trials": rows}, f, ensure_ascii=False, separators=(",", ":"))
+        print(f"在研 II/III 期：{len(rows)} 项 → {ap_}", file=sys.stderr)
     counts = ", ".join(f"{k} {len(v)}" for k, v in out["sets"].items())
     print(f"完成：{counts} → {a.out}", file=sys.stderr)
 
@@ -496,6 +579,11 @@ def reclassify(path):
             t["ta"] = classify(" ".join(t["conditions"]) + " " + t["title"], TA_RULES, "其他")
             t["group"] = sponsor_group(t["sponsor"])
             t["why_cat"] = why_cat(t.get("why", ""), t["status"]) if t["status"] in ("TERMINATED", "SUSPENDED", "WITHDRAWN") else ""
+    for t in d.get("early", []):
+        set_mod(t)
+        t["ta"] = classify(" ".join(t["conditions"]) + " " + t["title"], TA_RULES, "其他")
+        t["group"] = sponsor_group(t["sponsor"])
+        t["why_cat"] = why_cat(t.get("why", ""), t["status"]) if t["status"] in ("TERMINATED", "SUSPENDED", "WITHDRAWN") else ""
     for k, v in d["sets"].items():
         for t in v:
             if k in ("results", "stopped") and "dt" in t:

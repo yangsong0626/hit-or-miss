@@ -106,6 +106,7 @@ BACKBONE = re.compile(
     r"dexamethasone|prednisone|prednisolone|methylprednisolone|lenalidomide|pomalidomide|bortezomib|carfilzomib|"
     r"metformin|methotrexate|letrozole|anastrozole|exemestane|fulvestrant|tamoxifen|enzalutamide|abiraterone|"
     r"azacitidine|cytarabine|temozolomide|insulin glargine|aspirin|standard of care|best supportive care|"
+    r"fludarabine|bendamustine|vincristine|mesna|lymphodeplet\w*|conditioning|tocilizumab|rosuvastatin|atorvastatin|"
     r"chemotherapy|physician'?s choice|investigator'?s choice|background therapy|androgen deprivation therapy|"
     r"\badt\b|leuprolide|goserelin)\b", re.I)
 
@@ -214,11 +215,42 @@ def candidates(t):
     return novel or pool
 
 
+def _from_text(t, cands):
+    """干预本身认不出时，用标题和简介里提到受试药的句子再判断一次（取最先出现的关键词）。"""
+    toks = {w.lower() for iv in cands for w in re.findall(r"[A-Za-z][\w-]{2,}", iv.get("n") or "")
+            if not re.fullmatch(r"(?i)injection|tablets?|capsules?|dose|low|high|placebo|infusion|for|and|the|oral|cohort|part|arm", w)}
+    sents = [x for x in re.split(r"(?<=[.;])\s+", t.get("sum") or "") if any(k in x.lower() for k in toks)]
+    txt = (t.get("title") or "") + " . " + " ".join(sents)
+    best = None
+    for pat, lab in RULES:
+        if lab in _TEXT_SKIP:
+            continue
+        if lab == "小分子":   # 文本里的药名词干多半是联用药，小分子只认剂型和给药途径
+            pat = _SM_TEXT
+        for m in re.finditer(pat, txt, re.I):
+            # 标题里常写联用药（"… combined with carboplatin"），跳过背景治疗
+            if BACKBONE.match(m.group(0)) or re.search(r"(?:with|plus|and|\+)\s*$", txt[max(0, m.start() - 12):m.start()], re.I):
+                continue
+            if best is None or m.start() < best[0]:
+                best = (m.start(), lab)
+            break
+    return best[1] if best else None
+
+
+_SM_TEXT = (r"\b(?:oral(?:ly)?|tablets?|capsules?|cream|ointment|gel|lotion|topical|eye drops?|ophthalmic|inhal\w*|"
+            r"nebuli[sz]\w*|nasal spray|small[- ]molecule|transdermal|patch)\b")
+_TEXT_SKIP = {"血浆制品 / 免疫球蛋白", "酶 / 重组蛋白", "过敏原免疫治疗", "活菌 / 微生物组", "中药 / 植物药", "mRNA 疗法"}
+
+
 def classify_trial(t):
     """返回 (主要细类, 全部细类列表)。"""
     over = load_map()["nct"].get(t.get("nct"))
     cands = candidates(t)
     labs = [classify_one(iv) for iv in cands]
+    if labs and all(GROUPS.get(x) == "未识别" for x in labs):
+        alt = _from_text(t, cands)
+        if alt and alt != "器械 / 非药物":
+            labs = [alt] + labs
     if over:
         return over, list(dict.fromkeys([over] + [x for x in labs if x != "器械 / 非药物"]))
     drug = [x for x in labs if x != "器械 / 非药物"]
