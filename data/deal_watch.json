@@ -12,15 +12,19 @@
      "tk": "RVMD",
      "asset": "daraxonrasib 等 RAS(ON) 抑制剂系列",
      "mech": "多选择性 RAS(ON) 抑制剂，另有 G12D、G12C 专属分子",
-     "stage": "III 期阳性，上市申请已受理",
-     "next": "一线胰腺癌 III 期进行中；肺癌 III 期 2027 年读出",
+     "stage": "2026 年 8 月 26 日 FDA 获批（RASONQUE，既往治疗的转移性胰腺癌，不限 RAS 突变状态）；欧盟分阶段审评中",
+     "next": "上市放量；胰腺癌其他线数和 RAS 突变肺癌的全球 III 期",
      "lo": 10,
      "hi": 15,
-     "p": 0.75,
-     "why": "二线胰腺癌 III 期总生存期显著获益，登上 ASCO 全体大会并发表于 NEJM；一个平台覆盖胰腺、肺、结直肠",
+     "p": 0.85,
+     "why": "二线胰腺癌 III 期总生存期 13.2 对 6.7 个月（HR 0.40），已获批上市；一个平台覆盖胰腺、肺、结直肠",
      "buyers": "默沙东（年初谈判因价格退出）、百时美施贵宝、诺华",
      "risk": "要价高；泛 RAS 赛道后来者多",
      "chips": [
+      [
+       "已上市",
+       ""
+      ],
       [
        "已有买家接触",
        ""
@@ -730,6 +734,13 @@
   {
    "name": "英矽智能 rentosertib III 期启动",
    "url": "https://www.news-medical.net/news/20260910/Generative-AI-driven-drug-Rentosertib-enters-Phase-III-trial-for-idiopathic-pulmonary-fibrosis.aspx"
+  },
+  {
+   "name": "Revolution Medicines：FDA 批准 RASONQUE（2026-08-26）",
+   "url": "https://ir.revmed.com/news-releases/news-release-details/us-fda-approves-revolution-medicines-rasonquetm-daraxonrasib"
   }
+ ],
+ "_notes": [
+  "2026-10-15：Revolution Medicines 更新为已获批；p 取 0.85 而非上市药的 0.90–0.95，因为峰值销售大头来自尚在 III 期的一线胰腺癌和肺癌。"
  ]
 }
