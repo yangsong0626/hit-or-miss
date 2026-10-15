@@ -19,6 +19,10 @@ jobs:
           python-version: "3.12"
       - name: Fetch trials
         run: python scripts/fetch_trials.py --out data/trials.json
+      - name: Score preclinical targets (Open Targets)
+        # 失败时保留旧文件，不影响后面的步骤
+        continue-on-error: true
+        run: python scripts/fetch_preclinical.py --out data/preclinical_auto.json
       - name: Build site
         run: python scripts/build_site.py site/template.html data/trials.json docs/index.html
       - name: Commit if changed
@@ -26,5 +30,6 @@ jobs:
           git config user.name "readout-bot"
           git config user.email "readout-bot@users.noreply.github.com"
           git add data/trials.json docs/index.html docs/early.json docs/active.json
+          if [ -f data/preclinical_auto.json ]; then git add data/preclinical_auto.json; fi
           git diff --cached --quiet || git commit -m "Update trial data $(date -u +%Y-%m-%d)"
           git push

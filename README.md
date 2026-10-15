@@ -11,7 +11,7 @@
 | 总览 | 各治疗领域分别有多少新结果、待公布、即将完成、提前终止；哪些领域的阳性率或终止率偏高；切换到「按药物形式」看哪里最拥挤 |
 | 公司 | 每家公司的试验构成（子公司已归到母公司），按总数、新结果、在研、终止数或终止占比排序，展开看具体试验 |
 | 药物形式 | 按受试药的药物形式（小分子、降解剂、多肽、单抗、双抗、ADC、siRNA、细胞治疗、基因治疗、疫苗、放射性药物等约 20 类，归为 8 个大类）汇总试验数、新结果达到率、终止占比和终止原因；展开看主要公司、领域和具体试验 |
-| 靶点赛道 | 把近两年新登记的 I、I/II、II 期试验、在研 II/III 期试验和本站的读出按受试药靶点汇总：每个靶点几家公司、几个项目、最高推进到哪一期、用什么药物形式、近 12 个月新进几家、有没有 II/III 期阳性或失败读出。按规则标出「可追赶」（已验证但公司不多）、「早期蓝海」「早期扎堆」「红海」「有失败信号」；可以只看小分子的竞争。适合药化、CADD 判断一个靶点还能不能追 |
+| 靶点赛道 | 把近两年新登记的 I、I/II、II 期试验、在研 II/III 期试验和本站的读出按受试药靶点汇总：每个靶点几家公司、几个项目、最高推进到哪一期、用什么药物形式、近 12 个月新进几家、有没有 II/III 期阳性或失败读出。按规则标出「可追赶」（已验证但公司不多）、「早期蓝海」「早期扎堆」「红海」「有失败信号」；可以只看小分子的竞争。适合药化、CADD 判断一个靶点还能不能追。切到「临床前」看还没有药物进入临床、但科学和临床价值高的靶点：编辑核实的精选（附人群、证据、化学现状、风险和来源）加 Open Targets 自动打分的全量扫描；目前只做肿瘤，研发视角下有入口 |
 | 时间轴 | 未来半年哪些 III 期试验到达主要完成日，按领域分行，点的大小代表入组人数，可高亮某家公司 |
 | 被搁置的资产 | 提前终止的试验按原因归类；因申办方决定 / 战略原因停下的项目可作为授权或收购线索 |
 | 靶点红黑榜 | 近期读出按受试药物的靶点汇总：成功多于失败上红榜，失败多于成功上黑榜 |
@@ -49,6 +49,8 @@ data/curated.json        精选读出（含三种视角点评、来源）、同�
 data/targets.json        靶点红黑榜用的「试验 → 靶点」映射
 data/modality_map.json   药物形式对照表：研发代号 / 药名 → 细类（人工核对）
 data/deal_watch.json     交易候选（人工整理：峰值销售区间、成功概率、接手方、风险、来源），不随每周更新自动变化
+data/preclinical.json    临床前靶点精选（人工核实：人群、证据、化学现状、建议药物形式、风险、来源）
+data/preclinical_auto.json  临床前靶点自动打分（fetch_preclinical.py 生成，每周更新时刷新，约 25 天以内的不重抓）
 data/target_dict.json    靶点词典（靶点 → 别名）和常见药名 → 靶点表
 data/active.json         在研 II/III 期全量（抓取时生成，不进仓库；构建时只把识别出靶点的写进 docs/active.json）
 docs/early.json          早期新进试验（页面按需加载）
@@ -56,6 +58,7 @@ docs/active.json         识别出靶点的在研 II/III 期试验（靶点赛�
 scripts/fetch_trials.py  抓取 ClinicalTrials.gov，只用 Python 标准库
 scripts/modality.py      药物形式分类规则
 scripts/targets.py       从注册信息自动抽取靶点
+scripts/fetch_preclinical.py  从 Open Targets 拉取癌症相关靶点，去掉已进临床的，按证据、可成药性、热度、风险打分
 scripts/build_site.py    把 trials.json 内嵌进模板，生成 docs/index.html
 run_update.command       macOS 双击运行：抓取 + 重建
 .github/workflows/       每周一自动更新数据
@@ -66,6 +69,7 @@ run_update.command       macOS 双击运行：抓取 + 重建
 ```bash
 python scripts/fetch_trials.py --out data/trials.json          # 默认仅企业申办，回看 180 天
 python scripts/fetch_trials.py --all-sponsors --days 365 ...    # 包含学术申办、回看一年
+python scripts/fetch_preclinical.py                             # 临床前靶点自动打分（需能访问 Open Targets）
 python scripts/build_site.py site/template.html data/trials.json docs/index.html
 ```
 
@@ -85,3 +89,4 @@ python scripts/fetch_trials.py --reclassify data/trials.json
 - 注册库要求结果在主要完成后约一年内登记，因此「新公布结果」通常晚于新闻稿。
 - 精选解读的点评是编辑观点，不构成投资或诊疗建议。
 - 交易候选的峰值销售和成功概率是编辑粗估，风险调整价值 = 峰值销售区间中值 × 当前阶段成功概率，只用于排序，不是估值；交易一旦发生需手动从 `data/deal_watch.json` 移除。
+- 临床前靶点：精选里的靶点进入临床后要手动从 `data/preclinical.json` 挪出（靶点赛道会自动收到）。自动打分的「临床前」以 Open Targets 收录的药物阶段为准，公司未公开的项目看不到；证据分偏向肿瘤驱动基因和 CRISPR 依赖性，非肿瘤领域需要换一套证据来源。

@@ -1,0 +1,142 @@
+{
+  "asof": "2026-10-15",
+  "_about": "临床前高价值靶点：人工精选。只收公开信息里查不到临床项目的靶点；进入临床后挪出（靶点赛道会自动收到）。tag 取 PRE_TAG 里的四类之一；flags 可含「有毒性信号」。",
+  "areas": [
+    {
+      "name": "肿瘤",
+      "note": "试点领域：DepMap 依赖性筛选和合成致死数据最完整，靶点证据最好判断。",
+      "items": [
+        {
+          "tg": "CDS2",
+          "full": "CDP-二酰甘油合酶 2",
+          "pop": "CDS1 低表达的间充质样肿瘤（葡萄膜黑色素瘤等）；作者估计约一半肿瘤带间充质特征",
+          "ev": "2025 年 Nature Genetics 两篇独立论文同时报道 CDS1–CDS2 合成致死：CDS1 失活的细胞完全依赖 CDS2，正常组织两者都在",
+          "chem": "没有选择性抑制剂。作者已和药化团队合作，早期计算和结构分析提示对 CDS1 的选择性可能做得到",
+          "mod": "小分子",
+          "risk": "多次跨膜的膜内酶，可用结构少；与 CDS1 高度同源，选择性是成败关键",
+          "tag": "证据强 · 化学空白",
+          "refs": [
+            ["NKI 新闻（2025-07）", "https://www.nki.nl/news-events/news/possible-target-identified-for-treatment-for-50-of-cancers/"],
+            ["Nat Genet 2025 · 间充质样肿瘤", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12283369/"],
+            ["Nat Genet 2025 · 葡萄膜黑色素瘤", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12283370/"]
+          ]
+        },
+        {
+          "tg": "PELO",
+          "full": "Pelota，核糖体解救因子",
+          "pop": "9p21.3 缺失并累及 FOCAD 的肿瘤（脑、膀胱、胰腺、食管、肺），以及 MSI-H 伴 TTC37 改变的结直肠癌、子宫内膜癌；合计约 5% 成人肿瘤",
+          "ev": "2025 年 Nature（Broad / DepMap）：FOCAD 或 TTC37 受损使 SKI 复合物失效，细胞转而依赖 PELO 解救停滞的核糖体，敲掉 PELO 即死亡",
+          "chem": "没有公开的 PELO 抑制剂；作用靠 PELO–HBS1L 蛋白相互作用，没有现成的酶活口袋",
+          "mod": "降解剂 / 蛋白相互作用抑制剂 / siRNA",
+          "risk": "正常细胞也需要 PELO，需要多少抑制才有效、窗口多大还不清楚",
+          "tag": "证据强 · 化学空白",
+          "refs": [
+            ["Broad 新闻（2025-02）", "https://www.broadinstitute.org/news/mutations-two-gene-pairs-point-promising-drug-target-5-percent-adult-cancers"],
+            ["Nature 2025 · Borck et al.", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11864980/"]
+          ]
+        },
+        {
+          "tg": "NXT1",
+          "full": "核 RNA 输出因子 1",
+          "pop": "NXT2 低表达的肿瘤，以 MYCN 扩增的神经母细胞瘤为代表，儿童肿瘤比例高",
+          "ev": "2021 年 Cancer Discovery（Broad）：NXT1 稳定 mRNA 输出蛋白 NXF1，NXT2 沉默的肿瘤里敲掉 NXT1 会使 NXF1 消失、细胞死亡；正常细胞有 NXT2 兜底",
+          "chem": "没有公开抑制剂。Broad 治疗开发中心在筛小分子",
+          "mod": "ASO / siRNA 或降解剂",
+          "risk": "小蛋白、无明显口袋；适应证以儿科为主，商业回报有限",
+          "tag": "证据强 · 难成药",
+          "refs": [
+            ["Broad 新闻（2021-04）", "https://www.broadinstitute.org/news/researchers-find-genetic-vulnerability-pediatric-neuroblastoma"]
+          ]
+        },
+        {
+          "tg": "ARID1B",
+          "full": "BAF 复合物亚基",
+          "pop": "ARID1A 失活的肿瘤：卵巢透明细胞癌约一半，另有子宫内膜癌、胃癌、膀胱癌等",
+          "ev": "ARID1A 与 ARID1B 是旁系同源合成致死对：ARID1A 失活后 BAF 复合物只靠 ARID1B 维持",
+          "chem": "Foghorn 在 AACR 2026 报告首批选择性 ARID1B 结合剂，以及 VHL 和 CRBN 两种降解剂，CRBN 系列有望口服；尚无 IND 时间表",
+          "mod": "降解剂",
+          "risk": "与 ARID1A 高度同源，选择性只能靠降解剂而非抑制剂；BAF 复合物多亚基，降解后的转录影响难预测",
+          "tag": "化学起步",
+          "refs": [
+            ["Foghorn AACR 2026 新闻稿", "https://www.boardroomalpha.com/sec/fhtx-8-k-2026-04-21-0001628280-26-026259/exhibit992foghornaacrpress.htm"],
+            ["Foghorn AACR 2026 海报", "https://foghorntx.com/wp-content/uploads/2026/04/Henley_et-al_Identification-of-first-in-class-selective-ARID1B-degraders_AACR_April-2026.pdf"]
+          ]
+        },
+        {
+          "tg": "SHOC2",
+          "full": "MRAS–SHOC2–PP1C 磷酸酶复合物支架",
+          "pop": "RAS 突变或 RTK 驱动的肿瘤，尤其对 MEK 抑制剂耐药的",
+          "ev": "CRISPR 筛选显示 RAS 驱动肿瘤依赖 SHOC2 激活 RAF；敲掉 SHOC2 可增强 MEK 抑制剂效果",
+          "chem": "Erasca 在 AACR 2025 报告 DNA 编码库筛到的直接结合剂，KD 约 10 nM，阻断三元复合物组装；在做先导优化，没有临床时间表",
+          "mod": "蛋白相互作用小分子 / 降解剂",
+          "risk": "单药效果可能有限，多半需要和 MEK 或 KRAS 抑制剂联用",
+          "tag": "化学起步",
+          "refs": [
+            ["Erasca AACR 2025 海报", "https://www.erasca.com/wp-content/uploads/2025/04/SHOC2_AACR_Annual_2025.pdf"],
+            ["Nat Commun 2019 · SHOC2 与 MEK 抑制", "https://ideas.repec.org/a/nat/natcom/v10y2019i1d10.1038_s41467-019-10367-x.html"]
+          ]
+        },
+        {
+          "tg": "SETDB1",
+          "full": "H3K9 甲基转移酶",
+          "pop": "对 PD-1 等免疫检查点抑制剂耐药的肿瘤",
+          "ev": "敲掉 SETDB1 会解除内源逆转录元件的沉默、恢复干扰素信号和抗原呈递，使肿瘤重新被免疫系统识别",
+          "chem": "Kazia 2026 年 4 月从 QIMR Berghofer 授权双环肽候选 MSETC，处于临床前，计划约 18 个月达到可申报 IND",
+          "mod": "多肽 / 小分子",
+          "risk": "广泛表达的表观遗传酶，全身抑制的安全性未知；授权首付很小，资源投入有限",
+          "tag": "化学起步",
+          "refs": [
+            ["Kazia 授权新闻稿（2026-04）", "https://aijourn.com/kazia-therapeutics-expands-oncology-platform-with-first-in-class-setdb1-inhibitor-drug-development-platform/"]
+          ]
+        },
+        {
+          "tg": "WDR5",
+          "full": "WIN 位点，MYC 与 MLL 复合物的共因子",
+          "pop": "MYC 驱动的肿瘤、MLL 重排白血病，胶质母细胞瘤也有报道",
+          "ev": "WIN 位点抑制剂能下调核糖体蛋白基因、引发核仁应激；作用机制和最初设想的不同，至今有争议",
+          "chem": "WIN 位点抑制剂已做到皮摩尔级，有多份专利和 2025 年的新骨架，但公开信息里没有临床项目",
+          "mod": "小分子 / 降解剂",
+          "risk": "核糖体生成是正常增殖细胞的共同需求，治疗窗口是主要疑问",
+          "tag": "化学成熟 · 待验证",
+          "flags": ["有毒性信号"],
+          "refs": [
+            ["专利综述（2016 年至今）", "https://www.tandfonline.com/doi/full/10.1080/13543776.2024.2441658"],
+            ["综述：WDR5 抑制剂「不是你想的那样」", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10779565/"],
+            ["2025 三唑类 WDR5 抑制剂（胶质母细胞瘤）", "https://pubmed.ncbi.nlm.nih.gov/42084925/"]
+          ]
+        },
+        {
+          "tg": "GPX4",
+          "full": "谷胱甘肽过氧化物酶 4，铁死亡守门酶",
+          "pop": "间充质态和治疗耐受的残存肿瘤细胞（persister），以及透明细胞肾癌等对铁死亡敏感的肿瘤",
+          "ev": "多项功能研究显示耐药态和间充质态肿瘤细胞依赖 GPX4 防止铁死亡",
+          "chem": "已有共价工具分子（RSL3、ML162、ML210），但药代差；BridgeBio 2021 年与 Helsinn 合作开发 GPX4 抑制剂，之后无公开临床进展。肿瘤领域没有全身给药的临床项目；Rubedo 的外用 GPX4 调节剂 RLS-1496 在皮肤科做临床",
+          "mod": "共价小分子 / 降解剂",
+          "risk": "活性中心是硒代半胱氨酸，很难做非共价抑制剂；全身抑制可能伤肾和神经",
+          "tag": "化学成熟 · 待验证",
+          "flags": ["有毒性信号"],
+          "refs": [
+            ["BridgeBio 与 Helsinn 合作", "https://www.biospace.com/bridgebio-pharma-and-helsinn-group-announce-strategic-collaboration-to-co-develop-and-co-commercialize-bridgebio-s-novel-gpx4-inhibitor-in-multiple-cancer-tumor-types"],
+            ["Rubedo RLS-1496（皮肤科）", "https://www.hcplive.com/view/rls-1496-actinic-keratosis-gpx4-phase-1b-2a"]
+          ]
+        },
+        {
+          "tg": "VPS4A",
+          "full": "ESCRT 通路 AAA ATP 酶",
+          "pop": "随 18q 或 16q 缺失丢掉 VPS4B 的肿瘤（结直肠癌、胰腺癌等）",
+          "ev": "2020 年 Broad 和另一团队独立报道 VPS4A–VPS4B 旁系同源合成致死，敲掉 VPS4A 还能在结直肠癌模型中引发炎症反应",
+          "chem": "Calithera 在 AACR 2022 报过 VPS4 抑制剂系列，公司 2023 年清算后无人接手；AAA ATP 酶有可做的口袋",
+          "mod": "小分子",
+          "risk": "VPS4A 与 VPS4B 高度同源，需要高选择性；之前的项目随公司关闭而中断",
+          "tag": "化学成熟 · 待验证",
+          "refs": [
+            ["Golub 实验室论文页", "https://golublab.broadinstitute.org/publications/synthetic-lethal-interaction-between-escrt-paralog-enzymes-vps4a-and-vps4b"],
+            ["Gastroenterology 2020 · 结直肠癌炎症反应", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7005644/"],
+            ["Calithera AACR 2022", "https://www.biospace.com/calithera-to-present-data-highlighting-newly-discovered-synthetic-lethal-target-vps4-at-aacr-2022-annual-meeting"]
+          ]
+        }
+      ]
+    }
+  ],
+  "dropped": "核实后剔除、已有临床项目的候选：ENL（GB3226）、MYB（REM-422）、DHX9（ATX-559）、WRN、PRMT5、MAT2A、KAT6A、PKMYT1、POLQ、SMARCA2。"
+}

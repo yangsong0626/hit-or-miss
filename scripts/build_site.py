@@ -166,6 +166,15 @@ d["curated"] = cur
 deal_path = os.path.join(base, "deal_watch.json")
 if os.path.exists(deal_path):
     d["deals"] = json.load(open(deal_path, encoding="utf-8"))
+
+# 临床前靶点：人工精选（preclinical.json）+ Open Targets 自动打分（preclinical_auto.json，每周更新时刷新）
+pre = {}
+for k, fn in (("cur", "preclinical.json"), ("auto", "preclinical_auto.json")):
+    fp_ = os.path.join(base, fn)
+    if os.path.exists(fp_):
+        pre[k] = json.load(open(fp_, encoding="utf-8"))
+if pre:
+    d["pre"] = pre
 js = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 tag = '<script id="trials-data" type="application/json">' + js + "</script>\n"
 marker = "\n<script>\n"
