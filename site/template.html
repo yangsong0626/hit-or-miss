@@ -262,6 +262,16 @@ table.mx,table.co{min-width:680px}
 .ls-tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;margin:1px 4px 1px 0}
 .ls-tag.fail{background:var(--neg-soft);color:var(--neg)}
 .ls-seg{margin:0 0 14px}
+.watch-health{font-size:13px;padding:8px 12px;border-radius:4px;margin:0 0 14px;background:var(--pos-soft);color:var(--pos)}
+.watch-health.warn{background:var(--mix-soft);color:var(--ink)}
+.watch-health b{color:var(--mix)}
+.watch-health ul{margin:4px 0 0;padding-left:18px}
+.wflag{display:inline-block;font-size:12px;font-weight:700;padding:1px 7px;border-radius:3px;background:var(--mix-soft);color:var(--mix);white-space:normal}
+.wflag.fda{background:var(--neg-soft);color:var(--neg)}
+.wmeta{font-size:12px;color:var(--muted)}.wmeta.stale{color:var(--mix);font-weight:700}
+.cat-list{margin:4px 0 0;padding:0;list-style:none;font-size:12.5px;color:var(--muted)}
+.cat-list li.due{color:var(--mix);font-weight:700}
+.pre-clin{font-size:13px;background:var(--mix-soft);border-left:3px solid var(--mix);padding:6px 9px}
 .pre-area{display:grid;gap:10px;margin:6px 0 26px}
 .pre-card{background:var(--surface);border:1px solid var(--line);padding:12px 14px;display:grid;gap:7px;min-width:0}
 .pre-card h4{margin:0;font-family:var(--f-display);font-size:22px;letter-spacing:.01em}
@@ -598,6 +608,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
         <button data-dk="license" aria-pressed="false">可能被授权</button>
       </div>
       <p class="sub" id="deal-kind-note"></p>
+      <div id="deal-health" class="watch-health"></div>
       <div id="deal-board"></div>
       <div class="deal-src" id="deal-src"></div>
     </section>
@@ -1518,9 +1529,10 @@ function renderPreCur(){
     const items = a.items.slice().sort((x, y) => order.indexOf(x.tag) - order.indexOf(y.tag));
     return `<section class="pre-area"><div class="deal-area-head"><h3>精选 · ${esc(a.name)} <small class="sm">${items.length} 个靶点 · 核实于 ${esc(C.asof)}</small></h3><p>${esc(a.note)}</p></div>
       ${items.map(x => `<article class="pre-card" id="pre-${esc(x.tg)}"><div class="deal-title"><h4>${esc(x.tg)}</h4><span class="pre-full">${esc(x.full)}</span>${preChip(x.tag)}<span class="pre-mod">${esc(x.mod)}</span>${(x.flags||[]).map(f => `<span class="ls-tag fail">${esc(f)}</span>`).join("")}</div>
+        ${x.clin ? `<div class="pre-clin">⚠ 本站临床试验数据里已出现 ${x.clin_n} 项以 ${esc(x.tg)} 为靶点的试验（${x.clin.map(c => `<a href="https://clinicaltrials.gov/study/${esc(c.nct)}" target="_blank" rel="noopener">${esc(c.nct)}</a> ${esc(c.sponsor||"")} ${esc(c.phase||"")} 期`).join("；")}）。核实后应移出临床前精选。</div>` : ""}
         <div class="pre-pop"><b>人群：</b>${esc(x.pop)}</div>
         <div class="pre-cols"><div><b>证据</b>${esc(x.ev)}</div><div><b>化学现状</b>${esc(x.chem)}</div><div><b>风险</b>${esc(x.risk)}</div></div>
-        <div class="pre-src">来源：${x.refs.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)}</a>`).join(" · ")}</div></article>`).join("")}
+        <div class="pre-src"><span class="wmeta${daysSince(x.verified) > WATCH_STALE_DAYS ? " stale" : ""}">核实于 ${esc(x.verified || "未记录")}</span> · 来源：${x.refs.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)}</a>`).join(" · ")}</div></article>`).join("")}
       ${C.dropped ? `<p class="pre-src">${esc(C.dropped)}</p>` : ""}</section>`;
   }).join("");
 }
@@ -1561,6 +1573,36 @@ const DEAL_NOTE = {
   acquire: "近一年被反复讨论为收购对象、仍独立运营的美欧上市公司。没成交的常见原因：价格谈不拢、公司自己不缺钱、关键数据还没出来，或已被大药企部分持股卡位。",
   license: "有公开信息表明相关地区权益还没授出、或公司公开说过在找合作方的资产。授权只拿部分地区或部分权益，首付低、里程碑高，所以峰值销售只算还可授权的地区。依据写在「权益现状」里，信息较旧或只是凭惯例推断的已标出。"
 };
+const WATCH_STALE_DAYS = 60;
+const todayISO = () => new Date().toISOString().slice(0, 10);
+function dueEnd(s){
+  s = String(s || ""); let m;
+  if ((m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/))) return s;
+  if ((m = s.match(/^(\d{4})-Q([1-4])$/))) return `${m[1]}-${["03-31","06-30","09-30","12-31"][m[2]-1]}`;
+  if ((m = s.match(/^(\d{4})-(\d{2})$/))) return `${m[1]}-${m[2]}-${String(new Date(+m[1], +m[2], 0).getDate()).padStart(2,"0")}`;
+  if ((m = s.match(/^(\d{4})$/))) return `${m[1]}-12-31`;
+  return "9999-12-31";
+}
+const daysSince = d => d ? Math.floor((Date.parse(todayISO()) - Date.parse(d)) / 864e5) : Infinity;
+function watchState(x){
+  const t = todayISO(), alerts = (EMB?.deals?.alerts?.alerts || []).filter(a => a.co === x.co);
+  const cats = (x.catalysts || []).map(c => ({...c, end: dueEnd(c.due), over: dueEnd(c.due) < t})).sort((a, b) => a.end.localeCompare(b.end));
+  return {alerts, cats, over: cats.filter(c => c.over), stale: daysSince(x.verified) > WATCH_STALE_DAYS};
+}
+function renderDealHealth(){
+  const W = EMB?.deals; if (!W) return;
+  const rows = ["acquire","license"].flatMap(k => (W[k]||[]).flatMap(a => a.items));
+  const probs = [];
+  rows.forEach(x => { const w = watchState(x);
+    w.alerts.forEach(a => probs.push(`<b>${esc(x.co)}</b>：${esc(a.inn)} 于 ${esc(a.date)} 获 FDA 批准（${esc(a.sub)}），清单还没更新`));
+    w.over.forEach(c => probs.push(`<b>${esc(x.co)}</b>：「${esc(c.what)}」应在 ${esc(c.due)} 前发生，清单还没更新结果`));
+    if (w.stale) probs.push(`<b>${esc(x.co)}</b>：超过 ${WATCH_STALE_DAYS} 天没有核实（上次 ${esc(x.verified || "未记录")}）`);
+  });
+  const el = $("deal-health"), chk = W.alerts?.asof ? `FDA 批准记录最近一次自动核对：${esc(W.alerts.asof)}。` : "FDA 批准记录的自动核对会在每周更新时运行。";
+  el.className = "watch-health" + (probs.length ? " warn" : "");
+  el.innerHTML = probs.length ? `<b>⚠ ${probs.length} 条内容可能已过期</b>，以下条目的阶段或结论待更新：<ul>${probs.map(p => `<li>${p}</li>`).join("")}</ul><span class="sm">${chk}</span>`
+    : `全部 ${rows.length} 条都在 ${WATCH_STALE_DAYS} 天内核实过，没有到期未更新的催化剂。${chk}`;
+}
 function renderDeals(){
   const W = EMB?.deals; if (!W) return;
   const MAX = 12, pct = v => (100 * Math.min(v, MAX) / MAX).toFixed(2) + "%", f1 = v => (Math.round(v * 10) / 10).toFixed(1);
@@ -1572,20 +1614,21 @@ function renderDeals(){
   $("deal-kind-note").textContent = DEAL_NOTE[dealKind];
   const ticks = `<div class="deal-scale" aria-hidden="true"><span></span><div class="tk">${[0,3,6,9,12].map(v => `<span style="left:${pct(v)}">${v}</span>`).join("")}</div></div>`;
   $("deal-board").innerHTML = areas.map(a => {
-    const rows = a.items.map(x => ({...x, mid:(x.lo + x.hi) / 2 * x.p, rlo:x.lo * x.p, rhi:x.hi * x.p})).sort((m, k) => k.mid - m.mid);
+    const rows = a.items.map(x => ({...x, w:watchState(x), mid:(x.lo + x.hi) / 2 * x.p, rlo:x.lo * x.p, rhi:x.hi * x.p})).sort((m, k) => k.mid - m.mid);
     return `<section class="deal-area"><div class="deal-area-head"><h3>${esc(a.name)}</h3><p>${esc(a.note)}</p></div>${ticks}
       ${rows.map((x, i) => `<article class="deal-row"><div class="deal-rank">${i + 1}</div><div class="deal-main">
-        <div class="deal-title"><h4>${esc(x.co)}</h4><span class="deal-tk">${esc(x.tk)}</span>${(x.chips||[]).map(([t, c]) => `<span class="deal-chip ${c}">${esc(t)}</span>`).join("")}</div>
+        <div class="deal-title"><h4>${esc(x.co)}</h4><span class="deal-tk">${esc(x.tk)}</span>${(x.chips||[]).map(([t, c]) => `<span class="deal-chip ${c}">${esc(t)}</span>`).join("")}${x.w.alerts.map(a => `<span class="wflag fda" title="openFDA 每周核对">⚠ ${esc(a.date)} FDA 新批准${a.brand ? "（" + esc(a.brand) + "）" : ""}，待更新</span>`).join("")}${x.w.over.length ? `<span class="wflag">⚠ 催化剂已到期，待更新</span>` : ""}</div>
         <div class="deal-asset"><b>${esc(x.asset)}</b> · ${esc(x.mech)}</div>
         ${x.rights ? `<div class="deal-rights"><b>权益现状：</b>${esc(x.rights)}</div>` : ""}
         <div class="deal-bar" role="img" aria-label="风险调整价值 ${f1(x.rlo)} 到 ${f1(x.rhi)}，中值 ${f1(x.mid)}"><span class="rng" style="left:${pct(x.rlo)};width:calc(${pct(x.rhi)} - ${pct(x.rlo)})"></span><span class="mid" style="left:calc(${pct(x.mid)} - 1px)"></span></div>
         <div class="deal-nums"><span class="rv">风险调整价值 <b>${f1(x.mid)}</b></span><span>峰值销售${x.rights ? "（可授权地区）" : ""} <b>${x.lo}–${x.hi}</b></span><span>成功概率 <b>${x.p.toFixed(2)}</b></span><span>十亿美元 / 年</span></div>
         <div class="deal-cols">
-          <div><h5>阶段</h5><p>${esc(x.stage)}</p><p class="sm">下一步：${esc(x.next)}</p></div>
+          <div><h5>阶段</h5><p>${esc(x.stage)}</p><p class="sm">下一步：${esc(x.next)}</p>${x.w.cats.length ? `<ul class="cat-list">${x.w.cats.map(c => `<li class="${c.over ? "due" : ""}">${c.over ? "⚠ " : ""}${esc(c.due)} · ${esc(c.what)}${c.over ? "（已到期）" : ""}</li>`).join("")}</ul>` : ""}<p class="wmeta${x.w.stale ? " stale" : ""}">核实于 ${esc(x.verified || "未记录")}${x.w.stale ? " · 超过 " + WATCH_STALE_DAYS + " 天，待复核" : ""}</p></div>
           <div><h5>为什么抢手</h5><p>${esc(x.why)}</p></div>
           <div><h5>可能的${x.rights ? "接手方" : "买家"} · 风险</h5><p>${esc(x.buyers)}</p><p class="sm">风险：${esc(x.risk)}</p></div>
         </div></div></article>`).join("")}</section>`;
   }).join("");
+  renderDealHealth();
   $("deal-src").innerHTML = `<b>来源</b><ol>${(W.sources||[]).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a></li>`).join("")}</ol>`;
 }
 document.querySelectorAll("[data-dk]").forEach(b => b.addEventListener("click", () => { dealKind = b.dataset.dk; renderDeals(); }));

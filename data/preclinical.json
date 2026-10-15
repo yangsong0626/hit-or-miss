@@ -16,10 +16,20 @@
           "risk": "多次跨膜的膜内酶，可用结构少；与 CDS1 高度同源，选择性是成败关键",
           "tag": "证据强 · 化学空白",
           "refs": [
-            ["NKI 新闻（2025-07）", "https://www.nki.nl/news-events/news/possible-target-identified-for-treatment-for-50-of-cancers/"],
-            ["Nat Genet 2025 · 间充质样肿瘤", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12283369/"],
-            ["Nat Genet 2025 · 葡萄膜黑色素瘤", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12283370/"]
-          ]
+            [
+              "NKI 新闻（2025-07）",
+              "https://www.nki.nl/news-events/news/possible-target-identified-for-treatment-for-50-of-cancers/"
+            ],
+            [
+              "Nat Genet 2025 · 间充质样肿瘤",
+              "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12283369/"
+            ],
+            [
+              "Nat Genet 2025 · 葡萄膜黑色素瘤",
+              "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12283370/"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "PELO",
@@ -31,9 +41,16 @@
           "risk": "正常细胞也需要 PELO，需要多少抑制才有效、窗口多大还不清楚",
           "tag": "证据强 · 化学空白",
           "refs": [
-            ["Broad 新闻（2025-02）", "https://www.broadinstitute.org/news/mutations-two-gene-pairs-point-promising-drug-target-5-percent-adult-cancers"],
-            ["Nature 2025 · Borck et al.", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11864980/"]
-          ]
+            [
+              "Broad 新闻（2025-02）",
+              "https://www.broadinstitute.org/news/mutations-two-gene-pairs-point-promising-drug-target-5-percent-adult-cancers"
+            ],
+            [
+              "Nature 2025 · Borck et al.",
+              "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11864980/"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "NXT1",
@@ -45,8 +62,12 @@
           "risk": "小蛋白、无明显口袋；适应证以儿科为主，商业回报有限",
           "tag": "证据强 · 难成药",
           "refs": [
-            ["Broad 新闻（2021-04）", "https://www.broadinstitute.org/news/researchers-find-genetic-vulnerability-pediatric-neuroblastoma"]
-          ]
+            [
+              "Broad 新闻（2021-04）",
+              "https://www.broadinstitute.org/news/researchers-find-genetic-vulnerability-pediatric-neuroblastoma"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "ARID1B",
@@ -58,9 +79,16 @@
           "risk": "与 ARID1A 高度同源，选择性只能靠降解剂而非抑制剂；BAF 复合物多亚基，降解后的转录影响难预测",
           "tag": "化学起步",
           "refs": [
-            ["Foghorn AACR 2026 新闻稿", "https://www.boardroomalpha.com/sec/fhtx-8-k-2026-04-21-0001628280-26-026259/exhibit992foghornaacrpress.htm"],
-            ["Foghorn AACR 2026 海报", "https://foghorntx.com/wp-content/uploads/2026/04/Henley_et-al_Identification-of-first-in-class-selective-ARID1B-degraders_AACR_April-2026.pdf"]
-          ]
+            [
+              "Foghorn AACR 2026 新闻稿",
+              "https://www.boardroomalpha.com/sec/fhtx-8-k-2026-04-21-0001628280-26-026259/exhibit992foghornaacrpress.htm"
+            ],
+            [
+              "Foghorn AACR 2026 海报",
+              "https://foghorntx.com/wp-content/uploads/2026/04/Henley_et-al_Identification-of-first-in-class-selective-ARID1B-degraders_AACR_April-2026.pdf"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "SHOC2",
@@ -72,9 +100,16 @@
           "risk": "单药效果可能有限，多半需要和 MEK 或 KRAS 抑制剂联用",
           "tag": "化学起步",
           "refs": [
-            ["Erasca AACR 2025 海报", "https://www.erasca.com/wp-content/uploads/2025/04/SHOC2_AACR_Annual_2025.pdf"],
-            ["Nat Commun 2019 · SHOC2 与 MEK 抑制", "https://ideas.repec.org/a/nat/natcom/v10y2019i1d10.1038_s41467-019-10367-x.html"]
-          ]
+            [
+              "Erasca AACR 2025 海报",
+              "https://www.erasca.com/wp-content/uploads/2025/04/SHOC2_AACR_Annual_2025.pdf"
+            ],
+            [
+              "Nat Commun 2019 · SHOC2 与 MEK 抑制",
+              "https://ideas.repec.org/a/nat/natcom/v10y2019i1d10.1038_s41467-019-10367-x.html"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "SETDB1",
@@ -86,8 +121,12 @@
           "risk": "广泛表达的表观遗传酶，全身抑制的安全性未知；授权首付很小，资源投入有限",
           "tag": "化学起步",
           "refs": [
-            ["Kazia 授权新闻稿（2026-04）", "https://aijourn.com/kazia-therapeutics-expands-oncology-platform-with-first-in-class-setdb1-inhibitor-drug-development-platform/"]
-          ]
+            [
+              "Kazia 授权新闻稿（2026-04）",
+              "https://aijourn.com/kazia-therapeutics-expands-oncology-platform-with-first-in-class-setdb1-inhibitor-drug-development-platform/"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "WDR5",
@@ -98,12 +137,24 @@
           "mod": "小分子 / 降解剂",
           "risk": "核糖体生成是正常增殖细胞的共同需求，治疗窗口是主要疑问",
           "tag": "化学成熟 · 待验证",
-          "flags": ["有毒性信号"],
+          "flags": [
+            "有毒性信号"
+          ],
           "refs": [
-            ["专利综述（2016 年至今）", "https://www.tandfonline.com/doi/full/10.1080/13543776.2024.2441658"],
-            ["综述：WDR5 抑制剂「不是你想的那样」", "https://pmc.ncbi.nlm.nih.gov/articles/PMC10779565/"],
-            ["2025 三唑类 WDR5 抑制剂（胶质母细胞瘤）", "https://pubmed.ncbi.nlm.nih.gov/42084925/"]
-          ]
+            [
+              "专利综述（2016 年至今）",
+              "https://www.tandfonline.com/doi/full/10.1080/13543776.2024.2441658"
+            ],
+            [
+              "综述：WDR5 抑制剂「不是你想的那样」",
+              "https://pmc.ncbi.nlm.nih.gov/articles/PMC10779565/"
+            ],
+            [
+              "2025 三唑类 WDR5 抑制剂（胶质母细胞瘤）",
+              "https://pubmed.ncbi.nlm.nih.gov/42084925/"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "GPX4",
@@ -114,11 +165,20 @@
           "mod": "共价小分子 / 降解剂",
           "risk": "活性中心是硒代半胱氨酸，很难做非共价抑制剂；全身抑制可能伤肾和神经",
           "tag": "化学成熟 · 待验证",
-          "flags": ["有毒性信号"],
+          "flags": [
+            "有毒性信号"
+          ],
           "refs": [
-            ["BridgeBio 与 Helsinn 合作", "https://www.biospace.com/bridgebio-pharma-and-helsinn-group-announce-strategic-collaboration-to-co-develop-and-co-commercialize-bridgebio-s-novel-gpx4-inhibitor-in-multiple-cancer-tumor-types"],
-            ["Rubedo RLS-1496（皮肤科）", "https://www.hcplive.com/view/rls-1496-actinic-keratosis-gpx4-phase-1b-2a"]
-          ]
+            [
+              "BridgeBio 与 Helsinn 合作",
+              "https://www.biospace.com/bridgebio-pharma-and-helsinn-group-announce-strategic-collaboration-to-co-develop-and-co-commercialize-bridgebio-s-novel-gpx4-inhibitor-in-multiple-cancer-tumor-types"
+            ],
+            [
+              "Rubedo RLS-1496（皮肤科）",
+              "https://www.hcplive.com/view/rls-1496-actinic-keratosis-gpx4-phase-1b-2a"
+            ]
+          ],
+          "verified": "2026-10-15"
         },
         {
           "tg": "VPS4A",
@@ -130,10 +190,20 @@
           "risk": "VPS4A 与 VPS4B 高度同源，需要高选择性；之前的项目随公司关闭而中断",
           "tag": "化学成熟 · 待验证",
           "refs": [
-            ["Golub 实验室论文页", "https://golublab.broadinstitute.org/publications/synthetic-lethal-interaction-between-escrt-paralog-enzymes-vps4a-and-vps4b"],
-            ["Gastroenterology 2020 · 结直肠癌炎症反应", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7005644/"],
-            ["Calithera AACR 2022", "https://www.biospace.com/calithera-to-present-data-highlighting-newly-discovered-synthetic-lethal-target-vps4-at-aacr-2022-annual-meeting"]
-          ]
+            [
+              "Golub 实验室论文页",
+              "https://golublab.broadinstitute.org/publications/synthetic-lethal-interaction-between-escrt-paralog-enzymes-vps4a-and-vps4b"
+            ],
+            [
+              "Gastroenterology 2020 · 结直肠癌炎症反应",
+              "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7005644/"
+            ],
+            [
+              "Calithera AACR 2022",
+              "https://www.biospace.com/calithera-to-present-data-highlighting-newly-discovered-synthetic-lethal-target-vps4-at-aacr-2022-annual-meeting"
+            ]
+          ],
+          "verified": "2026-10-15"
         }
       ]
     }

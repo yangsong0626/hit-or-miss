@@ -2,3 +2,4 @@ fetch.log
 __pycache__/
 .DS_Store
 data/active.json
+watch_new.md

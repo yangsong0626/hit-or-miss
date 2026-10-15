@@ -51,6 +51,7 @@ data/modality_map.json   药物形式对照表：研发代号 / 药名 → 细�
 data/deal_watch.json     交易候选（人工整理：峰值销售区间、成功概率、接手方、风险、来源），不随每周更新自动变化
 data/preclinical.json    临床前靶点精选（人工核实：人群、证据、化学现状、建议药物形式、风险、来源）
 data/preclinical_auto.json  临床前靶点自动打分（fetch_preclinical.py 生成，每周更新时刷新，约 25 天以内的不重抓）
+data/watch_alerts.json   FDA 核对结果（check_watch.py 生成）
 data/target_dict.json    靶点词典（靶点 → 别名）和常见药名 → 靶点表
 data/active.json         在研 II/III 期全量（抓取时生成，不进仓库；构建时只把识别出靶点的写进 docs/active.json）
 docs/early.json          早期新进试验（页面按需加载）
@@ -59,6 +60,7 @@ scripts/fetch_trials.py  抓取 ClinicalTrials.gov，只用 Python 标准库
 scripts/modality.py      药物形式分类规则
 scripts/targets.py       从注册信息自动抽取靶点
 scripts/fetch_preclinical.py  从 Open Targets 拉取癌症相关靶点，去掉已进临床的，按证据、可成药性、热度、风险打分
+scripts/check_watch.py  每周用 openFDA 核对交易候选里的药物有没有在「最后核实日期」之后获批，写 data/watch_alerts.json；有新发现时工作流自动开 GitHub issue
 scripts/build_site.py    把 trials.json 内嵌进模板，生成 docs/index.html
 run_update.command       macOS 双击运行：抓取 + 重建
 .github/workflows/       每周一自动更新数据
@@ -90,3 +92,13 @@ python scripts/fetch_trials.py --reclassify data/trials.json
 - 精选解读的点评是编辑观点，不构成投资或诊疗建议。
 - 交易候选的峰值销售和成功概率是编辑粗估，风险调整价值 = 峰值销售区间中值 × 当前阶段成功概率，只用于排序，不是估值；交易一旦发生需手动从 `data/deal_watch.json` 移除。
 - 临床前靶点：精选里的靶点进入临床后要手动从 `data/preclinical.json` 挪出（靶点赛道会自动收到）。自动打分的「临床前」以 Open Targets 收录的药物阶段为准，公司未公开的项目看不到；证据分偏向肿瘤驱动基因和 CRISPR 依赖性，非肿瘤领域需要换一套证据来源。
+
+## 手工清单的更新规则
+
+交易候选（`data/deal_watch.json`）和临床前精选（`data/preclinical.json`）是人工整理的，写完就开始过期。防过期靠四件事：
+
+1. **逐条核实再写。** 新增或修改条目时，单独搜一次「药名 + approval / latest」，阶段描述要有近期来源支撑，并把 `verified` 改成当天日期。
+2. **已知催化剂写到期日。** 每条的 `catalysts` 记录 FDA 决定日、读出时间等（`YYYY-MM-DD`、`YYYY-Qn` 或 `YYYY`）。日期一过、条目还没更新，页面顶部和该条都会标「催化剂已到期，待更新」。
+3. **超过 60 天未核实的条目标灰**，页面顶部列出。
+4. **每周自动交叉检查。** `check_watch.py` 用 `inn` 字段查 openFDA，发现新批准（含新适应症）就标在页面上并开 issue；构建时把临床前精选靶点和本站的临床试验数据比对，出现以它为靶点的试验就在卡片上提示「已进临床，核实后移出」。这层只能发现批准和进入临床，收购、授权交易仍要靠第 1、3 条的定期复核。
+

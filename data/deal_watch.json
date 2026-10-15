@@ -1,6 +1,6 @@
 {
  "asof": "2026-10-15",
- "_about": "交易候选：人工整理。风险调整价值 = 峰值年销售额区间中值（十亿美元）× 当前阶段成功概率。授权部分的峰值销售只算还可授权的地区。更新时改这个文件后重新构建。",
+ "_about": "交易候选：人工整理。风险调整价值 = 峰值年销售额区间中值（十亿美元）× 当前阶段成功概率。授权部分的峰值销售只算还可授权的地区。更新时改这个文件后重新构建。每条带 verified（最后核实日期）、inn（用于每周查 FDA 批准）、catalysts（已知催化剂及到期日：YYYY-MM-DD / YYYY-Qn / YYYY）。到期未更新的催化剂、超过 60 天未核实的条目会在页面上标出。",
  "acquire": [
   {
    "id": "onc",
@@ -33,6 +33,18 @@
        "现金 39 亿美元",
        "warn"
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "daraxonrasib",
+      "elironrasib",
+      "zoldonrasib"
+     ],
+     "catalysts": [
+      {
+       "what": "RAS 突变肺癌全球 III 期读出",
+       "due": "2027"
+      }
      ]
     },
     {
@@ -57,6 +69,16 @@
        "关键读出在即",
        ""
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "ivonescimab"
+     ],
+     "catalysts": [
+      {
+       "what": "FDA 决定（二线 EGFR 突变肺癌）",
+       "due": "2026-11-14"
+      }
      ]
     },
     {
@@ -77,15 +99,20 @@
        "已上市",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "gedatolisib"
+     ],
+     "catalysts": []
     },
     {
      "co": "IDEAYA Biosciences",
      "tk": "IDYA",
      "asset": "darovasertib",
      "mech": "PKC 抑制剂，联合克唑替尼",
-     "stage": "注册性 II/III 期达到 PFS 终点（一线 HLA-A2 阴性转移性葡萄膜黑色素瘤）",
-     "next": "上市申请；辅助治疗 III 期",
+     "stage": "注册性 II/III 期达到 PFS 终点（一线 HLA-A2 阴性转移性葡萄膜黑色素瘤）；2026 年 4 月起按 RTOR 滚动提交上市申请",
+     "next": "上市申请完成提交和受理；辅助治疗 III 期",
      "lo": 1,
      "hi": 1.5,
      "p": 0.8,
@@ -97,6 +124,16 @@
        "部分权益已授出",
        "warn"
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "darovasertib"
+     ],
+     "catalysts": [
+      {
+       "what": "上市申请完成提交（RTOR）",
+       "due": "2026-Q4"
+      }
      ]
     }
    ]
@@ -128,7 +165,13 @@
        "体量大",
        "warn"
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "brensocatib",
+      "treprostinil palmitil"
+     ],
+     "catalysts": []
     },
     {
      "co": "Abivax",
@@ -152,6 +195,20 @@
        "上市申请在即",
        ""
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "obefazimod"
+     ],
+     "catalysts": [
+      {
+       "what": "递交上市申请",
+       "due": "2026-12-31"
+      },
+      {
+       "what": "克罗恩病 II 期 b 读出",
+       "due": "2026-Q4"
+      }
      ]
     },
     {
@@ -176,6 +233,14 @@
        "降解剂",
        ""
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [],
+     "catalysts": [
+      {
+       "what": "特应性皮炎 II 期 b 读出",
+       "due": "2026-12-31"
+      }
      ]
     },
     {
@@ -196,15 +261,20 @@
        "已上市",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "atacicept"
+     ],
+     "catalysts": []
     },
     {
      "co": "Spyre Therapeutics",
      "tk": "SYRE",
      "asset": "SPY001 / 002 / 003 及组合",
      "mech": "长效 α4β7、TL1A、IL-23 抗体，主打联合用药",
-     "stage": "溃疡性结肠炎 II 期 A 部分（开放标签）达到主要终点",
-     "next": "组合疗法 B 部分 2027 年；风湿类 II 期四季度",
+     "stage": "溃疡性结肠炎 SKYLINE 研究 A 部分：SPY001、SPY003 先后达到主要终点（SPY003 于 2026 年 9 月公布）",
+     "next": "风湿类 II 期四季度；三药组合 B 部分 2027 年",
      "lo": 3,
      "hi": 6,
      "p": 0.3,
@@ -216,6 +286,18 @@
        "多次读出",
        ""
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [],
+     "catalysts": [
+      {
+       "what": "风湿类 II 期读出",
+       "due": "2026-Q4"
+      },
+      {
+       "what": "组合疗法 B 部分读出",
+       "due": "2027"
+      }
      ]
     }
    ]
@@ -243,7 +325,12 @@
        "已上市",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "resmetirom"
+     ],
+     "catalysts": []
     },
     {
      "co": "Viking Therapeutics",
@@ -267,6 +354,14 @@
        "现金偏紧",
        "neg"
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [],
+     "catalysts": [
+      {
+       "what": "口服制剂 III 期启动",
+       "due": "2026-Q4"
+      }
      ]
     },
     {
@@ -274,8 +369,8 @@
      "tk": "GPCR",
      "asset": "aleniglipron",
      "mech": "口服小分子 GLP-1 受体激动剂",
-     "stage": "II 期 b 完成，III 期预计 2026 下半年启动",
-     "next": "III 期启动和入组",
+     "stage": "III 期 ACCOMPLISH 项目已开始给药（两项试验，共约 4,700 人）",
+     "next": "四季度体成分、糖尿病和换药试验数据；III 期入组",
      "lo": 3,
      "hi": 6,
      "p": 0.6,
@@ -287,6 +382,16 @@
        "口服小分子",
        ""
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "aleniglipron"
+     ],
+     "catalysts": [
+      {
+       "what": "体成分、糖尿病、换药试验数据",
+       "due": "2026-Q4"
+      }
      ]
     },
     {
@@ -307,6 +412,16 @@
        "12 月 FDA 决定",
        "warn"
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "lorundrostat"
+     ],
+     "catalysts": [
+      {
+       "what": "FDA 决定",
+       "due": "2026-12-22"
+      }
      ]
     },
     {
@@ -327,7 +442,13 @@
        "已上市",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "aficamten",
+      "omecamtiv mecarbil"
+     ],
+     "catalysts": []
     }
    ]
   },
@@ -354,7 +475,13 @@
        "已上市",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "solriamfetol",
+      "meloxicam and rizatriptan"
+     ],
+     "catalysts": []
     },
     {
      "co": "Praxis Precision Medicines",
@@ -378,6 +505,25 @@
        "一个 III 期失败",
        "neg"
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "relutrigine",
+      "ulixacaltamide"
+     ],
+     "catalysts": [
+      {
+       "what": "relutrigine EMERALD 研究读出",
+       "due": "2026-Q4"
+      },
+      {
+       "what": "FDA 决定（relutrigine）",
+       "due": "2026-12-27"
+      },
+      {
+       "what": "FDA 决定（ulixacaltamide）",
+       "due": "2027-01-29"
+      }
      ]
     },
     {
@@ -385,19 +531,33 @@
      "tk": "XENE",
      "asset": "azetukalner",
      "mech": "Kv7 钾通道开放剂",
-     "stage": "局灶性癫痫 III 期阳性，上市申请计划于 2026 年三季度递交",
-     "next": "FDA 审评；抑郁症 III 期",
+     "stage": "局灶性癫痫上市申请已于 2026 年 9 月 17 日递交；抑郁症研究因神经精神不良事件暂停新入组（已入组患者继续）",
+     "next": "FDA 是否受理；抑郁症 X-NOVA2 顶线结果推迟到 2027 年一季度",
      "lo": 1.5,
      "hi": 3,
      "p": 0.85,
      "why": "机制新、疗效强，可能扩展到抑郁症",
      "buyers": "癫痫 / 神经领域药企",
-     "risk": "癫痫市场仿制药多，定价受限",
+     "risk": "癫痫市场仿制药多，定价受限；抑郁症适应症出现神经精神不良事件，暂停新入组",
      "chips": [
       [
        "上市申请在即",
        ""
       ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "azetukalner"
+     ],
+     "catalysts": [
+      {
+       "what": "FDA 是否受理（递交后约 60 天）",
+       "due": "2026-11-30"
+      },
+      {
+       "what": "抑郁症 X-NOVA2 顶线结果",
+       "due": "2027-Q1"
+      }
      ]
     }
    ]
@@ -428,7 +588,12 @@
        "美欧日权益未授出",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "trastuzumab rezetecan"
+     ],
+     "catalysts": []
     },
     {
      "co": "康方生物",
@@ -453,7 +618,12 @@
        "自跑全球 III 期",
        "warn"
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "cadonilimab"
+     ],
+     "catalysts": []
     },
     {
      "co": "Erasca",
@@ -478,7 +648,12 @@
        "信息较旧",
        "warn"
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "naporafenib"
+     ],
+     "catalysts": []
     }
    ]
   },
@@ -506,7 +681,12 @@
        "提到战略合作",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "pemvidutide"
+     ],
+     "catalysts": []
     },
     {
      "co": "歌礼制药",
@@ -527,7 +707,10 @@
        "全球权益未授出",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [],
+     "catalysts": []
     },
     {
      "co": "甘李药业",
@@ -548,7 +731,12 @@
        "美国权益未授出",
        ""
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "bofanglutide"
+     ],
+     "catalysts": []
     },
     {
      "co": "Arrowhead Pharmaceuticals",
@@ -569,7 +757,10 @@
        "授权惯例",
        "warn"
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [],
+     "catalysts": []
     }
    ]
   },
@@ -597,7 +788,12 @@
        "未见合作方",
        "warn"
       ]
-     ]
+     ],
+     "verified": "2026-10-15",
+     "inn": [
+      "rentosertib"
+     ],
+     "catalysts": []
     }
    ]
   }
@@ -738,6 +934,26 @@
   {
    "name": "Revolution Medicines：FDA 批准 RASONQUE（2026-08-26）",
    "url": "https://ir.revmed.com/news-releases/news-release-details/us-fda-approves-revolution-medicines-rasonquetm-daraxonrasib"
+  },
+  {
+   "name": "Xenon：azetukalner 递交上市申请并暂停精神科研究入组（2026-09-17）",
+   "url": "https://finviz.com/news/393312/xenon-announces-azetukalner-nda-submission-to-fda-for-focal-seizures-and-provides-update-on-psychiatry-clinical-program"
+  },
+  {
+   "name": "IDEAYA：按 RTOR 启动 darovasertib 上市申请（2026-04-30）",
+   "url": "https://ir.ideayabio.com/2026-04-30-IDEAYA-Biosciences-to-Initiate-New-Drug-Application-Submission-from-the-Darovasertib-OptimUM-02-Trial-under-the-Oncology-Center-of-Excellence-Real-time-Oncology-Review-RTOR-Program"
+  },
+  {
+   "name": "Structure Therapeutics 2026 年二季度报告（III 期开始给药）",
+   "url": "https://www.sec.gov/Archives/edgar/data/0001888886/000110465926092017/tm2622407d1_ex99-1.htm"
+  },
+  {
+   "name": "Spyre：SPY003 SKYLINE A 部分达到主要终点",
+   "url": "https://www.hcplive.com/view/spy003-meets-primary-endpoint-in-phase-2-trial-for-ulcerative-colitis"
+  },
+  {
+   "name": "Praxis 2026 年二季度报告（两个 FDA 目标日期）",
+   "url": "https://www.sec.gov/Archives/edgar/data/0001689548/000168954826000082/praxisq22026pr.htm"
   }
  ],
  "_notes": [

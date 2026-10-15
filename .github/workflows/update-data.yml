@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   update:
@@ -23,6 +24,9 @@ jobs:
         # 失败时保留旧文件，不影响后面的步骤
         continue-on-error: true
         run: python scripts/fetch_preclinical.py --out data/preclinical_auto.json
+      - name: Check hand-curated lists against FDA approvals (openFDA)
+        continue-on-error: true
+        run: python scripts/check_watch.py --out data/watch_alerts.json --new-md watch_new.md
       - name: Build site
         run: python scripts/build_site.py site/template.html data/trials.json docs/index.html
       - name: Commit if changed
@@ -30,6 +34,16 @@ jobs:
           git config user.name "readout-bot"
           git config user.email "readout-bot@users.noreply.github.com"
           git add data/trials.json docs/index.html docs/early.json docs/active.json
-          if [ -f data/preclinical_auto.json ]; then git add data/preclinical_auto.json; fi
+          for f in data/preclinical_auto.json data/watch_alerts.json; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
           git diff --cached --quiet || git commit -m "Update trial data $(date -u +%Y-%m-%d)"
           git push
+      - name: Open an issue when curated lists need updating
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -s watch_new.md ]; then
+            gh issue create --title "交易候选需要更新：发现新的 FDA 批准 $(date -u +%Y-%m-%d)" --body-file watch_new.md
+          fi

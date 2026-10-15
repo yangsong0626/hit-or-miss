@@ -175,6 +175,30 @@ for k, fn in (("cur", "preclinical.json"), ("auto", "preclinical_auto.json")):
         pre[k] = json.load(open(fp_, encoding="utf-8"))
 if pre:
     d["pre"] = pre
+
+# 核对：精选临床前靶点是否已在本站的临床试验数据里出现（本次构建的三套数据；没有 data/active.json 时读上次的 docs/active.json）
+clin = {}
+act_trials = act_out if os.path.exists(act_in) else []
+if not act_trials and os.path.exists(os.path.join(os.path.dirname(out), "active.json")):
+    act_trials = json.load(open(os.path.join(os.path.dirname(out), "active.json"), encoding="utf-8")).get("trials", [])
+for t in [t for v in d["sets"].values() for t in v] + early_out + act_trials:
+    for g in t.get("tg") or []:
+        clin.setdefault(g, []).append({"nct": t.get("nct"), "phase": t.get("phase"), "sponsor": t.get("sponsor")})
+flagged = []
+for a in (pre.get("cur") or {}).get("areas", []):
+    for x in a["items"]:
+        hits = clin.get(x["tg"]) or []
+        if hits:
+            x["clin"] = hits[:3]
+            x["clin_n"] = len(hits)
+            flagged.append(x["tg"])
+if flagged:
+    print(f"WARNING preclinical targets now in clinical data: {', '.join(flagged)}", file=sys.stderr)
+
+# 每周 FDA 核对结果（scripts/check_watch.py 生成）
+wa = os.path.join(base, "watch_alerts.json")
+if os.path.exists(wa) and "deals" in d:
+    d["deals"]["alerts"] = json.load(open(wa, encoding="utf-8"))
 js = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 tag = '<script id="trials-data" type="application/json">' + js + "</script>\n"
 marker = "\n<script>\n"

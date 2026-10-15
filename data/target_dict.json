@@ -1566,6 +1566,37 @@
    "factor VIII mimetic",
    "FIXa/FX",
    "FIXa x FX"
+  ],
+  "CDS2": [
+   "cs:CDS2"
+  ],
+  "PELO": [
+   "cs:PELO",
+   "pelota"
+  ],
+  "NXT1": [
+   "cs:NXT1"
+  ],
+  "ARID1B": [
+   "cs:ARID1B"
+  ],
+  "SHOC2": [
+   "cs:SHOC2"
+  ],
+  "SETDB1": [
+   "cs:SETDB1",
+   "cs:ESET"
+  ],
+  "WDR5": [
+   "cs:WDR5"
+  ],
+  "GPX4": [
+   "cs:GPX4",
+   "glutathione peroxidase 4"
+  ],
+  "VPS4A": [
+   "cs:VPS4A",
+   "cs:VPS4"
   ]
  },
  "drugs": {
