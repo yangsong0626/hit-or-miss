@@ -3,7 +3,7 @@
 
 用法：python scripts/build_site.py site/template.html data/trials.json docs/index.html [data/notes.json]
 """
-import json, os, sys
+import json, os, re, sys
 
 tpl, data, out = sys.argv[1:4]
 notes_path = sys.argv[4] if len(sys.argv) > 4 else os.path.join(os.path.dirname(data), "notes.json")
@@ -42,6 +42,26 @@ def compact_iv(t):
             for iv in (t.get("iv") or []) if not modality.PLACEBO.search(iv.get("n") or "")][:6]
 
 
+SURFACE_ONLY = {"CD3", "CD19", "CD20", "CD22", "CD30", "CD33", "CD38", "CD123", "BCMA", "GPRC5D", "FcRH5", "CLDN18.2",
+                "CLDN6", "DLL3", "B7-H3", "B7-H4", "TROP2", "Nectin-4", "HER3", "CTLA-4", "TIGIT", "LAG-3", "TIM-3",
+                "CD70", "CD7", "CEACAM5", "FRα (FOLR1)", "CDH6", "CDH17", "GPC3", "Mesothelin", "MUC1 / MUC16", "STEAP1",
+                "ROR1", "PTK7", "组织因子 (TF)", "LIV-1", "OX40", "4-1BB", "GITR", "ICOS", "NKG2A", "TL1A", "IL-23 / IL-23R",
+                "IL-13", "IL-5 / IL-5R", "TSLP", "IL-33 / ST2", "IL-31 / IL-31RA", "BAFF / APRIL", "CD40L", "OX40L", "FcRn"}
+
+
+def drug_key(iv):
+    """同一个药的研发代号和通用名（INN）归成一个项目：别名里有 INN 就用 INN。"""
+    if not iv:
+        return ""
+    names = [iv.get("n", "")] + list(iv.get("on") or [])
+    for nm in names:
+        w = re.split(r"[\s(,/+]", nm.strip())[0] if nm else ""
+        if re.fullmatch(r"[A-Za-z][a-z]{5,}", w or "") and tgmod.load() and not re.fullmatch(r"(?i)placebo|standard|control|matching", w):
+            return w.lower()
+    m = re.search(r"\b[A-Za-z]{1,6}(?:-[A-Za-z]{1,2})?-?\d{2,}[A-Za-z0-9]*\b", names[0] or "")
+    return re.sub(r"[^a-z0-9]", "", (m.group(0) if m else names[0]).lower())
+
+
 def set_tg(t, manual):
     """t.tg：靶点列表；t.tgm：[{g 靶点, n 药名, m 药物形式}]，靶点赛道按它把项目和形式对上。"""
     cands = modality.candidates(t)
@@ -49,16 +69,22 @@ def set_tg(t, manual):
         t["tg"] = tgmod.canonical(manual)
         t["tg_src"] = "人工"
         iv = next((x for x in cands if modality.GROUPS.get(modality.classify_one(x)) not in ("未识别", "其他")), cands[0] if cands else None)
-        t["tgm"] = [{"g": g, "n": iv["n"] if iv else "", "m": modality.classify_one(iv) if iv else t.get("mod")} for g in t["tg"]]
+        t["tgm"] = [{"g": g, "n": iv["n"] if iv else "", "m": modality.classify_one(iv) if iv else t.get("mod"), "k": drug_key(iv)}
+                    for g in t["tg"]]
         return
     pairs = tgmod.extract_pairs(t, cands)
     tgm, tgs = [], []
+    cand_groups = {modality.GROUPS.get(modality.classify_one(x)) for x in cands} - {"未识别", "其他"}
     for iv, gs in pairs:
         m = modality.classify_one(iv) if iv else t.get("mod")
         if iv and modality.GROUPS.get(m) == "未识别":
             m = t.get("mod")      # 单个干预认不出形式时，用整条试验的判断
+        if not iv and len(cand_groups) > 1:
+            m = "未识别"          # 靶点只在标题里出现、受试药又有几种形式时，对不上是哪一个
         for g in gs:
-            tgm.append({"g": g, "n": iv["n"] if iv else "", "m": m})
+            # 这些细胞表面抗原 / 细胞因子基本只有大分子或细胞疗法，配到小分子多半是联用药配错
+            mg = "未识别" if modality.GROUPS.get(m) == "小分子" and g in SURFACE_ONLY else m
+            tgm.append({"g": g, "n": iv["n"] if iv else "", "m": mg, "k": drug_key(iv)})
             if g not in tgs:
                 tgs.append(g)
     t["tg"], t["tgm"] = tgs[:4], tgm[:6]

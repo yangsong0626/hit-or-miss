@@ -239,6 +239,8 @@ table.mx,table.co{min-width:680px}
 .ls-sub ol{list-style:none;margin:0;padding:0}
 .ls-sub li{font-size:13px;padding:5px 0;border-top:1px solid var(--line)}
 @media (max-width:900px){.ls-sub{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.ls-progs th:nth-child(4),.ls-progs td:nth-child(4),.ls-progs th:nth-child(5),.ls-progs td:nth-child(5){display:none}
+  .ls-progs th:nth-child(1){width:46px}}
 .co-detail td>.ls-dwrap{}
 @media (max-width:900px){.co-detail td>.ls-dwrap{position:sticky;left:12px;max-width:calc(100vw - 100px)}}
 .tl-wrap{border:1px solid var(--line)}
@@ -1248,7 +1250,9 @@ function lsBuild(){
     pairs.forEach(pr => {
       const g = pr.g, o = get(g);
       let dk = pr.n ? nameKey(pr.n, pr.m || t.mod, t.nct) : drugKey(t);
-      if (modGroup(dk.m) === "未识别" && modGroup(t.mod) !== "未识别") dk = {...dk, m: t.mod};
+      if (pr.m) dk = {...dk, m: pr.m};      // 构建时已经把靶点和药物形式配好
+      else if (modGroup(dk.m) === "未识别" && modGroup(t.mod) !== "未识别") dk = {...dk, m: t.mod};
+      if (pr.k) dk = {...dk, k: pr.k, n: /^[a-z]{6,}$/.test(pr.k) ? pr.k[0].toUpperCase() + pr.k.slice(1) : dk.n};   // 代号和 INN 归成一个项目
       const key = co + "|" + dk.k;
       const add = map => { let p = map.get(key); if (!p){ p = {co, drug:dk.n, m:dk.m, mg:modGroup(dk.m), ph:0, first:"9999", trials:[]}; map.set(key, p); }
         p.ph = Math.max(p.ph, ph); if (t.fp && t.fp < p.first) p.first = t.fp; p.trials.push(t); };
