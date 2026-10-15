@@ -1,0 +1,735 @@
+{
+ "asof": "2026-10-15",
+ "_about": "交易候选：人工整理。风险调整价值 = 峰值年销售额区间中值（十亿美元）× 当前阶段成功概率。授权部分的峰值销售只算还可授权的地区。更新时改这个文件后重新构建。",
+ "acquire": [
+  {
+   "id": "onc",
+   "name": "肿瘤",
+   "note": "上半年并购金额的 41% 在肿瘤。买家最想要「已验证靶点 + 明显更好的分子」，RAS 是最大的悬而未决标的。",
+   "items": [
+    {
+     "co": "Revolution Medicines",
+     "tk": "RVMD",
+     "asset": "daraxonrasib 等 RAS(ON) 抑制剂系列",
+     "mech": "多选择性 RAS(ON) 抑制剂，另有 G12D、G12C 专属分子",
+     "stage": "III 期阳性，上市申请已受理",
+     "next": "一线胰腺癌 III 期进行中；肺癌 III 期 2027 年读出",
+     "lo": 10,
+     "hi": 15,
+     "p": 0.75,
+     "why": "二线胰腺癌 III 期总生存期显著获益，登上 ASCO 全体大会并发表于 NEJM；一个平台覆盖胰腺、肺、结直肠",
+     "buyers": "默沙东（年初谈判因价格退出）、百时美施贵宝、诺华",
+     "risk": "要价高；泛 RAS 赛道后来者多",
+     "chips": [
+      [
+       "已有买家接触",
+       ""
+      ],
+      [
+       "现金 39 亿美元",
+       "warn"
+      ]
+     ]
+    },
+    {
+     "co": "Summit Therapeutics",
+     "tk": "SMMT",
+     "asset": "ivonescimab",
+     "mech": "PD-1 × VEGF 双抗（从康方生物引进）",
+     "stage": "二线 EGFR 突变肺癌上市申请审评中，FDA 目标日期 11 月 14 日（可能延期）",
+     "next": "一线肺癌全球 III 期 HARMONi-3 读出",
+     "lo": 5,
+     "hi": 10,
+     "p": 0.45,
+     "why": "同类首个进入 III 期的 PD-1×VEGF 双抗，若一线肺癌成功市场可达百亿级",
+     "buyers": "阿斯利康（已持股约 10.6%，并开展联合用药）",
+     "risk": "西方患者总生存期 HR 0.76 但未达统计显著；同类竞品多",
+     "chips": [
+      [
+       "阿斯利康卡位",
+       "warn"
+      ],
+      [
+       "关键读出在即",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Celcuity",
+     "tk": "CELC",
+     "asset": "gedatolisib（Revtorpyk）",
+     "mech": "泛 PI3K / mTOR 抑制剂",
+     "stage": "2026 年 7 月获批（HR+/HER2- 晚期乳腺癌，PIK3CA 野生型）",
+     "next": "上市放量；PIK3CA 突变队列数据",
+     "lo": 2,
+     "hi": 4,
+     "p": 0.9,
+     "why": "首个覆盖 PIK3CA 野生型人群的 PI3K 通路药物，适合有乳腺癌销售团队的公司",
+     "buyers": "乳腺癌大药企（辉瑞、阿斯利康、礼来、诺华）",
+     "risk": "上市推迟拖累股价，执行力存疑",
+     "chips": [
+      [
+       "已上市",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "IDEAYA Biosciences",
+     "tk": "IDYA",
+     "asset": "darovasertib",
+     "mech": "PKC 抑制剂，联合克唑替尼",
+     "stage": "注册性 II/III 期达到 PFS 终点（一线 HLA-A2 阴性转移性葡萄膜黑色素瘤）",
+     "next": "上市申请；辅助治疗 III 期",
+     "lo": 1,
+     "hi": 1.5,
+     "p": 0.8,
+     "why": "罕见肿瘤里第一个有随机对照获益的口服方案，另有合成致死管线",
+     "buyers": "施维雅（2025 年已拿下美国以外权益）",
+     "risk": "适应症小，部分权益已授出",
+     "chips": [
+      [
+       "部分权益已授出",
+       "warn"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ii",
+   "name": "免疫 / 呼吸",
+   "note": "上半年并购金额第二大（19%）。口服替代注射、长效、首创机制最受追捧；Apogee 被艾伯维以 109 亿美元收购后，同类标的被重新定价。",
+   "items": [
+    {
+     "co": "Insmed",
+     "tk": "INSM",
+     "asset": "brensocatib（Brinsupri）+ TPIP",
+     "mech": "DPP1 抑制剂（支气管扩张）；吸入前列环素前药（肺动脉高压）",
+     "stage": "Brinsupri 已上市，TPIP 在 III 期",
+     "next": "Brinsupri 放量；TPIP 多个 III 期",
+     "lo": 8,
+     "hi": 13,
+     "p": 0.75,
+     "why": "二季度 Brinsupri 收入 3.09 亿美元、环比增长 49%，全年指引上调到 12.5–14 亿美元；公司自己估两个产品峰值超 130 亿美元",
+     "buyers": "呼吸领域大药企（葛兰素史克、阿斯利康、赛诺菲）",
+     "risk": "市值已经很高，收购门槛大",
+     "chips": [
+      [
+       "已上市",
+       ""
+      ],
+      [
+       "体量大",
+       "warn"
+      ]
+     ]
+    },
+    {
+     "co": "Abivax",
+     "tk": "ABVX",
+     "asset": "obefazimod",
+     "mech": "口服 miR-124 增强剂（全新机制）",
+     "stage": "溃疡性结肠炎 III 期诱导和维持均阳性，计划 2026 年四季度末递交上市申请",
+     "next": "克罗恩病 II 期 b 四季度读出",
+     "lo": 4,
+     "hi": 8,
+     "p": 0.85,
+     "why": "维持期第 44 周临床缓解约 51%，安慰剂 10%；口服、每日一次，和现有注射生物药差异明显",
+     "buyers": "礼来（年初传出约 150 亿欧元意向）、艾伯维、强生",
+     "risk": "50 mg 组非黑色素瘤皮肤癌病例偏多；股价已反映高预期",
+     "chips": [
+      [
+       "传闻买家",
+       ""
+      ],
+      [
+       "上市申请在即",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Kymera Therapeutics",
+     "tk": "KYMR",
+     "asset": "KT-621",
+     "mech": "口服 STAT6 降解剂",
+     "stage": "特应性皮炎 II 期 b 已完成入组",
+     "next": "特应性皮炎 II 期 b 年底读出；哮喘 2027 年",
+     "lo": 5,
+     "hi": 10,
+     "p": 0.3,
+     "why": "如果疗效接近度普利尤单抗，就是「口服版 Dupixent」；度普利尤单抗 2031 年左右失去独占",
+     "buyers": "赛诺菲（已合作 IRAK4 降解剂）、再生元、艾伯维",
+     "risk": "II 期 b 数据未出，二元风险高",
+     "chips": [
+      [
+       "年底读出",
+       "warn"
+      ],
+      [
+       "降解剂",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Vera Therapeutics",
+     "tk": "VERA",
+     "asset": "atacicept（Trutakna）",
+     "mech": "BAFF / APRIL 双靶点融合蛋白",
+     "stage": "2026 年 7 月获批（IgA 肾病，加速批准）",
+     "next": "完全批准；其他 B 细胞介导肾病",
+     "lo": 2,
+     "hi": 3,
+     "p": 0.9,
+     "why": "IgA 肾病首个双靶点药物，可能扩展到其他自身免疫肾病",
+     "buyers": "有肾科销售团队的药企",
+     "risk": "诺华、大冢同类药同场竞争",
+     "chips": [
+      [
+       "已上市",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Spyre Therapeutics",
+     "tk": "SYRE",
+     "asset": "SPY001 / 002 / 003 及组合",
+     "mech": "长效 α4β7、TL1A、IL-23 抗体，主打联合用药",
+     "stage": "溃疡性结肠炎 II 期 A 部分（开放标签）达到主要终点",
+     "next": "组合疗法 B 部分 2027 年；风湿类 II 期四季度",
+     "lo": 3,
+     "hi": 6,
+     "p": 0.3,
+     "why": "和 Apogee 同一研发源头、同样的长效思路，Apogee 已被高价收购",
+     "buyers": "艾伯维（刚买 Apogee）、强生、礼来",
+     "risk": "开放标签数据；组合疗法是否更好尚未证明",
+     "chips": [
+      [
+       "多次读出",
+       ""
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cvrm",
+   "name": "心血管 / 代谢 / 减重",
+   "note": "今年上半年该领域掉出并购金额前五，减重注射剂赛道已拥挤。还能卖上价的是有差异的资产：口服小分子、已上市且在放量的产品。",
+   "items": [
+    {
+     "co": "Madrigal Pharmaceuticals",
+     "tk": "MDGL",
+     "asset": "resmetirom（Rezdiffra）",
+     "mech": "THR-β 激动剂（MASH）",
+     "stage": "已上市，二季度收入 3.64 亿美元、同比增长 71%",
+     "next": "肝硬化期结局研究",
+     "lo": 4,
+     "hi": 6,
+     "p": 0.95,
+     "why": "MASH 首个获批药物，已经在快速放量",
+     "buyers": "诺和诺德、其他代谢领域药企",
+     "risk": "GLP-1 类药物也拿到 MASH 适应症，竞争加剧",
+     "chips": [
+      [
+       "已上市",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Viking Therapeutics",
+     "tk": "VKTX",
+     "asset": "VK2735（注射 + 口服）",
+     "mech": "GLP-1 / GIP 双激动剂",
+     "stage": "注射剂两项 III 期已完成入组（78 周终点）",
+     "next": "口服 III 期四季度启动；III 期数据约 2027 年",
+     "lo": 3,
+     "hi": 6,
+     "p": 0.7,
+     "why": "同时有注射和口服两种剂型；辉瑞收购 Metsera 后，独立的减重资产越来越少",
+     "buyers": "缺减重产品的药企（默沙东、艾伯维、百时美施贵宝等）",
+     "risk": "赛道拥挤；现金 5 亿美元，需要融资或合作",
+     "chips": [
+      [
+       "稀缺独立资产",
+       ""
+      ],
+      [
+       "现金偏紧",
+       "neg"
+      ]
+     ]
+    },
+    {
+     "co": "Structure Therapeutics",
+     "tk": "GPCR",
+     "asset": "aleniglipron",
+     "mech": "口服小分子 GLP-1 受体激动剂",
+     "stage": "II 期 b 完成，III 期预计 2026 下半年启动",
+     "next": "III 期启动和入组",
+     "lo": 3,
+     "hi": 6,
+     "p": 0.6,
+     "why": "II 期扣除安慰剂后体重下降约 16%；小分子更便宜、好生产，适合大规模供应",
+     "buyers": "缺口服减重药的药企",
+     "risk": "礼来 orforglipron 先行；III 期数据最早 2028 年",
+     "chips": [
+      [
+       "口服小分子",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Mineralys Therapeutics",
+     "tk": "MLYS",
+     "asset": "lorundrostat",
+     "mech": "醛固酮合酶抑制剂（难治性高血压）",
+     "stage": "上市申请已受理，FDA 目标日期 2026 年 12 月 22 日",
+     "next": "FDA 决定；慢性肾病适应症",
+     "lo": 2,
+     "hi": 4,
+     "p": 0.85,
+     "why": "高血压患者基数巨大，新机制多年未见",
+     "buyers": "心血管大药企",
+     "risk": "阿斯利康 baxdrostat 同类竞争；初级保健市场定价难",
+     "chips": [
+      [
+       "12 月 FDA 决定",
+       "warn"
+      ]
+     ]
+    },
+    {
+     "co": "Cytokinetics",
+     "tk": "CYTK",
+     "asset": "aficamten（Myqorzo）",
+     "mech": "心肌肌球蛋白抑制剂（肥厚型心肌病）",
+     "stage": "已上市，二季度销售约 2,500 万美元",
+     "next": "非梗阻性心肌病扩展适应症",
+     "lo": 2,
+     "hi": 3.5,
+     "p": 0.9,
+     "why": "同类第二个获批的心肌肌球蛋白抑制剂，正在向非梗阻性心肌病扩展",
+     "buyers": "心血管大药企",
+     "risk": "早期放量偏慢；百时美施贵宝的 mavacamten 先行",
+     "chips": [
+      [
+       "已上市",
+       ""
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "neuro",
+   "name": "神经 / 精神",
+   "note": "长期被冷落、估值相对便宜。礼来今年连买 Centessa 和 AtaiBeckley，Jazz、Supernus、大冢也在出手。",
+   "items": [
+    {
+     "co": "Axsome Therapeutics",
+     "tk": "AXSM",
+     "asset": "Auvelity（含阿尔茨海默病激越新适应症）等",
+     "mech": "多个已上市中枢神经药物",
+     "stage": "已上市；阿尔茨海默病激越适应症 2026 年 4 月 30 日获批",
+     "next": "新适应症放量",
+     "lo": 3,
+     "hi": 5,
+     "p": 0.9,
+     "why": "现成的精神科产品组合和销售团队，买下即可贡献收入",
+     "buyers": "想补精神科收入的药企",
+     "risk": "核心分子专利期限",
+     "chips": [
+      [
+       "已上市",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Praxis Precision Medicines",
+     "tk": "PRAX",
+     "asset": "ulixacaltamide + relutrigine",
+     "mech": "T 型钙通道调节剂（特发性震颤）；钠通道调节剂（罕见癫痫）",
+     "stage": "两个上市申请在审：relutrigine 目标日期 12 月 27 日，ulixacaltamide 2027 年 1 月 29 日",
+     "next": "两个 FDA 决定",
+     "lo": 2.5,
+     "hi": 4.5,
+     "p": 0.8,
+     "why": "特发性震颤是常见病，多年没有新药",
+     "buyers": "神经领域药企",
+     "risk": "据报道 vormatrigine 的 POWER1 试验 6 月未达主要终点；relutrigine 审评延长 3 个月",
+     "chips": [
+      [
+       "两个 FDA 决定",
+       "warn"
+      ],
+      [
+       "一个 III 期失败",
+       "neg"
+      ]
+     ]
+    },
+    {
+     "co": "Xenon Pharmaceuticals",
+     "tk": "XENE",
+     "asset": "azetukalner",
+     "mech": "Kv7 钾通道开放剂",
+     "stage": "局灶性癫痫 III 期阳性，上市申请计划于 2026 年三季度递交",
+     "next": "FDA 审评；抑郁症 III 期",
+     "lo": 1.5,
+     "hi": 3,
+     "p": 0.85,
+     "why": "机制新、疗效强，可能扩展到抑郁症",
+     "buyers": "癫痫 / 神经领域药企",
+     "risk": "癫痫市场仿制药多，定价受限",
+     "chips": [
+      [
+       "上市申请在即",
+       ""
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "license": [
+  {
+   "id": "lic-onc",
+   "name": "授权 · 肿瘤",
+   "note": "中国 ADC 和双抗仍是授权主力，今年上半年中国来源资产授权金额已达 920 亿美元。",
+   "items": [
+    {
+     "co": "恒瑞医药",
+     "tk": "600276.SS / 1276.HK",
+     "asset": "trastuzumab rezetecan（SHR-A1811）",
+     "mech": "HER2 ADC",
+     "stage": "中国已获批（HER2 突变肺癌二线），乳腺癌申请在审；FDA 给了胃癌孤儿药资格",
+     "next": "美国临床开发路径",
+     "lo": 1.5,
+     "hi": 4,
+     "p": 0.45,
+     "rights": "2025 年 9 月授给 Glenmark 的只是新兴市场，明确不含美国、欧洲、日本",
+     "why": "已在中国上市的 HER2 ADC，是少数美欧日权益都还没授出的成熟同类药",
+     "buyers": "想进 HER2 赛道的大药企",
+     "risk": "Enhertu 已占先，美国需要新的头对头或差异化试验",
+     "chips": [
+      [
+       "美欧日权益未授出",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "康方生物",
+     "tk": "9926.HK",
+     "asset": "cadonilimab（开坦尼）",
+     "mech": "PD-1 × CTLA-4 双抗",
+     "stage": "中国三个适应症已获批；全球一线胃癌 III 期（对比纳武利尤单抗）2026 年 9 月首例入组",
+     "next": "全球 III 期入组；结直肠癌围手术期 III 期",
+     "lo": 1.5,
+     "hi": 4,
+     "p": 0.45,
+     "rights": "海外权益未见授出，康方正在自己跑全球 III 期，美国、德国、中国研究者共同牵头",
+     "why": "康方的 ivonescimab 已授给 Summit 并带来大额回报；cadonilimab 在 PD-L1 低表达人群有差异化",
+     "buyers": "想补免疫肿瘤骨干的药企",
+     "risk": "康方可能选择自己出海；PD-1/CTLA-4 双抗在西方没有成功先例",
+     "chips": [
+      [
+       "海外权益未授出",
+       ""
+      ],
+      [
+       "自跑全球 III 期",
+       "warn"
+      ]
+     ]
+    },
+    {
+     "co": "Erasca",
+     "tk": "ERAS",
+     "asset": "naporafenib",
+     "mech": "泛 RAF 抑制剂，联合曲美替尼",
+     "stage": "NRAS 突变黑色素瘤 III 期",
+     "next": "III 期数据",
+     "lo": 0.5,
+     "hi": 1.5,
+     "p": 0.5,
+     "rights": "2025 年 5 月公开表示为这个 III 期资产寻找合作方，之后未见成交",
+     "why": "NRAS 突变黑色素瘤没有靶向药，III 期设计已与监管沟通",
+     "buyers": "黑色素瘤 / RAS 通路药企",
+     "risk": "适应症小；表态时间较早，现状需再确认",
+     "chips": [
+      [
+       "公开寻求合作",
+       ""
+      ],
+      [
+       "信息较旧",
+       "warn"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lic-meta",
+   "name": "授权 · 代谢 / 减重 / 肝病",
+   "note": "减重是中国资产授权最多的领域之一。注射 GLP-1 已经拥挤，口服小分子、长效和保肌肉方向更有议价力。",
+   "items": [
+    {
+     "co": "Altimmune",
+     "tk": "ALT",
+     "asset": "pemvidutide",
+     "mech": "GLP-1 / 胰高血糖素双激动剂",
+     "stage": "MASH III 期 PERFORMA 于 2026 年 8 月启动，有突破性疗法资格",
+     "next": "酒精使用障碍 III 期方案和监管沟通",
+     "lo": 2,
+     "hi": 4,
+     "p": 0.55,
+     "rights": "全球权益仍在公司手里；财务官称酒精使用障碍 III 期会考虑包括战略合作在内的非稀释性融资",
+     "why": "同时覆盖 MASH、酒精使用障碍和酒精性肝病，肝病适应症比单纯减重竞争少",
+     "buyers": "代谢 / 肝病药企",
+     "risk": "5.19 亿美元现金只够完成 MASH 试验；Madrigal 和 GLP-1 已在 MASH 市场",
+     "chips": [
+      [
+       "提到战略合作",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "歌礼制药",
+     "tk": "1672.HK",
+     "asset": "ASC30",
+     "mech": "口服小分子 GLP-1 受体激动剂（另有注射剂型）",
+     "stage": "美国 II 期：13 周扣除安慰剂后体重下降 7.7%，胃肠道耐受性较好；糖尿病 II 期 2026 年 4 月完成入组",
+     "next": "更长周期的 II 期数据",
+     "lo": 2,
+     "hi": 5,
+     "p": 0.3,
+     "rights": "全球权益未见授出，美国试验由公司自己开展",
+     "why": "口服小分子减重药是今年最抢手的方向之一，恒瑞同类药刚以 3 亿美元首付授给诺和诺德",
+     "buyers": "缺口服减重药的药企",
+     "risk": "13 周数据太短；礼来 orforglipron 等已领先",
+     "chips": [
+      [
+       "全球权益未授出",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "甘李药业",
+     "tk": "603087.SS",
+     "asset": "bofanglutide（GZR18）",
+     "mech": "两周一次 GLP-1 受体激动剂",
+     "stage": "中国 III 期",
+     "next": "美国开发计划",
+     "lo": 1,
+     "hi": 3,
+     "p": 0.45,
+     "rights": "已按地区分别授出：欧洲 39 国给 Menarini（2026 年 9 月，首付 6,200 万欧元）、韩国给 JW；美国未见授出",
+     "why": "两周一次给药，按地区拆分授权的模式说明公司在主动找买家",
+     "buyers": "想要美国减重产品的中型药企",
+     "risk": "美国注射 GLP-1 竞争最激烈，美国数据有限",
+     "chips": [
+      [
+       "美国权益未授出",
+       ""
+      ]
+     ]
+    },
+    {
+     "co": "Arrowhead Pharmaceuticals",
+     "tk": "ARWR",
+     "asset": "ARO-INHBE / ARO-ALK7",
+     "mech": "siRNA，靶向 INHBE 和 ALK7（减脂保肌）",
+     "stage": "早期临床：联合替尔泊肽 16 周体重下降 9.4%（单用替尔泊肽 4.8%）；ALK7 单次给药 8 周内脏脂肪减少 14.1%",
+     "next": "II 期",
+     "lo": 2,
+     "hi": 6,
+     "p": 0.15,
+     "rights": "两个减重项目未见授出；公司有把项目授权出去的惯例（如 ARO-PNPLA3 授给 Madrigal）",
+     "why": "「和 GLP-1 联用、减的是脂肪不是肌肉」正好是减重下一阶段的需求",
+     "buyers": "已有 GLP-1、想做联合用药的药企",
+     "risk": "数据很早，样本小",
+     "chips": [
+      [
+       "授权惯例",
+       "warn"
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lic-resp",
+   "name": "授权 · 呼吸 / 纤维化",
+   "note": "特发性肺纤维化是大药企持续投入但成功率低的领域，新机制的 III 期资产很少。",
+   "items": [
+    {
+     "co": "英矽智能",
+     "tk": "港股上市",
+     "asset": "rentosertib",
+     "mech": "TNIK 抑制剂（AI 设计的小分子）",
+     "stage": "特发性肺纤维化 III 期 GENESIS-IPF-3 于 2026 年 9 月在中国启动（约 320 人，52 周）",
+     "next": "海外开发路径",
+     "lo": 1.5,
+     "hi": 3,
+     "p": 0.35,
+     "rights": "公开信息未把它和任何合作方挂钩；英矽智能和礼来、施维雅、武田等多家药企有合作，授权是其常用模式",
+     "why": "首个进入 III 期的生成式 AI 设计药物，机制新；IIa 期结果发表于 Nature Medicine",
+     "buyers": "呼吸 / 纤维化药企（勃林格、百时美施贵宝等在这一领域布局）",
+     "risk": "IIa 期样本小、12 周；III 期目前只在中国",
+     "chips": [
+      [
+       "未见合作方",
+       "warn"
+      ]
+     ]
+    }
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "name": "IQVIA：2026 年中生物制药并购回顾",
+   "url": "https://www.iqvia.com/locations/emea/blogs/2026/07/biopharma-ma-mid-year-2026-update"
+  },
+  {
+   "name": "BioBucks：2026 生物技术并购追踪",
+   "url": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "name": "Revolution Medicines 2026 年二季度报告",
+   "url": "https://ir.revmed.com/news-releases/news-release-details/revolution-medicines-reports-second-quarter-2026-financial"
+  },
+  {
+   "name": "BioSpace：默沙东退出 Revolution 收购谈判",
+   "url": "https://www.biospace.com/business/revolution-knows-its-worth-as-merck-backs-off-for-now"
+  },
+  {
+   "name": "Fierce Pharma：ivonescimab 生存数据更新",
+   "url": "https://www.fiercepharma.com/pharma/summit-therapeutics-updates-ivonescimab-survival-data-ahead-fda-decision-date"
+  },
+  {
+   "name": "阿斯利康投资 Summit 20 亿美元",
+   "url": "https://www.talk.bio/2026/09/astrazeneca-invests-2-billion-in-summit.html"
+  },
+  {
+   "name": "MedCity News：gedatolisib 获批",
+   "url": "https://medcitynews.com/2026/07/celcuity-fda-approved-breast-cancer-revtorpyk-gedatolisib-pik3ca-pam-celc/"
+  },
+  {
+   "name": "IDEAYA：ASCO 2026 darovasertib 数据",
+   "url": "https://ir.ideayabio.com/2026-04-21-IDEAYA-Biosciences-Announces-Late-Breaking-Abstract-Oral-Presentation-at-ASCO-2026-to-Provide-Complete-Data-from-Phase-2-3-Registrational-Trial-OptimUM-02-of-Darovasertib-in-Combination-with-Crizotinib-in-1L-HLA-A2-Negative-Metastatic-Uveal-Mel"
+  },
+  {
+   "name": "Insmed 2026 年二季度幻灯片要点",
+   "url": "https://www.investing.com/news/company-news/insmed-q2-2026-slides-brinsupri-revenue-surge-14b-peak-forecast-93CH-4842580"
+  },
+  {
+   "name": "Abivax ABTECT 维持期 III 期结果",
+   "url": "https://www.globenewswire.com/news-release/2026/06/01/3304711/0/en/abivax-announces-landmark-phase-3-abtect-maintenance-trial-results-evaluating-obefazimod-in-moderately-to-severely-active-ulcerative-colitis.html"
+  },
+  {
+   "name": "STAT：Abivax 为何仍未被收购",
+   "url": "https://www.statnews.com/2026/09/03/abivax-acquisition-target-replimune-fda/"
+  },
+  {
+   "name": "Kymera 2026 年二季度报告",
+   "url": "https://investors.kymeratx.com/news-releases/news-release-details/kymera-therapeutics-announces-second-quarter-2026-financial"
+  },
+  {
+   "name": "Fierce Pharma：Trutakna 获批",
+   "url": "https://www.fiercepharma.com/pharma/fda-approves-vera-therapeutics-atacicept-setting-igan-market-battle-novartis-otsuka"
+  },
+  {
+   "name": "Spyre 2026 年二季度报告",
+   "url": "https://ir.spyre.com/news-releases/news-release-details/spyre-therapeutics-reports-second-quarter-2026-financial-results"
+  },
+  {
+   "name": "Madrigal 2026 年二季度业绩",
+   "url": "https://www.stocktitan.net/news/MDGL/madrigal-pharmaceuticals-reports-second-quarter-2026-financial-7nfanqb65blf.html"
+  },
+  {
+   "name": "Viking 2026 年二季度报告",
+   "url": "https://ir.vikingtherapeutics.com/2026-07-29-Viking-Therapeutics-Reports-Second-Quarter-2026-Financial-Results-and-Provides-Corporate-Update"
+  },
+  {
+   "name": "Structure：ACCESS II 结果",
+   "url": "https://ir.structuretx.com/news-releases/news-release-details/structure-therapeutics-reports-positive-topline-data-phase-2"
+  },
+  {
+   "name": "Mineralys：FDA 受理，12 月 22 日决定",
+   "url": "https://www.stocktitan.net/news/MLYS/mineralys-therapeutics-reports-first-quarter-2026-financial-results-bgo1zdl0m6rs.html"
+  },
+  {
+   "name": "Cytokinetics 2026 年二季度报告",
+   "url": "https://www.globenewswire.com/news-release/2026/08/06/3340658/0/en/cytokinetics-reports-second-quarter-2026-financial-results-and-provides-business-update.html"
+  },
+  {
+   "name": "阿尔茨海默病协会：AXS-05 获批",
+   "url": "https://www.alz.org/news/2026/alzheimers-association-welcomes-fda-approval-treatment-for-agitation"
+  },
+  {
+   "name": "Praxis 2026 年一季度报告",
+   "url": "https://www.globenewswire.com/news-release/2026/05/07/3289917/0/en/praxis-precision-medicines-provides-corporate-update-and-reports-first-quarter-2026-financial-results.html"
+  },
+  {
+   "name": "Praxis：relutrigine 审评延期",
+   "url": "https://www.stocktitan.net/news/PRAX/praxis-precision-medicines-announces-extension-period-for-nvfzxh6lpq52.html"
+  },
+  {
+   "name": "Xenon：X-TOLE2 III 期结果",
+   "url": "https://investor.xenon-pharma.com/news-releases/news-release-details/xenon-announces-positive-topline-data-phase-3-x-tole2-study"
+  },
+  {
+   "name": "BioBucks：2026 授权交易追踪",
+   "url": "https://www.biobucks.co/biotech-bdl-tracker-2026"
+  },
+  {
+   "name": "Fierce Pharma：Glenmark 获得恒瑞 HER2 ADC 部分权益",
+   "url": "https://www.fiercepharma.com/pharma/potential-11b-deal-glenmark-grabs-certain-rights-hengrui-adc-rival-enhertu"
+  },
+  {
+   "name": "康方：cadonilimab 全球 III 期首例入组",
+   "url": "https://www.manilatimes.net/2026/09/28/tmt-newswire/pr-newswire/akeso-announces-first-patient-enrolled-in-global-phase-iii-trial-of-cadonilimab-versus-nivolumab-in-first-line-gastric-cancer/2433771"
+  },
+  {
+   "name": "Fierce Biotech：Erasca 为 naporafenib 寻找合作方",
+   "url": "https://www.fiercebiotech.com/biotech/erasca-enters-another-era-seeking-partner-late-stage-ex-novartis-asset"
+  },
+  {
+   "name": "Altimmune 披露 pemvidutide 肝病布局",
+   "url": "https://www.dailypolitical.com/2026/10/02/altimmune-details-pemvidutides-path-toward-a-liver-disease-franchise.html"
+  },
+  {
+   "name": "Fierce Biotech：歌礼 ASC30 美国 II 期结果",
+   "url": "https://www.fiercebiotech.com/biotech/chinas-ascletis-reports-77-weight-loss-oral-glp-1-contender-us-phase-2-study"
+  },
+  {
+   "name": "Menarini 获得甘李 bofanglutide 欧洲权益",
+   "url": "https://allsci.com/news/licensing-and-partnerships/bofanglutide-licensing-agreement-europe/"
+  },
+  {
+   "name": "甘李与 JW Pharmaceutical 韩国授权",
+   "url": "https://www.prnewswire.com/news-releases/gan--lee-pharmaceuticals-signs-exclusive-license-agreement-with-jw-pharmaceutical-the-leading-south-korean-pharma-to-advance-the-global-commercialization-of-the-innovative-glp-1-receptor-agonist-bofanglutide-302738066.html"
+  },
+  {
+   "name": "Arrowhead 2026 财年二季度报告",
+   "url": "https://ir.arrowheadpharma.com/news-releases/news-release-details/arrowhead-pharmaceuticals-reports-fiscal-2026-second-quarter"
+  },
+  {
+   "name": "英矽智能 rentosertib III 期启动",
+   "url": "https://www.news-medical.net/news/20260910/Generative-AI-driven-drug-Rentosertib-enters-Phase-III-trial-for-idiopathic-pulmonary-fibrosis.aspx"
+  }
+ ]
+}

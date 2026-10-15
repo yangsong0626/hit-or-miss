@@ -205,6 +205,41 @@ table.mx,table.co{min-width:680px}
   .co-detail td>.co-sets,.co-detail td>.mo-dwrap{position:sticky;left:12px;max-width:calc(100vw - 100px)}}
 @media (max-width:560px){.co-sets{grid-template-columns:minmax(0,1fr)}}
 .sig.tg{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.deal-pos{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin:4px 0 12px}
+.deal-pos b{font-family:var(--f-mono);color:var(--ink);font-weight:600}
+#deal-board{display:grid;gap:22px;margin-top:10px}
+.deal-area{display:grid;gap:10px}
+.deal-area-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px;border-bottom:2px solid var(--ink);padding-bottom:5px}
+.deal-area-head h3{margin:0;font-size:19px}
+.deal-area-head p{margin:0;color:var(--muted);font-size:13px;max-width:64ch}
+.deal-scale{display:grid;grid-template-columns:40px minmax(0,1fr);gap:0 14px;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.deal-scale .tk{position:relative;height:14px}.deal-scale .tk span{position:absolute;transform:translateX(-50%)}
+.deal-row{background:var(--surface);border:1px solid var(--line);display:grid;grid-template-columns:40px minmax(0,1fr);gap:4px 14px;padding:12px 14px}
+.deal-rank{font-family:var(--f-mono);font-size:24px;font-weight:600;color:var(--accent);line-height:1}
+.deal-main{display:grid;gap:7px;min-width:0}
+.deal-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.deal-title h4{margin:0;font-size:16px}
+.deal-tk{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.deal-asset{font-size:14px}
+.deal-rights{font-size:13px;border-left:3px solid var(--accent);padding-left:9px}
+.deal-bar{position:relative;height:12px;background:var(--line);border-radius:2px}
+.deal-bar .rng{position:absolute;top:0;bottom:0;background:color-mix(in srgb, var(--accent) 30%, var(--surface));border-radius:2px}
+.deal-bar .mid{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--accent)}
+.deal-nums{display:flex;flex-wrap:wrap;gap:3px 16px;font-size:12.5px;color:var(--muted)}
+.deal-nums b{font-family:var(--f-mono);color:var(--ink);font-weight:600}
+.deal-nums .rv b{color:var(--accent);font-size:14px}
+.deal-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;font-size:13px}
+.deal-cols h5{margin:0 0 2px;font-size:12px;color:var(--muted);font-weight:600}
+.deal-cols p{margin:0}
+.deal-cols .sm{color:var(--muted);font-size:12px;margin-top:3px}
+.deal-chip{font-size:12px;padding:1px 7px;border-radius:3px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+.deal-chip.warn{background:var(--mix-soft);color:var(--mix)}
+.deal-chip.neg{background:var(--neg-soft);color:var(--neg)}
+.deal-src{font-size:12px;color:var(--muted);margin-top:18px}
+.deal-src ol{margin:6px 0 0;padding-left:18px;columns:2;column-gap:28px}
+.deal-src a{color:var(--accent)}
+.lens-go{font:inherit;font-size:13px;background:none;border:0;color:var(--accent);cursor:pointer;padding:0;margin-left:6px}
+@media (max-width:760px){.deal-cols{grid-template-columns:minmax(0,1fr)}.deal-src ol{columns:1}.deal-row,.deal-scale{grid-template-columns:26px minmax(0,1fr)}.deal-rank{font-size:19px}}
 .ls-how{margin:4px 0 14px;font-size:13.5px;color:var(--muted)}
 .ls-how summary{cursor:pointer;color:var(--accent);font-weight:600}
 .ls-how ul{margin:8px 0 0;padding-left:18px}.ls-how li{margin:3px 0}
@@ -382,6 +417,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
     <button id="tab-sh" role="tab" aria-selected="false" data-tab="sh">被搁置的资产</button>
     <button id="tab-tg" role="tab" aria-selected="false" data-tab="tg">靶点红黑榜</button>
     <button id="tab-cur" role="tab" aria-selected="false" data-tab="cur">精选解读</button>
+    <button id="tab-deal" role="tab" aria-selected="false" data-tab="deal">交易候选</button>
     <button id="tab-reg" role="tab" aria-selected="false" data-tab="reg">全部试验</button>
   </div>
 
@@ -501,6 +537,21 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
       <div class="ls-chart-wrap"><div class="ls-chart" id="ls-chart"></div><div class="ls-leg" id="ls-leg"></div></div>
       <div class="tablewrap"><table class="co ls" id="ls"></table></div>
       <button class="more" id="ls-more" hidden></button>
+    </section>
+  </div>
+
+  <div id="panel-deal" class="panel" hidden>
+    <section class="block">
+      <div class="block-head"><h2>交易候选</h2><span class="regmeta" id="deal-meta"></span></div>
+      <p class="sub">还没被收购、或者权益还没授出的热门资产，按治疗领域分开排。分领域是因为不同领域的市场规模、成功率和买家完全不同，混在一起排会让肿瘤资产占满前排。排序依据是风险调整价值：峰值年销售额区间中值（十亿美元）× 当前阶段的成功概率。峰值销售是编辑粗估，只有 Insmed 参考了公司预测；区间很宽，排名比具体数字更可信。这是商业价值的粗略尺子，不是估值，不构成投资建议。</p>
+      <div class="deal-pos" id="deal-pos"></div>
+      <div class="seg" role="group" aria-label="交易类型">
+        <button data-dk="acquire" aria-pressed="true">可能被整体收购</button>
+        <button data-dk="license" aria-pressed="false">可能被授权</button>
+      </div>
+      <p class="sub" id="deal-kind-note"></p>
+      <div id="deal-board"></div>
+      <div class="deal-src" id="deal-src"></div>
     </section>
   </div>
 
@@ -691,6 +742,7 @@ function setLens(l){
   lens = l;
   document.querySelectorAll(".lens button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lens===l ? "true":"false"));
   $("lens-note").textContent = LENS[l].note;
+  if (l === "bd" && EMB?.deals) { const b = document.createElement("button"); b.className = "lens-go"; b.textContent = "看交易候选 →"; b.addEventListener("click", () => showTab("deal")); $("lens-note").appendChild(b); }
   try{ localStorage.setItem("readout-lens", l); }catch(e){}
   render();
   if (REG) renderReg();
@@ -849,7 +901,7 @@ function renderReg(){
 }
 ["rq","r-ta","r-mod","r-ph","r-vd"].forEach(id => $(id).addEventListener("input", () => { regLimit = 200; renderReg(); }));
 
-const TABS = ["ov","co","mo","ls","tl","sh","tg","cur","reg"];
+const TABS = ["ov","co","mo","ls","tl","sh","tg","cur","deal","reg"];
 function showTab(t){
   if (!TABS.includes(t)) t = "ov";
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t ? "true":"false"));
@@ -1396,6 +1448,41 @@ function renderLandscapeTable(){
 $("ls-more").addEventListener("click", () => { lsLimit += 40; renderLandscapeTable(); });
 ["ls-q","ls-mod","ls-ta","ls-tag","ls-sort"].forEach(id => $(id).addEventListener("input", () => { lsLimit = 40; renderLandscape(); }));
 
+/* ---------- 交易候选 ---------- */
+let dealKind = "acquire";
+const DEAL_NOTE = {
+  acquire: "近一年被反复讨论为收购对象、仍独立运营的美欧上市公司。没成交的常见原因：价格谈不拢、公司自己不缺钱、关键数据还没出来，或已被大药企部分持股卡位。",
+  license: "有公开信息表明相关地区权益还没授出、或公司公开说过在找合作方的资产。授权只拿部分地区或部分权益，首付低、里程碑高，所以峰值销售只算还可授权的地区。依据写在「权益现状」里，信息较旧或只是凭惯例推断的已标出。"
+};
+function renderDeals(){
+  const W = EMB?.deals; if (!W) return;
+  const MAX = 12, pct = v => (100 * Math.min(v, MAX) / MAX).toFixed(2) + "%", f1 = v => (Math.round(v * 10) / 10).toFixed(1);
+  const areas = W[dealKind] || [];
+  const n = areas.reduce((a, x) => a + x.items.length, 0);
+  $("deal-meta").textContent = `截至 ${W.asof} · ${n} 项`;
+  $("deal-pos").innerHTML = `成功概率假设：已上市 <b>0.90–0.95</b> · 已递交上市申请 <b>0.85</b> · III 期已阳性 <b>0.75–0.85</b> · III 期进行中 <b>0.55–0.70</b> · II 期 <b>0.25–0.45</b>`;
+  document.querySelectorAll("[data-dk]").forEach(b => b.setAttribute("aria-pressed", b.dataset.dk === dealKind));
+  $("deal-kind-note").textContent = DEAL_NOTE[dealKind];
+  const ticks = `<div class="deal-scale" aria-hidden="true"><span></span><div class="tk">${[0,3,6,9,12].map(v => `<span style="left:${pct(v)}">${v}</span>`).join("")}</div></div>`;
+  $("deal-board").innerHTML = areas.map(a => {
+    const rows = a.items.map(x => ({...x, mid:(x.lo + x.hi) / 2 * x.p, rlo:x.lo * x.p, rhi:x.hi * x.p})).sort((m, k) => k.mid - m.mid);
+    return `<section class="deal-area"><div class="deal-area-head"><h3>${esc(a.name)}</h3><p>${esc(a.note)}</p></div>${ticks}
+      ${rows.map((x, i) => `<article class="deal-row"><div class="deal-rank">${i + 1}</div><div class="deal-main">
+        <div class="deal-title"><h4>${esc(x.co)}</h4><span class="deal-tk">${esc(x.tk)}</span>${(x.chips||[]).map(([t, c]) => `<span class="deal-chip ${c}">${esc(t)}</span>`).join("")}</div>
+        <div class="deal-asset"><b>${esc(x.asset)}</b> · ${esc(x.mech)}</div>
+        ${x.rights ? `<div class="deal-rights"><b>权益现状：</b>${esc(x.rights)}</div>` : ""}
+        <div class="deal-bar" role="img" aria-label="风险调整价值 ${f1(x.rlo)} 到 ${f1(x.rhi)}，中值 ${f1(x.mid)}"><span class="rng" style="left:${pct(x.rlo)};width:calc(${pct(x.rhi)} - ${pct(x.rlo)})"></span><span class="mid" style="left:calc(${pct(x.mid)} - 1px)"></span></div>
+        <div class="deal-nums"><span class="rv">风险调整价值 <b>${f1(x.mid)}</b></span><span>峰值销售${x.rights ? "（可授权地区）" : ""} <b>${x.lo}–${x.hi}</b></span><span>成功概率 <b>${x.p.toFixed(2)}</b></span><span>十亿美元 / 年</span></div>
+        <div class="deal-cols">
+          <div><h5>阶段</h5><p>${esc(x.stage)}</p><p class="sm">下一步：${esc(x.next)}</p></div>
+          <div><h5>为什么抢手</h5><p>${esc(x.why)}</p></div>
+          <div><h5>可能的${x.rights ? "接手方" : "买家"} · 风险</h5><p>${esc(x.buyers)}</p><p class="sm">风险：${esc(x.risk)}</p></div>
+        </div></div></article>`).join("")}</section>`;
+  }).join("");
+  $("deal-src").innerHTML = `<b>来源</b><ol>${(W.sources||[]).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a></li>`).join("")}</ol>`;
+}
+document.querySelectorAll("[data-dk]").forEach(b => b.addEventListener("click", () => { dealKind = b.dataset.dk; renderDeals(); }));
+
 /* ---------- 催化剂时间轴 ---------- */
 const SVGNS = "http://www.w3.org/2000/svg";
 function hash(s){ let h = 0; for (const ch of s) h = (h*31 + ch.charCodeAt(0)) >>> 0; return h; }
@@ -1525,7 +1612,7 @@ function renderPulse(){
   let t = null; try{ t = localStorage.getItem("hom-tab"); }catch(e){}
   showTab(t || "ov");
 })();
-renderStrip(); renderSide(); setLens(lens); renderAsof();
+renderStrip(); renderSide(); setLens(lens); renderAsof(); renderDeals();
 document.querySelectorAll(".lens button").forEach(b => b.addEventListener("click", () => setLens(b.dataset.lens)));
 ["q","f-out","f-ta","f-mod"].forEach(id => $(id).addEventListener("input", render));
 </script>

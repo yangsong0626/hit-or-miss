@@ -163,6 +163,9 @@ if os.path.exists(act_in):
     d["active_tg"] = len(act_out)
     print(f"wrote {ao} · {len(act_out)} of {len(act.get('trials', []))} active II/III trials with targets", file=sys.stderr)
 d["curated"] = cur
+deal_path = os.path.join(base, "deal_watch.json")
+if os.path.exists(deal_path):
+    d["deals"] = json.load(open(deal_path, encoding="utf-8"))
 js = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 tag = '<script id="trials-data" type="application/json">' + js + "</script>\n"
 marker = "\n<script>\n"
