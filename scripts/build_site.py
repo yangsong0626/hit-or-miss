@@ -195,6 +195,31 @@ for a in (pre.get("cur") or {}).get("areas", []):
 if flagged:
     print(f"WARNING preclinical targets now in clinical data: {', '.join(flagged)}", file=sys.stderr)
 
+# 搜索用的靶点别名和药名表：页面按别名把查询换成规范靶点名，再展开成「别名 + 已知药名」一起匹配
+_td = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "target_dict.json"), encoding="utf-8"))
+_alias = {}
+for c, al in _td["targets"].items():
+    if c.startswith("_"):
+        continue
+    out_ = []
+    for a in al:
+        a = a[3:] if a.startswith("cs:") else a
+        if a.startswith("re:"):
+            a = a[3:].replace("[\\s-]?", " ").replace("[\\s-]", " ")
+            if re.search(r"[\\\[\](){}?*+|^$]", a):
+                continue
+        a = a.strip()
+        if a and a.lower() != c.lower() and a not in out_:
+            out_.append(a)
+    _alias[c] = out_
+_drugs = {}
+for dn, tgs_ in _td.get("drugs", {}).items():
+    if dn.startswith("_"):
+        continue
+    for g in ([tgs_] if isinstance(tgs_, str) else tgs_):
+        _drugs.setdefault(g, []).append(dn)
+d["tgsearch"] = {"alias": _alias, "drugs": _drugs}
+
 # 每周 FDA 核对结果（scripts/check_watch.py 生成）
 wa = os.path.join(base, "watch_alerts.json")
 if os.path.exists(wa) and "deals" in d:

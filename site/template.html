@@ -262,6 +262,9 @@ table.mx,table.co{min-width:680px}
 .ls-tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;margin:1px 4px 1px 0}
 .ls-tag.fail{background:var(--neg-soft);color:var(--neg)}
 .ls-seg{margin:0 0 14px}
+.q-hint{font-size:12.5px;color:var(--muted);margin:-6px 0 12px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.q-hint b{color:var(--ink)}
+.q-go{font:inherit;font-size:12px;border:1px solid var(--accent);color:var(--accent);background:none;border-radius:4px;padding:1px 8px;cursor:pointer}
 .watch-health{font-size:13px;padding:8px 12px;border-radius:4px;margin:0 0 14px;background:var(--pos-soft);color:var(--pos)}
 .watch-health.warn{background:var(--mix-soft);color:var(--ink)}
 .watch-health b{color:var(--mix)}
@@ -570,6 +573,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
           <option value="chase">可追赶优先</option>
         </select>
       </div>
+      <p class="q-hint" id="ls-hint" hidden></p>
       <div class="ls-chart-wrap"><div class="ls-chart" id="ls-chart"></div><div class="ls-leg" id="ls-leg"></div></div>
       <div class="tablewrap"><table class="co ls" id="ls"></table></div>
       <button class="more" id="ls-more" hidden></button>
@@ -638,11 +642,12 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
       <p class="sub">提前终止、暂停或撤回的 II/III 期试验，按申办方填写的原因归类。因「申办方决定 / 战略」停下的项目，往往不是药本身不行，对 BD 来说可能是授权引进或收购的线索。注意这一类也包含只写了「申办方决定终止」、没有说明具体原因的条目。</p>
       <div class="why-bars" id="why-bars"></div>
       <div class="filters">
-        <input id="sh-q" type="search" placeholder="搜药名、公司、适应症、原因…" aria-label="搜索被搁置的资产">
+        <input id="sh-q" type="search" placeholder="搜药名、靶点、公司、适应症、原因…" aria-label="搜索被搁置的资产">
         <select id="sh-ta" aria-label="治疗领域"></select>
         <select id="sh-ph" aria-label="分期"><option value="">全部分期</option><option value="3">含 III 期</option><option value="2">仅 II 期</option></select>
         <span class="regmeta" id="sh-meta"></span>
       </div>
+      <p class="q-hint" id="sh-hint" hidden></p>
       <div class="sh-list" id="sh-list"></div>
       <button class="more" id="sh-more" hidden></button>
     </section>
@@ -652,13 +657,14 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
     <div class="subtabs" id="subtabs"></div>
     <p class="setnote" id="setnote"></p>
     <div class="filters" id="regfilters" hidden>
-      <input id="rq" type="search" placeholder="搜药名、申办方、适应症、NCT 号…" aria-label="搜索注册库">
+      <input id="rq" type="search" placeholder="搜药名、靶点、申办方、适应症、NCT 号…" aria-label="搜索注册库">
       <select id="r-ta" aria-label="治疗领域"></select>
       <select id="r-mod" aria-label="药物形式"></select>
       <select id="r-ph" aria-label="分期"><option value="">全部分期</option><option value="3">含 III 期</option><option value="2">仅 II 期</option></select>
       <select id="r-vd" aria-label="判定"><option value="">全部判定</option><option value="_note">有人工分析</option><option value="达到">达到</option><option value="未达到">未达到</option><option value="部分达到">部分达到</option><option value="存疑">存疑</option><option value="描述性">描述性（无对照检验）</option><option value="无统计检验">无统计检验</option><option value="终止">终止</option><option value="正常结束">正常结束</option></select>
       <span class="regmeta" id="regmeta"></span>
     </div>
+      <p class="q-hint" id="rq-hint" hidden></p>
     <div id="regbody"></div>
   </div>
 
@@ -671,6 +677,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
         <select id="tg-ta" aria-label="治疗领域"></select>
         <select id="tg-min" aria-label="最少读出数"><option value="1">全部靶点</option><option value="2" selected>至少 2 项读出</option></select>
       </div>
+      <p class="q-hint" id="tg-hint" hidden></p>
       <div class="tg-grid">
         <div><h3 class="tg-h red">红榜 <small>成功多于失败</small></h3><ol class="tg-list" id="tg-red"></ol></div>
         <div><h3 class="tg-h black">黑榜 <small>失败多于成功</small></h3><ol class="tg-list" id="tg-black"></ol></div>
@@ -691,6 +698,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
         <select id="f-mod" aria-label="药物形式"></select>
         <span class="count" id="count"></span>
       </div>
+      <p class="q-hint" id="q-hint" hidden></p>
       <div class="feed" id="feed"></div>
     </main>
 
@@ -737,6 +745,54 @@ const LENS = {
 
 /* 精选读出、同类联动、日历都来自 data/curated.json（构建时内嵌） */
 const EMB = (() => { try { return JSON.parse(document.getElementById("trials-data")?.textContent || "null"); } catch(e) { return null; } })();
+/* ---------- 按靶点搜索：别名 → 规范靶点名 → 展开成别名和已知药名一起匹配 ---------- */
+const TGS = (() => {
+  const S = EMB?.tgsearch || {alias:{}, drugs:{}}, ix = new Map();
+  const nz = v => String(v).toLowerCase().replace(/[^a-z0-9α-ωβγκ]/g, "");
+  for (const [c, al] of Object.entries(S.alias)) for (const a of [c, ...al]) {
+    const k = nz(a); if (k.length < 2) continue;
+    if (!ix.has(k)) ix.set(k, new Set()); ix.get(k).add(c);
+  }
+  return {ix, nz, alias:S.alias, drugs:S.drugs};
+})();
+const reEsc = v => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function makeQ(raw){
+  const q = String(raw || "").trim().toLowerCase(); if (!q) return null;
+  const k = TGS.nz(q); let canon = TGS.ix.has(k) ? [...TGS.ix.get(k)] : [];
+  // 「KRAS」也带上「KRAS G12C」「KRAS G12D」这类以它开头、后面跟空格或符号的细分靶点
+  if (k.length >= 3) for (const c of Object.keys(TGS.alias)) { const lc = c.toLowerCase(); if (lc.startsWith(q) && lc.length > q.length && !/[a-z0-9]/.test(lc[q.length]) && !canon.includes(c)) canon.push(c); }
+  if (!canon.length && k.length >= 3 && !/\s/.test(q)) {
+    const hit = new Set(); for (const [a, cs] of TGS.ix) if (a.startsWith(k)) cs.forEach(c => hit.add(c));
+    canon = [...hit].slice(0, 12);
+  }
+  const terms = new Set(); canon.forEach(c => [c, ...(TGS.alias[c]||[]), ...(TGS.drugs[c]||[])].forEach(t => terms.add(t)));
+  const res = [...terms].filter(t => TGS.nz(t).length >= 2).map(t => {
+    const body = t.toLowerCase().split(/[-\s/]+/).filter(Boolean).map(reEsc).join("[-\\s/]?");
+    return t.length <= 5 ? new RegExp(`(^|[^a-z0-9])${body}(?![a-z0-9])`) : new RegExp(body);
+  });
+  // 查询词很短又对得上靶点时（AR、ALK、RET），不再做纯子串匹配，免得「AR」命中 pancreatic
+  const plain = !(canon.length && q.length <= 4) ? q : null;
+  const own = q.length <= 4 ? new RegExp(`(^|[^a-z0-9])${reEsc(q)}(?![a-z0-9])`) : null;
+  return {q, plain, own, canon, res, nDrugs: canon.reduce((a, c) => a + (TGS.drugs[c]||[]).length, 0)};
+}
+function qHit(Q, parts, tgs){
+  if (!Q) return true;
+  const h = parts.filter(Boolean).join(" ").toLowerCase();
+  if (Q.plain ? h.includes(Q.plain) : Q.own.test(h)) return true;
+  if (tgs && tgs.length && Q.canon.some(c => tgs.includes(c))) return true;
+  return Q.res.some(r => r.test(h));
+}
+const trialParts = t => [t.nct, t.title, t.acronym, t.sponsor, t.group, t.why, t.tgt, ...(t.conditions||[]), ...(t.interventions||[]), ...(t.iv||[]).map(i => i.n + " " + (i.on||[]).join(" ")), ...(t.tg||[])];
+function qHintHTML(Q){
+  if (!Q || !Q.canon.length) return "";
+  const nAl = Q.canon.reduce((a, c) => a + (TGS.alias[c]||[]).length, 0);
+  return `按靶点搜索：${Q.canon.slice(0, 6).map(c => `<b>${esc(c)}</b>`).join("、")}${Q.canon.length > 6 ? ` 等 ${Q.canon.length} 个` : ""}，同时匹配 ${nAl} 个别名${Q.nDrugs ? `和 ${Q.nDrugs} 个已知药名` : ""}。${Q.canon.slice(0, 3).map(c => `<button class="q-go" data-lsgo="${esc(c)}">在靶点赛道看 ${esc(c)} →</button>`).join("")}`;
+}
+function setQHint(id, Q){
+  const el = $(id); if (!el) return;
+  el.innerHTML = qHintHTML(Q); el.hidden = !el.innerHTML;
+  el.querySelectorAll("[data-lsgo]").forEach(b => b.addEventListener("click", () => goLandscape(b.dataset.lsgo)));
+}
 const D = EMB?.curated?.readouts || [];
 const RT = EMB?.curated?.readthrough || [];
 const CAL = EMB?.curated?.calendar || [];
@@ -770,9 +826,10 @@ function renderStrip(){
 }
 
 function render(){
-  const q = $("q").value.trim().toLowerCase(), fo = $("f-out").value, ft = $("f-ta").value, fm = $("f-mod").value;
+  const Q = makeQ($("q").value), fo = $("f-out").value, ft = $("f-ta").value, fm = $("f-mod").value;
+  setQHint("q-hint", Q);
   const rows = D.filter(d => (!fo || d.out===fo) && (!ft || d.ta===ft) && (!fm || d.mod===fm) &&
-    (!q || [d.drug,d.trial,d.sponsor,d.ind,d.target,d.mod].join(" ").toLowerCase().includes(q)))
+    qHit(Q, [d.drug,d.trial,d.sponsor,d.ind,d.target,d.mod], d.tg))
     .sort((a,b) => b.date.localeCompare(a.date));
   $("count").textContent = `${rows.length} / ${D.length} 条`;
   $("feed").innerHTML = rows.length ? rows.map(d => `
@@ -933,14 +990,15 @@ function openTrial(nct){
   openDetail("t", nct);
 }
 function renderReg(){
-  const s = SETS[regSet], q = $("rq").value.trim().toLowerCase(), ta = $("r-ta").value, md = $("r-mod").value, ph = $("r-ph").value, vd = $("r-vd").value;
+  const s = SETS[regSet], Q = makeQ($("rq").value), ta = $("r-ta").value, md = $("r-mod").value, ph = $("r-ph").value, vd = $("r-vd").value;
   const dkey = t => SETS[t._set||regSet].date;
   if (regSet === "early" && !EARLY) { $("regbody").innerHTML = `<div class="empty">正在加载早期试验…</div>`; loadEarly().then(renderReg); return; }
   let rows = (regSet==="all" ? REG.all : regSet==="early" ? EARLY : (REG.sets[regSet]||[])).filter(t =>
     (!ta || t.ta===ta) && (!md || (md.startsWith("g:") ? modGroup(t.mod)===md.slice(2) : t.mod===md)) &&
     (!vd || (vd==="_note" ? !!t.note : t.as?.verdict===vd)) &&
     (!ph || (ph==="3" ? t.phase.includes("3") : !t.phase.includes("3"))) &&
-    (!q || [t.nct,t.title,t.acronym,t.sponsor,t.group,...(t.conditions||[]),...(t.interventions||[])].join(" ").toLowerCase().includes(q)));
+    qHit(Q, trialParts(t), t.tg));
+  setQHint("rq-hint", Q);
   const dir = regSet==="upcoming" ? 1 : -1;
   rows.sort((a,b) => dir * String(a[dkey(a)]||"").localeCompare(String(b[dkey(b)]||"")));
   $("regmeta").textContent = `${rows.length} 条 · 数据生成于 ${REG.generated}${REG.industry_only?" · 仅企业申办":""}`;
@@ -1176,9 +1234,10 @@ function targetRows(){
   return [...out.values()];
 }
 function renderTargets(){
-  const q = $("tg-q").value.trim().toLowerCase(), ta = $("tg-ta").value, min = +$("tg-min").value;
+  const Q = makeQ($("tg-q").value), ta = $("tg-ta").value, min = +$("tg-min").value;
+  setQHint("tg-hint", Q);
   let rows = targetRows().filter(r => (r.hit + r.miss + r.even) >= min && (!ta || r.tas.has(ta)) &&
-    (!q || (r.tgt + " " + r.items.map(i => i.name + " " + i.who).join(" ")).toLowerCase().includes(q)));
+    qHit(Q, [r.tgt, ...r.items.map(i => i.name + " " + i.who)]));
   $("tg-meta").textContent = `${rows.length} 个靶点 · ${rows.reduce((s,r) => s + r.items.length, 0)} 项读出`;
   const li = r => { const n = r.hit + r.miss + r.even, open = tgOpen.has(r.tgt);
     return `<li class="tg-item"><button class="tg-row" data-tg="${esc(r.tgt)}" aria-expanded="${open}"><span class="tg-name">${esc(r.tgt)}</span>
@@ -1458,13 +1517,14 @@ function goLandscape(g){
 }
 function renderLandscape(){
   if (!REG || !EARLY) return;
-  const all = lsBuild(), q = $("ls-q").value.trim().toLowerCase(), tg = $("ls-tag").value, sort = $("ls-sort").value;
+  const all = lsBuild(), Q = makeQ($("ls-q").value), tg = $("ls-tag").value, sort = $("ls-sort").value;
+  setQHint("ls-hint", Q);
   const tagC = {}; all.forEach(r => tagC[r.tag] = (tagC[r.tag]||0) + 1);
   const cur = $("ls-tag").value;
   $("ls-tag").innerHTML = `<option value="">全部判断</option>` + Object.keys(LS_TAG).map(k => `<option value="${esc(k)}">${esc(k)}（${tagC[k]||0}）</option>`).join("") + `<option value="_fail">有失败信号</option>`;
   $("ls-tag").value = cur;
   let rows = all.filter(r => (!tg || (tg === "_fail" ? r.fail : r.tag === tg)) &&
-    (!q || r.g.toLowerCase().includes(q) || r.ps.some(p => (p.co + " " + p.drug).toLowerCase().includes(q))));
+    qHit(Q, [r.g, ...r.ps.map(p => p.co + " " + p.drug)], [r.g]));
   const key = {prog:r => r.ps.length, co:r => r.nco, new:r => r.newN, phase:r => r.maxPh * 100 + r.hit * 10 + r.ps.length,
                chase:r => (r.tag==="可追赶"?1000:r.tag==="早期蓝海"?500:0) - r.nco * 10 + r.hit * 5 + r.ps.length}[sort];
   rows.sort((a,b) => key(b) - key(a) || b.ps.length - a.ps.length || a.g.localeCompare(b.g));
@@ -1652,7 +1712,7 @@ function renderTimeline(){
   tas.forEach((ta,i) => { const y = T + i*LH;
     s += `<line x1="${L}" x2="${W-R}" y1="${y+LH}" y2="${y+LH}" stroke="var(--line)"/>`;
     s += `<text x="${L-10}" y="${y+LH/2+4}" text-anchor="end" class="tl-ta">${esc(ta)}</text>`; });
-  const hit = t => !q || [t.group,t.sponsor,t.acronym,t.title,...(t.interventions||[])].join(" ").toLowerCase().includes(q);
+  const TQ = makeQ(q), hit = t => qHit(TQ, trialParts(t), t.tg);
   rows.slice().sort((a,b) => (b.n||0)-(a.n||0)).forEach(t => {
     const {date, rough} = parseD(t.pcd), li = tas.indexOf(t.ta); if (li < 0 || date < start || date >= end) return;
     const r = Math.min(12, Math.max(3, 2 + Math.sqrt(t.n||1)/5)), cy = T + li*LH + 6 + r + (hash(t.nct) % Math.max(1, LH - 12 - 2*r));
@@ -1692,10 +1752,11 @@ function renderShelved(){
   $("why-bars").innerHTML = `<button class="why-row" data-why="" aria-pressed="${shCat===""}"><span class="wl">全部原因</span><span class="wb"><i style="width:100%;background:var(--muted)"></i></span><span class="wn">${S.length}</span></button>` +
     cats.map(k => `<button class="why-row" data-why="${esc(k)}" aria-pressed="${shCat===k}"><span class="wl">${esc(k)}</span><span class="wb"><i style="width:${100*c[k]/max}%;background:var(${WHY_COLOR[k]||"--muted"})"></i></span><span class="wn">${c[k]} <small>${Math.round(100*c[k]/S.length)}%</small></span></button>`).join("");
   $("why-bars").querySelectorAll(".why-row").forEach(b => b.addEventListener("click", () => { shCat = b.dataset.why; shLimit = 40; renderShelved(); }));
-  const q = $("sh-q").value.trim().toLowerCase(), ta = $("sh-ta").value, ph = $("sh-ph").value;
+  const Q = makeQ($("sh-q").value), ta = $("sh-ta").value, ph = $("sh-ph").value;
+  setQHint("sh-hint", Q);
   const rows = S.filter(t => (!shCat || (t.why_cat||"未填写")===shCat) && (!ta || t.ta===ta) &&
       (!ph || (ph==="3" ? t.phase.includes("3") : !t.phase.includes("3"))) &&
-      (!q || [t.group,t.sponsor,t.title,t.acronym,t.why,...(t.conditions||[]),...(t.interventions||[])].join(" ").toLowerCase().includes(q)))
+      qHit(Q, trialParts(t), t.tg))
     .sort((a,b) => String(b.updated).localeCompare(String(a.updated)));
   $("sh-meta").textContent = `${rows.length} 项`;
   $("sh-list").innerHTML = rows.length ? rows.slice(0, shLimit).map(t => `<article class="sh-item">
