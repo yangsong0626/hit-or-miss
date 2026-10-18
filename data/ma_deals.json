@@ -1,0 +1,3188 @@
+{
+ "asof": "2026-10-18",
+ "method": "收录标准：2019 年 1 月至 2026 年 10 月宣布、按含或有付款的总额计不低于 10 亿美元的创新药收购（含按资产收购），不含医疗器械、诊断、工具、CDMO、仿制药 / 生物类似药和私募私有化。金额和日期以宣布时为准；阶段指宣布时核心资产的最高阶段。2024 年后的交易逐条对照了 BioBucks 交易追踪，2019–2023 年对照 PharmaShots / BioSpace 年度榜单，部分交易附单独报道。专利到期年份为公开报道的美国独占期估计，可能因诉讼和延长而变化。",
+ "method_en": "Scope: innovative-drug acquisitions (including asset purchases) announced January 2019 to October 2026 with a total value, including contingent payments, of at least $1B. Excludes devices, diagnostics, tools, CDMOs, generics/biosimilars and private-equity take-privates. Values and dates are as announced; stage is the lead asset's furthest stage at announcement. Deals from 2024 on were checked against the BioBucks trackers and 2019–2023 against PharmaShots/BioSpace annual lists, with individual reports for some deals. Patent-expiry years are estimates of US exclusivity from public reports and can shift with litigation and extensions.",
+ "insights": [
+  "笔数在涨，单笔在变小：2019–2022 年每年 15–18 笔，2025 年 33 笔，2026 年前十个月已有 38 笔；但 2024 年以来最大的一笔只有 146 亿美元（J&J 收购 Intra-Cellular），远小于 2019 年的 Celgene（740 亿）和 Allergan（630 亿）。",
+  "礼来是最活跃的买家：21 笔里 12 笔发生在 2025 年之后，合计约 350 亿美元，多是 I 期或更早的新机制和平台（体内 CAR-T、疫苗、OX2R、II 型 JAK2）。",
+  "2026 年免疫 / 炎症成为笔数最多的领域（10 笔），其中自身免疫的 B 细胞清除方案扎堆：体内 CAR-T（Capstan、Orbital、Orna）和 T 细胞衔接器（Ouro、Candid）。",
+  "买家越来越用或有付款对冲早期风险：2025 年以来 71 笔里 45 笔含里程碑或 CVR（63%），2023 年前是 37%；同期 29 笔的核心资产还在 I 期或更早。",
+  "一个靶点被一年买空的例子：FGF21 在 2025 年被 GSK、罗氏、诺和诺德三家各买一个（efimosfermin、89bio、Akero）；TL1A 在 2023 年被默沙东和罗氏先后买走。同类第二、第三名往往紧跟着被买。",
+  "专利悬崖压力大的公司出手最急：GSK（多替拉韦 2028–29）2025 年以来买了 4 笔，默沙东（Keytruda 2028）买了 3 笔。下面的卡片按这个逻辑把买家和交易候选对上。"
+ ],
+ "insights_en": [
+  "More deals, smaller cheques: 15–18 a year in 2019–2022, 33 in 2025 and 38 in the first ten months of 2026. Yet the largest deal since 2024 is $14.6B (J&J–Intra-Cellular), far below Celgene ($74B) and Allergan ($63B) in 2019.",
+  "Lilly is the most active buyer: 12 of its 21 deals came after 2025, about $35B in total, mostly phase 1 or earlier new mechanisms and platforms (in vivo CAR-T, vaccines, OX2R, type II JAK2).",
+  "In 2026 immunology became the busiest area (10 deals), with a cluster of B-cell-depleting approaches for autoimmunity: in vivo CAR-T (Capstan, Orbital, Orna) and T-cell engagers (Ouro, Candid).",
+  "Buyers increasingly hedge early risk with contingent payments: 45 of 71 deals since 2025 include milestones or CVRs (63%), against 37% before 2023; 29 of those deals had a lead asset at phase 1 or earlier.",
+  "A target can be bought out within a year: in 2025 GSK, Roche and Novo Nordisk each bought an FGF21 asset (efimosfermin, 89bio, Akero); in 2023 Merck and Roche bought the TL1A leaders. The second and third in a class often follow quickly.",
+  "Companies facing the steepest patent cliffs move fastest: since 2025 GSK (dolutegravir 2028–29) has done four deals and Merck (Keytruda 2028) three. The cards below pair buyers with deal candidates on that logic."
+ ],
+ "deals": [
+  {
+   "d": "2019-01-03",
+   "a": "Bristol Myers Squibb",
+   "t": "Celgene",
+   "v": 74,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "Revlimid、Pomalyst；ide-cel、liso-cel、ozanimod",
+   "tg": [
+    "IKZF1/3 (Ikaros/Aiolos)",
+    "BCMA",
+    "CD19",
+    "S1P 受体"
+   ],
+   "ph": "上市",
+   "why": "来那度胺专利到期前补齐血液瘤和细胞治疗管线",
+   "why_en": "Restocks myeloma and cell-therapy pipeline before Revlimid's patent expiry",
+   "src": "https://www.contractpharma.com/contents/view_online-exclusives/2019-12-23/top-pharma-ma-deals-of-2019"
+  },
+  {
+   "d": "2019-01-07",
+   "a": "Eli Lilly",
+   "t": "Loxo Oncology",
+   "v": 8,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "selpercatinib（RET）、Vitrakvi",
+   "tg": [
+    "RET",
+    "TRK (NTRK)"
+   ],
+   "ph": "II 期",
+   "why": "精准肿瘤小分子：RET、NTRK",
+   "why_en": "Precision-oncology small molecules: RET, NTRK",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2019-02-25",
+   "a": "Roche",
+   "t": "Spark Therapeutics",
+   "v": 4.8,
+   "ta": "罕见病 / 遗传",
+   "mod": "细胞 / 基因",
+   "asset": "Luxturna；SPK-8011（血友病 A 基因治疗）",
+   "tg": [
+    "FVIII 模拟 (FIXa × FX)"
+   ],
+   "ph": "上市",
+   "why": "进入 AAV 基因治疗",
+   "why_en": "Entry into AAV gene therapy",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2019-02-25",
+   "a": "Ipsen",
+   "t": "Clementia",
+   "v": 1.31,
+   "cvr": 1,
+   "ta": "罕见病 / 遗传",
+   "mod": "小分子",
+   "asset": "palovarotene（FOP）",
+   "tg": [
+    "ALK2 (ACVR1)"
+   ],
+   "ph": "III 期",
+   "why": "罕见骨病 FOP",
+   "why_en": "Rare bone disease FOP",
+   "src": "https://www.biospace.com/article/ipsen-strikes-deal-to-acquire-clementia-for-1-31-billion-sends-stocks-soaring"
+  },
+  {
+   "d": "2019-05-21",
+   "a": "Merck & Co.",
+   "t": "Peloton Therapeutics",
+   "v": 2.2,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "belzutifan（HIF-2α）",
+   "tg": [
+    "HIF-2α"
+   ],
+   "ph": "II 期",
+   "why": "肾癌 HIF-2α 抑制剂",
+   "why_en": "HIF-2α inhibitor for kidney cancer",
+   "src": "https://chemanager-online.com/en/node/409683"
+  },
+  {
+   "d": "2019-06-17",
+   "a": "Pfizer",
+   "t": "Array BioPharma",
+   "v": 11.4,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "Braftovi + Mektovi（BRAF/MEK）",
+   "tg": [
+    "BRAF",
+    "MEK"
+   ],
+   "ph": "上市",
+   "why": "BRAF 突变结直肠癌和黑色素瘤",
+   "why_en": "BRAF-mutant colorectal cancer and melanoma",
+   "src": "https://www.chemanager-online.com/node/409791"
+  },
+  {
+   "d": "2019-06-25",
+   "a": "AbbVie",
+   "t": "Allergan",
+   "v": 63,
+   "ta": "其他",
+   "mod": "蛋白 / 抗体",
+   "asset": "Botox、Vraylar、Ubrelvy",
+   "tg": [
+    "CGRP / CGRP 受体"
+   ],
+   "ph": "上市",
+   "why": "修美乐专利悬崖前分散收入",
+   "why_en": "Diversifies revenue ahead of the Humira cliff",
+   "src": "https://www.contractpharma.com/contents/view_online-exclusives/2019-12-23/top-pharma-ma-deals-of-2019"
+  },
+  {
+   "d": "2019-08-26",
+   "a": "Amgen",
+   "t": "Otezla（Celgene 剥离）",
+   "v": 13.4,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "Otezla（apremilast）",
+   "tg": [
+    "PDE4"
+   ],
+   "ph": "上市",
+   "why": "BMS 收购 Celgene 时按反垄断要求剥离的产品",
+   "why_en": "Divested by Celgene for antitrust clearance of the BMS deal",
+   "src": "https://www.contractpharma.com/contents/view_online-exclusives/2019-12-23/top-pharma-ma-deals-of-2019"
+  },
+  {
+   "d": "2019-09-16",
+   "a": "Lundbeck",
+   "t": "Alder BioPharmaceuticals",
+   "v": 1.95,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "蛋白 / 抗体",
+   "asset": "eptinezumab（CGRP，静脉）",
+   "tg": [
+    "CGRP / CGRP 受体"
+   ],
+   "ph": "申报",
+   "why": "偏头痛预防",
+   "why_en": "Migraine prevention",
+   "src": "https://www.dcatvci.org/top-industry-news/lundbeck-to-acquire-alder-biopharma-in-1-95-billion-deal/"
+  },
+  {
+   "d": "2019-10-10",
+   "a": "UCB",
+   "t": "Ra Pharmaceuticals",
+   "v": 2.1,
+   "ta": "免疫 / 炎症",
+   "mod": "多肽",
+   "asset": "zilucoplan（C5 多肽）",
+   "tg": [
+    "补体 C5"
+   ],
+   "ph": "III 期",
+   "why": "重症肌无力",
+   "why_en": "Generalized myasthenia gravis",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2019-11-01",
+   "a": "Roche",
+   "t": "Promedior",
+   "v": 1.4,
+   "cvr": 1,
+   "ta": "呼吸",
+   "mod": "蛋白 / 抗体",
+   "asset": "PRM-151（特发性肺纤维化）",
+   "ph": "II 期",
+   "why": "特发性肺纤维化",
+   "why_en": "Idiopathic pulmonary fibrosis",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2019-11-24",
+   "a": "Novartis",
+   "t": "The Medicines Company",
+   "v": 9.7,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "核酸",
+   "asset": "inclisiran（PCSK9 siRNA）",
+   "tg": [
+    "PCSK9"
+   ],
+   "ph": "申报",
+   "why": "一年两针的降脂 siRNA",
+   "why_en": "Twice-yearly LDL-lowering siRNA",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2019-12-02",
+   "a": "Astellas",
+   "t": "Audentes Therapeutics",
+   "v": 3,
+   "ta": "罕见病 / 遗传",
+   "mod": "细胞 / 基因",
+   "asset": "AT132（XLMTM 基因治疗）",
+   "ph": "II 期",
+   "why": "基因治疗平台",
+   "why_en": "Gene-therapy platform",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2019-12-09",
+   "a": "Sanofi",
+   "t": "Synthorx",
+   "v": 2.5,
+   "ta": "肿瘤",
+   "mod": "多肽",
+   "asset": "THOR-707（非 α IL-2）",
+   "tg": [
+    "IL-2 (受体)"
+   ],
+   "ph": "I 期",
+   "why": "改造型 IL-2",
+   "why_en": "Engineered IL-2",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2019-12-09",
+   "a": "Merck & Co.",
+   "t": "ArQule",
+   "v": 2.7,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "nemtabrutinib（可逆 BTK）",
+   "tg": [
+    "BTK"
+   ],
+   "ph": "II 期",
+   "why": "BTK 耐药突变",
+   "why_en": "BTK resistance mutations",
+   "src": "https://www.biospace.com/article/top-biopharma-m-and-as-in-2019/"
+  },
+  {
+   "d": "2020-01-10",
+   "a": "Eli Lilly",
+   "t": "Dermira",
+   "v": 1.1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "lebrikizumab（IL-13）",
+   "tg": [
+    "IL-13"
+   ],
+   "ph": "III 期",
+   "why": "特应性皮炎",
+   "why_en": "Atopic dermatitis",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-03-02",
+   "a": "Gilead",
+   "t": "Forty Seven",
+   "v": 4.9,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "magrolimab（CD47）",
+   "tg": [
+    "CD47"
+   ],
+   "ph": "II 期",
+   "why": "CD47 巨噬细胞检查点（后来失败）",
+   "why_en": "CD47 macrophage checkpoint (later failed)",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-05-05",
+   "a": "Alexion",
+   "t": "Portola Pharmaceuticals",
+   "v": 1.4,
+   "ta": "血液",
+   "mod": "蛋白 / 抗体",
+   "asset": "Andexxa（Xa 因子抑制剂逆转剂）",
+   "ph": "上市",
+   "why": "抗凝逆转",
+   "why_en": "Anticoagulant reversal",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-06-11",
+   "a": "Novo Nordisk",
+   "t": "Corvidia Therapeutics",
+   "v": 2.1,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "蛋白 / 抗体",
+   "asset": "ziltivekimab（IL-6）",
+   "tg": [
+    "IL-6 / IL-6R"
+   ],
+   "ph": "II 期",
+   "why": "心血管炎症",
+   "why_en": "Cardiovascular inflammation",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-08-17",
+   "a": "Sanofi",
+   "t": "Principia Biopharma",
+   "v": 3.68,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "rilzabrutinib、tolebrutinib（BTK）",
+   "tg": [
+    "BTK"
+   ],
+   "ph": "III 期",
+   "why": "免疫和多发性硬化里的 BTK",
+   "why_en": "BTK in immunology and MS",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-08-19",
+   "a": "Johnson & Johnson",
+   "t": "Momenta Pharmaceuticals",
+   "v": 6.5,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "nipocalimab（FcRn）",
+   "tg": [
+    "FcRn"
+   ],
+   "ph": "II 期",
+   "why": "FcRn 自身抗体清除",
+   "why_en": "FcRn autoantibody clearance",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-08-31",
+   "a": "Nestlé",
+   "t": "Aimmune Therapeutics",
+   "v": 2.6,
+   "ta": "免疫 / 炎症",
+   "mod": "其他",
+   "asset": "Palforzia（花生过敏）",
+   "ph": "上市",
+   "why": "食物过敏口服免疫治疗",
+   "why_en": "Oral immunotherapy for food allergy",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-09-13",
+   "a": "Gilead",
+   "t": "Immunomedics",
+   "v": 21,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "Trodelvy（TROP2 ADC）",
+   "tg": [
+    "TROP2"
+   ],
+   "ph": "上市",
+   "why": "首个 TROP2 ADC",
+   "why_en": "First TROP2 ADC",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-10-05",
+   "a": "Bristol Myers Squibb",
+   "t": "MyoKardia",
+   "v": 13.1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "小分子",
+   "asset": "mavacamten（心肌肌球蛋白）",
+   "tg": [
+    "心肌肌球蛋白"
+   ],
+   "ph": "III 期",
+   "why": "肥厚型心肌病",
+   "why_en": "Hypertrophic cardiomyopathy",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-10-15",
+   "a": "Eli Lilly",
+   "t": "Disarm Therapeutics",
+   "v": 1.3,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "SARM1 抑制剂",
+   "tg": [
+    "SARM1"
+   ],
+   "ph": "临床前",
+   "why": "轴突退化",
+   "why_en": "Axonal degeneration",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-10-26",
+   "a": "Bayer",
+   "t": "AskBio",
+   "v": 4,
+   "cvr": 1,
+   "ta": "罕见病 / 遗传",
+   "mod": "细胞 / 基因",
+   "asset": "AAV 基因治疗平台（庞贝病等）",
+   "ph": "平台",
+   "why": "AAV 基因治疗平台",
+   "why_en": "AAV gene-therapy platform",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-11-05",
+   "a": "Merck & Co.",
+   "t": "VelosBio",
+   "v": 2.75,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "zilovertamab vedotin（ROR1 ADC）",
+   "tg": [
+    "ROR1"
+   ],
+   "ph": "II 期",
+   "why": "ROR1 ADC",
+   "why_en": "ROR1 ADC",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-11-06",
+   "a": "Novo Nordisk",
+   "t": "Emisphere Technologies",
+   "v": 1.8,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "其他",
+   "asset": "SNAC 口服递送技术",
+   "tg": [
+    "GLP-1R"
+   ],
+   "ph": "平台",
+   "why": "口服司美格鲁肽的递送技术",
+   "why_en": "Delivery technology behind oral semaglutide",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-12-10",
+   "a": "Boehringer Ingelheim",
+   "t": "NBE-Therapeutics",
+   "v": 1.4,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "NBE-002（ROR1 ADC）",
+   "tg": [
+    "ROR1"
+   ],
+   "ph": "I 期",
+   "why": "ADC 平台",
+   "why_en": "ADC platform",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-12-10",
+   "a": "Gilead",
+   "t": "MYR",
+   "v": 1.7,
+   "cvr": 1,
+   "ta": "消化 / 肝",
+   "mod": "多肽",
+   "asset": "Hepcludex（bulevirtide，丁肝）",
+   "ph": "上市",
+   "why": "丁型肝炎",
+   "why_en": "Hepatitis delta",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-12-12",
+   "a": "AstraZeneca",
+   "t": "Alexion",
+   "v": 39,
+   "ta": "罕见病 / 遗传",
+   "mod": "蛋白 / 抗体",
+   "asset": "Soliris、Ultomiris（C5）",
+   "tg": [
+    "补体 C5"
+   ],
+   "ph": "上市",
+   "why": "补体和罕见病平台",
+   "why_en": "Complement and rare-disease platform",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2020-12-15",
+   "a": "Eli Lilly",
+   "t": "Prevail Therapeutics",
+   "v": 1.04,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "细胞 / 基因",
+   "asset": "PR001（GBA1 基因治疗）",
+   "tg": [
+    "GCase / GBA"
+   ],
+   "ph": "I 期",
+   "why": "神经退行性疾病基因治疗",
+   "why_en": "Gene therapy for neurodegeneration",
+   "src": "https://pharmashots.com/7521/top-20-biopharma-ma-of-2020-by-total-deal-value"
+  },
+  {
+   "d": "2021-01-11",
+   "a": "Sanofi",
+   "t": "Kymab",
+   "v": 1.45,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "amlitelimab（OX40L）",
+   "tg": [
+    "OX40L"
+   ],
+   "ph": "II 期",
+   "why": "特应性皮炎 OX40L",
+   "why_en": "OX40L for atopic dermatitis",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-02-01",
+   "a": "Horizon",
+   "t": "Viela Bio",
+   "v": 3.05,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "Uplizna（CD19）",
+   "tg": [
+    "CD19"
+   ],
+   "ph": "上市",
+   "why": "视神经脊髓炎",
+   "why_en": "Neuromyelitis optica",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-02-03",
+   "a": "Jazz",
+   "t": "GW Pharmaceuticals",
+   "v": 7.2,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Epidiolex（大麻二酚）",
+   "ph": "上市",
+   "why": "难治性癫痫",
+   "why_en": "Refractory epilepsy",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-02-25",
+   "a": "Merck & Co.",
+   "t": "Pandion Therapeutics",
+   "v": 1.85,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "PT101（IL-2 突变蛋白，调节性 T 细胞）",
+   "tg": [
+    "IL-2 (受体)"
+   ],
+   "ph": "I 期",
+   "why": "调节性 T 细胞",
+   "why_en": "Regulatory T cells",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-03-04",
+   "a": "Amgen",
+   "t": "Five Prime Therapeutics",
+   "v": 1.9,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "bemarituzumab（FGFR2b）",
+   "tg": [
+    "FGFR2"
+   ],
+   "ph": "III 期",
+   "why": "胃癌 FGFR2b",
+   "why_en": "FGFR2b in gastric cancer",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-06-02",
+   "a": "MorphoSys",
+   "t": "Constellation Pharmaceuticals",
+   "v": 1.7,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "pelabresib（BET）",
+   "tg": [
+    "BRD4 / BET"
+   ],
+   "ph": "III 期",
+   "why": "骨髓纤维化",
+   "why_en": "Myelofibrosis",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-07-14",
+   "a": "Eli Lilly",
+   "t": "Protomer Technologies",
+   "v": 1,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "多肽",
+   "asset": "葡萄糖响应胰岛素",
+   "tg": [
+    "胰岛素受体"
+   ],
+   "ph": "临床前",
+   "why": "智能胰岛素",
+   "why_en": "Glucose-responsive insulin",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-07-27",
+   "a": "Amgen",
+   "t": "Teneobio",
+   "v": 2.5,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "TNB-585（PSMA×CD3）",
+   "tg": [
+    "PSMA",
+    "CD3"
+   ],
+   "ph": "I 期",
+   "why": "双抗平台",
+   "why_en": "Bispecific platform",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-08-03",
+   "a": "Sanofi",
+   "t": "Translate Bio",
+   "v": 3.2,
+   "ta": "感染 / 疫苗",
+   "mod": "核酸",
+   "asset": "mRNA 平台",
+   "ph": "平台",
+   "why": "mRNA 疫苗和治疗平台",
+   "why_en": "mRNA vaccine and therapeutics platform",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-08-05",
+   "a": "Bayer",
+   "t": "Vividion Therapeutics",
+   "v": 2,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "化学蛋白质组学平台",
+   "ph": "平台",
+   "why": "共价小分子发现平台",
+   "why_en": "Covalent small-molecule discovery platform",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-08-23",
+   "a": "Pfizer",
+   "t": "Trillium Therapeutics",
+   "v": 2.26,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "TTI-622（SIRPα-Fc）",
+   "tg": [
+    "CD47",
+    "SIRPα"
+   ],
+   "ph": "I 期",
+   "why": "CD47 通路",
+   "why_en": "CD47 pathway",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-09-08",
+   "a": "Sanofi",
+   "t": "Kadmon",
+   "v": 1.9,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "Rezurock（ROCK2，慢性移植物抗宿主病）",
+   "tg": [
+    "ROCK"
+   ],
+   "ph": "上市",
+   "why": "慢性移植物抗宿主病",
+   "why_en": "Chronic graft-versus-host disease",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-09-30",
+   "a": "Merck & Co.",
+   "t": "Acceleron Pharma",
+   "v": 11.5,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "蛋白 / 抗体",
+   "asset": "sotatercept（激活素）",
+   "tg": [
+    "激活素 / ActRII"
+   ],
+   "ph": "III 期",
+   "why": "肺动脉高压",
+   "why_en": "Pulmonary arterial hypertension",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-11-18",
+   "a": "Novo Nordisk",
+   "t": "Dicerna Pharmaceuticals",
+   "v": 3.3,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "核酸",
+   "asset": "RNAi 平台、nedosiran",
+   "ph": "平台",
+   "why": "GalXC RNAi 平台",
+   "why_en": "GalXC RNAi platform",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-12-13",
+   "a": "Pfizer",
+   "t": "Arena Pharmaceuticals",
+   "v": 6.7,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "etrasimod（S1P）",
+   "tg": [
+    "S1P 受体"
+   ],
+   "ph": "III 期",
+   "why": "溃疡性结肠炎",
+   "why_en": "Ulcerative colitis",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-12-14",
+   "a": "CSL",
+   "t": "Vifor Pharma",
+   "v": 11.7,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "其他",
+   "asset": "铁剂、肾病产品",
+   "ph": "上市",
+   "why": "肾病和缺铁",
+   "why_en": "Renal disease and iron deficiency",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-12-21",
+   "a": "Sanofi",
+   "t": "Amunix",
+   "v": 1.23,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "AMX-818（HER2×CD3，前体激活）",
+   "tg": [
+    "HER2",
+    "CD3"
+   ],
+   "ph": "临床前",
+   "why": "肿瘤内激活的 T 细胞衔接器",
+   "why_en": "Tumor-activated T-cell engagers",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2021-12-22",
+   "a": "Novartis",
+   "t": "Gyroscope Therapeutics",
+   "v": 1.5,
+   "cvr": 1,
+   "ta": "眼科",
+   "mod": "细胞 / 基因",
+   "asset": "GT005（补体因子 I 基因治疗，地图样萎缩）",
+   "ph": "II 期",
+   "why": "地图样萎缩",
+   "why_en": "Geographic atrophy",
+   "src": "https://pharmashots.com/8420/top-20-biopharma-ma-of-2021-by-total-deal-value"
+  },
+  {
+   "d": "2022-01-19",
+   "a": "UCB",
+   "t": "Zogenix",
+   "v": 1.9,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Fintepla（芬氟拉明）",
+   "ph": "上市",
+   "why": "Dravet 综合征",
+   "why_en": "Dravet syndrome",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-02-25",
+   "a": "Biohaven",
+   "t": "Knopp Biosciences",
+   "v": 1.2,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "BHV-7000（Kv7）",
+   "tg": [
+    "Kv7 (KCNQ)"
+   ],
+   "ph": "临床前",
+   "why": "癫痫 Kv7",
+   "why_en": "Kv7 for epilepsy",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-03-01",
+   "a": "AbbVie",
+   "t": "Syndesi Therapeutics",
+   "v": 1,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "SDI-118（SV2A）",
+   "tg": [
+    "SV2A"
+   ],
+   "ph": "I 期",
+   "why": "认知障碍",
+   "why_en": "Cognitive impairment",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-04-13",
+   "a": "GSK",
+   "t": "Sierra Oncology",
+   "v": 1.9,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "momelotinib（JAK1/2/ACVR1）",
+   "tg": [
+    "JAK1",
+    "JAK2"
+   ],
+   "ph": "申报",
+   "why": "贫血型骨髓纤维化",
+   "why_en": "Myelofibrosis with anemia",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-05-10",
+   "a": "Pfizer",
+   "t": "Biohaven Pharmaceutical",
+   "v": 11.6,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Nurtec ODT（CGRP）",
+   "tg": [
+    "CGRP / CGRP 受体"
+   ],
+   "ph": "上市",
+   "why": "偏头痛",
+   "why_en": "Migraine",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-05-31",
+   "a": "GSK",
+   "t": "Affinivax",
+   "v": 3.3,
+   "cvr": 1,
+   "ta": "感染 / 疫苗",
+   "mod": "疫苗",
+   "asset": "24 价以上肺炎球菌疫苗",
+   "ph": "II 期",
+   "why": "下一代肺炎球菌疫苗",
+   "why_en": "Next-generation pneumococcal vaccines",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-06-03",
+   "a": "Bristol Myers Squibb",
+   "t": "Turning Point Therapeutics",
+   "v": 4.1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "repotrectinib（ROS1/NTRK）",
+   "tg": [
+    "ROS1",
+    "TRK (NTRK)"
+   ],
+   "ph": "II 期",
+   "why": "ROS1 肺癌",
+   "why_en": "ROS1 lung cancer",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-07-05",
+   "a": "AstraZeneca",
+   "t": "TeneoTwo",
+   "v": 1.27,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "蛋白 / 抗体",
+   "asset": "TNB-486（CD19×CD3）",
+   "tg": [
+    "CD19",
+    "CD3"
+   ],
+   "ph": "I 期",
+   "why": "B 细胞淋巴瘤",
+   "why_en": "B-cell lymphoma",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-08-04",
+   "a": "Amgen",
+   "t": "ChemoCentryx",
+   "v": 3.7,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "Tavneos（C5aR）",
+   "tg": [
+    "补体 C5"
+   ],
+   "ph": "上市",
+   "why": "ANCA 相关血管炎",
+   "why_en": "ANCA-associated vasculitis",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-08-08",
+   "a": "Pfizer",
+   "t": "Global Blood Therapeutics",
+   "v": 5.4,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "Oxbryta（镰状细胞病，2024 年撤市）",
+   "tg": [
+    "Hb / HbF 诱导"
+   ],
+   "ph": "上市",
+   "why": "镰状细胞病",
+   "why_en": "Sickle cell disease",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-09-01",
+   "a": "Novo Nordisk",
+   "t": "Forma Therapeutics",
+   "v": 1.1,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "etavopivat（PKR 激活剂）",
+   "tg": [
+    "丙酮酸激酶 (PKR)"
+   ],
+   "ph": "II 期",
+   "why": "镰状细胞病",
+   "why_en": "Sickle cell disease",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-10-03",
+   "a": "Incyte",
+   "t": "Villaris Therapeutics",
+   "v": 1.43,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "auremolimab（IL-15Rβ，白癜风）",
+   "tg": [
+    "IL-15"
+   ],
+   "ph": "临床前",
+   "why": "白癜风",
+   "why_en": "Vitiligo",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-11-21",
+   "a": "Merck & Co.",
+   "t": "Imago BioSciences",
+   "v": 1.35,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "bomedemstat（LSD1）",
+   "tg": [
+    "LSD1"
+   ],
+   "ph": "II 期",
+   "why": "骨髓增殖性肿瘤",
+   "why_en": "Myeloproliferative neoplasms",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-12-12",
+   "a": "Amgen",
+   "t": "Horizon Therapeutics",
+   "v": 27.8,
+   "ta": "罕见病 / 遗传",
+   "mod": "蛋白 / 抗体",
+   "asset": "Tepezza、Krystexxa、Uplizna",
+   "ph": "上市",
+   "why": "罕见病和炎症商业化产品",
+   "why_en": "Commercial rare-disease and inflammation portfolio",
+   "src": "https://pharmashots.com/14658/top-20-biopharma-ma-of-2022-by-total-deal-value"
+  },
+  {
+   "d": "2022-12-13",
+   "a": "Takeda",
+   "t": "Nimbus Lakshmi（Nimbus 子公司）",
+   "v": 6,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "zasocitinib（TYK2 变构）",
+   "tg": [
+    "TYK2"
+   ],
+   "ph": "II 期",
+   "why": "银屑病 TYK2，按资产收购",
+   "why_en": "Allosteric TYK2 for psoriasis; asset purchase",
+   "src": "https://www.biospectrumasia.com/news/50/21597/takeda-inks-deal-worth-6-b-with-us-based-nimbus-therapeutics.html"
+  },
+  {
+   "d": "2023-01-08",
+   "a": "Chiesi",
+   "t": "Amryt Pharma",
+   "v": 1.48,
+   "cvr": 1,
+   "ta": "罕见病 / 遗传",
+   "mod": "其他",
+   "asset": "Juxtapid、Mycapssa、Filsuvez",
+   "ph": "上市",
+   "why": "罕见病商业化产品",
+   "why_en": "Commercial rare-disease products",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-01-09",
+   "a": "AstraZeneca",
+   "t": "CinCor Pharma",
+   "v": 1.8,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "小分子",
+   "asset": "baxdrostat（醛固酮合酶）",
+   "tg": [
+    "醛固酮合酶 (CYP11B2)"
+   ],
+   "ph": "II 期",
+   "why": "难治性高血压",
+   "why_en": "Resistant hypertension",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-01-09",
+   "a": "Ipsen",
+   "t": "Albireo Pharma",
+   "v": 1.2,
+   "cvr": 1,
+   "ta": "消化 / 肝",
+   "mod": "小分子",
+   "asset": "Bylvay（IBAT）",
+   "ph": "上市",
+   "why": "儿童胆汁淤积性肝病",
+   "why_en": "Pediatric cholestatic liver disease",
+   "src": "https://pharmashots.com/14649/ipsen-to-acquire-albireo-for-952m"
+  },
+  {
+   "d": "2023-03-13",
+   "a": "Pfizer",
+   "t": "Seagen",
+   "v": 43,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "Padcev、Adcetris、Tivdak、Tukysa",
+   "tg": [
+    "Nectin-4",
+    "CD30",
+    "组织因子 (TF)",
+    "HER2"
+   ],
+   "ph": "上市",
+   "why": "ADC 龙头",
+   "why_en": "Leader in ADCs",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-03-13",
+   "a": "Sanofi",
+   "t": "Provention Bio",
+   "v": 2.9,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "Tzield（CD3，延缓 1 型糖尿病）",
+   "tg": [
+    "CD3"
+   ],
+   "ph": "上市",
+   "why": "延缓 1 型糖尿病发病",
+   "why_en": "Delays onset of type 1 diabetes",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-04-16",
+   "a": "Merck & Co.",
+   "t": "Prometheus Biosciences",
+   "v": 10.8,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "tulisokibart（TL1A）",
+   "tg": [
+    "TL1A"
+   ],
+   "ph": "II 期",
+   "why": "炎症性肠病 TL1A",
+   "why_en": "TL1A for inflammatory bowel disease",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-04-18",
+   "a": "GSK",
+   "t": "Bellus Health",
+   "v": 2,
+   "ta": "呼吸",
+   "mod": "小分子",
+   "asset": "camlipixant（P2X3）",
+   "tg": [
+    "P2X3"
+   ],
+   "ph": "III 期",
+   "why": "难治性慢性咳嗽",
+   "why_en": "Refractory chronic cough",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-04-30",
+   "a": "Astellas",
+   "t": "Iveric Bio",
+   "v": 5.9,
+   "ta": "眼科",
+   "mod": "核酸",
+   "asset": "Izervay（C5 适配体，地图样萎缩）",
+   "tg": [
+    "补体 C5"
+   ],
+   "ph": "申报",
+   "why": "地图样萎缩",
+   "why_en": "Geographic atrophy",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-05-10",
+   "a": "Sobi",
+   "t": "CTI BioPharma",
+   "v": 1.7,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "Vonjo（pacritinib）",
+   "tg": [
+    "JAK2"
+   ],
+   "ph": "上市",
+   "why": "骨髓纤维化",
+   "why_en": "Myelofibrosis",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-06-12",
+   "a": "Novartis",
+   "t": "Chinook Therapeutics",
+   "v": 3.5,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "小分子",
+   "asset": "atrasentan（内皮素 A）",
+   "tg": [
+    "内皮素受体"
+   ],
+   "ph": "III 期",
+   "why": "IgA 肾病",
+   "why_en": "IgA nephropathy",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-06-20",
+   "a": "Eli Lilly",
+   "t": "DICE Therapeutics",
+   "v": 2.4,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "DC-806（口服 IL-17）",
+   "tg": [
+    "IL-17A/F"
+   ],
+   "ph": "II 期",
+   "why": "口服 IL-17",
+   "why_en": "Oral IL-17",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-07-14",
+   "a": "Eli Lilly",
+   "t": "Versanis Bio",
+   "v": 1.93,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "蛋白 / 抗体",
+   "asset": "bimagrumab（ActRII）",
+   "tg": [
+    "激活素 / ActRII"
+   ],
+   "ph": "II 期",
+   "why": "减重同时保肌肉",
+   "why_en": "Weight loss that preserves muscle",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-07-28",
+   "a": "Biogen",
+   "t": "Reata Pharmaceuticals",
+   "v": 7.3,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Skyclarys（Nrf2，Friedreich 共济失调）",
+   "tg": [
+    "NRF2 / KEAP1"
+   ],
+   "ph": "上市",
+   "why": "Friedreich 共济失调",
+   "why_en": "Friedreich's ataxia",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-08-11",
+   "a": "Novo Nordisk",
+   "t": "Inversago Pharma",
+   "v": 1.075,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "小分子",
+   "asset": "外周 CB1 拮抗剂",
+   "tg": [
+    "CB1"
+   ],
+   "ph": "II 期",
+   "why": "肥胖和代谢",
+   "why_en": "Obesity and metabolic disease",
+   "src": "https://www.biopharminternational.com/view/novo-nordisk-to-acquire-inversago-pharma"
+  },
+  {
+   "d": "2023-10-03",
+   "a": "Eli Lilly",
+   "t": "POINT Biopharma",
+   "v": 1.4,
+   "ta": "肿瘤",
+   "mod": "放射性药物",
+   "asset": "PNT2002（PSMA 镥-177）",
+   "tg": [
+    "PSMA"
+   ],
+   "ph": "III 期",
+   "why": "放射性配体",
+   "why_en": "Radioligand therapy",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-10-08",
+   "a": "Bristol Myers Squibb",
+   "t": "Mirati Therapeutics",
+   "v": 5.8,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "Krazati（KRAS G12C）",
+   "tg": [
+    "KRAS G12C",
+    "PRMT5"
+   ],
+   "ph": "上市",
+   "why": "KRAS G12C 和 MTA 协同 PRMT5",
+   "why_en": "KRAS G12C plus MTA-cooperative PRMT5",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-10-23",
+   "a": "Roche",
+   "t": "Telavant",
+   "v": 7.25,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "RVT-3101（TL1A）",
+   "tg": [
+    "TL1A"
+   ],
+   "ph": "II 期",
+   "why": "炎症性肠病 TL1A",
+   "why_en": "TL1A for inflammatory bowel disease",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-11-30",
+   "a": "AbbVie",
+   "t": "ImmunoGen",
+   "v": 10.1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "Elahere（FRα ADC）",
+   "tg": [
+    "FRα (FOLR1)"
+   ],
+   "ph": "上市",
+   "why": "卵巢癌 ADC",
+   "why_en": "ADC for ovarian cancer",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-12-04",
+   "a": "Roche",
+   "t": "Carmot Therapeutics",
+   "v": 3.1,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "多肽",
+   "asset": "CT-388（GLP-1/GIP）",
+   "tg": [
+    "GLP-1R",
+    "GIPR"
+   ],
+   "ph": "II 期",
+   "why": "肥胖症",
+   "why_en": "Obesity",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-12-06",
+   "a": "AbbVie",
+   "t": "Cerevel Therapeutics",
+   "v": 8.7,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "tavapadon、emraclidine（M4）",
+   "tg": [
+    "多巴胺受体",
+    "毒蕈碱受体 M1/M4"
+   ],
+   "ph": "III 期",
+   "why": "帕金森和精神分裂症",
+   "why_en": "Parkinson's and schizophrenia",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-12-12",
+   "a": "AstraZeneca",
+   "t": "Icosavax",
+   "v": 1.1,
+   "cvr": 1,
+   "ta": "感染 / 疫苗",
+   "mod": "疫苗",
+   "asset": "IVX-A12（RSV/hMPV 病毒样颗粒疫苗）",
+   "ph": "II 期",
+   "why": "呼吸道病毒疫苗",
+   "why_en": "Respiratory virus vaccine",
+   "src": "https://chemanager-online.com/en/node/439788"
+  },
+  {
+   "d": "2023-12-22",
+   "a": "Bristol Myers Squibb",
+   "t": "Karuna Therapeutics",
+   "v": 14,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "KarXT（M1/M4）",
+   "tg": [
+    "毒蕈碱受体 M1/M4"
+   ],
+   "ph": "申报",
+   "why": "精神分裂症新机制",
+   "why_en": "New mechanism for schizophrenia",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2023-12-26",
+   "a": "AstraZeneca",
+   "t": "Gracell Biotechnologies",
+   "v": 1.2,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "细胞 / 基因",
+   "asset": "GC012F（BCMA/CD19 CAR-T）",
+   "tg": [
+    "BCMA",
+    "CD19"
+   ],
+   "ph": "I 期",
+   "why": "快速制备 CAR-T",
+   "why_en": "Fast-manufacture CAR-T",
+   "src": "https://www.biopharminternational.com/view/astrazeneca-poised-to-acquire-cell-therapy-developer-gracell-in-deal-valued-at-1-2-billion"
+  },
+  {
+   "d": "2023-12-26",
+   "a": "Bristol Myers Squibb",
+   "t": "RayzeBio",
+   "v": 4.1,
+   "ta": "肿瘤",
+   "mod": "放射性药物",
+   "asset": "RYZ101（锕-225 SSTR2）",
+   "tg": [
+    "SSTR2"
+   ],
+   "ph": "III 期",
+   "why": "锕-225 放射性配体",
+   "why_en": "Actinium-225 radioligand",
+   "src": "https://pharmashots.com/16777/top-20-biopharma-m-a-of-2023-by-total-deal-value"
+  },
+  {
+   "d": "2024-01-08",
+   "a": "Johnson & Johnson",
+   "t": "Ambrx Biopharma",
+   "v": 2,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "ARX517（PSMA ADC）",
+   "tg": [
+    "PSMA"
+   ],
+   "ph": "I 期",
+   "why": "定点偶联 ADC",
+   "why_en": "Site-specific ADCs",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-01-09",
+   "a": "GSK",
+   "t": "Aiolos Bio",
+   "v": 1.4,
+   "cvr": 1,
+   "ta": "呼吸",
+   "mod": "蛋白 / 抗体",
+   "asset": "AIO-001（长效 TSLP）",
+   "tg": [
+    "TSLP"
+   ],
+   "ph": "II 期",
+   "why": "每半年一针的哮喘抗体",
+   "why_en": "Twice-yearly asthma antibody",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-01-23",
+   "a": "Sanofi",
+   "t": "Inhibrx",
+   "v": 2.2,
+   "cvr": 1,
+   "ta": "罕见病 / 遗传",
+   "mod": "蛋白 / 抗体",
+   "asset": "INBRX-101（AAT-Fc）",
+   "ph": "II 期",
+   "why": "α1-抗胰蛋白酶缺乏",
+   "why_en": "Alpha-1 antitrypsin deficiency",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-02-05",
+   "a": "Novartis",
+   "t": "MorphoSys",
+   "v": 2.9,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "pelabresib（BET）",
+   "tg": [
+    "BRD4 / BET"
+   ],
+   "ph": "III 期",
+   "why": "骨髓纤维化",
+   "why_en": "Myelofibrosis",
+   "src": "https://pharmashots.com/?p=13999"
+  },
+  {
+   "d": "2024-02-12",
+   "a": "Gilead",
+   "t": "CymaBay Therapeutics",
+   "v": 4.3,
+   "ta": "消化 / 肝",
+   "mod": "小分子",
+   "asset": "seladelpar（PPARδ）",
+   "ph": "申报",
+   "why": "原发性胆汁性胆管炎",
+   "why_en": "Primary biliary cholangitis",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-03-14",
+   "a": "AstraZeneca",
+   "t": "Amolyt Pharma",
+   "v": 1.05,
+   "cvr": 1,
+   "ta": "罕见病 / 遗传",
+   "mod": "多肽",
+   "asset": "eneboparatide（PTH1R）",
+   "ph": "III 期",
+   "why": "甲状旁腺功能减退",
+   "why_en": "Hypoparathyroidism",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-03-19",
+   "a": "AstraZeneca",
+   "t": "Fusion Pharmaceuticals",
+   "v": 2.4,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "放射性药物",
+   "asset": "FPI-2265（锕-225 PSMA）",
+   "tg": [
+    "PSMA"
+   ],
+   "ph": "II 期",
+   "why": "锕-225 放射性配体",
+   "why_en": "Actinium-225 radioligand",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-03-25",
+   "a": "Novo Nordisk",
+   "t": "Cardior Pharmaceuticals",
+   "v": 1.1,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "核酸",
+   "asset": "CDR132L（miR-132 反义寡核苷酸）",
+   "ph": "II 期",
+   "why": "心衰 RNA 疗法",
+   "why_en": "RNA therapy for heart failure",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-04-03",
+   "a": "Genmab",
+   "t": "ProfoundBio",
+   "v": 1.8,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "rinatabart sesutecan（FRα ADC）",
+   "tg": [
+    "FRα (FOLR1)"
+   ],
+   "ph": "II 期",
+   "why": "卵巢癌 ADC",
+   "why_en": "ADC for ovarian cancer",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-04-10",
+   "a": "Vertex",
+   "t": "Alpine Immune Sciences",
+   "v": 4.9,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "povetacicept（BAFF/APRIL）",
+   "tg": [
+    "BAFF / APRIL"
+   ],
+   "ph": "III 期",
+   "why": "IgA 肾病",
+   "why_en": "IgA nephropathy",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-04-29",
+   "a": "Ono Pharmaceutical",
+   "t": "Deciphera Pharmaceuticals",
+   "v": 2.4,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "Qinlock（KIT）",
+   "tg": [
+    "KIT"
+   ],
+   "ph": "上市",
+   "why": "胃肠道间质瘤",
+   "why_en": "Gastrointestinal stromal tumors",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-05-02",
+   "a": "Novartis",
+   "t": "Mariana Oncology",
+   "v": 1.75,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "放射性药物",
+   "asset": "MC-339（放射性配体）",
+   "ph": "临床前",
+   "why": "放射性配体平台",
+   "why_en": "Radioligand platform",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-05-22",
+   "a": "Biogen",
+   "t": "HI-Bio",
+   "v": 1.8,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "felzartamab（CD38）",
+   "tg": [
+    "CD38"
+   ],
+   "ph": "II 期",
+   "why": "抗体介导的肾病",
+   "why_en": "Antibody-mediated kidney disease",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-05-28",
+   "a": "Asahi Kasei",
+   "t": "Calliditas Therapeutics",
+   "v": 1.1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "小分子",
+   "asset": "Tarpeyo（布地奈德缓释）",
+   "ph": "上市",
+   "why": "IgA 肾病",
+   "why_en": "IgA nephropathy",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-05-28",
+   "a": "Johnson & Johnson",
+   "t": "Yellow Jersey Therapeutics",
+   "v": 1.25,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "NM26（IL-4Rα×IL-31）",
+   "tg": [
+    "IL-4Rα",
+    "IL-31 / IL-31RA"
+   ],
+   "ph": "I 期",
+   "why": "特应性皮炎双抗",
+   "why_en": "Bispecific for atopic dermatitis",
+   "src": "https://pharmashots.com/?p=13999"
+  },
+  {
+   "d": "2024-05-29",
+   "a": "Merck & Co.",
+   "t": "EyeBio",
+   "v": 3,
+   "cvr": 1,
+   "ta": "眼科",
+   "mod": "蛋白 / 抗体",
+   "asset": "Restoret（Wnt 激动）",
+   "tg": [
+    "Wnt 通路"
+   ],
+   "ph": "II 期",
+   "why": "糖尿病黄斑水肿",
+   "why_en": "Diabetic macular edema",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-07-08",
+   "a": "Eli Lilly",
+   "t": "Morphic Holding",
+   "v": 3.2,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "MORF-057（口服 α4β7）",
+   "tg": [
+    "α4β7 整合素"
+   ],
+   "ph": "II 期",
+   "why": "口服整合素抑制剂",
+   "why_en": "Oral integrin inhibitor",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-07-29",
+   "a": "Boehringer Ingelheim",
+   "t": "Nerio Therapeutics",
+   "v": 1.3,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "免疫检查点小分子",
+   "ph": "临床前",
+   "why": "临床前免疫肿瘤",
+   "why_en": "Preclinical immuno-oncology",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-09-18",
+   "a": "Organon",
+   "t": "Dermavant Sciences",
+   "v": 1.2,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "Vtama（tapinarof）",
+   "ph": "上市",
+   "why": "银屑病和特应性皮炎外用药",
+   "why_en": "Topical for psoriasis and atopic dermatitis",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-10-14",
+   "a": "Lundbeck",
+   "t": "Longboard Pharmaceuticals",
+   "v": 2.6,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "bexicaserin（5-HT2C）",
+   "tg": [
+    "5-HT（其他）"
+   ],
+   "ph": "III 期",
+   "why": "发育性癫痫性脑病",
+   "why_en": "Developmental epileptic encephalopathies",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-10-23",
+   "a": "Merck & Co.",
+   "t": "Modifi Biosciences",
+   "v": 1.3,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "MGMT 靶向小分子",
+   "ph": "临床前",
+   "why": "胶质瘤",
+   "why_en": "Glioma",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-10-28",
+   "a": "AbbVie",
+   "t": "Aliada Therapeutics",
+   "v": 1.4,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "蛋白 / 抗体",
+   "asset": "ALIA-1758（入脑抗淀粉样蛋白）",
+   "tg": [
+    "β-淀粉样蛋白"
+   ],
+   "ph": "I 期",
+   "why": "血脑屏障穿梭抗体",
+   "why_en": "Brain-shuttle antibody",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-11-21",
+   "a": "Novartis",
+   "t": "Kate Therapeutics",
+   "v": 1.1,
+   "cvr": 1,
+   "ta": "罕见病 / 遗传",
+   "mod": "细胞 / 基因",
+   "asset": "肌肉靶向 AAV 基因治疗",
+   "ph": "临床前",
+   "why": "神经肌肉病基因治疗",
+   "why_en": "Gene therapy for neuromuscular disease",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2024-11-26",
+   "a": "Roche",
+   "t": "Poseida Therapeutics",
+   "v": 1.5,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "细胞 / 基因",
+   "asset": "P-BCMA-ALLO1（通用型 CAR-T）",
+   "tg": [
+    "BCMA"
+   ],
+   "ph": "I 期",
+   "why": "通用型 CAR-T",
+   "why_en": "Allogeneic CAR-T",
+   "src": "https://www.biobucks.co/research-hub/biotech-ma-2024"
+  },
+  {
+   "d": "2025-01-13",
+   "a": "Johnson & Johnson",
+   "t": "Intra-Cellular Therapies",
+   "v": 14.6,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Caplyta（lumateperone）",
+   "ph": "上市",
+   "why": "精神分裂症和抑郁症",
+   "why_en": "Schizophrenia and depression",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-01-13",
+   "a": "Eli Lilly",
+   "t": "Scorpion Therapeutics（STX-478）",
+   "v": 2.5,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "STX-478（突变选择性 PI3Kα）",
+   "tg": [
+    "PI3Kα"
+   ],
+   "ph": "I 期",
+   "why": "乳腺癌 PI3Kα，按资产收购",
+   "why_en": "Mutant-selective PI3Kα for breast cancer; asset purchase",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-01-13",
+   "a": "GSK",
+   "t": "IDRx",
+   "v": 1.15,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "IDRX-42（KIT）",
+   "tg": [
+    "KIT"
+   ],
+   "ph": "I 期",
+   "why": "胃肠道间质瘤",
+   "why_en": "Gastrointestinal stromal tumors",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-02-10",
+   "a": "Novartis",
+   "t": "Anthos Therapeutics",
+   "v": 3.08,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "蛋白 / 抗体",
+   "asset": "abelacimab（凝血因子 XI）",
+   "tg": [
+    "凝血因子 XI"
+   ],
+   "ph": "III 期",
+   "why": "出血更少的抗凝",
+   "why_en": "Anticoagulation with less bleeding",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-03-17",
+   "a": "AstraZeneca",
+   "t": "EsoBiotec",
+   "v": 1,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "细胞 / 基因",
+   "asset": "体内 CAR-T（慢病毒）",
+   "tg": [
+    "BCMA"
+   ],
+   "ph": "I 期",
+   "why": "体内 CAR-T",
+   "why_en": "In vivo CAR-T",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-03-17",
+   "a": "Taiho",
+   "t": "Araris Biotech",
+   "v": 1.14,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "多载荷 ADC 连接子平台",
+   "ph": "临床前",
+   "why": "ADC 连接子技术",
+   "why_en": "ADC linker technology",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-03-20",
+   "a": "Sanofi",
+   "t": "Dren Bio（DR-0201）",
+   "v": 1.9,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "DR-0201（髓系细胞衔接，B 细胞清除）",
+   "tg": [
+    "CD20"
+   ],
+   "ph": "I 期",
+   "why": "深度 B 细胞清除，按资产收购",
+   "why_en": "Deep B-cell depletion; asset purchase",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-04-28",
+   "a": "Merck KGaA",
+   "t": "SpringWorks Therapeutics",
+   "v": 3.9,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "Ogsiveo（γ-分泌酶）、Gomekli（MEK）",
+   "tg": [
+    "MEK"
+   ],
+   "ph": "上市",
+   "why": "罕见肿瘤",
+   "why_en": "Rare tumors",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-04-30",
+   "a": "Novartis",
+   "t": "Regulus Therapeutics",
+   "v": 1.7,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "核酸",
+   "asset": "farabursen（miR-17）",
+   "ph": "I 期",
+   "why": "常染色体显性多囊肾",
+   "why_en": "Autosomal dominant polycystic kidney disease",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-05-14",
+   "a": "GSK",
+   "t": "efimosfermin（Boston Pharmaceuticals）",
+   "v": 2,
+   "cvr": 1,
+   "ta": "消化 / 肝",
+   "mod": "多肽",
+   "asset": "efimosfermin alfa（FGF21）",
+   "tg": [
+    "FGF21"
+   ],
+   "ph": "III 期",
+   "why": "脂肪性肝炎，按资产收购",
+   "why_en": "MASH; asset purchase",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-05-27",
+   "a": "Eli Lilly",
+   "t": "SiteOne Therapeutics",
+   "v": 1,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Nav1.8 抑制剂",
+   "tg": [
+    "Nav1.7 / Nav1.8"
+   ],
+   "ph": "I 期",
+   "why": "非阿片镇痛",
+   "why_en": "Non-opioid pain",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-06-02",
+   "a": "Sanofi",
+   "t": "Blueprint Medicines",
+   "v": 9.5,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "Ayvakit（KIT D816V）",
+   "tg": [
+    "KIT"
+   ],
+   "ph": "上市",
+   "why": "系统性肥大细胞增多症",
+   "why_en": "Systemic mastocytosis",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-06-12",
+   "a": "BioNTech",
+   "t": "CureVac",
+   "v": 1.25,
+   "ta": "肿瘤",
+   "mod": "核酸",
+   "asset": "mRNA 平台",
+   "ph": "平台",
+   "why": "mRNA 专利和平台",
+   "why_en": "mRNA patents and platform",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-06-17",
+   "a": "Eli Lilly",
+   "t": "Verve Therapeutics",
+   "v": 1.3,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "细胞 / 基因",
+   "asset": "VERVE-102（PCSK9 碱基编辑）",
+   "tg": [
+    "PCSK9"
+   ],
+   "ph": "I 期",
+   "why": "一次性降脂基因编辑",
+   "why_en": "One-time LDL-lowering gene editing",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-06-30",
+   "a": "AbbVie",
+   "t": "Capstan Therapeutics",
+   "v": 2.1,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "细胞 / 基因",
+   "asset": "CPTX2309（体内 CD19 CAR-T）",
+   "tg": [
+    "CD19"
+   ],
+   "ph": "I 期",
+   "why": "自身免疫体内 CAR-T",
+   "why_en": "In vivo CAR-T for autoimmunity",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-07-09",
+   "a": "Merck & Co.",
+   "t": "Verona Pharma",
+   "v": 10,
+   "ta": "呼吸",
+   "mod": "小分子",
+   "asset": "Ohtuvayre（PDE3/4 吸入）",
+   "tg": [
+    "PDE4"
+   ],
+   "ph": "上市",
+   "why": "慢阻肺",
+   "why_en": "COPD",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-07-22",
+   "a": "Sanofi",
+   "t": "Vicebio",
+   "v": 1.6,
+   "cvr": 1,
+   "ta": "感染 / 疫苗",
+   "mod": "疫苗",
+   "asset": "VXB-241（RSV/hMPV 疫苗）",
+   "ph": "I 期",
+   "why": "呼吸道病毒联合疫苗",
+   "why_en": "Combined respiratory virus vaccine",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-08-25",
+   "a": "AbbVie",
+   "t": "Gilgamesh（bretisilocin）",
+   "v": 1.2,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "bretisilocin（短效迷幻剂）",
+   "tg": [
+    "5-HT2A"
+   ],
+   "ph": "II 期",
+   "why": "抑郁症，按资产收购",
+   "why_en": "Depression; asset purchase",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-09-09",
+   "a": "Novartis",
+   "t": "Tourmaline Bio",
+   "v": 1.4,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "蛋白 / 抗体",
+   "asset": "pacibekitug（IL-6）",
+   "tg": [
+    "IL-6 / IL-6R"
+   ],
+   "ph": "II 期",
+   "why": "心血管炎症",
+   "why_en": "Cardiovascular inflammation",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-09-18",
+   "a": "Roche",
+   "t": "89bio",
+   "v": 3.5,
+   "cvr": 1,
+   "ta": "消化 / 肝",
+   "mod": "多肽",
+   "asset": "pegozafermin（FGF21）",
+   "tg": [
+    "FGF21"
+   ],
+   "ph": "III 期",
+   "why": "脂肪性肝炎",
+   "why_en": "MASH",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-09-22",
+   "a": "Pfizer",
+   "t": "Metsera",
+   "v": 10,
+   "cvr": 1,
+   "ta": "心血管 / 代谢 / 肾",
+   "mod": "多肽",
+   "asset": "MET-097i（月度注射 GLP-1）",
+   "tg": [
+    "GLP-1R",
+    "胰淀素受体"
+   ],
+   "ph": "II 期",
+   "why": "肥胖症，与诺和诺德竞价后成交",
+   "why_en": "Obesity; won after a bidding war with Novo Nordisk",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-09-29",
+   "a": "Genmab",
+   "t": "Merus",
+   "v": 8,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "petosemtamab（EGFR×LGR5）",
+   "tg": [
+    "EGFR"
+   ],
+   "ph": "III 期",
+   "why": "头颈癌双抗",
+   "why_en": "Bispecific for head and neck cancer",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-10-09",
+   "a": "Novo Nordisk",
+   "t": "Akero Therapeutics",
+   "v": 5.2,
+   "cvr": 1,
+   "ta": "消化 / 肝",
+   "mod": "多肽",
+   "asset": "efruxifermin（FGF21）",
+   "tg": [
+    "FGF21"
+   ],
+   "ph": "III 期",
+   "why": "脂肪性肝炎肝硬化",
+   "why_en": "MASH cirrhosis",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-10-10",
+   "a": "Bristol Myers Squibb",
+   "t": "Orbital Therapeutics",
+   "v": 1.5,
+   "ta": "免疫 / 炎症",
+   "mod": "核酸",
+   "asset": "OTX-201（体内 CAR-T，环状 RNA）",
+   "tg": [
+    "CD19"
+   ],
+   "ph": "临床前",
+   "why": "体内 CAR-T",
+   "why_en": "In vivo CAR-T",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-10-22",
+   "a": "Alkermes",
+   "t": "Avadel Pharmaceuticals",
+   "v": 2.37,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Lumryz（每晚一次羟丁酸钠）",
+   "ph": "上市",
+   "why": "发作性睡病",
+   "why_en": "Narcolepsy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-10-22",
+   "a": "Ipsen",
+   "t": "ImCheck Therapeutics",
+   "v": 1.16,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "ICT01（BTN3A）",
+   "ph": "I 期",
+   "why": "急性髓系白血病",
+   "why_en": "Acute myeloid leukemia",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-10-26",
+   "a": "Novartis",
+   "t": "Avidity Biosciences",
+   "v": 12,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "核酸",
+   "asset": "del-zota 等抗体寡核苷酸偶联",
+   "tg": [
+    "DMPK",
+    "DUX4",
+    "Dystrophin（外显子跳跃）"
+   ],
+   "ph": "III 期",
+   "why": "神经肌肉病 RNA 疗法",
+   "why_en": "RNA therapies for neuromuscular disease",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-11-14",
+   "a": "Merck & Co.",
+   "t": "Cidara Therapeutics",
+   "v": 9.2,
+   "ta": "感染 / 疫苗",
+   "mod": "其他",
+   "asset": "CD388（长效流感预防药物偶联）",
+   "ph": "III 期",
+   "why": "每季一针的流感预防",
+   "why_en": "Once-a-season flu prevention",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-11-17",
+   "a": "Johnson & Johnson",
+   "t": "Halda Therapeutics",
+   "v": 3.05,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "HLD-0915（RIPTAC，前列腺癌）",
+   "tg": [
+    "AR"
+   ],
+   "ph": "I 期",
+   "why": "RIPTAC 平台",
+   "why_en": "RIPTAC platform",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-12-13",
+   "a": "Sobi",
+   "t": "Arthrosi Therapeutics",
+   "v": 1.5,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "pozdeutinurad（URAT1）",
+   "tg": [
+    "Urat1 / 尿酸"
+   ],
+   "ph": "III 期",
+   "why": "痛风",
+   "why_en": "Gout",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-12-19",
+   "a": "BioMarin",
+   "t": "Amicus Therapeutics",
+   "v": 4.8,
+   "ta": "罕见病 / 遗传",
+   "mod": "其他",
+   "asset": "Galafold、Pombiliti + Opfolda",
+   "ph": "上市",
+   "why": "法布雷病和庞贝病",
+   "why_en": "Fabry and Pompe disease",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-12-22",
+   "a": "Shionogi",
+   "t": "Radicava（田边制药）",
+   "v": 2.5,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Radicava（依达拉奉）",
+   "ph": "上市",
+   "why": "渐冻症，按资产收购",
+   "why_en": "ALS; asset purchase",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2025-12-24",
+   "a": "Sanofi",
+   "t": "Dynavax Technologies",
+   "v": 2.2,
+   "ta": "感染 / 疫苗",
+   "mod": "疫苗",
+   "asset": "Heplisav-B、带状疱疹疫苗",
+   "ph": "上市",
+   "why": "成人疫苗",
+   "why_en": "Adult vaccines",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2025"
+  },
+  {
+   "d": "2026-01-07",
+   "a": "Eli Lilly",
+   "t": "Ventyx Biosciences",
+   "v": 1.2,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "VTX2735（NLRP3）",
+   "tg": [
+    "NLRP3"
+   ],
+   "ph": "II 期",
+   "why": "口服 NLRP3",
+   "why_en": "Oral NLRP3",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-01-20",
+   "a": "GSK",
+   "t": "RAPT Therapeutics",
+   "v": 2.2,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "ozureprubart（长效抗 IgE）",
+   "ph": "II 期",
+   "why": "食物过敏",
+   "why_en": "Food allergy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-02-09",
+   "a": "Eli Lilly",
+   "t": "Orna Therapeutics",
+   "v": 2.4,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "核酸",
+   "asset": "ORN-252（体内 CD19 CAR-T，环状 RNA）",
+   "tg": [
+    "CD19"
+   ],
+   "ph": "临床前",
+   "why": "自身免疫体内 CAR-T",
+   "why_en": "In vivo CAR-T for autoimmunity",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-02-23",
+   "a": "Gilead",
+   "t": "Arcellx",
+   "v": 7.8,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "细胞 / 基因",
+   "asset": "anito-cel（BCMA CAR-T）",
+   "tg": [
+    "BCMA"
+   ],
+   "ph": "申报",
+   "why": "多发性骨髓瘤 CAR-T",
+   "why_en": "CAR-T for multiple myeloma",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-03-06",
+   "a": "Servier",
+   "t": "Day One Biopharmaceuticals",
+   "v": 2.5,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "Ojemda（tovorafenib，泛 RAF）",
+   "tg": [
+    "RAF（泛）"
+   ],
+   "ph": "上市",
+   "why": "儿童低级别胶质瘤",
+   "why_en": "Pediatric low-grade glioma",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-03-23",
+   "a": "Gilead",
+   "t": "Ouro Medicines",
+   "v": 2.18,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "gamgertamig（BCMA×CD3）",
+   "tg": [
+    "BCMA",
+    "CD3"
+   ],
+   "ph": "I 期",
+   "why": "自身免疫 T 细胞衔接器",
+   "why_en": "T-cell engager for autoimmunity",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-03-25",
+   "a": "Merck & Co.",
+   "t": "Terns Pharmaceuticals",
+   "v": 6.7,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "TERN-701（变构 BCR-ABL）",
+   "tg": [
+    "BCR-ABL"
+   ],
+   "ph": "I 期",
+   "why": "慢性髓系白血病",
+   "why_en": "Chronic myeloid leukemia",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-03-27",
+   "a": "Novartis",
+   "t": "Excellergy",
+   "v": 2,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "Exl-111（抗 IgE）",
+   "ph": "I 期",
+   "why": "过敏",
+   "why_en": "Allergy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-03-27",
+   "a": "Otsuka",
+   "t": "Transcend Therapeutics",
+   "v": 1.23,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "TSND-201（methylone）",
+   "ph": "II 期",
+   "why": "创伤后应激障碍",
+   "why_en": "PTSD",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-03-31",
+   "a": "Eli Lilly",
+   "t": "Centessa Pharmaceuticals",
+   "v": 7.8,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "cleminorexton（ORX750，OX2R 激动剂）",
+   "tg": [
+    "食欲素受体"
+   ],
+   "ph": "II 期",
+   "why": "发作性睡病",
+   "why_en": "Narcolepsy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-03-31",
+   "a": "Biogen",
+   "t": "Apellis Pharmaceuticals",
+   "v": 5.6,
+   "cvr": 1,
+   "ta": "眼科",
+   "mod": "多肽",
+   "asset": "Syfovre、Empaveli（C3）",
+   "tg": [
+    "补体 C3"
+   ],
+   "ph": "上市",
+   "why": "地图样萎缩和补体病",
+   "why_en": "Geographic atrophy and complement disorders",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-04-06",
+   "a": "Neurocrine",
+   "t": "Soleno Therapeutics",
+   "v": 2.9,
+   "ta": "罕见病 / 遗传",
+   "mod": "小分子",
+   "asset": "Vykat XR（二氮嗪胆碱）",
+   "ph": "上市",
+   "why": "Prader-Willi 综合征",
+   "why_en": "Prader-Willi syndrome",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-04-07",
+   "a": "Gilead",
+   "t": "Tubulis",
+   "v": 5,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "TUB-040（NaPi2b ADC）",
+   "ph": "I 期",
+   "why": "卵巢癌 ADC",
+   "why_en": "ADC for ovarian cancer",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-04-17",
+   "a": "UCB",
+   "t": "Neurona Therapeutics",
+   "v": 1.15,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "细胞 / 基因",
+   "asset": "NRTX-1001（抑制性神经元细胞治疗）",
+   "ph": "I 期",
+   "why": "耐药癫痫",
+   "why_en": "Drug-resistant epilepsy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-04-19",
+   "a": "Eli Lilly",
+   "t": "Kelonia Therapeutics",
+   "v": 7,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "细胞 / 基因",
+   "asset": "KLN-1010（体内 BCMA CAR-T）",
+   "tg": [
+    "BCMA"
+   ],
+   "ph": "I 期",
+   "why": "体内 CAR-T",
+   "why_en": "In vivo CAR-T",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-04-27",
+   "a": "Eli Lilly",
+   "t": "Ajax Therapeutics",
+   "v": 2.3,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "AJ1-11095（II 型 JAK2）",
+   "tg": [
+    "JAK2"
+   ],
+   "ph": "I 期",
+   "why": "骨髓纤维化",
+   "why_en": "Myelofibrosis",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-04-29",
+   "a": "Chiesi",
+   "t": "KalVista Pharmaceuticals",
+   "v": 1.9,
+   "ta": "罕见病 / 遗传",
+   "mod": "小分子",
+   "asset": "Ekterly（sebetralstat，血浆激肽释放酶）",
+   "tg": [
+    "Kallikrein (KLKB1)"
+   ],
+   "ph": "上市",
+   "why": "遗传性血管性水肿按需口服药",
+   "why_en": "On-demand oral drug for hereditary angioedema",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-05-03",
+   "a": "UCB",
+   "t": "Candid Therapeutics",
+   "v": 2.2,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "cizutamig（BCMA×CD3）",
+   "tg": [
+    "BCMA",
+    "CD3"
+   ],
+   "ph": "I 期",
+   "why": "自身免疫 T 细胞衔接器",
+   "why_en": "T-cell engager for autoimmunity",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-05-06",
+   "a": "Bayer",
+   "t": "Perfuse Therapeutics",
+   "v": 2.45,
+   "cvr": 1,
+   "ta": "眼科",
+   "mod": "小分子",
+   "asset": "PER-001（内皮素受体拮抗剂）",
+   "tg": [
+    "内皮素受体"
+   ],
+   "ph": "II 期",
+   "why": "青光眼和糖尿病视网膜病变",
+   "why_en": "Glaucoma and diabetic retinopathy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-05-07",
+   "a": "Angelini",
+   "t": "Catalyst Pharmaceuticals",
+   "v": 4.1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Firdapse（阿米吡啶）",
+   "ph": "上市",
+   "why": "兰伯特-伊顿肌无力综合征",
+   "why_en": "Lambert-Eaton myasthenic syndrome",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-05-26",
+   "a": "Eli Lilly",
+   "t": "Curevo",
+   "v": 1.5,
+   "cvr": 1,
+   "ta": "感染 / 疫苗",
+   "mod": "疫苗",
+   "asset": "amezosvatein（带状疱疹疫苗）",
+   "ph": "II 期",
+   "why": "带状疱疹",
+   "why_en": "Shingles",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-05-26",
+   "a": "Eli Lilly",
+   "t": "Vaccine Company",
+   "v": 1.55,
+   "cvr": 1,
+   "ta": "感染 / 疫苗",
+   "mod": "疫苗",
+   "asset": "五抗原 EB 病毒疫苗",
+   "ph": "临床前",
+   "why": "EB 病毒",
+   "why_en": "Epstein-Barr virus",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-06-01",
+   "a": "Servier",
+   "t": "Edgewise（肌营养不良业务）",
+   "v": 2.65,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "sevasemten（快肌肌球蛋白）",
+   "ph": "III 期",
+   "why": "贝克型 / 杜氏肌营养不良",
+   "why_en": "Becker and Duchenne muscular dystrophy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-06-08",
+   "a": "Incyte",
+   "t": "Vega Therapeutics",
+   "v": 2,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "蛋白 / 抗体",
+   "asset": "VGA039（血管性血友病）",
+   "tg": [
+    "VWF"
+   ],
+   "ph": "III 期",
+   "why": "血管性血友病",
+   "why_en": "Von Willebrand disease",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-06-08",
+   "a": "Johnson & Johnson",
+   "t": "Firefly Bio",
+   "v": 1,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "降解剂-抗体偶联平台",
+   "ph": "临床前",
+   "why": "降解剂抗体偶联",
+   "why_en": "Degrader-antibody conjugates",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-06-09",
+   "a": "GSK",
+   "t": "Nuvalent",
+   "v": 10.6,
+   "ta": "肿瘤",
+   "mod": "小分子",
+   "asset": "zidesamtinib（ROS1）、neladalkib（ALK）",
+   "tg": [
+    "ROS1",
+    "ALK"
+   ],
+   "ph": "申报",
+   "why": "肺癌 ROS1 / ALK，抢在专利悬崖前",
+   "why_en": "ROS1/ALK lung cancer ahead of GSK's patent cliff",
+   "src": "https://www.americanpharmaceuticalreview.com/1315-News/626079-GSK-to-Acquire-Nuvalent-in-10-6B-Oncology-Deal/"
+  },
+  {
+   "d": "2026-06-17",
+   "a": "Biogen",
+   "t": "RayThera",
+   "v": 1,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "小分子",
+   "asset": "口服抗炎小分子",
+   "ph": "I 期",
+   "why": "免疫",
+   "why_en": "Immunology",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-06-22",
+   "a": "AbbVie",
+   "t": "Apogee Therapeutics",
+   "v": 10.9,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "zumilokibart（长效 IL-13）",
+   "tg": [
+    "IL-13"
+   ],
+   "ph": "II 期",
+   "why": "特应性皮炎，季度或半年给药",
+   "why_en": "Atopic dermatitis with quarterly or twice-yearly dosing",
+   "src": "https://www.biopharminternational.com/view/abbvie-to-acquire-apogee-therapeutics-for-10-9-billion-gaining-il-13-antibody-zumilokibart"
+  },
+  {
+   "d": "2026-06-29",
+   "a": "Ipsen",
+   "t": "Kartos Therapeutics",
+   "v": 1.75,
+   "cvr": 1,
+   "ta": "血液",
+   "mod": "小分子",
+   "asset": "navtemadlin（MDM2）",
+   "ph": "III 期",
+   "why": "骨髓纤维化",
+   "why_en": "Myelofibrosis",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-07-06",
+   "a": "Vertex",
+   "t": "Crinetics Pharmaceuticals",
+   "v": 10,
+   "ta": "罕见病 / 遗传",
+   "mod": "小分子",
+   "asset": "Palsonify（paltusotine）、atumelnant",
+   "tg": [
+    "SSTR2"
+   ],
+   "ph": "上市",
+   "why": "罕见内分泌病，Vertex 最大一笔收购",
+   "why_en": "Rare endocrine disease; Vertex's largest deal",
+   "src": "https://www.bioworld.com/articles/732289-vertex-buying-crinetics-for-10b"
+  },
+  {
+   "d": "2026-07-06",
+   "a": "Novartis",
+   "t": "Myricx Bio",
+   "v": 1.5,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "蛋白 / 抗体",
+   "asset": "B7-H3、HER2 ADC（NMT 抑制剂载荷）",
+   "tg": [
+    "B7-H3",
+    "HER2"
+   ],
+   "ph": "临床前",
+   "why": "新型载荷 ADC",
+   "why_en": "ADCs with a novel payload",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-07-16",
+   "a": "Eli Lilly",
+   "t": "AtaiBeckley",
+   "v": 3.8,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "BPL-003（鼻用 5-MeO-DMT）",
+   "tg": [
+    "5-HT2A"
+   ],
+   "ph": "III 期",
+   "why": "难治性抑郁",
+   "why_en": "Treatment-resistant depression",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-07-27",
+   "a": "argenx",
+   "t": "Forte Biosciences",
+   "v": 2.2,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "FB102（CD122）",
+   "ph": "I 期",
+   "why": "白癜风和乳糜泻",
+   "why_en": "Vitiligo and celiac disease",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-08-10",
+   "a": "Jazz",
+   "t": "Actio Biosciences",
+   "v": 1.32,
+   "cvr": 1,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "ABS-1230（KCNT1）",
+   "ph": "II 期",
+   "why": "KCNT1 癫痫",
+   "why_en": "KCNT1 epilepsy",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-08-31",
+   "a": "Eli Lilly",
+   "t": "Merida Biosciences",
+   "v": 2.88,
+   "cvr": 1,
+   "ta": "免疫 / 炎症",
+   "mod": "蛋白 / 抗体",
+   "asset": "MER511（选择性自身抗体降解）",
+   "ph": "I 期",
+   "why": "Graves 病等自身抗体病",
+   "why_en": "Graves' and other autoantibody diseases",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-09-21",
+   "a": "Telix",
+   "t": "ITM",
+   "v": 2.35,
+   "cvr": 1,
+   "ta": "肿瘤",
+   "mod": "放射性药物",
+   "asset": "ITM-11（镥-177 依多曲肽）",
+   "tg": [
+    "SSTR2"
+   ],
+   "ph": "III 期",
+   "why": "神经内分泌瘤放射性配体",
+   "why_en": "Radioligand for neuroendocrine tumors",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-10-05",
+   "a": "Shionogi",
+   "t": "IntraBio",
+   "v": 2,
+   "ta": "罕见病 / 遗传",
+   "mod": "小分子",
+   "asset": "Aqneursa（levacetylleucine）",
+   "ph": "上市",
+   "why": "C 型尼曼-匹克病",
+   "why_en": "Niemann-Pick disease type C",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  },
+  {
+   "d": "2026-10-08",
+   "a": "Viatris",
+   "t": "Pacira BioSciences",
+   "v": 1.65,
+   "ta": "神经 / 精神 / 疼痛",
+   "mod": "小分子",
+   "asset": "Exparel、Zilretta",
+   "ph": "上市",
+   "why": "非阿片术后镇痛",
+   "why_en": "Non-opioid post-surgical pain",
+   "src": "https://www.biobucks.co/biotech-ma-tracker-2026"
+  }
+ ],
+ "loe": [
+  {
+   "co": "Merck & Co.",
+   "p": "高",
+   "p_en": "High",
+   "ta": [
+    "肿瘤",
+    "心血管 / 代谢 / 肾",
+    "感染 / 疫苗"
+   ],
+   "items": [
+    [
+     "Keytruda",
+     "2028"
+    ],
+    [
+     "Januvia / Janumet",
+     "2026"
+    ],
+    [
+     "Bridion",
+     "2026"
+    ]
+   ],
+   "note": "Keytruda 一个产品约占公司收入四成；皮下剂型和近两年的收购（Verona、Cidara、Terns）都在填 2028 年后的缺口。",
+   "note_en": "Keytruda alone is about 40% of revenue; the subcutaneous formulation and recent buys (Verona, Cidara, Terns) all aim at the post-2028 gap."
+  },
+  {
+   "co": "Bristol Myers Squibb",
+   "p": "高",
+   "p_en": "High",
+   "ta": [
+    "肿瘤",
+    "神经 / 精神 / 疼痛",
+    "免疫 / 炎症"
+   ],
+   "items": [
+    [
+     "Eliquis",
+     "2028"
+    ],
+    [
+     "Opdivo",
+     "2028"
+    ],
+    [
+     "Pomalyst",
+     "2026"
+    ]
+   ],
+   "note": "2023 年连买 Mirati、RayzeBio、Karuna 之后转向更早期的平台（Orbital）。",
+   "note_en": "After buying Mirati, RayzeBio and Karuna in 2023 it has shifted to earlier platforms (Orbital)."
+  },
+  {
+   "co": "Pfizer",
+   "p": "高",
+   "p_en": "High",
+   "ta": [
+    "肿瘤",
+    "心血管 / 代谢 / 肾",
+    "免疫 / 炎症"
+   ],
+   "items": [
+    [
+     "Eliquis",
+     "2028"
+    ],
+    [
+     "Ibrance",
+     "2027"
+    ],
+    [
+     "Xeljanz",
+     "2026"
+    ],
+    [
+     "Vyndaqel 系列",
+     "2028 前后"
+    ]
+   ],
+   "note": "Seagen 之后靠 Metsera 押注肥胖；2028 年前到期的收入在大药企里最多之一。",
+   "note_en": "After Seagen it bet on obesity with Metsera; among big pharma it has one of the largest revenue blocks expiring before 2028."
+  },
+  {
+   "co": "GSK",
+   "p": "高",
+   "p_en": "High",
+   "ta": [
+    "肿瘤",
+    "呼吸",
+    "免疫 / 炎症"
+   ],
+   "items": [
+    [
+     "多替拉韦类（Tivicay、Triumeq、Dovato）",
+     "2028–2029"
+    ]
+   ],
+   "note": "HIV 收入依赖多替拉韦；2025–26 年的收购（IDRx、efimosfermin、RAPT、Nuvalent）明显加速。",
+   "note_en": "HIV revenue depends on dolutegravir; acquisitions sped up in 2025–26 (IDRx, efimosfermin, RAPT, Nuvalent)."
+  },
+  {
+   "co": "Johnson & Johnson",
+   "p": "中",
+   "p_en": "Medium",
+   "ta": [
+    "肿瘤",
+    "神经 / 精神 / 疼痛",
+    "免疫 / 炎症"
+   ],
+   "items": [
+    [
+     "Stelara",
+     "2025（已有生物类似药）"
+    ],
+    [
+     "Darzalex（静脉）",
+     "2029 前后"
+    ]
+   ],
+   "note": "Stelara 已进入生物类似药竞争；Intra-Cellular 补神经精神，Halda、Firefly 押早期肿瘤平台。",
+   "note_en": "Stelara already faces biosimilars; Intra-Cellular added neuropsychiatry, while Halda and Firefly are early oncology platform bets."
+  },
+  {
+   "co": "Novartis",
+   "p": "中",
+   "p_en": "Medium",
+   "ta": [
+    "心血管 / 代谢 / 肾",
+    "神经 / 精神 / 疼痛",
+    "肿瘤"
+   ],
+   "items": [
+    [
+     "Entresto",
+     "2025"
+    ],
+    [
+     "Promacta",
+     "2025"
+    ],
+    [
+     "Tasigna",
+     "2026 前后"
+    ]
+   ],
+   "note": "偏好 10–30 亿美元的补强型收购，近两年集中在心血管、肾病和 RNA。",
+   "note_en": "Prefers $1–3B bolt-ons; recent buys cluster in cardiovascular, renal and RNA."
+  },
+  {
+   "co": "AbbVie",
+   "p": "中",
+   "p_en": "Medium",
+   "ta": [
+    "免疫 / 炎症",
+    "神经 / 精神 / 疼痛",
+    "肿瘤"
+   ],
+   "items": [
+    [
+     "Imbruvica",
+     "2027 前后"
+    ],
+    [
+     "Venclexta",
+     "2032 前后"
+    ]
+   ],
+   "note": "修美乐悬崖已过，Skyrizi 和 Rinvoq 撑到 2030 年代；继续在免疫（Apogee、Capstan）和神经精神上补。",
+   "note_en": "Past the Humira cliff, with Skyrizi and Rinvoq carrying it into the 2030s; still adding in immunology (Apogee, Capstan) and neuropsychiatry."
+  },
+  {
+   "co": "Amgen",
+   "p": "中",
+   "p_en": "Medium",
+   "ta": [
+    "心血管 / 代谢 / 肾",
+    "免疫 / 炎症",
+    "肿瘤"
+   ],
+   "items": [
+    [
+     "Prolia / Xgeva",
+     "2025"
+    ],
+    [
+     "Enbrel",
+     "2029"
+    ]
+   ],
+   "note": "Horizon 之后没有大额收购，押注自研的 MariTide（肥胖）。",
+   "note_en": "No large deal since Horizon; betting on in-house MariTide for obesity."
+  },
+  {
+   "co": "Sanofi",
+   "p": "中",
+   "p_en": "Medium",
+   "ta": [
+    "免疫 / 炎症",
+    "感染 / 疫苗"
+   ],
+   "items": [
+    [
+     "Dupixent",
+     "2031"
+    ]
+   ],
+   "note": "Dupixent 一个产品撑全局；近两年买 Blueprint、Dynavax、Vicebio、Dren Bio，补免疫和疫苗。",
+   "note_en": "Dupixent carries the company; recent buys (Blueprint, Dynavax, Vicebio, Dren Bio) add immunology and vaccines."
+  },
+  {
+   "co": "Roche",
+   "p": "中",
+   "p_en": "Medium",
+   "ta": [
+    "肿瘤",
+    "心血管 / 代谢 / 肾",
+    "神经 / 精神 / 疼痛"
+   ],
+   "items": [
+    [
+     "Ocrevus",
+     "2029 前后"
+    ],
+    [
+     "Perjeta",
+     "2025–2026"
+    ]
+   ],
+   "note": "Telavant、Carmot、89bio：在免疫、肥胖、肝病上下注。",
+   "note_en": "Telavant, Carmot and 89bio are bets on immunology, obesity and liver disease."
+  },
+  {
+   "co": "AstraZeneca",
+   "p": "低",
+   "p_en": "Low",
+   "ta": [
+    "肿瘤",
+    "罕见病 / 遗传",
+    "心血管 / 代谢 / 肾"
+   ],
+   "items": [
+    [
+     "Farxiga",
+     "2025–2026"
+    ],
+    [
+     "Soliris",
+     "已有生物类似药"
+    ]
+   ],
+   "note": "核心产品专利较晚，偏好早期平台（细胞治疗、放射性配体、体内 CAR-T）。",
+   "note_en": "Core products expire late; it prefers early platforms (cell therapy, radioligands, in vivo CAR-T)."
+  },
+  {
+   "co": "Eli Lilly",
+   "p": "低",
+   "p_en": "Low",
+   "ta": [
+    "神经 / 精神 / 疼痛",
+    "免疫 / 炎症",
+    "血液"
+   ],
+   "items": [
+    [
+     "Trulicity",
+     "2027"
+    ]
+   ],
+   "note": "GLP-1 现金充裕，2025 年以来 12 笔 10 亿以上收购，多是早期平台和新机制。",
+   "note_en": "Flush with GLP-1 cash: 12 deals of $1B+ since 2025, mostly early platforms and new mechanisms."
+  }
+ ]
+}

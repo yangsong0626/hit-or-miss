@@ -12,6 +12,7 @@
   --accent:#1f4f8f; --accent-soft:#e3ecf8;
   --pos:#1d7a4f; --pos-soft:#e2f3ea; --neg:#b3342b; --neg-soft:#fbe7e5; --mix:#a46a0a; --mix-soft:#fbf0dc;
   --s1:#1f4f8f; --s2:#c08a1e; --s3:#178a8f; --s4:#c2493f;
+  --c1:#2b5fa8; --c2:#c08a1e; --c3:#178a8f; --c4:#c2493f; --c5:#6b4fa3; --c6:#4f8a2e; --c7:#b0568f; --c8:#7a8794;
   --f-display:"Barlow Condensed","Noto Sans SC",system-ui,sans-serif;
   --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -21,12 +22,14 @@
   --accent:#7fb0ef; --accent-soft:#1c2c42;
   --pos:#5cc792; --pos-soft:#15301f; --neg:#f0857c; --neg-soft:#3a1b19; --mix:#e7b55a; --mix-soft:#33280f;
   --s1:#7fb0ef; --s2:#e7b55a; --s3:#4cc3c9; --s4:#f0857c;
+  --c1:#7fb0ef; --c2:#e7b55a; --c3:#4cc3c9; --c4:#f0857c; --c5:#b39ce8; --c6:#8fcf6e; --c7:#e79ac8; --c8:#9aa6b2;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f151c; --surface:#17202a; --ink:#e4eaf1; --muted:#97a4b4; --line:#2a3644;
   --accent:#7fb0ef; --accent-soft:#1c2c42;
   --pos:#5cc792; --pos-soft:#15301f; --neg:#f0857c; --neg-soft:#3a1b19; --mix:#e7b55a; --mix-soft:#33280f;
   --s1:#7fb0ef; --s2:#e7b55a; --s3:#4cc3c9; --s4:#f0857c;
+  --c1:#7fb0ef; --c2:#e7b55a; --c3:#4cc3c9; --c4:#f0857c; --c5:#b39ce8; --c6:#8fcf6e; --c7:#e79ac8; --c8:#9aa6b2;
   color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
@@ -419,6 +422,119 @@ table.dp-t{min-width:0;font-size:13px;margin:6px 0}
 .tg-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;flex:none}
 .tg-dot.hit{background:var(--pos)}.tg-dot.miss{background:var(--ink)}.tg-dot.even{background:var(--mix)}
 .tg-items .sm{color:var(--muted);font-size:12px}
+.top-r{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.lang button{font-weight:700;padding:4px 12px}
+.crumb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin:14px 0 0}
+.crumb button{font:inherit;font-weight:700;background:none;border:0;color:var(--accent);cursor:pointer;padding:0}
+/* 靶点索引 */
+.tgx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.tgx-card{display:flex;flex-direction:column;gap:5px;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:11px 12px;cursor:pointer;min-width:0}
+.tgx-card:hover{border-color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
+.tgx-card h3{margin:0;font-family:var(--f-display);font-size:21px;font-weight:600;letter-spacing:.01em;line-height:1.1;overflow-wrap:anywhere}
+.tgx-card .sm{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.tgx-card .nums{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:12.5px;color:var(--muted)}
+.tgx-card .nums b{font-family:var(--f-mono);color:var(--ink);font-weight:600}
+.tgx-card .ph{margin-top:auto;display:flex;height:6px;border-radius:2px;overflow:hidden;gap:1px;background:var(--line)}
+.tgx-card .ph i{display:block}
+.tgx-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+/* 靶点页 / 领域页 */
+.pg-head{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);padding:16px 18px;margin-top:10px}
+.pg-head h2{font-family:var(--f-display);font-size:40px;line-height:1;font-weight:700;margin:0;letter-spacing:.01em;overflow-wrap:anywhere}
+.pg-head .alias{font-size:13px;color:var(--muted);margin-top:6px;overflow-wrap:anywhere}
+.pg-head .tags{margin-top:8px}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}
+.kpis div{background:var(--surface);padding:10px 12px;min-width:0}
+.kpis .n{font-family:var(--f-display);font-size:28px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.kpis .l{font-size:12px;color:var(--muted)}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pg-head h2{font-size:32px}}
+.pg-tabs{display:flex;gap:0;margin-top:14px;border-bottom:1px solid var(--line);overflow-x:auto}
+.pg-tabs button{font:inherit;font-size:14.5px;font-weight:700;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:8px 14px;cursor:pointer;white-space:nowrap}
+.pg-tabs button b{font-family:var(--f-mono);font-weight:500;font-size:11.5px;margin-left:5px;opacity:.8}
+.pg-tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.pg-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;margin-top:14px}
+@media (max-width:900px){.pg-grid{grid-template-columns:minmax(0,1fr)}}
+.pg-sec{background:var(--surface);border:1px solid var(--line);padding:14px 16px;min-width:0}
+.pg-sec+.pg-sec{margin-top:14px}
+.pg-sec .sm,.pg-sec p.sm{color:var(--muted);font-size:12.5px}
+.pg-sec table.ls-progs{min-width:0}
+.pg-sec .ls-progs th:nth-child(1){width:52px}.pg-sec .ls-progs th:nth-child(2){width:26%}.pg-sec .ls-progs th:nth-child(4){width:18%}.pg-sec .ls-progs th:nth-child(5){width:92px}
+@media (max-width:640px){.pg-sec .ls-progs th:nth-child(4),.pg-sec .ls-progs td:nth-child(4),.pg-sec .ls-progs th:nth-child(5),.pg-sec .ls-progs td:nth-child(5){display:none}}
+.pg-sec h3{margin:0 0 4px;font-size:16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.pg-sec h3 small{font-weight:400;font-size:12.5px;color:var(--muted)}
+.pg-sec .sub{font-size:13px;color:var(--muted);margin:2px 0 10px}
+.pg-list{list-style:none;margin:0;padding:0}
+.pg-list li{padding:8px 0;border-top:1px solid var(--line);font-size:13.5px;min-width:0;overflow-wrap:anywhere}
+.pg-list li:first-child{border-top:0}
+.pg-list .sm{font-size:12.5px;color:var(--muted)}
+.pg-list a{text-decoration:none}.pg-list a:hover{text-decoration:underline}
+.funnel{display:grid;gap:6px}
+.funnel div{display:grid;grid-template-columns:52px minmax(0,1fr) 40px;gap:8px;align-items:center;font-size:13px}
+.funnel span.b{height:16px;border-radius:2px;background:var(--accent);min-width:2px}
+.funnel b{font-family:var(--f-mono);font-weight:500;text-align:right}
+.ext{display:flex;flex-wrap:wrap;gap:8px}
+.ext a{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:7px 12px;background:var(--surface);color:var(--ink)}
+.ext a:hover{border-color:var(--accent);color:var(--accent)}
+.ext a small{font-weight:400;color:var(--muted)}
+.pg-sec .seg{flex-wrap:wrap;margin:0 6px 6px 0}
+.qbox{font-family:var(--f-mono);font-size:12px;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px;overflow-wrap:anywhere;margin:6px 0 12px}
+.cobar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;font-size:13px;padding:5px 0;border-top:1px solid var(--line)}
+.cobar:first-child{border-top:0}
+.cobar a{font-size:12.5px;white-space:nowrap}
+.yrs{display:flex;align-items:flex-end;gap:6px;height:110px;padding-top:6px}
+.yrs div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px;height:100%;min-width:0}
+.yrs i{display:block;width:100%;max-width:42px;background:var(--accent);border-radius:2px 2px 0 0}
+.yrs span{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.yrs b{font-family:var(--f-mono);font-size:11px;font-weight:500}
+.news-src{font-size:12px;color:var(--muted)}
+.wait{background:var(--bg);border:1px dashed var(--line);padding:12px 14px;font-size:13.5px;color:var(--muted);margin:0 0 12px}
+/* 领域页图表 */
+.tax-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.tax-card{display:grid;gap:6px;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;cursor:pointer;min-width:0}
+.tax-card:hover{border-color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
+.tax-card h3{margin:0;font-size:18px}
+.tax-card .nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;font-size:11.5px;color:var(--muted)}
+.tax-card .nums b{display:block;font-family:var(--f-display);font-size:22px;font-weight:600;color:var(--ink);line-height:1.1}
+.chart{overflow-x:auto}
+.chart svg{display:block}
+.chart text{font-family:var(--f-body);font-size:11.5px;fill:var(--ink)}
+.chart .ax{font-family:var(--f-mono);font-size:10.5px;fill:var(--muted)}
+.chart .lb{cursor:pointer}
+.chart .lb:hover{fill:var(--accent);text-decoration:underline}
+.chart .sm{font-size:10.5px;fill:var(--muted)}
+.chart .row:hover rect.hl{fill:var(--accent-soft)}
+.chart-leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--muted);margin-top:6px}
+.chart-leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.chart-empty{padding:16px;color:var(--muted);font-size:13px;border:1px dashed var(--line);text-align:center}
+/* 并购看板 */
+.ma-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.ma-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.hbar{grid-template-columns:minmax(64px,108px) minmax(0,1fr) auto;font-size:12px}.hbar .v{font-size:11px}}
+.ma-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+@media (max-width:900px){.ma-grid{grid-template-columns:minmax(0,1fr)}}
+.ma-grid .pg-sec+.pg-sec{margin-top:0}
+.hbar{display:grid;grid-template-columns:minmax(80px,150px) minmax(0,1fr) auto;gap:4px 10px;align-items:center;font-size:13px}
+.hbar button{font:inherit;text-align:left;background:none;border:0;padding:2px 0;color:var(--ink);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbar button:hover,.hbar button[aria-pressed="true"]{color:var(--accent);font-weight:700}
+.hbar .bar{display:flex;height:14px;border-radius:2px;overflow:hidden;gap:1px;background:var(--line)}
+.hbar .bar i{display:block}
+.hbar .v{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.heat{border-collapse:collapse;font-size:12px;min-width:0;width:100%}
+.heat th{font-size:11.5px;font-weight:500;color:var(--muted);padding:4px 6px;text-align:center;white-space:nowrap;position:static}
+.heat th[scope=row]{text-align:left}
+.heat td{padding:0;border:1px solid var(--surface);text-align:center}
+.heat td button{font:inherit;font-family:var(--f-mono);font-size:12px;width:100%;padding:6px 0;background:none;border:0;color:var(--ink);cursor:pointer}
+.heat td button:hover{outline:2px solid var(--accent);outline-offset:-2px}
+.ma-filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:16px 0 10px}
+.ma-filters .chip{font-size:12.5px;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 10px;cursor:pointer;font-family:inherit}
+table.ma td .val{font-family:var(--f-mono);font-weight:600;white-space:nowrap}
+table.ma{min-width:860px}
+.ph-chip{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.next-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.next-card{background:var(--surface);border:1px solid var(--line);padding:12px 14px;display:grid;gap:6px;min-width:0}
+.next-card h4{margin:0;font-size:16px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.next-card .sm{font-size:12.5px;color:var(--muted)}
+.next-card ul{margin:0;padding-left:16px;font-size:13px}
+.loe{font-size:12.5px}
+.loe b{font-family:var(--f-mono);font-weight:600}
 footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
 </style>
@@ -429,20 +545,29 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
       <h1>Hit <span>or</span> Miss</h1>
       <p>临床试验读出追踪：主要终点达到还是落空。同一条读出，研发、BD、医生各看各的重点。</p>
     </div>
-    <div class="asof" id="asof">数据截至 2026-10-12</div>
+    <div class="top-r">
+      <div class="seg lang" role="group" aria-label="Language">
+        <button data-lang="zh" aria-pressed="false">中文</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <div class="asof" id="asof">数据截至 2026-10-12</div>
+    </div>
   </header>
 
   <div class="lens">
     <div class="lens-label">我是</div>
     <div class="lens-row" role="group" aria-label="选择视角">
-      <button id="lens-rd" data-lens="rd" aria-pressed="true"><b>研发</b><small>药化 · CADD · 转化</small></button>
-      <button id="lens-bd" data-lens="bd" aria-pressed="false"><b>BD / 投资</b><small>竞争格局 · 资产价值</small></button>
-      <button id="lens-md" data-lens="md" aria-pressed="false"><b>临床医生</b><small>人群 · 终点 · 标准治疗</small></button>
+      <button id="lens-rd" data-lens="rd" aria-pressed="true"><b>药化 / CADD</b><small>按靶点：临床 · 专利 · 文献 · 新闻</small></button>
+      <button id="lens-md" data-lens="md" aria-pressed="false"><b>临床医生</b><small>按治疗领域：关键数据对比</small></button>
+      <button id="lens-bd" data-lens="bd" aria-pressed="false"><b>BD / 投资</b><small>并购案例 · 交易候选 · 资产</small></button>
     </div>
     <p class="lens-note" id="lens-note"></p>
   </div>
 
   <div class="tabs" role="tablist">
+    <button id="tab-tgx" role="tab" aria-selected="false" data-tab="tgx">靶点</button>
+    <button id="tab-tax" role="tab" aria-selected="false" data-tab="tax">治疗领域</button>
+    <button id="tab-ma" role="tab" aria-selected="false" data-tab="ma">并购</button>
     <button id="tab-ov" role="tab" aria-selected="true" data-tab="ov">总览</button>
     <button id="tab-co" role="tab" aria-selected="false" data-tab="co">公司</button>
     <button id="tab-mo" role="tab" aria-selected="false" data-tab="mo">药物形式</button>
@@ -453,6 +578,53 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
     <button id="tab-cur" role="tab" aria-selected="false" data-tab="cur">精选解读</button>
     <button id="tab-deal" role="tab" aria-selected="false" data-tab="deal">交易候选</button>
     <button id="tab-reg" role="tab" aria-selected="false" data-tab="reg">全部试验</button>
+  </div>
+
+  <div id="panel-tgx" class="panel" hidden>
+    <div id="tgx-index">
+      <section class="block">
+        <div class="block-head"><h2>靶点</h2><span class="regmeta" id="tgx-meta"></span></div>
+        <p class="sub">本站临床试验数据里识别出的全部靶点，加上编辑精选的临床前靶点。点进靶点看它的临床项目、专利检索、最新文献、新闻和相关交易。搜索支持别名和药名，比如 ERBB2 会找到 HER2，pembrolizumab 会找到 PD-1。</p>
+        <div class="filters">
+          <input id="tgx-q" type="search" placeholder="搜靶点、别名、药名…" aria-label="搜靶点">
+          <select id="tgx-ta" aria-label="治疗领域"></select>
+          <select id="tgx-mod" aria-label="药物形式">
+            <option value="">全部药物形式</option>
+            <option value="小分子">小分子（含降解剂）</option>
+            <option value="蛋白 / 抗体">蛋白 / 抗体（含 ADC、双抗）</option>
+            <option value="多肽">多肽</option>
+            <option value="核酸">核酸</option>
+            <option value="细胞 / 基因">细胞 / 基因治疗</option>
+            <option value="放射性药物">放射性药物</option>
+          </select>
+          <select id="tgx-ph" aria-label="最高阶段"><option value="">全部阶段</option><option value="3">已到 III 期</option><option value="2">最高 II 期</option><option value="1">最高 I 期</option><option value="0">临床前</option></select>
+          <select id="tgx-sort" aria-label="排序"><option value="prog">按项目数</option><option value="co">按公司数</option><option value="new">按近 12 个月新进</option><option value="az">按字母</option></select>
+        </div>
+        <p class="q-hint" id="tgx-hint" hidden></p>
+        <div class="tgx-grid" id="tgx-grid"></div>
+        <button class="more" id="tgx-more" hidden></button>
+      </section>
+    </div>
+    <div id="tgx-page" hidden></div>
+  </div>
+
+  <div id="panel-tax" class="panel" hidden>
+    <div id="tax-index">
+      <section class="block">
+        <div class="block-head"><h2>治疗领域</h2><span class="regmeta" id="tax-meta"></span></div>
+        <p class="sub">按治疗领域看最近的 II/III 期读出。点进领域可以按适应症筛选，并排比较各试验的主要终点：风险比等效应量、治疗组与对照组的应答率、中位生存时间，以及接下来半年要读出的 III 期试验。</p>
+        <div class="tax-grid" id="tax-grid"></div>
+      </section>
+    </div>
+    <div id="tax-page" hidden></div>
+  </div>
+
+  <div id="panel-ma" class="panel" hidden>
+    <section class="block">
+      <div class="block-head"><h2>并购案例</h2><span class="regmeta" id="ma-meta"></span></div>
+      <p class="sub" id="ma-sub">2019 年以来金额不低于 10 亿美元的创新药收购（含或有付款 CVR 和里程碑在内的总额），不含医疗器械、工具、仿制药和动物保健。每条注明收购时核心资产所处的阶段和靶点，用来看谁在买、买什么、在哪个阶段出手。点图里的柱子或买家名可以筛选下面的列表。</p>
+      <div id="ma-body"></div>
+    </section>
   </div>
 
   <div id="panel-ov" class="panel">
@@ -738,13 +910,94 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
 
 <script>
 const LENS = {
-  rd:{name:"研发视角", note:"每条卡片显示机制与形式层面的解读：靶点是否被验证、失败可能出在哪一层、对同类分子的外推。"},
-  bd:{name:"BD / 投资视角", note:"每条卡片显示竞争与价值层面的解读：谁受益、谁被重新定价、下一个关键节点。"},
-  md:{name:"临床医生视角", note:"每条卡片显示临床层面的解读：入组人群、对照与终点、对现有治疗意味着什么。"}
+  rd:{name:"研发视角", note:"从靶点出发：每个靶点一页，汇总临床项目、专利检索、最新文献、新闻和相关交易。精选解读显示机制层面的点评。"},
+  bd:{name:"BD / 投资视角", note:"从交易出发：近年的并购案例按买家、领域、阶段可视化，再看还没被买走的资产和被搁置的项目。精选解读显示竞争与价值层面的点评。"},
+  md:{name:"临床医生视角", note:"从治疗领域出发：按适应症并排比较各试验的主要终点数据和即将读出的试验。精选解读显示临床层面的点评。"}
 };
+const ROLE_TABS = {rd:["tgx","ls","tg","mo","cur","reg"], md:["tax","cur","tl","reg"], bd:["ma","deal","co","sh","ov","tl","reg"]};
 
 /* 精选读出、同类联动、日历都来自 data/curated.json（构建时内嵌） */
 const EMB = (() => { try { return JSON.parse(document.getElementById("trials-data")?.textContent || "null"); } catch(e) { return null; } })();
+/* ---------- 中英文切换 ----------
+   新写的界面用 T(中文, English)；老界面在渲染后由 TR 按词典把中文文本节点和属性换成英文；
+   人工内容（精选解读、分析、交易候选、临床前、并购）在加载时按 content 词典整句替换。 */
+const LANG = (() => {
+  let l = null;
+  try { l = new URLSearchParams(location.search).get("lang"); } catch(e) {}
+  if (!l) { try { l = localStorage.getItem("hom-lang"); } catch(e) {} }
+  if (!l) l = /^zh/i.test(navigator.language || "") ? "zh" : "en";
+  return l === "en" ? "en" : "zh";
+})();
+const EN = LANG === "en";
+document.documentElement.lang = EN ? "en" : "zh-CN";
+const T = (zh, en) => EN ? en : zh;
+const I18N = EMB?.i18n || {ui:{exact:{}, patterns:[], phrases:{}}, content:{}};
+const CJK = /[㐀-鿿]/;
+function trData(o){
+  if (!EN || !o) return o;
+  const C = I18N.content || {};
+  const walk = v => {
+    if (typeof v === "string") { if (CJK.test(v)) return C[v] != null ? C[v] : v; return /[、（）；：]/.test(v) ? v.replace(/、/g, ", ").replace(/（/g, " (").replace(/）/g, ")").replace(/；/g, "; ").replace(/：/g, ": ") : v; }
+    if (Array.isArray(v)) { for (let i = 0; i < v.length; i++) v[i] = walk(v[i]); return v; }
+    if (v && typeof v === "object") { for (const k of Object.keys(v)) { if (KEEP_KEYS.has(k)) continue; v[k] = walk(v[k]); } return v; }
+    return v;
+  };
+  return walk(o);
+}
+/* 这些字段在页面逻辑里当作键使用（筛选、配色），不在数据层替换，显示时由 TR 翻译 */
+const KEEP_KEYS = new Set(["_zh","ta","mod","mods","modg","why_cat","verdict","tag","out","g","tg","tgt","group","sponsor","status","phase","_set","ph","st"]);
+const TR = (() => {
+  if (!EN) return {run(){}, tr: s => s, start(){}};
+  const U = I18N.ui || {}, ex = new Map(Object.entries(U.exact || {}));
+  const pats = (U.patterns || []).map(([re, rep]) => [new RegExp(re), rep]);
+  const phr = Object.entries(U.phrases || {}).sort((a, b) => b[0].length - a[0].length);
+  const subs = (U.subs || []).map(([re, rep]) => [new RegExp(re, "g"), rep]);
+  const cache = new Map();
+  const PUNC = [["，", ", "], ["。", ". "], ["；", "; "], ["：", ": "], ["、", ", "], ["（", " ("], ["）", ") "], ["「", "“"], ["」", "”"], ["“", "“"], ["”", "”"], ["！", "! "], ["？", "? "], ["～", "~"], ["　", " "]];
+  const tidy = r => { PUNC.forEach(([a, b]) => { r = r.split(a).join(b); }); return r.replace(/ {2,}/g, " ").replace(/ ([,.;:)!?])/g, "$1").replace(/\( /g, "(").trim(); };
+  function phrase(core){
+    let r = core;
+    for (const [re, rep] of subs) r = r.replace(re, rep);
+    for (const [zh, en] of phr) if (r.includes(zh)) r = r.split(zh).join(" " + en + " ");
+    return tidy(r);
+  }
+  function tr(s){
+    if (!s || !CJK.test(s)) return s;
+    if (cache.has(s)) return cache.get(s);
+    const lead = s.match(/^\s*/)[0], trail = s.match(/\s*$/)[0], core = s.trim();
+    let r = ex.get(core);
+    if (r == null && I18N.content && I18N.content[core] != null) r = I18N.content[core];
+    if (r == null) for (const [re, rep] of pats) {
+      const m = core.match(re);
+      if (m) { r = rep.replace(/\$(\d)/g, (_, i) => tr(m[+i] || "")); r = CJK.test(r) ? phrase(r) : tidy(r); break; }
+    }
+    if (r == null) { const ph = phrase(core); r = !CJK.test(ph) || core.length <= 80 ? ph : core; }
+    const out = lead + r + trail;
+    cache.set(s, out); cache.set(out, out); return out;
+  }
+  const ATTRS = ["placeholder", "aria-label", "title", "label"];
+  function run(root){
+    if (!root) return;
+    if (root.nodeType === 3) { const v = tr(root.nodeValue); if (v !== root.nodeValue) root.nodeValue = v; return; }
+    if (root.nodeType !== 1 && root.nodeType !== 9) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode: n => {
+      const p = n.parentNode; if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE") return NodeFilter.FILTER_REJECT;
+      return CJK.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP; }});
+    const ns = []; while (w.nextNode()) ns.push(w.currentNode);
+    ns.forEach(n => { const v = tr(n.nodeValue); if (v !== n.nodeValue) n.nodeValue = v; });
+    const els = root.querySelectorAll ? root.querySelectorAll("[placeholder],[aria-label],[title],optgroup[label]") : [];
+    [root, ...els].forEach(e => { if (!e.getAttribute) return; ATTRS.forEach(a => { const v = e.getAttribute(a); if (v && CJK.test(v)) { const t2 = tr(v); if (t2 !== v) e.setAttribute(a, t2); } }); });
+  }
+  let pend = new Set(), sch = false;
+  function start(){
+    run(document.body); document.title = tr(document.title);
+    new MutationObserver(ms => {
+      ms.forEach(m => { if (m.type === "characterData") pend.add(m.target); else m.addedNodes.forEach(n => pend.add(n)); if (m.type === "attributes") pend.add(m.target); });
+      if (!sch) { sch = true; queueMicrotask(() => { sch = false; const ps = [...pend]; pend = new Set(); ps.forEach(run); }); }
+    }).observe(document.body, {childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:ATTRS});
+  }
+  return {run, tr, start};
+})();
 /* ---------- 按靶点搜索：别名 → 规范靶点名 → 展开成别名和已知药名一起匹配 ---------- */
 const TGS = (() => {
   const S = EMB?.tgsearch || {alias:{}, drugs:{}}, ix = new Map();
@@ -793,6 +1046,7 @@ function setQHint(id, Q){
   el.innerHTML = qHintHTML(Q); el.hidden = !el.innerHTML;
   el.querySelectorAll("[data-lsgo]").forEach(b => b.addEventListener("click", () => goLandscape(b.dataset.lsgo)));
 }
+if (EMB) { ["acquire","license"].forEach(k => (EMB.deals?.[k] || []).forEach(a => a._zh = a.name)); (EMB.pre?.cur?.areas || []).forEach(a => a._zh = a.name); trData(EMB.curated); trData(EMB.deals); trData(EMB.pre); trData(EMB.ma); }
 const D = EMB?.curated?.readouts || [];
 const RT = EMB?.curated?.readthrough || [];
 const CAL = EMB?.curated?.calendar || [];
@@ -854,12 +1108,15 @@ function renderSide(){
   $("cal").innerHTML = CAL.map(([w,t]) => `<li><span class="when">${esc(w)}</span><span>${esc(t)}</span></li>`).join("");
 }
 
-function setLens(l){
+let curTab = null;
+function setLens(l, keepTab){
   lens = l;
   document.querySelectorAll(".lens button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lens===l ? "true":"false"));
   $("lens-note").textContent = LENS[l].note;
-  if (l === "bd" && EMB?.deals) { const b = document.createElement("button"); b.className = "lens-go"; b.textContent = "看交易候选 →"; b.addEventListener("click", () => showTab("deal")); $("lens-note").appendChild(b); }
-  if (l === "rd" && EMB?.pre) { const b = document.createElement("button"); b.className = "lens-go"; b.textContent = "看临床前靶点 →"; b.addEventListener("click", () => { showTab("ls"); setLsView("pre"); }); $("lens-note").appendChild(b); }
+  document.querySelectorAll(".tabs button").forEach(b => { b.hidden = !ROLE_TABS[l].includes(b.dataset.tab); });
+  const order = ROLE_TABS[l];
+  const tabsEl = document.querySelector(".tabs"); order.forEach(k => tabsEl.appendChild($("tab-" + k)));
+  if (!keepTab && curTab && !order.includes(curTab)) showTab(order[0]);
   try{ localStorage.setItem("readout-lens", l); }catch(e){}
   render();
   if (REG) renderReg();
@@ -920,7 +1177,7 @@ function bindLoader(){
 function setReg(data){
   if(!data || !data.sets){ throw new Error("bad"); }
   REG = data;
-  Object.entries(REG.sets).forEach(([k,v]) => v.forEach(t => { t._set = k; t.group = t.group || t.sponsor; }));
+  Object.entries(REG.sets).forEach(([k,v]) => v.forEach(t => { t._set = k; t.group = t.group || t.sponsor; if (EN && t.note) t.note = (I18N.content||{})[t.note] ?? t.note; }));
   const all = Object.values(REG.sets).flat();
   REG.all = all;
   const opts = (key,label) => `<option value="">${label}</option>` + [...new Set(all.map(t=>t[key]))].sort((a,b)=>a.localeCompare(b,"zh")).map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
@@ -1019,9 +1276,16 @@ function renderReg(){
 }
 ["rq","r-ta","r-mod","r-ph","r-vd"].forEach(id => $(id).addEventListener("input", () => { regLimit = 200; renderReg(); }));
 
-const TABS = ["ov","co","mo","ls","tl","sh","tg","cur","deal","reg"];
-function showTab(t){
-  if (!TABS.includes(t)) t = "ov";
+const TABS = ["tgx","tax","ma","ov","co","mo","ls","tl","sh","tg","cur","deal","reg"];
+function showTab(t, opts){
+  opts = opts || {};
+  if (!TABS.includes(t)) t = ROLE_TABS[lens][0];
+  if (!ROLE_TABS[lens].includes(t)) { const r = Object.keys(ROLE_TABS).find(k => ROLE_TABS[k].includes(t)); if (r) setLens(r, true); }
+  curTab = t;
+  if (opts.hash !== false && !/^#(c|t)-/.test(location.hash)) { const h = "#" + t; if (location.hash !== h && !(t === "tgx" && /^#target\//.test(location.hash) && opts.keepSub) && !(t === "tax" && /^#area\//.test(location.hash) && opts.keepSub)) { try { history.replaceState(null, "", h); } catch(e) {} } }
+  if (t === "tgx") renderTgx();
+  if (t === "tax") renderTax();
+  if (t === "ma") renderMA();
   document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t ? "true":"false"));
   TABS.forEach(k => { $("panel-"+k).hidden = k!==t; });
   try{ localStorage.setItem("hom-tab", t); }catch(e){}
@@ -1212,6 +1476,13 @@ function closeDetail(fromHash){
 $("dp-close").addEventListener("click", () => closeDetail());
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("detail").hidden) closeDetail(); });
 function routeHash(){
+  let h = location.hash.slice(1); try { h = decodeURIComponent(h); } catch(e) {}
+  let mm;
+  if ((mm = h.match(/^target\/(.+)$/))) { closeDetail(true); showTab("tgx", {hash:false}); openTarget(mm[1], true); return; }
+  if ((mm = h.match(/^area\/(.+)$/))) { closeDetail(true); showTab("tax", {hash:false}); openArea(mm[1], true); return; }
+  if (h === "tgx" && curTab === "tgx") { closeDetail(true); closeTarget(true); return; }
+  if (h === "tax" && curTab === "tax") { closeDetail(true); closeArea(true); return; }
+  if (TABS.includes(h)) { closeDetail(true); if (h === "tgx") closeTarget(true); if (h === "tax") closeArea(true); showTab(h, {hash:false}); return; }
   const m = location.hash.match(/^#(c|t)-([A-Za-z0-9._~-]+)$/);
   if (m && m[1]==="t" && !byNct().has(m[2]) && !EARLY) { loadEarly().then(() => openDetail("t", m[2], true)); return; }
   if (m) openDetail(m[1], m[2], true); else closeDetail(true);
@@ -1408,8 +1679,7 @@ function nameKey(nm, m, fallback){
   const n = code ? code[0] : word;
   return {k: n.toLowerCase().replace(/[^a-z0-9]/g, "") || fallback || nm, n: n.slice(0, 40), m};
 }
-function lsBuild(){
-  const fmod = $("ls-mod").value, ta = $("ls-ta").value;
+function lsBuild(fmod, ta){
   const g0 = REG.generated.split("-").map(Number), cut = new Date(g0[0]-1, g0[1]-1, g0[2]).toISOString().slice(0,10);
   const all = new Map(); ACTIVE.forEach(t => all.set(t.nct, t)); (EARLY||[]).forEach(t => all.set(t.nct, t)); REG.all.forEach(t => all.set(t.nct, t));
   const curN = new Set(D.map(d => d.nct).filter(Boolean));
@@ -1517,7 +1787,7 @@ function goLandscape(g){
 }
 function renderLandscape(){
   if (!REG || !EARLY) return;
-  const all = lsBuild(), Q = makeQ($("ls-q").value), tg = $("ls-tag").value, sort = $("ls-sort").value;
+  const all = lsBuild($("ls-mod").value, $("ls-ta").value), Q = makeQ($("ls-q").value), tg = $("ls-tag").value, sort = $("ls-sort").value;
   setQHint("ls-hint", Q);
   const tagC = {}; all.forEach(r => tagC[r.tag] = (tagC[r.tag]||0) + 1);
   const cur = $("ls-tag").value;
@@ -1772,7 +2042,7 @@ function renderShelved(){
 }
 $("sh-more").addEventListener("click", () => { shLimit += 40; renderShelved(); });
 ["sh-q","sh-ta","sh-ph"].forEach(id => $(id).addEventListener("input", () => { shLimit = 40; renderShelved(); }));
-document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => { showTab(b.dataset.tab); if (b.dataset.tab === "tgx") closeTarget(true); if (b.dataset.tab === "tax") closeArea(true); }));
 
 renderSubtabs();
 $("regbody").innerHTML = loaderHTML(); bindLoader();
@@ -1808,6 +2078,7 @@ function renderPulse(){
   $("pulse-grid").querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));
 }
 
+/*@@PORTALS@@*/
 (function loadEmbedded(){
   try{
     const el = document.getElementById("trials-data");
@@ -1815,15 +2086,21 @@ function renderPulse(){
     setReg(JSON.parse(el.textContent));
   }catch(e){ /* 内嵌数据异常时保留拖入文件的入口 */ }
 })();
+document.querySelectorAll(".tabs button").forEach(b => { b.hidden = !ROLE_TABS[lens].includes(b.dataset.tab); });
 (function initTab(){
-  const h = location.hash.slice(1);
+  let h = location.hash.slice(1); try { h = decodeURIComponent(h); } catch(e) {}
+  if (/^(target|area)\//.test(h)) { setTimeout(routeHash, 0); return; }
   if (/^(c|t)-/.test(h)) { let tb = null; try{ tb = localStorage.getItem("hom-tab"); }catch(e){} showTab(tb || "ov"); return setTimeout(routeHash, 0); }
   if (TABS.includes(h)) return showTab(h);
   if (h === "registry") return showTab("reg");
   let t = null; try{ t = localStorage.getItem("hom-tab"); }catch(e){}
-  showTab(t || "ov");
+  showTab(t && ROLE_TABS[lens].includes(t) ? t : ROLE_TABS[lens][0]);
 })();
-renderStrip(); renderSide(); setLens(lens); renderAsof(); renderDeals();
+renderStrip(); renderSide(); setLens(lens, true); renderAsof(); renderDeals();
+document.querySelectorAll("[data-lang]").forEach(b => { b.setAttribute("aria-pressed", b.dataset.lang === LANG); b.addEventListener("click", () => {
+  try { localStorage.setItem("hom-lang", b.dataset.lang); } catch(e) {}
+  const u = new URL(location.href); u.searchParams.delete("lang"); location.href = u.pathname + u.search + location.hash; location.reload(); }); });
+if (!/[?&]notr=1/.test(location.search)) TR.start();
 document.querySelectorAll(".lens button").forEach(b => b.addEventListener("click", () => setLens(b.dataset.lens)));
 ["q","f-out","f-ta","f-mod"].forEach(id => $(id).addEventListener("input", render));
 </script>

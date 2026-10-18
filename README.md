@@ -1,8 +1,14 @@
 # Hit or Miss
 
-临床试验读出追踪网站：主要终点达到（hit）还是落空（miss）。
+临床试验读出追踪网站：主要终点达到（hit）还是落空（miss）。中英文双语（右上角切换，或在网址后加 `?lang=en`）。
 
-同一条读出，研发、BD / 投资、临床医生各看各的重点。
+按角色进入：
+
+| 角色 | 入口 | 内容 |
+|---|---|---|
+| 药化 / CADD | 靶点 | 每个靶点一页：临床项目、专利检索（Google Patents / Lens / Espacenet / WIPO）、最新文献、中英文新闻、相关并购和交易候选 |
+| 临床医生 | 治疗领域 | 每个领域一页：按适应症筛选，比较主要终点的风险比 / 比值比（森林图）、应答率和中位时间（治疗组 vs 对照组），以及半年内要读出的 III 期 |
+| BD / 投资 | 并购 | 2019 年以来 ≥10 亿美元的创新药收购：按年份、领域、买家、阶段、药物形式出图，并按专利悬崖把大药企和交易候选对上 |
 
 ## 内容
 
@@ -62,6 +68,10 @@ scripts/targets.py       从注册信息自动抽取靶点
 scripts/fetch_preclinical.py  从 Open Targets 拉取癌症相关靶点，去掉已进临床的，按证据、可成药性、热度、风险打分
 scripts/check_watch.py  每周用 openFDA 核对交易候选里的药物有没有在「最后核实日期」之后获批，写 data/watch_alerts.json；有新发现时工作流自动开 GitHub issue
 scripts/build_site.py    把 trials.json 内嵌进模板，生成 docs/index.html
+scripts/fetch_feeds.py   每周抓靶点页的文献（Europe PMC）和新闻（Google News）
+site/portals.js          靶点 / 治疗领域 / 并购三个入口的页面代码，构建时插进模板
+data/ma_deals.json       并购案例
+data/i18n/               英文词典
 run_update.command       macOS 双击运行：抓取 + 重建
 .github/workflows/       每周一自动更新数据
 ```
@@ -92,6 +102,20 @@ python scripts/fetch_trials.py --reclassify data/trials.json
 - 精选解读的点评是编辑观点，不构成投资或诊疗建议。
 - 交易候选的峰值销售和成功概率是编辑粗估，风险调整价值 = 峰值销售区间中值 × 当前阶段成功概率，只用于排序，不是估值；交易一旦发生需手动从 `data/deal_watch.json` 移除。
 - 临床前靶点：精选里的靶点进入临床后要手动从 `data/preclinical.json` 挪出（靶点赛道会自动收到）。自动打分的「临床前」以 Open Targets 收录的药物阶段为准，公司未公开的项目看不到；证据分偏向肿瘤驱动基因和 CRISPR 依赖性，非肿瘤领域需要换一套证据来源。
+
+## 中英文
+
+- 新写的界面用 `T(中文, English)`；老界面渲染后由页面里的翻译层按 `data/i18n/ui_en.json` 把中文换成英文（`exact` 整句、`patterns` 正则、`phrases` 短语）。
+- 人工内容（精选解读、分析、交易候选、临床前、并购）的英文在 `data/i18n/content_en.json`，按中文原句整句对应；并购数据里也可以直接写 `xxx_en` 字段。
+- 改了或新增人工内容后重新构建，缺英文的句子会列在 `data/i18n/missing.txt`，构建时打印 WARNING。英文页面上这些句子会显示中文原文。
+
+## 靶点页的文献和新闻
+
+`scripts/fetch_feeds.py` 在每周更新时运行：按上一次构建生成的 `docs/targets_index.json` 取项目最多的 200 个靶点，从 Europe PMC 抓论文数（近 6 年逐年）、最新 8 篇和近三年高被引综述，从 Google News RSS 抓近 90 天的中英文新闻，写进 `docs/feeds.json`，页面打开靶点时再加载。抓取失败时保留旧文件。专利只提供检索链接，不托管数据。
+
+## 并购库
+
+`data/ma_deals.json`：2019 年起、含或有付款总额 ≥10 亿美元的创新药收购，字段为宣布日期 `d`、买家 `a`、标的 `t`、金额 `v`（十亿美元）、是否含或有付款 `cvr`、领域 `ta`、核心资产的药物形式 `mod` / 资产 `asset` / 靶点 `tg` / 宣布时阶段 `ph`、一句话理由 `why`（及 `why_en`）、来源 `src`。`loe` 是大药企主要产品的美国独占期估计，用于「接下来可能发生什么」。新交易手工追加，阶段和金额以宣布时为准。
 
 ## 手工清单的更新规则
 

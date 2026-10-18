@@ -27,6 +27,10 @@ jobs:
       - name: Check hand-curated lists against FDA approvals (openFDA)
         continue-on-error: true
         run: python scripts/check_watch.py --out data/watch_alerts.json --new-md watch_new.md
+      - name: Fetch literature and news for target pages (Europe PMC, Google News)
+        continue-on-error: true
+        timeout-minutes: 40
+        run: python scripts/fetch_feeds.py --index docs/targets_index.json --out docs/feeds.json --top 200
       - name: Build site
         run: python scripts/build_site.py site/template.html data/trials.json docs/index.html
       - name: Commit if changed
@@ -34,7 +38,7 @@ jobs:
           git config user.name "readout-bot"
           git config user.email "readout-bot@users.noreply.github.com"
           git add data/trials.json docs/index.html docs/early.json docs/active.json
-          for f in data/preclinical_auto.json data/watch_alerts.json; do
+          for f in data/preclinical_auto.json data/watch_alerts.json docs/feeds.json docs/targets_index.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet || git commit -m "Update trial data $(date -u +%Y-%m-%d)"

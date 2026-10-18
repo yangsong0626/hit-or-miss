@@ -3,3 +3,4 @@ __pycache__/
 .DS_Store
 data/active.json
 watch_new.md
+data/i18n/missing.txt

@@ -224,8 +224,175 @@ d["tgsearch"] = {"alias": _alias, "drugs": _drugs}
 wa = os.path.join(base, "watch_alerts.json")
 if os.path.exists(wa) and "deals" in d:
     d["deals"]["alerts"] = json.load(open(wa, encoding="utf-8"))
+# ---------- 医生视角：主要终点的可比数据（效应量、应答率、中位时间） ----------
+CTL = re.compile(r"placebo|control|vehicle|sham|standard of care|\bSOC\b|observation|best supportive|chemotherapy alone|comparator", re.I)
+RATIO_PT = re.compile(r"hazard|odds|risk ratio|rate ratio|relative risk|\bHR\b|\bOR\b|\bRR\b|ratio", re.I)
+
+
+def _arm_role(title, arms):
+    tl = (title or "").lower()
+    for a in arms or []:
+        al = (a.get("l") or "").lower()
+        if al and (al in tl or tl in al):
+            if a.get("t") in ("PLACEBO_COMPARATOR", "ACTIVE_COMPARATOR", "SHAM_COMPARATOR", "NO_INTERVENTION"):
+                return "c"
+            if a.get("t") == "EXPERIMENTAL":
+                return "x"
+    return "c" if CTL.search(title or "") else "x"
+
+
+def _ratio_sub(pt):
+    p = (pt or "").lower()
+    return "HR" if "hazard" in p or re.search(r"\bhr\b", p) else "OR" if "odds" in p or re.search(r"\bor\b", p) else \
+        "RR" if "risk ratio" in p or "relative risk" in p or re.search(r"\brr\b", p) else "Rate ratio" if "rate" in p else "Ratio"
+
+
+def derive_cmp(t):
+    out = []
+    dt = t.get("dt") or {}
+    arms = dt.get("arms") or []
+    for pr in (dt.get("prim") or [])[:2]:
+        title = (pr.get("title") or "")[:90]
+        if re.search(r"adverse|\bAEs?\b|TEAE|safety|tolerab|dose.limiting|\bDLT|toxicit|pharmacokinetic|\bPK\b|C ?max|AUC|immunogenicity|antibod(y|ies) titer|seroconver|laboratory", title, re.I):
+            continue
+        unit, pm = (pr.get("unit") or ""), (pr.get("pm") or "").upper()
+        best = [a for a in pr.get("an") or [] if a.get("est") is not None]
+        rat = [a for a in best if RATIO_PT.search(a.get("pt") or "") and a["est"] > 0 and (a.get("lo") is None or a["lo"] > 0)]
+        if rat:
+            a = min(rat, key=lambda a: a["p"] if a.get("p") is not None else 1)
+            out.append({"n": t["nct"], "k": "r", "e": title, "s": _ratio_sub(a.get("pt")), "v": a["est"], "lo": a.get("lo"), "hi": a.get("hi"), "p": a.get("p")})
+            continue
+        gs = [g for g in pr.get("groups") or [] if g.get("v") is not None]
+        if len(gs) < 2:
+            continue
+        role = [(_arm_role(g["t"], arms), g) for g in gs]
+        cs = [g for r_, g in role if r_ == "c"]
+        xs = [g for r_, g in role if r_ == "x"]
+        if len(cs) != 1 or not xs:
+            continue
+        c = cs[0]
+        if re.search(r"change|reduction from baseline|mean", title, re.I) and not re.search(r"percent(age)? of participants|proportion|responder", title, re.I):
+            kind = None
+        else:
+            kind = None
+        u = unit.lower()
+        val = None
+        if re.search(r"percent|%|proportion", u) and "change" not in u and pm in ("NUMBER", "COUNT_OF_PARTICIPANTS", ""):
+            kind, val = "p", (lambda g: g["v"])
+        elif re.search(r"participants", u) and pm in ("COUNT_OF_PARTICIPANTS", "NUMBER") and all(g.get("n") for g in [c] + xs):
+            kind, val = "p", (lambda g: 100.0 * g["v"] / g["n"] if g.get("n") else None)
+        elif re.search(r"^(months?|weeks?|days?)$", u.strip()) and pm in ("MEDIAN",):
+            f = 1.0 if u.startswith("month") else (1 / 4.345 if u.startswith("week") else 1 / 30.44)
+            kind, val = "m", (lambda g, f=f: g["v"] * f)
+        if not kind:
+            continue
+        if kind == "p" and re.search(r"change from baseline|mean change", title, re.I):
+            continue
+        cv = val(c)
+        if cv is None or (kind == "p" and not (0 <= cv <= 100)):
+            continue
+        p = min([a["p"] for a in pr.get("an") or [] if a.get("p") is not None] or [None], key=lambda v: 1 if v is None else v)
+        for x in xs[:3]:
+            xv = val(x)
+            if xv is None or (kind == "p" and not (0 <= xv <= 100)) or (kind == "m" and xv > 240):
+                continue
+            out.append({"n": t["nct"], "k": kind, "e": title + (f" · {x['t'][:40]}" if len(xs) > 1 else ""), "x": [x["t"][:50], round(xv, 2)], "c": [c["t"][:50], round(cv, 2)], "p": p})
+    return out
+
+
+cmp = []
+for t in d["sets"].get("results", []):
+    try:
+        cmp += derive_cmp(t)
+    except Exception as e:  # 单条数据异常不影响构建
+        print(f"cmp skip {t.get('nct')}: {e}", file=sys.stderr)
+d["cmp"] = cmp
+print(f"comparable endpoints: {len(cmp)} (ratio {sum(c['k']=='r' for c in cmp)}, rate {sum(c['k']=='p' for c in cmp)}, median {sum(c['k']=='m' for c in cmp)})", file=sys.stderr)
+
+# ---------- BD：并购案例 ----------
+ma_path = os.path.join(base, "ma_deals.json")
+if os.path.exists(ma_path):
+    d["ma"] = json.load(open(ma_path, encoding="utf-8"))
+
+# ---------- 中英文词典 ----------
+i18n = {"ui": {"exact": {}, "patterns": [], "phrases": {}}, "content": {}}
+for fn, key in (("ui_en.json", "ui"), ("content_en.json", "content")):
+    fp_ = os.path.join(base, "i18n", fn)
+    if os.path.exists(fp_):
+        i18n[key] = json.load(open(fp_, encoding="utf-8"))
+d["i18n"] = i18n
+
+
+def _harvest(o):
+    """数据里写成 X 和 X_en 成对的字段，英文自动进 content 词典，然后删掉 _en 字段减小页面体积。"""
+    if isinstance(o, list):
+        for v in o:
+            _harvest(v)
+    elif isinstance(o, dict):
+        for k in [k for k in o if k.endswith("_en")]:
+            base_ = k[:-3]
+            zh, en = o.get(base_), o.pop(k)
+            if isinstance(zh, str) and isinstance(en, str):
+                i18n["content"].setdefault(zh, en)
+            elif isinstance(zh, list) and isinstance(en, list):
+                for a_, b_ in zip(zh, en):
+                    if isinstance(a_, str) and isinstance(b_, str):
+                        i18n["content"].setdefault(a_, b_)
+        for v in o.values():
+            _harvest(v)
+
+
+for k in ("curated", "deals", "pre", "ma"):
+    _harvest(d.get(k))
+
+
+def _cjk_strings(o, out, skip=("ta", "mod", "mods", "modg", "why_cat", "verdict", "tag", "out", "g", "tg", "tgt", "group", "sponsor", "status", "phase", "ph", "st")):
+    if isinstance(o, str):
+        if re.search(r"[\u3400-\u9fff]", o):
+            out.add(o)
+    elif isinstance(o, list):
+        for v in o:
+            _cjk_strings(v, out)
+    elif isinstance(o, dict):
+        for k, v in o.items():
+            if k not in skip:
+                _cjk_strings(v, out)
+
+
+_need = set()
+for k in ("curated", "deals", "pre", "ma"):
+    _cjk_strings(d.get(k), _need)
+for v in d["sets"].values():
+    for t in v:
+        if t.get("note"):
+            _need.add(t["note"])
+_ex = i18n["ui"].get("exact", {})
+_missing = sorted(x for x in _need if x not in i18n["content"] and x.strip() not in _ex)
+if _missing:
+    print(f"WARNING {len(_missing)} curated strings have no English translation (data/i18n/content_en.json); first: {_missing[0][:60]}", file=sys.stderr)
+    with open(os.path.join(base, "i18n", "missing.txt") if os.path.isdir(os.path.join(base, "i18n")) else os.devnull, "w", encoding="utf-8") as f:
+        f.write("\n".join(_missing))
+
+# ---------- 靶点索引（给每周抓文献 / 新闻的脚本用） ----------
+_tcount = {}
+for t in [t for v in d["sets"].values() for t in v] + early_out + (act_trials or []):
+    for g in t.get("tg") or []:
+        _tcount[g] = _tcount.get(g, 0) + 1
+for a in (pre.get("cur") or {}).get("areas", []):
+    for x in a["items"]:
+        _tcount.setdefault(x["tg"], 0)
+for dl in (d.get("ma") or {}).get("deals", []):
+    for g in dl.get("tg") or []:
+        _tcount.setdefault(g, 0)
+with open(os.path.join(os.path.dirname(out), "targets_index.json"), "w", encoding="utf-8") as f:
+    json.dump({"generated": d.get("generated"), "targets": [{"g": g, "n": n, "alias": _alias.get(g, [])} for g, n in sorted(_tcount.items(), key=lambda x: -x[1])]},
+              f, ensure_ascii=False, separators=(",", ":"))
+
 js = json.dumps(d, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 tag = '<script id="trials-data" type="application/json">' + js + "</script>\n"
+_pj = os.path.join(os.path.dirname(os.path.abspath(tpl)), "portals.js")
+if "/*@@PORTALS@@*/" in html and os.path.exists(_pj):
+    html = html.replace("/*@@PORTALS@@*/", open(_pj, encoding="utf-8").read())
 marker = "\n<script>\n"
 assert html.count(marker) == 1, "template marker not found"
 open(out, "w", encoding="utf-8").write(html.replace(marker, "\n" + tag + "<script>\n"))
