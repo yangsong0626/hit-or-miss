@@ -397,3 +397,13 @@ marker = "\n<script>\n"
 assert html.count(marker) == 1, "template marker not found"
 open(out, "w", encoding="utf-8").write(html.replace(marker, "\n" + tag + "<script>\n"))
 print(f"built {out} · {n} notes merged", file=sys.stderr)
+
+# 新闻稿读出：累积库 + 人工修正 → docs/news.json（页面按需加载）
+try:
+    import fetch_news_readouts as _nr
+    _dd = os.path.dirname(data)
+    _nn = _nr.export(os.path.join(_dd, "news_readouts.json"), os.path.join(_dd, "news_overrides.json"),
+                     os.path.join(os.path.dirname(out), "news.json"))
+    print(f"news.json · {_nn} topline news items", file=sys.stderr)
+except Exception as _e:  # noqa: BLE001
+    print(f"[warn] news.json not rebuilt: {_e}", file=sys.stderr)

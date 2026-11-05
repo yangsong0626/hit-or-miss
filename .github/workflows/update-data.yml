@@ -31,6 +31,11 @@ jobs:
         continue-on-error: true
         timeout-minutes: 40
         run: python scripts/fetch_feeds.py --index docs/targets_index.json --out docs/feeds.json --top 200
+      - name: Fetch topline news readouts (press releases and trade media, EN + ZH)
+        # 失败时保留旧的累积库，不影响后面的步骤
+        continue-on-error: true
+        timeout-minutes: 15
+        run: python scripts/fetch_news_readouts.py --days 8 --weekly-md weekly_news.md
       - name: Build site
         run: python scripts/build_site.py site/template.html data/trials.json docs/index.html
       - name: Commit if changed
@@ -38,7 +43,7 @@ jobs:
           git config user.name "readout-bot"
           git config user.email "readout-bot@users.noreply.github.com"
           git add data/trials.json docs/index.html docs/early.json docs/active.json
-          for f in data/preclinical_auto.json data/watch_alerts.json docs/feeds.json docs/targets_index.json; do
+          for f in data/preclinical_auto.json data/watch_alerts.json docs/feeds.json docs/targets_index.json data/news_readouts.json docs/news.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet || git commit -m "Update trial data $(date -u +%Y-%m-%d)"
@@ -50,4 +55,14 @@ jobs:
         run: |
           if [ -s watch_new.md ]; then
             gh issue create --title "交易候选需要更新：发现新的 FDA 批准 $(date -u +%Y-%m-%d)" --body-file watch_new.md
+          fi
+      - name: Open a weekly review issue for new topline news
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -s weekly_news.md ]; then
+            n=$(grep -c '^- \[ \]' weekly_news.md || true)
+            head -c 60000 weekly_news.md > weekly_news_body.md
+            gh issue create --title "本周新闻稿读出 $(date -u +%Y-%m-%d)：${n} 条待核对" --body-file weekly_news_body.md
           fi

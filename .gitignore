@@ -4,3 +4,5 @@ __pycache__/
 data/active.json
 watch_new.md
 data/i18n/missing.txt
+weekly_news.md
+weekly_news_body.md
