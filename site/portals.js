@@ -149,6 +149,7 @@ function renderTgBody(){
   const g = tgCur, D_ = tgData(g), el = $("tg-body");
   const f = {clin:tgClin, cmp:tgCmp, pat:tgPat, lit:tgLit, news:tgNews, deal:tgDeal}[tgTab];
   el.innerHTML = f(g, D_);
+  if (tgTab === "clin") tgEarlyFill(g);
   el.querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));
   el.querySelectorAll("[data-oc]").forEach(b => b.addEventListener("click", () => openDetail("c", b.dataset.oc)));
   el.querySelectorAll("[data-ls]").forEach(b => b.addEventListener("click", () => goLandscape(b.dataset.ls)));

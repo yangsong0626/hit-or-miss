@@ -506,9 +506,20 @@ def main():
             "I/II 期": f"{base} AND AREA[Phase]PHASE1 AND AREA[Phase]PHASE2 AND {fp}",
             "II 期": f"{base} AND AREA[Phase]PHASE2 AND NOT AREA[Phase](PHASE1 OR PHASE3) AND {fp}",
         }
+        # 还在进行的 I 期、I/II 期不管哪年登记的都收（比如 2024 年初就开始、现在还在做的首次人体试验）
+        ongoing = ["RECRUITING", "ACTIVE_NOT_RECRUITING", "NOT_YET_RECRUITING", "ENROLLING_BY_INVITATION"]
+        early_q = [(lab, q, None, 8000) for lab, q in early_q.items()] + [
+            ("在研 I 期", f"{base} AND AREA[Phase]PHASE1 AND NOT AREA[Phase]PHASE2", ongoing, 15000),
+            ("在研 I/II 期", f"{base} AND AREA[Phase]PHASE1 AND AREA[Phase]PHASE2", ongoing, 8000),
+        ]
         early, seen, dropped = [], set(), 0
-        for lab, q in early_q.items():
-            for s in fetch_all(q, cap=8000, label=f"早期新进 {lab}"):
+        for lab, q, st_filter, cap in early_q:
+            try:
+                got = fetch_all(q, status=st_filter, cap=cap, label=f"早期 {lab}")
+            except Exception as e:  # 一类抓失败不影响其他
+                print(f"  早期 {lab} 抓取失败：{e}", file=sys.stderr)
+                continue
+            for s in got:
                 ident = s.get("protocolSection", {}).get("identificationModule", {})
                 if ident.get("nctId") in seen:
                     continue
@@ -518,6 +529,8 @@ def main():
                     continue
                 t = slim_early(pick(s))
                 set_mod(t)
+                if st_filter and (t.get("fp") or "") < since:
+                    t["old"] = 1      # 两年前登记、还在进行：构建时只保留认出靶点的
                 early.append(t)
         out["early"] = early
         out["early_days"] = a.early_days

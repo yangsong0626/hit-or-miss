@@ -69,8 +69,23 @@ def load(path=None):
     names = [n for n, _ in pats]
     big = re.compile(r"(?<![A-Za-z0-9])(?=[\w(\[])(?:" + "|".join(f"(?P<g{i}>{alt})" for i, (_, alt) in enumerate(pats)) + ")", re.I)
     drugs = {re.sub(r"[^a-z0-9]", "", k.lower()): v for k, v in raw.get("drugs", {}).items() if not k.startswith("_")}
-    _DICT = {"names": names, "big": big, "drugs": drugs}
+    # 自动学到的研发代号 → 靶点（scripts/drug_targets_auto.py 生成），只做精确匹配
+    auto = {}
+    ap = os.path.join(os.path.dirname(path), "auto_drug_targets.json")
+    if os.path.exists(ap):
+        try:
+            auto = {k: v["tg"] for k, v in json.load(open(ap, encoding="utf-8")).get("map", {}).items()}
+        except Exception:  # noqa: BLE001
+            auto = {}
+    _DICT = {"names": names, "big": big, "drugs": drugs, "auto": auto}
     return _DICT
+
+
+def reload():
+    """自动对应表更新后重新加载。"""
+    global _DICT
+    _DICT = None
+    return load()
 
 
 def _hits(text, strict=True):
@@ -117,6 +132,16 @@ def _drug_map(names):
         for drug, tg in D["drugs"].items():
             if k == drug or (len(drug) >= 6 and k.startswith(drug)):
                 return [tg] if isinstance(tg, str) else list(tg)
+    for nm in names:
+        k = re.sub(r"[^a-z0-9]", "", (nm or "").lower())
+        if k in D.get("auto", {}):
+            return list(D["auto"][k])
+        # "ARV-102 tablets"、"BIIB122 225 mg" 这类：取开头的代号
+        m = re.match(r"\s*([A-Za-z]{1,6}(?:-[A-Za-z]{1,3})?[- ]?\d{2,7}[A-Za-z]?)\b", nm or "")
+        if m:
+            k2 = re.sub(r"[^a-z0-9]", "", m.group(1).lower())
+            if k2 in D.get("auto", {}):
+                return list(D["auto"][k2])
     return []
 
 

@@ -1033,6 +1033,9 @@ const LANG = (() => {
 const EN = LANG === "en";
 document.documentElement.lang = EN ? "en" : "zh-CN";
 const T = (zh, en) => EN ? en : zh;
+/* 注册号 → 原始记录：NCT 号去 ClinicalTrials.gov，欧盟 CT 号（2023-507910-28-00）去 CTIS */
+const regUrl = id => /^NCT\d+$/i.test(id || "") ? `https://clinicaltrials.gov/study/${id}` : /^\d{4}-\d{6}-\d{2}-\d{2}$/.test(id || "") ? `https://euclinicaltrials.eu/ctis-public/view/${id}?lang=en` : `https://clinicaltrials.gov/study/${id}`;
+const regName = id => /^\d{4}-\d{6}-\d{2}-\d{2}$/.test(id || "") ? T("欧盟 CTIS", "EU CTIS") : "ClinicalTrials.gov";
 const I18N = EMB?.i18n || {ui:{exact:{}, patterns:[], phrases:{}}, content:{}};
 const CJK = /[㐀-鿿]/;
 function trData(o){
@@ -1341,7 +1344,7 @@ function detailHTML(t){
       <div><h5>可能原因 <small>按注册库数据自动推断</small></h5><ul>${a.why.map(e => `<li>${esc(e)}</li>`).join("")||"<li>注册库数据不足以推断原因</li>"}</ul></div></div>`:""}
     ${arms?`<div class="sm">分组：${esc(arms)}</div>`:""}
     ${t.why?`<div class="sm">申办方原话：“${esc(t.why)}”</div>`:""}
-    <div class="sm"><a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">在 ClinicalTrials.gov 查看 ${esc(t.nct)} →</a></div>
+    <div class="sm"><a href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">在 ClinicalTrials.gov 查看 ${esc(t.nct)} →</a></div>
   </div>`;
 }
 function openTrial(nct){
@@ -1366,7 +1369,7 @@ function renderReg(){
     <thead><tr><th>${s.dl}</th><th>试验</th><th>适应症</th><th>${LENSCOL[lens]}</th><th>${regSet==="stopped"?"判定 · 原因":regSet==="results"?"判定 · 主要终点 p 值":"状态"}</th></tr></thead>
     <tbody>${shown.map(t => { const open = regOpen.has(t.nct), can = !!(t.as || t.note); return `<tr class="${open?"is-open":""}">
       <td class="d">${esc(t[dkey(t)]||"—")}</td>
-      <td><button class="tt tbtn" data-ot="${esc(t.nct)}">${esc(t.acronym||t.title)}</button>${t.acronym?`<div class="sm">${esc(t.title)}</div>`:""}<div class="sm"><a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""}${lens!=="bd"?` · ${esc(t.group)}`:""}</div></td>
+      <td><button class="tt tbtn" data-ot="${esc(t.nct)}">${esc(t.acronym||t.title)}</button>${t.acronym?`<div class="sm">${esc(t.title)}</div>`:""}<div class="sm"><a class="nct" href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">${esc(t.nct)}</a> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""}${lens!=="bd"?` · ${esc(t.group)}`:""}</div></td>
       <td>${esc((t.conditions||[]).slice(0,2).join("；"))}<div class="sm">${esc(t.ta)}</div></td>
       <td>${lensCell(t)}</td>
       <td>${signal(t)}</td></tr>${open?`<tr class="detail"><td colspan="5">${detailHTML(t)}</td></tr>`:""}`; }).join("")}</tbody></table></div>
@@ -1532,7 +1535,7 @@ function openDetail(kind, id, fromHash){
     html = `<header class="dp-head ${d.out}"><div class="card-head"><span class="date">${esc(d.disp)}</span><span class="verdict ${d.out}">${OUT[d.out]}</span><span class="meta">${esc(d.phase)} 期 · ${esc(d.sponsor)}</span></div>
         <h2 id="dp-title">${esc(d.drug)} <span class="trial">${esc(d.trial)}</span></h2>
         <div class="meta">${esc(d.ind)}</div>
-        <div class="tags"><span class="tag">${esc(d.ta)}</span><span class="tag">${esc(d.mod)}</span><span class="tag">靶点 ${esc(d.tgt || d.target)}</span>${d.nct?`<a class="tag" href="https://clinicaltrials.gov/study/${esc(d.nct)}" target="_blank" rel="noopener">${esc(d.nct)}</a>`:""}</div></header>
+        <div class="tags"><span class="tag">${esc(d.ta)}</span><span class="tag">${esc(d.mod)}</span><span class="tag">靶点 ${esc(d.tgt || d.target)}</span>${d.nct?`<a class="tag" href="${esc(regUrl(d.nct))}" target="_blank" rel="noopener">${esc(d.nct)}</a>`:""}</div></header>
       <section class="dp-sec"><h4>结果</h4><div class="endpoint">${esc(d.ep)}</div><p class="fact">${esc(d.fact)}</p></section>
       <section class="dp-sec"><h4>三种视角</h4>${order.map(k => `<div class="take"><span class="who">${LENS[k].name}</span>${esc(d[k])}</div>`).join("")}</section>
       ${groups.length?`<section class="dp-sec"><h4>同类联动</h4>${groups.map(r => `<div class="rt"><h5>${esc(r.t)}</h5><div class="dots">${r.items.map(([i,l,o]) => `<button class="dot ${o}" data-oc="${esc(i)}">${esc(l)}</button>`).join("")}${(r.nct||[]).map(([n,l,o]) => `<button class="dot ${o}" data-ot="${esc(n)}">${esc(l)}</button>`).join("")}</div><p class="sm">${esc(r.p)}</p></div>`).join("")}</section>`:""}
@@ -1550,16 +1553,16 @@ function openDetail(kind, id, fromHash){
     const sameDrug = (t.interventions||[])[0] ? REG.all.filter(x => x.nct !== t.nct && (x.interventions||[])[0] && (x.interventions[0].split(/[ (]/)[0].toLowerCase() === t.interventions[0].split(/[ (]/)[0].toLowerCase())).map(x => ({kind:"t", t:x})) : [];
     html = `<header class="dp-head ${VCLS[t.as?.verdict]||""}"><div class="card-head"><span class="date">${esc(t[SETS[t._set]?.date]||"")}</span>${vchip(t)}<span class="meta">${esc(t.phase)} 期 · ${esc(t.group)} · ${SETS[t._set]?.name||""}</span></div>
         <h2 id="dp-title">${esc(t.acronym || t.title)}</h2>${t.acronym?`<div class="meta">${esc(t.title)}</div>`:""}
-        <div class="tags"><span class="tag">${esc(t.ta)}</span><span class="tag">${esc(t.mod)}</span>${t.tgt?`<span class="tag">靶点 ${esc(t.tgt)}</span>`:(t.tg||[]).length?`<span class="tag" title="从注册信息自动识别">靶点 ${esc(t.tg.join(" × "))}（自动）</span>`:""}<a class="tag" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)} ↗</a></div></header>
+        <div class="tags"><span class="tag">${esc(t.ta)}</span><span class="tag">${esc(t.mod)}</span>${t.tgt?`<span class="tag">靶点 ${esc(t.tgt)}</span>`:(t.tg||[]).length?`<span class="tag" title="从注册信息自动识别">靶点 ${esc(t.tg.join(" × "))}（自动）</span>`:""}<a class="tag" href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">${esc(t.nct)} ↗</a></div></header>
       ${t.note?`<section class="dp-sec"><h4>分析</h4><div class="dtl-note">${esc(t.note)}</div></section>`:""}
       ${c?`<section class="dp-sec"><h4>精选解读</h4><p class="sm">这项试验也在精选解读中，有三种视角的点评。</p><button class="more-link" data-oc="${esc(c.id)}">查看精选解读 →</button></section>`:""}
-      ${isEarly?`<section class="dp-sec"><p class="sm">${t._set==="early"?"这是近两年新登记的早期试验":"这是正在进行的 II/III 期试验"}，本站只保留了基本信息（用于靶点赛道），入组标准、分组和终点见 ClinicalTrials.gov 原始记录。</p></section>`:""}
+      ${isEarly?`<section class="dp-sec"><p class="sm">${t._set==="early"?(t.src==="ctis"?"这是只在欧盟注册库（CTIS）登记的试验":"这是早期试验（近两年新登记，或还在进行的 I 期）"):"这是正在进行的 II/III 期试验"}，本站只保留了基本信息（用于靶点赛道），入组标准、分组和终点见${regName(t.nct)}原始记录。</p></section>`:""}
       ${registryHTML(t)}
       ${relatedHTML(sameDrug, "同一药物的其他试验")}
       ${relatedHTML(sameT, `同靶点（${esc(t.tgt||"")}）的其他读出`)}
       ${relatedHTML(sameCo, `${esc(t.group)} 的其他试验`)}
       ${(t.tg||[]).length?`<section class="dp-sec"><h4>靶点赛道</h4><p class="sm">看看这些靶点上还有哪些公司、推进到哪一期。</p>${t.tg.map(g => `<button class="more-link" data-ls="${esc(g)}">${esc(g)} 赛道 →</button>`).join(" ")}</section>`:""}
-      <section class="dp-sec"><h4>来源</h4><ul><li><a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">ClinicalTrials.gov ${esc(t.nct)}</a></li></ul><p class="sm">判定和原因按注册库登记数据生成；「分析」为人工撰写，引用前请核对原始公告。</p></section>`;
+      <section class="dp-sec"><h4>来源</h4><ul><li><a href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">${regName(t.nct)} ${esc(t.nct)}</a></li></ul><p class="sm">判定和原因按注册库登记数据生成；「分析」为人工撰写，引用前请核对原始公告。</p></section>`;
   }
   const dp = $("detail");
   if (dp.hidden) { lastFocus = document.activeElement; }
@@ -1673,7 +1676,7 @@ function renderCompanies(){
       if (!open) return row;
       return row + `<tr class="co-detail"><td colspan="6"><div class="co-sets">${SEGS.map(([k,l,col]) => {
         const ts = c.trials.filter(t => t._set===k).sort((a,b) => String(b[SETS[k].date]||"").localeCompare(String(a[SETS[k].date]||"")));
-        return `<div><h4><i style="background:var(${col})"></i>${l} <b>${ts.length}</b></h4><ol>${ts.slice(0,8).map(t => `<li>${t.as||t.note?`<button class="tbtn" data-ot="${esc(t.nct)}">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</button>`:`<a href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</a>`} ${vchip(t)}${noteMark(t)}<div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.phase)} 期 · ${esc(t[SETS[k].date]||"")}</div>${k==="stopped"&&t.why_cat?`<div class="sm">${esc(t.why_cat)}</div>`:""}</li>`).join("")}</ol>${ts.length>8?`<button class="all" data-coall="${k}" data-co="${esc(c.name)}">全部 ${ts.length} 条 →</button>`:""}</div>`;
+        return `<div><h4><i style="background:var(${col})"></i>${l} <b>${ts.length}</b></h4><ol>${ts.slice(0,8).map(t => `<li>${t.as||t.note?`<button class="tbtn" data-ot="${esc(t.nct)}">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</button>`:`<a href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</a>`} ${vchip(t)}${noteMark(t)}<div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.phase)} 期 · ${esc(t[SETS[k].date]||"")}</div>${k==="stopped"&&t.why_cat?`<div class="sm">${esc(t.why_cat)}</div>`:""}</li>`).join("")}</ol>${ts.length>8?`<button class="all" data-coall="${k}" data-co="${esc(c.name)}">全部 ${ts.length} 条 →</button>`:""}</div>`;
       }).join("")}</div></td></tr>`;
     }).join("") + `</tbody>`;
   $("co").querySelectorAll(".co-name").forEach(b => b.addEventListener("click", () => { const n = b.dataset.co; coOpen.has(n) ? coOpen.delete(n) : coOpen.add(n); renderCompanies(); }));
@@ -1966,7 +1969,7 @@ function renderPreCur(){
     const items = a.items.slice().sort((x, y) => order.indexOf(x.tag) - order.indexOf(y.tag));
     return `<section class="pre-area"><div class="deal-area-head"><h3>精选 · ${esc(a.name)} <small class="sm">${items.length} 个靶点 · 核实于 ${esc(C.asof)}</small></h3><p>${esc(a.note)}</p></div>
       ${items.map(x => `<article class="pre-card" id="pre-${esc(x.tg)}"><div class="deal-title"><h4>${esc(x.tg)}</h4><span class="pre-full">${esc(x.full)}</span>${preChip(x.tag)}<span class="pre-mod">${esc(x.mod)}</span>${(x.flags||[]).map(f => `<span class="ls-tag fail">${esc(f)}</span>`).join("")}</div>
-        ${x.clin ? `<div class="pre-clin">⚠ 本站临床试验数据里已出现 ${x.clin_n} 项以 ${esc(x.tg)} 为靶点的试验（${x.clin.map(c => `<a href="https://clinicaltrials.gov/study/${esc(c.nct)}" target="_blank" rel="noopener">${esc(c.nct)}</a> ${esc(c.sponsor||"")} ${esc(c.phase||"")} 期`).join("；")}）。核实后应移出临床前精选。</div>` : ""}
+        ${x.clin ? `<div class="pre-clin">⚠ 本站临床试验数据里已出现 ${x.clin_n} 项以 ${esc(x.tg)} 为靶点的试验（${x.clin.map(c => `<a href="${esc(regUrl(c.nct))}" target="_blank" rel="noopener">${esc(c.nct)}</a> ${esc(c.sponsor||"")} ${esc(c.phase||"")} 期`).join("；")}）。核实后应移出临床前精选。</div>` : ""}
         <div class="pre-pop"><b>人群：</b>${esc(x.pop)}</div>
         <div class="pre-cols"><div><b>证据</b>${esc(x.ev)}</div><div><b>化学现状</b>${esc(x.chem)}</div><div><b>风险</b>${esc(x.risk)}</div></div>
         <div class="pre-src"><span class="wmeta${daysSince(x.verified) > WATCH_STALE_DAYS ? " stale" : ""}">核实于 ${esc(x.verified || "未记录")}</span> · 来源：${x.refs.map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)}</a>`).join(" · ")}</div></article>`).join("")}
@@ -2114,7 +2117,7 @@ function showTl(t){
     <h3>${esc(t.acronym || t.title)}</h3>${t.acronym?`<div class="meta">${esc(t.title)}</div>`:""}
     <div class="meta">${esc(t.group)}${t.group!==t.sponsor?`（${esc(t.sponsor)}）`:""} · ${esc((t.conditions||[]).join("；"))}</div>
     <div class="endpoint">干预：${esc((t.interventions||[]).join("；")||"—")}<br>主要终点：${esc((t.primary||[])[0]||"—")}</div>
-    <div class="card-foot"><a class="src" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a><button class="more-link" id="tl-more">查看详情 →</button></div></div>`;
+    <div class="card-foot"><a class="src" href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">${esc(t.nct)}</a><button class="more-link" id="tl-more">查看详情 →</button></div></div>`;
   $("tl-more").addEventListener("click", () => openDetail("t", t.nct));
 }
 ["tl-q","tl-n"].forEach(id => $(id).addEventListener("input", () => REG && renderTimeline()));
@@ -2143,7 +2146,7 @@ function renderShelved(){
         <div class="meta"><b>${esc(t.group)}</b> · ${esc(t.phase)} 期${t.n?` · ${t.n} 例`:""} · ${esc(t.ta)} · ${esc((t.conditions||[]).slice(0,2).join("；"))}</div>
         ${t.why?`<p class="sh-why">“${esc(t.why)}”</p>`:""}
         ${t.note?`<div class="dtl-note"><span class="who">分析</span>${esc(t.note)}</div>`:""}
-        <div class="sm">${esc(t.acronym||t.title)} · <a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a></div></div>
+        <div class="sm">${esc(t.acronym||t.title)} · <a class="nct" href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">${esc(t.nct)}</a></div></div>
     </article>`).join("") : `<div class="empty">没有符合条件的项目，试试清空筛选。</div>`;
   $("sh-list").querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));
   const more = $("sh-more"); more.hidden = rows.length <= shLimit; more.textContent = `再显示 40 项（共 ${rows.length} 项）`;
@@ -2175,7 +2178,7 @@ function renderPulse(){
   const li = (t, extra) => `<li><button class="tt tbtn" data-ot="${esc(t.nct)}">${esc(t.acronym || (t.interventions||[])[0] || t.title)}</button><div class="sm">${esc((t.conditions||[])[0]||"")} · ${esc(t.group)}</div><div class="sm">${extra}</div></li>`;
   const cols = [
     {k:"results", h:`<span class="sig pos">p&lt;0.05</span>III 期新结果`, rows: by("results", t => p3(t) && (t.pvals||[]).some(x=>x.p!=null&&x.p<0.05), "results", -1),
-     ex: t => `${esc(t.results)} · ${(t.pvals||[]).filter(x=>x.p!=null).map(x=>fmtP(x.p)).slice(0,2).join(" / ")} · <a class="nct" href="https://clinicaltrials.gov/study/${esc(t.nct)}" target="_blank" rel="noopener">${esc(t.nct)}</a>`},
+     ex: t => `${esc(t.results)} · ${(t.pvals||[]).filter(x=>x.p!=null).map(x=>fmtP(x.p)).slice(0,2).join(" / ")} · <a class="nct" href="${esc(regUrl(t.nct))}" target="_blank" rel="noopener">${esc(t.nct)}</a>`},
     {k:"stopped", h:`<span class="sig neg">终止</span>II/III 期提前终止`, rows: by("stopped", t => t.status==="TERMINATED" && t.why, "updated", -1),
      ex: t => `${esc(t.updated)} · ${esc(t.why.slice(0,70))}${t.why.length>70?"…":""}`},
     {k:"upcoming", h:`<span class="sig mix">将至</span>最近到期的 III 期`, rows: by("upcoming", t => (t.n||0) >= 300, "pcd", 1),

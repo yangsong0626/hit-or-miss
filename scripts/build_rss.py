@@ -73,7 +73,7 @@ def write_feed(path, title, desc, link, rows):
                      f"<guid isPermaLink=\"false\">{escape(r['guid'])}</guid></item>")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>'
            f"<title>{escape(title)}</title><link>{escape(link)}</link><description>{escape(desc)}</description>"
-           f"<lastBuildDate>{email.utils.format_datetime(dt.datetime.now(dt.timezone.utc))}</lastBuildDate>" + "".join(items) + "</channel></rss>\n")
+           f"<lastBuildDate>{rfc822(rows[0]['d']) if rows else ''}</lastBuildDate>" + "".join(items) + "</channel></rss>\n")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     open(path, "w", encoding="utf-8").write(xml)
 

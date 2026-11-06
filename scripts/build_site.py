@@ -62,6 +62,10 @@ def drug_key(iv):
     return re.sub(r"[^a-z0-9]", "", (m.group(0) if m else names[0]).lower())
 
 
+def sponsor_norm(s):
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower())[:12]
+
+
 def set_tg(t, manual):
     """t.tg：靶点列表；t.tgm：[{g 靶点, n 药名, m 药物形式}]，靶点赛道按它把项目和形式对上。"""
     cands = modality.candidates(t)
@@ -107,6 +111,37 @@ for c in cur["readouts"]:
     if c["id"] in tg["curated"]:
         c["tgt"] = tg["curated"][c["id"]]
         c["tg"] = tgmod.canonical(c["tgt"])
+# 欧盟注册库（scripts/fetch_ctis.py → data/ctis.json）：并入早期试验，和 ClinicalTrials.gov 同公司、同药、同分期的去重
+_ctis_p = os.path.join(base, "ctis.json")
+_ctis = json.load(open(_ctis_p, encoding="utf-8")).get("trials", []) if os.path.exists(_ctis_p) else []
+_act_raw_p = os.path.join(base, "active.json")
+_act_raw = json.load(open(_act_raw_p, encoding="utf-8")).get("trials", []) if os.path.exists(_act_raw_p) else []
+if _ctis:
+    def _ph_cls(p):
+        p = str(p or "")
+        return "3" if "3" in p else "2" if "2" in p else "1"
+    _have = set()
+    for t in [t for v in d["sets"].values() for t in v] + d.get("early", []) + _act_raw:
+        for iv in (t.get("iv") or [])[:3]:
+            _have.add((sponsor_norm(t.get("group") or t.get("sponsor")), drug_key(iv), _ph_cls(t.get("phase"))))
+    _add = 0
+    for t in _ctis:
+        keys = {(sponsor_norm(t.get("group") or t.get("sponsor")), drug_key(iv), _ph_cls(t.get("phase"))) for iv in t.get("iv") or []}
+        if keys & _have:
+            continue
+        d.setdefault("early", []).append(t)
+        _add += 1
+    print(f"CTIS: {_add} of {len(_ctis)} EU-registered trials added (rest already on ClinicalTrials.gov)", file=sys.stderr)
+
+# 自动学研发代号 → 靶点（新闻稿证据 + 试验文本），写 data/auto_drug_targets.json 后重新加载靶点词典
+try:
+    import drug_targets_auto as _dta
+    _amap = _dta.build_map(_dta.load_evidence(), [t for v in d["sets"].values() for t in v] + d.get("early", []) + _act_raw)
+    tgmod.reload()
+    print(f"auto code→target map: {len(_amap)} codes", file=sys.stderr)
+except Exception as _e:  # noqa: BLE001
+    print(f"[warn] auto code→target map skipped: {_e}", file=sys.stderr)
+
 for v in d["sets"].values():
     for t in v:
         set_tg(t, t.get("tgt"))
@@ -119,7 +154,9 @@ early = d.pop("early", [])
 early_out = []
 for t in early:
     set_tg(t, tg["trials"].get(t.get("nct")))
-    r = {k: t.get(k) for k in ("nct", "title", "acronym", "sponsor", "group", "phase", "status", "n", "fp",
+    if t.get("old") and not t.get("tg"):
+        continue
+    r = {k: t.get(k) for k in ("nct", "src", "title", "acronym", "sponsor", "group", "phase", "status", "n", "fp",
                                "pcd", "ta", "mod", "mods", "modg", "tg", "tgm", "tg_src", "hv", "why", "why_cat")
          if t.get(k) not in (None, "", [])}
     if r.get("group") == r.get("sponsor"):

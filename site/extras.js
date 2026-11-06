@@ -53,7 +53,7 @@ function copyText(text, btn){
 }
 const SITE = () => location.href.split("#")[0];
 const citeNews = x => `${x.t}. ${x.s || ""}, ${x.d}. ${x.u}` + T(` （经 Hit or Miss 整理，${todayISO()} 访问）`, ` (via Hit or Miss, accessed ${todayISO()})`);
-const citeTrial = t => `${t.acronym ? t.acronym + ": " : ""}${t.title} (${t.nct}). ${t.group || t.sponsor || ""}. ClinicalTrials.gov, https://clinicaltrials.gov/study/${t.nct}` + T(` （经 Hit or Miss 整理，${todayISO()} 访问）`, ` (via Hit or Miss, accessed ${todayISO()})`);
+const citeTrial = t => `${t.acronym ? t.acronym + ": " : ""}${t.title} (${t.nct}). ${t.group || t.sponsor || ""}. ClinicalTrials.gov, ${regUrl(t.nct)}` + T(` （经 Hit or Miss 整理，${todayISO()} 访问）`, ` (via Hit or Miss, accessed ${todayISO()})`);
 
 /* ---------- 关键数字 ---------- */
 const NUM_LBL = {HR: ["HR", "HR"], p: ["p", "p"], ORR: ["ORR", "ORR"], CR: [T("完全缓解率", "CR rate"), "CR"], mPFS: [T("中位 PFS", "mPFS"), "mPFS"], mOS: [T("中位 OS", "mOS"), "mOS"], "减重": [T("减重", "Weight loss"), "WL"], "降低": [T("降低", "Reduction"), "Red"]};
@@ -101,6 +101,7 @@ function watchHit(w, o){
 function watchPool(){
   const out = [];
   (NEWS?.items || []).forEach(x => out.push({kind: "nw", d: x.d, seen: x.first_seen || x.d, x, tg: x.tg, co: x.co, dk: drugKeys(x.drug)}));
+  (NEWS?.early || []).forEach(e => out.push({kind: "es", d: e.d, seen: e.d, x: e, tg: e.tg, co: e.co, dk: drugKeys(e.drug)}));
   (NEWS?.guidance || []).forEach(g => out.push({kind: "gd", d: g.start, seen: g.d, x: g, tg: g.tg, co: g.co, dk: drugKeys(g.drug)}));
   (REG?.all || []).filter(t => ["results", "stopped", "upcoming", "completed"].includes(t._set)).forEach(t => {
     const dk = new Set(); (t.iv || []).forEach(iv => ivKeys(iv).forEach(k => dk.add(k)));
@@ -121,6 +122,8 @@ if (getWatch().length) setTimeout(() => loadNews().then(updWatchTab), 1200); els
 function poolRowHTML(o, seen){
   const isNew = seen && o.kind !== "gd" && (o.seen || "") > seen ? `<span class="badge">${T("新", "new")}</span>` : "";
   if (o.kind === "nw") return newsItemHTML(o.x, isNew);
+  if (o.kind === "es") { const e = o.x; return `<article class="sh-item"><div class="sh-side"><span class="date">${esc(e.d)}</span><span class="sig ana">${esc((ES_T[e.type] || (() => e.type))())}</span>${isNew}</div>
+    <div class="sh-main"><h3><a href="${esc(e.u)}" target="_blank" rel="noopener">${esc(e.t)}</a></h3><div class="meta">${[e.co, e.drug, e.mod, (e.tg || []).join(" / ")].filter(Boolean).map(esc).join(" · ")}</div><div class="sm">${T("早期信号", "Early signal")} · ${esc(e.s || "")}</div></div></article>`; }
   if (o.kind === "gd") { const g = o.x; return `<article class="sh-item"><div class="sh-side"><span class="date">${esc(g.when)}</span><span class="sig mix">${T("预计读出", "Readout due")}</span></div>
     <div class="sh-main"><h3>${g.drug ? `<button class="tbtn" data-od="${esc(drugKeys(g.drug)[0] || "")}">${esc(g.drug)}</button>` : esc(g.co)}</h3><div class="meta">${[g.co, g.ph && T(`${g.ph} 期`, `Ph ${g.ph}`), g.ta].filter(Boolean).map(esc).join(" · ")}</div>
     <p class="sh-why">“${esc(g.snip)}”</p><div class="sm"><a href="${esc(g.u)}" target="_blank" rel="noopener">${esc(g.s || T("来源", "Source"))}</a> · ${esc(g.d)}</div></div></article>`; }
@@ -179,7 +182,7 @@ function newsItemHTML(x, extra){
   const dk = drugKeys(x.drug)[0] || "";
   const meta = [x.co ? `<b>${esc(x.co)}</b>${starBtn("c", x.co)}` : "", x.drug ? `<button class="tbtn" data-od="${esc(dk)}" title="${T("这个药的全部读出", "All readouts for this drug")}">${esc(x.drug)}</button>${starBtn("d", x.drug)}` : "",
     x.ph ? T(`${esc(x.ph)} 期`, `Phase ${esc(x.ph)}`) : "", x.ta ? esc(x.ta) : "", x.mod && x.mod !== "未识别" ? esc(x.mod) : ""].filter(Boolean).join(" · ");
-  const nct = x.nct ? (M.has(x.nct) ? `<button class="tbtn nct" data-ot="${esc(x.nct)}">${esc(x.nct)}</button>` : `<a class="nct" href="https://clinicaltrials.gov/study/${esc(x.nct)}" target="_blank" rel="noopener">${esc(x.nct)}</a>`) : "";
+  const nct = x.nct ? (M.has(x.nct) ? `<button class="tbtn nct" data-ot="${esc(x.nct)}">${esc(x.nct)}</button>` : `<a class="nct" href="${esc(regUrl(x.nct))}" target="_blank" rel="noopener">${esc(x.nct)}</a>`) : "";
   const more = (x.src || []).slice(0, 4).map(s => `<a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.s || s.t)}</a>`).join("、");
   const st = structOf(x.drug);
   return `<article class="sh-item${st ? " has-mol" : ""}">
@@ -242,9 +245,9 @@ $("wl-in").addEventListener("keydown", e => { if (e.key === "Enter") addWatchFro
 $("wl-csv").addEventListener("click", () => {
   const rows = window._wlRows || [];
   downloadCSV(`hit-or-miss-following-${todayISO()}.csv`, [T("日期", "Date"), T("类型", "Type"), T("内容", "Item"), T("公司", "Company"), T("判定 / 状态", "Verdict / status"), T("关键数字", "Key numbers"), T("链接", "Link")],
-    rows.map(o => o.kind === "nw" ? [o.d, T("新闻稿读出", "Topline news"), o.x.t, o.x.co, o.x.v, numsPlain(o.x.nums), o.x.u]
+    rows.map(o => o.kind === "es" ? [o.d, T("早期信号", "Early signal"), o.x.t, o.x.co, o.x.type, "", o.x.u] : o.kind === "nw" ? [o.d, T("新闻稿读出", "Topline news"), o.x.t, o.x.co, o.x.v, numsPlain(o.x.nums), o.x.u]
       : o.kind === "gd" ? [o.x.when, T("预计读出", "Readout due"), o.x.drug || o.x.co, o.x.co, "", "", o.x.u]
-      : [o.d, T("注册库", "Registry"), o.x.acronym || o.x.title, o.x.group, o.x.as?.verdict || o.x._set, "", `https://clinicaltrials.gov/study/${o.x.nct}`]));
+      : [o.d, T("注册库", "Registry"), o.x.acronym || o.x.title, o.x.group, o.x.as?.verdict || o.x._set, "", `${regUrl(o.x.nct)}`]));
 });
 
 /* ---------- 药物时间线（详情页 kind = "d"） ---------- */
@@ -274,6 +277,7 @@ function openDrug(key, fromHash){
   });
   news.forEach(x => ev.push({d: x.d, ph: x.ph, html: `<span class="sig ${NV[x.v]?.[0] || ""}">${esc(nvLabel(x.v))}</span> <a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t)}</a>`, sub: `${x.tier === "pr" ? T("公司新闻稿", "Press release") : T("媒体", "Media")} · ${esc(x.s)}${(x.nums || []).length ? " · " + esc(numsPlain(x.nums)) : ""}`}));
   cur.forEach(d => ev.push({d: d.date, ph: d.phase, html: `<span class="verdict ${d.out}">${OUT[d.out]}</span> <button class="tbtn" data-oc="${esc(d.id)}">${esc(d.drug)} ${esc(d.trial)}</button>`, sub: `${T("精选解读", "Curated")} · ${esc(d.ind)}`}));
+  (NEWS.early || []).filter(e => drugKeys(e.drug).includes(key)).forEach(e => ev.push({d: e.d, ph: "", html: `<span class="sig ana">${esc((ES_T[e.type] || (() => e.type))())}</span> <a href="${esc(e.u)}" target="_blank" rel="noopener">${esc(e.t)}</a>`, sub: `${T("早期信号", "Early signal")} · ${esc(e.s || "")}`}));
   guide.forEach(g => ev.push({d: g.start, ph: g.ph, fut: true, html: `<span class="sig mix">${T("预计读出", "Readout due")} ${esc(g.when)}</span> “${esc(g.snip)}”`, sub: `<a href="${esc(g.u)}" target="_blank" rel="noopener">${esc(g.s || T("来源", "Source"))}</a> · ${esc(g.d)}`}));
   ev.sort((a, b) => String(a.d || "").localeCompare(String(b.d || "")));
   const phs = [...new Set(trials.map(t => t.phase).filter(Boolean))].sort((a, b) => phNum(b) - phNum(a));
@@ -311,6 +315,7 @@ function dpExtras(kind, id){
   const t = byNct().get(id); if (!t) return;
   const ivs = (t.iv || []).filter(iv => iv.r !== "c" && !/placebo/i.test(iv.n)).slice(0, 3);
   const add = () => {
+    if ($("dp-body").querySelector(".dp-tools")) return;
     const bar = document.createElement("section"); bar.className = "dp-sec dp-tools";
     bar.innerHTML = `${ivs.map(iv => { const ks = [...ivKeys(iv)], s = structOf(ks); return `<div class="dp-drug">${s ? molImg(s, 72, iv.n) : ""}<div><button class="more-link" data-od="${esc(ks[0] || nk(iv.n))}">${esc(cut(iv.n, 40))} ${T("的时间线", "timeline")} →</button> ${starBtn("d", iv.n.split(/[(（]/)[0].trim())}</div></div>`; }).join("")}
       <div class="dp-tools-r">${t.group ? `${starBtn("c", t.group)} <span class="sm">${T("关注", "Follow")} ${esc(t.group)}</span>` : ""} <button class="linkish" data-citet="1">${T("复制引用", "Copy citation")}</button></div>`;
@@ -361,13 +366,13 @@ function renderCal(){
 function exportCal(kind){
   const rows = window._calRows || [];
   if (kind === "csv") return downloadCSV(`hit-or-miss-calendar-${todayISO()}.csv`, [T("开始", "Start"), T("结束", "End"), T("类型", "Type"), T("名称", "Name"), T("说明", "Details"), T("指引原文", "Guidance"), "NCT", T("链接", "Link")],
-    rows.map(r => [r.start, r.end, CAL_T[r.type](), r.title, r.sub, r.snip, r.nct, r.link || (r.nct ? `https://clinicaltrials.gov/study/${r.nct}` : "")]));
+    rows.map(r => [r.start, r.end, CAL_T[r.type](), r.title, r.sub, r.snip, r.nct, r.link || (r.nct ? `${regUrl(r.nct)}` : "")]));
   const d8 = s => s.replace(/-/g, ""), next = s => { const d = new Date(s + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + 1); return d.toISOString().slice(0, 10); };
   const escI = s => String(s || "").replace(/[\\;,]/g, m => "\\" + m).replace(/\n/g, "\\n");
   const ev = rows.map((r, i) => ["BEGIN:VEVENT", `UID:hom-${d8(r.start)}-${i}-${nk(r.title).slice(0, 20)}@hit-or-miss`, `DTSTAMP:${d8(todayISO())}T000000Z`,
     `DTSTART;VALUE=DATE:${d8(r.type === "guide" ? r.end : r.start)}`, `DTEND;VALUE=DATE:${d8(next(r.type === "guide" ? r.end : r.end))}`,
     `SUMMARY:${escI((r.type === "guide" ? T("预计读出（最晚）", "Readout due (latest) ") + r.when + " · " : r.type === "reg" ? T("III 期完成 · ", "Completion · ") : "") + r.title)}`,
-    `DESCRIPTION:${escI([r.sub, r.snip, r.link || (r.nct ? "https://clinicaltrials.gov/study/" + r.nct : "")].filter(Boolean).join("\n"))}`, "END:VEVENT"].join("\r\n"));
+    `DESCRIPTION:${escI([r.sub, r.snip, r.link || (r.nct ? regUrl(r.nct) : "")].filter(Boolean).join("\n"))}`, "END:VEVENT"].join("\r\n"));
   downloadFile(`hit-or-miss-calendar-${todayISO()}.ics`, ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Hit or Miss//Readout calendar//EN", "CALSCALE:GREGORIAN", ...ev, "END:VCALENDAR"].join("\r\n"), "text/calendar;charset=utf-8");
 }
 ["cal-q", "cal-ta", "cal-mine", "cal-ph2"].forEach(id => $(id).addEventListener("input", renderCal));
@@ -381,7 +386,7 @@ function cmpTableRows(trialFilter, newsFilter){
     const t = M.get(c.n); if (!t || !trialFilter(t)) return;
     const res = c.k === "r" ? `${c.s} ${fmtV(c.v)}${c.lo != null ? ` (${fmtV(c.lo)}–${fmtV(c.hi)})` : ""}` : c.k === "p" ? `${fmtV(c.x[1])}% vs ${fmtV(c.c[1])}%` : `${fmtV(c.x[1])} vs ${fmtV(c.c[1])} ${T("个月", "mo")}`;
     const diff = c.k === "r" ? "" : `${c.x[1] - c.c[1] >= 0 ? "+" : ""}${fmtV(c.x[1] - c.c[1])}${c.k === "p" ? T(" 个百分点", " pp") : T(" 个月", " mo")}`;
-    out.push({src: "reg", d: t.results || t.pcd || "", trial: trialLbl(t), drug: ivName(t, t.mod), co: t.group, cond: condOf(t), ph: t.phase, ep: c.e, res, diff, p: c.p != null ? fmtP(c.p) : "", v: t.as?.verdict || "", nct: t.nct, link: `https://clinicaltrials.gov/study/${t.nct}`});
+    out.push({src: "reg", d: t.results || t.pcd || "", trial: trialLbl(t), drug: ivName(t, t.mod), co: t.group, cond: condOf(t), ph: t.phase, ep: c.e, res, diff, p: c.p != null ? fmtP(c.p) : "", v: t.as?.verdict || "", nct: t.nct, link: `${regUrl(t.nct)}`});
   });
   (NEWS?.items || []).filter(x => (x.nums || []).length && newsFilter(x)).forEach(x => {
     const ns = x.nums.filter(n => n.k !== "p");
@@ -425,4 +430,24 @@ function tgCmp(g){
   CMP_CACHE.target = rows;
   setTimeout(() => bindCmp($("tg-body")), 0);
   return `<section class="pg-sec"><h3>${esc(g)} · ${T("对比表", "Comparison table")} ${starBtn("t", g)}</h3><p class="sub">${T("这个靶点上各试验登记的主要终点效应量、应答率、中位时间，加上新闻稿里抽出的关键数字。", "Registered primary-endpoint effects, response rates and medians for trials on this target, plus key numbers pulled from topline news.")}</p>${cmpTableHTML(rows, "target")}</section>`;
+}
+
+/* ---------- 早期信号（IND、首例给药、首次人体、临床前数据、候选药物）：靶点页底部 ---------- */
+const ES_T = {"IND": () => "IND", "首例给药": () => T("首例给药", "First dosed"), "首次人体": () => T("首次人体", "First-in-human"), "临床前数据": () => T("临床前数据", "Preclinical data"), "候选药物": () => T("候选药物", "Candidate")};
+function earlyItemHTML(e){
+  const dk = drugKeys(e.drug)[0] || "";
+  return `<li><span class="date">${esc(e.d)}</span> <span class="sig ana">${esc((ES_T[e.type] || (() => e.type))())}</span> <a href="${esc(e.u)}" target="_blank" rel="noopener">${esc(e.t)}</a>
+    <div class="sm">${[e.co ? `<b>${esc(e.co)}</b>` : "", e.drug ? `<button class="tbtn" data-od="${esc(dk)}">${esc(e.drug)}</button>` : "", e.mod ? esc(e.mod) : "", esc(e.s || "")].filter(Boolean).join(" · ")}</div></li>`;
+}
+function tgEarlyFill(g){
+  const el = $("tg-body"); if (!el) return;
+  const draw = () => {
+    if (tgCur !== g || tgTab !== "clin") return;
+    const rows = (NEWS?.early || []).filter(e => (e.tg || []).includes(g));
+    let sec = $("tg-early");
+    if (!sec) { sec = document.createElement("section"); sec.className = "pg-sec"; sec.id = "tg-early"; sec.style.marginTop = "14px"; el.appendChild(sec); }
+    sec.innerHTML = `<h3>${T("早期信号", "Early signals")} <small>${T("IND、首例给药、首次人体、临床前数据，来自新闻稿；注册库里往往还没有", "IND, first dosing, first-in-human, preclinical data from press releases; often not in registries yet")}</small></h3>
+      ${rows.length ? `<ol class="pg-list">${rows.slice(0, 20).map(earlyItemHTML).join("")}</ol>` : `<p class="sm">${T("最近两年的新闻稿里还没有这个靶点的早期信号。", "No early signals for this target in the past two years of press releases.")}</p>`}`;
+  };
+  if (NEWS) draw(); else loadNews().then(draw);
 }

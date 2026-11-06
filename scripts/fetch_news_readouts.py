@@ -34,6 +34,7 @@ sys.path.insert(0, HERE)
 import modality  # noqa: E402
 import targets as tgmod  # noqa: E402
 from fetch_trials import TA_RULES, SPONSOR_GROUPS, sponsor_group  # noqa: E402
+import drug_targets_auto as DTA  # noqa: E402
 
 UA = {"User-Agent": "hit-or-miss/1.0 (https://github.com/yangsong0626/hit-or-miss)"}
 KEEP_DAYS = 365
@@ -57,6 +58,24 @@ WIRE_FEEDS = [
 ]
 WIRE_DOMAINS = re.compile(r"^https?://(www\.)?(prnewswire\.com|globenewswire\.com|newsfilecorp\.com|businesswire\.com|accesswire\.com|prnewswire\.co\.uk)/", re.I)
 WIRE_SRC = re.compile(r"PR Newswire|GlobeNewswire|Globe Newswire|Business Wire|Newsfile|ACCESSWIRE|美通社|公司公告|官网|官方", re.I)
+
+# 早期信号：IND、首例给药、首次人体、临床前数据、候选药物确定。注册库里往往还没有，或者只有代号
+EARLY_Q_EN = ['("first patient dosed" OR "first participant dosed" OR "first subject dosed" OR "doses first patient")',
+              '("IND clearance" OR "clears IND" OR "IND cleared" OR "Investigational New Drug" cleared)',
+              '"first-in-human" (trial OR study) (initiates OR begins OR doses OR starts OR initiated)',
+              '"preclinical data" (degrader OR inhibitor OR antibody OR ADC OR "gene therapy")',
+              '("development candidate" OR "clinical candidate") (nominates OR nominated OR selects OR selected)',
+              '(degrader OR PROTAC OR "molecular glue") (preclinical OR IND OR "first patient" OR "phase 1")']
+EARLY_Q_ZH = ['"首例患者" ("给药" OR "入组")', '"IND" ("获批" OR "获得批准" OR "默示许可" OR "获FDA批准")',
+              '"临床前" ("数据" OR "研究") ("降解剂" OR "抑制剂" OR "ADC" OR "双抗")', '"首次人体" OR "FIH" 临床']
+EARLY_TYPES = [
+    ("IND", re.compile(r"\bIND\b|investigational new drug|CTA (approval|clearance)|clinical trial application|默示许可|临床试验申请|临床批件", re.I)),
+    ("首例给药", re.compile(r"first (patient|participant|subject|cohort)s? (has been |was )?(dosed|treated|enrolled)|doses? (the )?first (patient|participant|subject)|首例.{0,4}(给药|入组|受试者)", re.I)),
+    ("首次人体", re.compile(r"first[- ]in[- ]human|\bFIH\b|phase 1 (trial|study) (initiat|begin|start|launch)|initiat\w* (a |the )?phase 1|首次人体|启动.{0,6}I期", re.I)),
+    ("临床前数据", re.compile(r"preclinical|pre-clinical|in vivo|non-human primate|\bNHP\b|animal model|xenograft|临床前|动物模型", re.I)),
+    ("候选药物", re.compile(r"(development|clinical) candidate|nominat\w+ .{0,30}candidate|candidate selection|候选(药物|分子)", re.I)),
+]
+EARLY_KEEP_DAYS = 730
 
 GUIDE_Q_EN = ['"topline data" (expected OR anticipated OR "on track")', '("data readout" OR "topline results") (expected OR anticipated) 2027']
 GUIDE_Q_ZH = ['"预计" ("公布" OR "读出") ("III期" OR "顶线" OR "关键")']
@@ -593,7 +612,7 @@ def fetch(days):
     items, errs, total = [], 0, 0
     conf_q = [f'"{c["q"]}" (data OR results OR "late-breaking" OR abstract)' for c in active_confs()]
     conf_zh = [f'"{c["q"]}" (数据 OR 结果 OR 口头报告)' for c in active_confs()]
-    for lang, qs in (("en", EN_Q + GUIDE_Q_EN + conf_q), ("zh", ZH_Q + GUIDE_Q_ZH + conf_zh)):
+    for lang, qs in (("en", EN_Q + GUIDE_Q_EN + EARLY_Q_EN + conf_q), ("zh", ZH_Q + GUIDE_Q_ZH + EARLY_Q_ZH + conf_zh)):
         loc = "hl=en-US&gl=US&ceid=US:en" if lang == "en" else "hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
         for q in qs:
             total += 1
@@ -740,6 +759,60 @@ def prune(items, today=None):
     return [x for x in items if (x.get("d") or x.get("first_seen", "")) >= cut]
 
 
+def early_type(text):
+    for lab, rx in EARLY_TYPES:
+        if rx.search(text or ""):
+            return lab
+    return ""
+
+
+def enrich_early(x, lex, groups_re):
+    """早期信号：类型、药名、公司、靶点。靶点优先用药名，其次正文里的机制写法。"""
+    text = " ".join(z for z in (x["t"], x.get("sum", ""), x.get("body", "")) if z)
+    typ = early_type(x["t"]) or early_type(x.get("sum", ""))
+    if not typ:
+        return None
+    rec, _ = find_drug(x["t"] + " " + x.get("sum", ""), lex, "1")
+    drug = (rec or {}).get("name", "")
+    tg = list((rec or {}).get("tg") or [])
+    if not tg and drug:
+        tg = tgmod._drug_map([(rec or {}).get("inn") or drug])
+    if not tg:
+        tg = tgmod._uniq(tgmod._hits(x["t"], strict=True) or tgmod._hits(text, strict=True), 2)
+    co = find_company(x["t"] + " " + x.get("sum", ""), groups_re) or (rec or {}).get("co", "")
+    if not (tg or drug):
+        return None
+    mod = (rec or {}).get("mod") or (modality.classify_one({"n": drug, "ty": "DRUG"}) if drug else "")
+    if re.search(r"degrader|PROTAC|molecular glue|降解剂|分子胶", text, re.I):
+        mod = "降解剂"
+    e = {"d": x["d"], "t": x["t"], "s": x["s"], "u": x["u"], "lang": x["lang"], "type": typ, "drug": drug, "co": co,
+         "tg": tg, "mod": "" if mod == "未识别" else mod, "ta": (rec or {}).get("ta") or ta_of(text),
+         "tier": "pr" if (WIRE_DOMAINS.match(x["u"] or "") or WIRE_SRC.search(x["s"] or "")) else "media"}
+    e["id"] = "e" + hashlib.sha1(f"{_norm(drug) or _norm(x['t'])[:40]}|{typ}".encode()).hexdigest()[:9]
+    return e
+
+
+def merge_early(old, new, today=None):
+    today = today or dt.date.today()
+    cut = (today - dt.timedelta(days=EARLY_KEEP_DAYS)).isoformat()
+    items = [e for e in old if (e.get("d") or "") >= cut]
+    have = {e["id"]: e for e in items}
+    n = 0
+    for e in sorted(new, key=lambda z: z["d"]):
+        if e["id"] in have:
+            h = have[e["id"]]
+            if not h.get("tg") and e.get("tg"):
+                h["tg"] = e["tg"]
+            if e.get("tier") == "pr" and h.get("tier") != "pr":
+                h.update({k: e[k] for k in ("t", "s", "u", "tier")})
+            continue
+        items.append(e)
+        have[e["id"]] = e
+        n += 1
+    items.sort(key=lambda e: e["d"], reverse=True)
+    return items, n
+
+
 def merge_guidance(old, new, today=None):
     today = today or dt.date.today()
     cut = (today - dt.timedelta(days=GUIDE_KEEP_DAYS)).isoformat()
@@ -783,7 +856,10 @@ def export(data_path, overrides_path, out_path):
     guide = json.load(open(gp, encoding="utf-8")).get("items", []) if os.path.exists(gp) else []
     guide = [g for g in guide if not ov.get(g.get("id"), {}).get("hide")]
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    json.dump({"generated": d.get("generated"), "items": out, "guidance": guide,
+    ep = os.path.join(os.path.dirname(data_path), "news_early.json")
+    early = json.load(open(ep, encoding="utf-8")).get("items", []) if os.path.exists(ep) else []
+    early = [e for e in early if not ov.get(e.get("id"), {}).get("hide")]
+    json.dump({"generated": d.get("generated"), "items": out, "guidance": guide, "early": early,
                "conf": [{k: c.get(k) for k in ("n", "full", "start", "end", "where", "ta", "src")} for c in CONFS]},
               open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     return len(out)
@@ -869,6 +945,27 @@ def main():
         json.dump({"generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d"), "items": items},
                   open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
         weekly_md(added, a.weekly_md)
+        # 代号 → 靶点的证据（标题、摘要各算 1 分，通讯社正文算 2 分）
+        ev = DTA.load_evidence()
+        n_pairs = 0
+        for x in raw:
+            pairs = {}
+            is_pr = bool(WIRE_DOMAINS.match(x["u"] or "") or WIRE_SRC.search(x["s"] or ""))
+            for txt, w in ((x["t"], 1.0), (x.get("sum", ""), 1.5 if is_pr else 1.0), (x.get("body", ""), 2.0)):
+                for k, tok, tgs, ww in DTA.mine(txt, w):
+                    key = (k, tuple(tgs))
+                    pairs[key] = (tok, max(ww, pairs.get(key, (tok, 0.0))[1]))  # 同一篇报道只取最高分
+            DTA.add(ev, [(k, tok, list(tgs), w) for (k, tgs), (tok, w) in pairs.items()])
+            n_pairs += len(pairs)
+        DTA.save_evidence(ev)
+        # 早期信号
+        epath = os.path.join(os.path.dirname(a.out), "news_early.json")
+        eold = json.load(open(epath, encoding="utf-8")).get("items", []) if os.path.exists(epath) else []
+        enew = [e for e in (enrich_early(x, lex, groups_re) for x in raw if not is_readout(x)) if e]
+        eall, eadd = merge_early(eold, enew)
+        json.dump({"generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d"), "items": eall},
+                  open(epath, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+        print(f"early signals: +{eadd} (library {len(eall)}); code-target evidence pairs {n_pairs} (codes {len(ev)})")
         gpath = os.path.join(os.path.dirname(a.out), "news_guidance.json")
         gold = json.load(open(gpath, encoding="utf-8")).get("items", []) if os.path.exists(gpath) else []
         gall, gadd = merge_guidance(gold, guide_new)

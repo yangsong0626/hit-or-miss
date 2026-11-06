@@ -119,6 +119,14 @@ python scripts/fetch_trials.py --reclassify data/trials.json
 | `data/conferences.json` | 会议日期，读出日历和会议期间加检索用 | 手工补充（按主办方官网核对） |
 | `data/structures.json` | PubChem 结构缓存，每次最多新查 600 个小分子 | 每周自动 |
 | `docs/rss/` | 全站、每个靶点、每个公司的 RSS | 构建时生成 |
+| `data/news_early.json` | 早期信号：IND、首例给药、首次人体、临床前数据、候选药物（两年） | 每周自动 |
+| `data/ctis.json` | 欧盟注册库（CTIS）里已获批、进行中的企业申办试验，构建时并入早期试验并和 ClinicalTrials.gov 去重 | 每周自动 |
+| `data/drug_target_evidence.json` | 新闻稿里"代号 + 靶点"一起出现的证据，长期累加 | 每周自动 |
+| `data/auto_drug_targets.json` | 自动学到的研发代号 → 靶点对应表（新闻证据 + 试验文本），代号认不出靶点时用它 | 构建时生成 |
+
+### 早期试验的覆盖范围
+
+靶点赛道里的早期项目来自三处：ClinicalTrials.gov 近两年新登记的 I / II 期、ClinicalTrials.gov 所有还在进行的 I 期和 I/II 期（不管哪年登记；两年前登记的只保留认出靶点的）、欧盟注册库 CTIS 里只在欧洲登记的企业试验。注册库里只写研发代号、认不出靶点的，用自动学到的代号 → 靶点表补上。还没进临床的项目看靶点页底部的「早期信号」。
 
 ## 中英文
 
