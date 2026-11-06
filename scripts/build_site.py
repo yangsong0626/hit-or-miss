@@ -393,6 +393,9 @@ tag = '<script id="trials-data" type="application/json">' + js + "</script>\n"
 _pj = os.path.join(os.path.dirname(os.path.abspath(tpl)), "portals.js")
 if "/*@@PORTALS@@*/" in html and os.path.exists(_pj):
     html = html.replace("/*@@PORTALS@@*/", open(_pj, encoding="utf-8").read())
+_xj = os.path.join(os.path.dirname(os.path.abspath(tpl)), "extras.js")
+if "/*@@EXTRAS@@*/" in html and os.path.exists(_xj):
+    html = html.replace("/*@@EXTRAS@@*/", open(_xj, encoding="utf-8").read())
 marker = "\n<script>\n"
 assert html.count(marker) == 1, "template marker not found"
 open(out, "w", encoding="utf-8").write(html.replace(marker, "\n" + tag + "<script>\n"))
@@ -407,3 +410,20 @@ try:
     print(f"news.json · {_nn} topline news items", file=sys.stderr)
 except Exception as _e:  # noqa: BLE001
     print(f"[warn] news.json not rebuilt: {_e}", file=sys.stderr)
+
+# 小分子结构（scripts/fetch_structures.py 维护缓存）→ docs/structures.json
+try:
+    import fetch_structures as _fs
+    print(f"structures.json · {_fs.export(os.path.join(os.path.dirname(data), 'structures.json'), os.path.join(os.path.dirname(out), 'structures.json'))} keys", file=sys.stderr)
+except Exception as _e:  # noqa: BLE001
+    print(f"[warn] structures.json not rebuilt: {_e}", file=sys.stderr)
+
+# 按靶点、公司的 RSS 订阅
+try:
+    import build_rss as _rss
+    _news = json.load(open(os.path.join(os.path.dirname(out), "news.json"), encoding="utf-8")).get("items", []) if os.path.exists(os.path.join(os.path.dirname(out), "news.json")) else []
+    _site = os.environ.get("SITE_URL") or "https://yangsong0626.github.io/hit-or-miss/"
+    _n, _nt, _nc = _rss.build(_news, d.get("sets", {}), os.path.join(os.path.dirname(out), "rss"), _site)
+    print(f"rss · {_n} items · {_nt} target feeds · {_nc} company feeds", file=sys.stderr)
+except Exception as _e:  # noqa: BLE001
+    print(f"[warn] rss not rebuilt: {_e}", file=sys.stderr)

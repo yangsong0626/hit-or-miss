@@ -36,14 +36,21 @@ jobs:
         continue-on-error: true
         timeout-minutes: 15
         run: python scripts/fetch_news_readouts.py --days 8 --weekly-md weekly_news.md
+      - name: Look up small-molecule structures (PubChem)
+        continue-on-error: true
+        timeout-minutes: 15
+        run: python scripts/fetch_structures.py
       - name: Build site
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
         run: python scripts/build_site.py site/template.html data/trials.json docs/index.html
       - name: Commit if changed
         run: |
           git config user.name "readout-bot"
           git config user.email "readout-bot@users.noreply.github.com"
           git add data/trials.json docs/index.html docs/early.json docs/active.json
-          for f in data/preclinical_auto.json data/watch_alerts.json docs/feeds.json docs/targets_index.json data/news_readouts.json docs/news.json; do
+          git add -A docs/rss 2>/dev/null || true
+          for f in data/preclinical_auto.json data/watch_alerts.json docs/feeds.json docs/targets_index.json data/news_readouts.json docs/news.json data/news_guidance.json data/structures.json docs/structures.json; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           git diff --cached --quiet || git commit -m "Update trial data $(date -u +%Y-%m-%d)"

@@ -8,10 +8,15 @@
 
 文件：
   data/news_readouts.json   累积库（保留 365 天，每周合并新条目，不覆盖旧条目的首次出现日期）
+  data/news_guidance.json   公司指引的读出时间（"预计 2027 年一季度公布顶线数据"之类），读出日历用
   data/news_overrides.json  人工修正，按条目 id：{"v": 判定, "hide": true, "note": 点评, "nct": ..., "drug": ..., "tg": [...]}
                             重新抓取不会覆盖这个文件；build_site.py 构建时套用
   docs/news.json            页面用（构建时由 export() 生成）
   weekly_news.md            本周新增条目清单（工作流用它开 GitHub issue，方便逐条核对）
+
+来源分两类：Google News（中英文媒体 + 转载的新闻稿，只有标题）和新闻稿通讯社 RSS（PR Newswire、GlobeNewswire、
+Newsfile，带摘要，必要时再取正文）。有正文的条目会抽出 HR / 置信区间 / p 值 / ORR / 中位 PFS、OS / 减重幅度等关键数字，
+并找出"预计何时公布数据"的指引。会议期间（data/conferences.json）额外按会议名检索。
 
 只用 Python 标准库。整体失败时保留旧文件，退出码 0，不影响后面的构建。
 
@@ -33,6 +38,32 @@ from fetch_trials import TA_RULES, SPONSOR_GROUPS, sponsor_group  # noqa: E402
 UA = {"User-Agent": "hit-or-miss/1.0 (https://github.com/yangsong0626/hit-or-miss)"}
 KEEP_DAYS = 365
 MERGE_DAYS = 14
+MAX_BODIES = 80          # 每次最多取多少篇新闻稿正文
+GUIDE_KEEP_DAYS = 30     # 指引窗口过去多少天后从日历里拿掉
+
+ZH_INN = {k: v for k, v in json.load(open(os.path.join(ROOT, "data", "zh_inn.json"), encoding="utf-8")).items() if not k.startswith("_")}
+ZH_INN_KEYS = sorted(ZH_INN, key=len, reverse=True)
+try:
+    CONFS = json.load(open(os.path.join(ROOT, "data", "conferences.json"), encoding="utf-8"))["items"]
+except Exception:  # noqa: BLE001
+    CONFS = []
+
+# 新闻稿通讯社：直接拿到公司原文和摘要。地址失效时只记一条警告，不影响其他来源
+WIRE_FEEDS = [
+    ("PR Newswire", "https://www.prnewswire.com/rss/health-latest-news/health-latest-news-list.rss"),
+    ("GlobeNewswire", "https://www.globenewswire.com/RssFeed/industry/4573-Biotechnology/feedTitle/GlobeNewswire%20-%20Industry%20News%20on%20Biotechnology"),
+    ("GlobeNewswire", "https://www.globenewswire.com/RssFeed/industry/4577-Pharmaceuticals/feedTitle/GlobeNewswire%20-%20Industry%20News%20on%20Pharmaceuticals"),
+    ("Newsfile", "https://feeds.newsfilecorp.com/industry/biotechnology"),
+]
+WIRE_DOMAINS = re.compile(r"^https?://(www\.)?(prnewswire\.com|globenewswire\.com|newsfilecorp\.com|businesswire\.com|accesswire\.com|prnewswire\.co\.uk)/", re.I)
+WIRE_SRC = re.compile(r"PR Newswire|GlobeNewswire|Globe Newswire|Business Wire|Newsfile|ACCESSWIRE|美通社|公司公告|官网|官方", re.I)
+
+GUIDE_Q_EN = ['"topline data" (expected OR anticipated OR "on track")', '("data readout" OR "topline results") (expected OR anticipated) 2027']
+GUIDE_Q_ZH = ['"预计" ("公布" OR "读出") ("III期" OR "顶线" OR "关键")']
+
+CONF_RE = re.compile(r"\b(ASCO(?: GI| GU)?|ESMO Congress|ESMO(?: Asia| GI| Breast| IO)?|ASH|AACR|SABCS|EHA|ADA|EASD|ObesityWeek|AASLD|EASL|ACR Convergence|"
+                     r"AAD|AAN|CTAD|AD/PD|ESC Congress|AHA|ACC\.?\d{0,2}|WCLC|ELCC|CSCO|DDW|ECCO|UEGW|ATS|ERS|IDWeek|CROI|EULAR|SITC|ISTH|"
+                     r"ENDO|Kidney Week|TCT|ASTRO|AUA|ESMO Congress)\b(?:\s*(20\d{2}))?|(CSCO|ASCO|ESMO|ASH|AACR)(?:年会|大会)")
 
 # ---------- 检索词 ----------
 EN_Q = [
@@ -93,6 +124,150 @@ MIXED = re.compile(r"\bmixed\b|\bbut\b|however|\bdespite\b|one of (two|the two)|
 PROMISING = re.compile(r"promising|encouraging|durable|deep (and durable )?|\b\d{2,3}(\.\d)?% (objective |overall |complete )?(response|ORR|CR|reduction|remission)|"
                        r"(response|remission) rate|responses?\b.*\b(all|every)|reduc(es|ed|tion) .{0,40}\bby \d|鼓舞|缓解率|全部应答|完全缓解|显著减轻|初步疗效", re.I)
 NEUTRAL_DATA = re.compile(r"results?|data|readout|presents?|reported|unveil|读出|数据|结果", re.I)
+
+
+# ---------- 关键数字 ----------
+_F = r"(\d{1,3}(?:\.\d{1,2})?)"
+_R = r"([01]?\.\d{1,3}|[01]\.\d{1,3})"
+NUMS = [
+    ("HR", re.compile(r"(?:(?<![A-Za-z])HR(?![A-Za-z])|hazard ratio|风险比)\s*(?:of|was|is|=|:|为|是|：)?\s*[=:]?\s*" + _R +
+                      r"(?:\s*[;,]?\s*[(\[（]?\s*(?:95\s*%\s*(?:CI|置信区间)|CI)?\s*[:：,]?\s*" + _R + r"\s*(?:-|–|—|to|,|~|至)\s*" + _R + r")?", re.I)),
+    ("p", re.compile(r"\bp\s*(?:-?value)?\s*([<=≤]|&lt;)\s*(0?\.\d+|\d(?:\.\d+)?\s*[x×]\s*10\s*\^?\s*-\s*\d+)", re.I)),
+    ("ORR", re.compile(r"(?:(?<![A-Za-z])ORR(?![A-Za-z])|objective response rate|overall response rate|客观缓解率|客观应答率)[^\d%]{0,40}?" + _F + r"\s*%", re.I)),
+    ("CR", re.compile(r"(?:complete (?:response|remission) rate|\bCR rate\b|完全缓解率)[^\d%]{0,30}?" + _F + r"\s*%", re.I)),
+    ("mPFS", re.compile(r"(?:median (?:progression-free survival|PFS)|(?<![A-Za-z])mPFS(?![A-Za-z])|中位(?:无进展生存期?|PFS))[^\d]{0,40}?" + _F + r"\s*(?:months?|mos?\b|个月)", re.I)),
+    ("mOS", re.compile(r"(?:median (?:overall survival|OS)|(?<![A-Za-z])mOS(?![A-Za-z])|中位(?:总生存期?|OS))[^\d]{0,40}?" + _F + r"\s*(?:months?|mos?\b|个月)", re.I)),
+    ("减重", re.compile(r"" + _F + r"\s*%\s*(?:mean |average )?(?:weight loss|reduction in (?:body )?weight|body weight reduction)|(?:体重|减重)[^\d]{0,12}" + _F + r"\s*%", re.I)),
+    ("降低", re.compile(r"(?:reduc\w*|lower\w*|decreas\w*)\s+(?:the\s+)?(?:risk of [\w ,-]{0,40}?|[\w-]+\s+){0,3}?by\s+" + _F + r"\s*%|"
+                       + _F + r"\s*%\s*(?:relative )?(?:risk )?reduction in|降低(?:了)?[\u4e00-\u9fff]{0,10}?" + _F + r"\s*%", re.I)),
+]
+
+
+def extract_nums(text):
+    """从标题、摘要或正文里抽关键数字，每类只留第一个。返回 [{"k": "HR", "v": "0.68", "lo": "0.55", "hi": "0.84"}, ...]。"""
+    out, seen = [], set()
+    if not text:
+        return out
+    for k, rx in NUMS:
+        if k in seen:
+            continue
+        m = rx.search(text)
+        if not m:
+            continue
+        g = [x for x in m.groups() if x]
+        if k == "HR":
+            try:
+                v = float(m.group(1))
+            except (TypeError, ValueError):
+                continue
+            if not (0.05 <= v <= 3):
+                continue
+            e = {"k": "HR", "v": m.group(1)}
+            if m.group(2) and m.group(3):
+                e.update(lo=m.group(2), hi=m.group(3))
+        elif k == "p":
+            op = "<" if m.group(1) in ("<", "&lt;", "≤") else "="
+            e = {"k": "p", "v": op + re.sub(r"\s+", "", m.group(2))}
+        else:
+            if not g:
+                continue
+            v = g[-1] if k in ("减重", "降低") else g[0]
+            try:
+                fv = float(v)
+            except ValueError:
+                continue
+            if k in ("ORR", "CR", "减重", "降低") and not (0 < fv <= 100):
+                continue
+            if k in ("mPFS", "mOS") and not (0 < fv <= 240):
+                continue
+            e = {"k": k, "v": v}
+        out.append(e)
+        seen.add(k)
+    return out
+
+
+def merge_nums(a, b):
+    have = {x["k"] for x in a or []}
+    return (a or []) + [x for x in b or [] if x["k"] not in have]
+
+
+# ---------- 读出时间指引 ----------
+GUIDE_VERB = re.compile(r"expect\w*|anticipat\w*|\bplan\w*|on track|guid\w*|slated|scheduled|intends? to|预计|计划|有望|将于|拟于", re.I)
+GUIDE_OBJ = re.compile(r"topline|top-line|data|results?|readout|read-out|report|顶线|数据|结果|读出|揭盲", re.I)
+WHEN_EN = re.compile(r"(?:\b(Q[1-4])|\b([1-4])Q)\s*['’]?(20\d{2}|\d{2})\b|\b(first|second|1st|2nd)[- ]half\s*(?:of\s*)?(20\d{2})|\b([12]H|H[12])\s*['’]?(20\d{2}|\d{2})\b|"
+                     r"\b(mid|year-end|end of|early|late)[- ](20\d{2})|\b(first|second|third|fourth) quarter of (20\d{2})|\bby (?:the )?end of (20\d{2})|\b(?:in|during) (20\d{2})\b", re.I)
+WHEN_ZH = re.compile(r"(20\d{2})\s*年\s*(上半年|下半年|第?[一二三四1-4]\s*季度|Q[1-4]|年中|年底|底|年末|初|内)?")
+
+
+def _window(y, part):
+    y = int(y) if len(str(y)) == 4 else 2000 + int(y)
+    part = (part or "").lower()
+    q = {"q1": 1, "1": 1, "一": 1, "first": 1, "q2": 2, "2": 2, "二": 2, "second": 2, "q3": 3, "3": 3, "三": 3, "third": 3, "q4": 4, "4": 4, "四": 4, "fourth": 4}
+    if part in ("h1", "1h", "first", "1st", "上半年"):
+        return f"{y}-01-01", f"{y}-06-30", f"{y} H1"
+    if part in ("h2", "2h", "second", "2nd", "下半年"):
+        return f"{y}-07-01", f"{y}-12-31", f"{y} H2"
+    if part.startswith("quarter:") or part.startswith("q") or "季度" in part:
+        n = q.get(part.replace("quarter:", "").replace("第", "").replace("季度", "").strip())
+        if n:
+            return f"{y}-{3 * n - 2:02d}-01", f"{y}-{3 * n:02d}-{30 if n in (2, 3) else 31}", f"{y} Q{n}"
+    if part in ("mid", "年中"):
+        return f"{y}-05-01", f"{y}-08-31", f"{y} 年中"
+    if part in ("early", "初"):
+        return f"{y}-01-01", f"{y}-04-30", f"{y} 年初"
+    if part in ("late", "year-end", "end of", "年底", "底", "年末", "by-end"):
+        return f"{y}-09-01", f"{y}-12-31", f"{y} 年底"
+    return f"{y}-01-01", f"{y}-12-31", f"{y}"
+
+
+def parse_when(sent):
+    m = WHEN_EN.search(sent)
+    if m:
+        g = m.groups()
+        if g[0] or g[1]:
+            return _window(g[2], "q" + (g[0] or "q" + g[1])[1:].lower())
+        if g[3]:
+            return _window(g[4], g[3])
+        if g[5]:
+            return _window(g[6], g[5])
+        if g[7]:
+            return _window(g[8], g[7])
+        if g[9]:
+            return _window(g[10], "quarter:" + g[9].lower())
+        if g[11]:
+            return _window(g[11], "by-end")
+        if g[12]:
+            return _window(g[12], "")
+    m = WHEN_ZH.search(sent)
+    if m:
+        return _window(m.group(1), (m.group(2) or "").replace(" ", ""))
+    return None
+
+
+def extract_guidance(text, pub):
+    """找"预计 2027 年一季度公布顶线数据"这类句子。返回 [(start, end, label, 句子)]，只留还没过去的窗口。"""
+    out = []
+    for sent in re.split(r"(?<=[。！？；])|(?<=[.!?;])\s+|\n+", text or ""):
+        if len(sent) < 15 or len(sent) > 600:
+            continue
+        if not (GUIDE_VERB.search(sent) and GUIDE_OBJ.search(sent)):
+            continue
+        w = parse_when(sent)
+        if not w or (pub and w[1] < pub):
+            continue
+        snip = re.sub(r"\s+", " ", sent).strip()
+        out.append((w[0], w[1], w[2], snip[:200] + ("…" if len(snip) > 200 else "")))
+    return out
+
+
+def conf_of(text, d=""):
+    """会议名统一成「ESMO 2026」这种写法；标题没写年份就用新闻日期的年份。"""
+    m = CONF_RE.search(text or "")
+    if not m:
+        return ""
+    name = (m.group(3) or m.group(1)).replace(" Congress", "").strip()
+    yr = m.group(2) or (d or "")[:4]
+    return f"{name} {yr}".strip()
 
 
 def verdict(title):
@@ -234,32 +409,46 @@ investigational experimental dose doses dosing regimen arms control""".split())
 def find_drug(title, lex, ph):
     """返回（试验记录或仅药名，同药其他 NCT）。候选来自药名词典、INN 词干和研发代号；跳过对照药（versus / plus 后面的）。"""
     cands = []  # (位置, 显示名, 词典键或 None)
+    for zh in ZH_INN_KEYS:
+        i = title.find(zh)
+        if i >= 0 and not any(c[0] <= i < c[0] + len(c[1]) for c in cands):
+            en = ZH_INN[zh]
+            k = _norm(en)
+            if not re.search(r"[\u4e00-\u9fff]", zh):  # T-DXd 这类英文简称
+                cands.append((i, zh, k if k in lex else None, en))
+            else:
+                cands.append((i, zh, k if k in lex else None, en))
     for m in re.finditer(r"[A-Za-z][A-Za-z0-9-]{2,}", title):
         w = m.group(0)
         k = _norm(w)
         if k in lex and not GENERIC.match(k) and k not in STOPWORDS and w.lower() not in STOPWORDS:
-            cands.append((m.start(), w, k))
+            if not any(c[0] <= m.start() < c[0] + len(c[1]) for c in cands):
+                cands.append((m.start(), w, k, None))
     for rx in (CODE, INN_STEM):
         for m in rx.finditer(title):
             if m.group(0).lower() in STOPWORDS:
                 continue
             k = _norm(m.group(0))
             if not any(c[0] <= m.start() < c[0] + max(len(c[1]), 1) for c in cands):
-                cands.append((m.start(), m.group(0), k if k in lex else None))
+                cands.append((m.start(), m.group(0), k if k in lex else None, None))
     if not cands:
         return None, []
     cands.sort()
     primary = [c for c in cands if not COMPARATOR_BEFORE.search(title[max(0, c[0] - 40):c[0]])] or cands
-    pos, shown, k = primary[0]
-    # 研发代号保留原写法；通用名首字母大写
-    disp = shown if re.search(r"\d", shown) else shown[:1].upper() + shown[1:].lower()
+    pos, shown, k, en = primary[0]
+    # 研发代号保留原写法；通用名首字母大写；中文名后面带上英文通用名
+    cap = lambda z: z[:1].upper() + z[1:].lower()
+    if en:
+        disp = f"{shown} ({cap(en)})" if re.search(r"[\u4e00-\u9fff]", shown) else cap(en)
+    else:
+        disp = shown if re.search(r"\d", shown) else cap(shown)
     if not k:
-        return {"nct": None, "ph": "", "set": "", "co": "", "ta": "", "tg": [], "mod": "", "inn": "", "name": disp}, []
+        return {"nct": None, "ph": "", "set": "", "co": "", "ta": "", "tg": [], "mod": "", "inn": en or "", "name": disp}, []
     recs = sorted(lex[k], key=lambda r: (0 if (ph and ph in (r["ph"] or "")) else 1, SET_RANK.get(r["set"], 9)))
     best = dict(recs[0])
     inn = best.get("inn") or ""
-    if re.search(r"\d", shown) and inn and not re.search(r"\d", inn) and _norm(inn) != k:
-        disp = f"{inn[:1].upper() + inn[1:].lower()} ({shown})"
+    if not en and re.search(r"\d", shown) and inn and not re.search(r"\d", inn) and _norm(inn) != k:
+        disp = f"{cap(inn)} ({shown})"
     best["name"] = disp
     return best, sorted({r["nct"] for r in recs if r["nct"]})
 
@@ -358,15 +547,56 @@ def parse_rss(raw, lang):
             d = dt.datetime.strptime(pd[:25].strip(), "%a, %d %b %Y %H:%M:%S").strftime("%Y-%m-%d")
         except ValueError:
             d = ""
-        out.append({"t": re.sub(r"\s+", " ", title)[:240], "s": src[:60], "d": d, "u": it.findtext("link") or "", "lang": lang})
+        desc = it.findtext("description") or ""
+        summ = html_text(desc)
+        if summ and summ.lower().startswith(title.lower()[:40]):  # Google News 的描述就是标题本身
+            summ = ""
+        out.append({"t": re.sub(r"\s+", " ", title)[:240], "s": src[:60], "d": d, "u": (it.findtext("link") or "").strip(),
+                    "lang": lang, "sum": summ[:1500]})
+    return out
+
+
+def html_text(h):
+    h = re.sub(r"(?is)<(script|style|noscript|nav|header|footer|aside)[^>]*>.*?</\1>", " ", h or "")
+    h = re.sub(r"(?i)<br\s*/?>|</p>|</li>|</h\d>", "\n", h)
+    h = re.sub(r"<[^>]+>", " ", h)
+    for a, b in (("&nbsp;", " "), ("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"), ("&quot;", '"'), ("&#39;", "'"), ("&rsquo;", "’"), ("&ndash;", "–"), ("&mdash;", "—")):
+        h = h.replace(a, b)
+    h = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))) if int(m.group(1)) < 0x110000 else " ", h)
+    return re.sub(r"[ \t\r\f\v]+", " ", re.sub(r"\n\s*\n+", "\n", h)).strip()
+
+
+def fetch_body(url):
+    """只取新闻稿通讯社原文（不是 Google News 跳转链接），返回正文前 8000 字。"""
+    if not WIRE_DOMAINS.match(url or ""):
+        return ""
+    raw = get(url, timeout=25, tries=2).decode("utf-8", "replace")
+    m = re.search(r"(?is)<(article|div)[^>]+(?:class|id)=\"[^\"]*(release-body|article-body|main-body-container|news-release|bw-release-story|release-content)[^\"]*\"[^>]*>(.*)", raw)
+    text = html_text(m.group(3) if m else raw)
+    return text[:8000]
+
+
+def active_confs(today=None):
+    today = today or dt.date.today()
+    out = []
+    for c in CONFS:
+        try:
+            a, b = dt.date.fromisoformat(c["start"]), dt.date.fromisoformat(c["end"])
+        except (KeyError, ValueError):
+            continue
+        if a - dt.timedelta(days=5) <= today <= b + dt.timedelta(days=3):
+            out.append(c)
     return out
 
 
 def fetch(days):
-    items, errs = [], 0
-    for lang, qs in (("en", EN_Q), ("zh", ZH_Q)):
+    items, errs, total = [], 0, 0
+    conf_q = [f'"{c["q"]}" (data OR results OR "late-breaking" OR abstract)' for c in active_confs()]
+    conf_zh = [f'"{c["q"]}" (数据 OR 结果 OR 口头报告)' for c in active_confs()]
+    for lang, qs in (("en", EN_Q + GUIDE_Q_EN + conf_q), ("zh", ZH_Q + GUIDE_Q_ZH + conf_zh)):
         loc = "hl=en-US&gl=US&ceid=US:en" if lang == "en" else "hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
         for q in qs:
+            total += 1
             url = f"https://news.google.com/rss/search?q={urllib.parse.quote(q + f' when:{days}d')}&{loc}"
             try:
                 items += parse_rss(get(url), lang)
@@ -374,7 +604,19 @@ def fetch(days):
                 errs += 1
                 print(f"  [warn] {lang} query failed: {q[:50]}… {e}", file=sys.stderr)
             time.sleep(1.0)
-    return items, errs
+    cut = (dt.date.today() - dt.timedelta(days=days)).isoformat()
+    for name, url in WIRE_FEEDS:
+        total += 1
+        try:
+            got = parse_rss(get(url), "en")
+            for x in got:
+                x["s"] = x["s"] or name
+            items += [x for x in got if not x["d"] or x["d"] >= cut]
+        except Exception as e:  # noqa: BLE001
+            errs += 1
+            print(f"  [warn] wire feed failed: {name} {url[:60]}… {e}", file=sys.stderr)
+        time.sleep(1.0)
+    return items, errs, total
 
 
 # ---------- 整理 ----------
@@ -403,19 +645,32 @@ def enrich(x, lex, groups_re):
     if co:
         co = sponsor_group(co) if not re.search(r"[一-鿿]", co) else co
     tg = list((rec or {}).get("tg") or [])
-    if not tg and drug:
-        tg = tgmod._drug_map([drug])
+    en_name = (rec or {}).get("inn") or ""
+    if not en_name:
+        mm = re.search(r"\(([^)]+)\)", drug)
+        en_name = mm.group(1) if (mm and re.search(r"[\u4e00-\u9fff]", drug)) else drug
+    if not tg and en_name:
+        tg = tgmod._drug_map([en_name])
     if not tg:
         tg = tgmod._uniq(tgmod._hits(t, strict=True), 2)
     mod = (rec or {}).get("mod", "")
-    if not mod and drug:
-        mod = modality.classify_one({"n": drug, "ty": "DRUG"})
+    if not mod and en_name:
+        mod = modality.classify_one({"n": en_name, "ty": "DRUG"})
         if mod == "未识别":
             mod = ""
     ta = (rec or {}).get("ta") or ta_of(t)
+    text = " ".join(z for z in (t, x.get("sum", ""), x.get("body", "")) if z)
+    tier = "pr" if (WIRE_DOMAINS.match(x["u"] or "") or WIRE_SRC.search(x["s"] or "")
+                    or (co and len(_norm(co)) >= 4 and _norm(co) in _norm(x["s"]))) else "media"
+    if mod == "未识别":
+        mod = ""
+    nct = (rec or {}).get("nct")
+    m = re.search(r"\bNCT\d{8}\b", text)
+    if m:
+        nct = m.group(0)
     return {"d": x["d"], "t": t, "s": x["s"], "u": x["u"], "lang": x["lang"], "v": v, "stop": stop, "ph": ph,
-            "drug": drug, "co": co, "tg": tg, "mod": mod, "ta": ta,
-            "nct": (rec or {}).get("nct"), "ncts": others[:5]}
+            "drug": drug, "co": co, "tg": tg, "mod": mod, "ta": ta, "tier": tier, "conf": conf_of(text, x["d"]),
+            "nums": extract_nums(text), "nct": nct, "ncts": others[:5]}
 
 
 def _key(e):
@@ -462,7 +717,10 @@ def merge(old_items, new_items):
                 tgt.update({k2: e[k2] for k2 in ("t", "s", "u", "lang")})
             if tgt["v"] == "待判定" and e["v"] != "待判定":
                 tgt["v"] = e["v"]
-            for f in ("drug", "co", "ph", "ta", "mod", "nct"):
+            tgt["nums"] = merge_nums(tgt.get("nums"), e.get("nums"))
+            if e.get("tier") == "pr":
+                tgt["tier"] = "pr"
+            for f in ("drug", "co", "ph", "ta", "mod", "nct", "conf"):
                 if not tgt.get(f) and e.get(f):
                     tgt[f] = e[f]
             if not tgt.get("tg") and e.get("tg"):
@@ -482,6 +740,29 @@ def prune(items, today=None):
     return [x for x in items if (x.get("d") or x.get("first_seen", "")) >= cut]
 
 
+def merge_guidance(old, new, today=None):
+    today = today or dt.date.today()
+    cut = (today - dt.timedelta(days=GUIDE_KEEP_DAYS)).isoformat()
+    items = [g for g in old if g.get("end", "") >= cut]
+    key = lambda g: (_norm(g.get("drug")) or _norm(g.get("co")), g.get("when"))
+    have = {key(g): g for g in items}
+    n = 0
+    for g in sorted(new, key=lambda z: z["d"], reverse=True):
+        if g["end"] < cut:
+            continue
+        k = key(g)
+        if k in have:
+            if g["d"] > have[k]["d"]:  # 更新的说法覆盖旧的
+                have[k].update({f: g[f] for f in ("d", "u", "s", "t", "snip")})
+            continue
+        g["id"] = "g" + hashlib.sha1(f"{k[0]}|{k[1]}".encode()).hexdigest()[:9]
+        items.append(g)
+        have[k] = g
+        n += 1
+    items.sort(key=lambda g: g["start"])
+    return items, n
+
+
 # ---------- 导出给页面 ----------
 def export(data_path, overrides_path, out_path):
     if not os.path.exists(data_path):
@@ -498,9 +779,13 @@ def export(data_path, overrides_path, out_path):
             y["edited"] = True
         out.append(y)
     out.sort(key=lambda z: (z.get("d") or "", z.get("first_seen") or ""), reverse=True)
+    gp = os.path.join(os.path.dirname(data_path), "news_guidance.json")
+    guide = json.load(open(gp, encoding="utf-8")).get("items", []) if os.path.exists(gp) else []
+    guide = [g for g in guide if not ov.get(g.get("id"), {}).get("hide")]
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    json.dump({"generated": d.get("generated"), "items": out}, open(out_path, "w", encoding="utf-8"),
-              ensure_ascii=False, separators=(",", ":"))
+    json.dump({"generated": d.get("generated"), "items": out, "guidance": guide,
+               "conf": [{k: c.get(k) for k in ("n", "full", "start", "end", "where", "ta", "src")} for c in CONFS]},
+              open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     return len(out)
 
 
@@ -547,15 +832,36 @@ def main():
             raw = []
             for f in a.from_xml:
                 raw += parse_rss(open(f, "rb").read(), "zh" if "zh" in os.path.basename(f) else "en")
-            errs = 0
+            errs, total_q = 0, 0
         else:
-            raw, errs = fetch(a.days)
-        total_q = len(EN_Q) + len(ZH_Q)
+            raw, errs, total_q = fetch(a.days)
         if not a.from_xml and errs == total_q:
             raise RuntimeError("all queries failed")
         lex = build_lexicon(a.trials, a.docs)
         groups_re = company_regex(lex)
         cands = [x for x in raw if is_readout(x)]
+        # 新闻稿正文：读出类和带指引字眼的条目，只取通讯社原文
+        want = [x for x in raw if WIRE_DOMAINS.match(x["u"] or "") and (x in cands or GUIDE_VERB.search(x["t"] + " " + x.get("sum", "")))]
+        nb = 0
+        for x in want[:MAX_BODIES]:
+            if a.from_xml:
+                break
+            try:
+                x["body"] = fetch_body(x["u"])
+                nb += 1
+            except Exception as e:  # noqa: BLE001
+                print(f"  [warn] body failed: {x['u'][:70]} {e}", file=sys.stderr)
+            time.sleep(0.5)
+        guide_new = []
+        for x in raw:
+            for st, en, lab, snip in extract_guidance(" ".join(z for z in (x["t"], x.get("sum", ""), x.get("body", "")) if z), x["d"]):
+                rec, _ = find_drug(x["t"] + " " + snip, lex, phase_of(snip))
+                co = find_company(x["t"] + " " + snip, groups_re) or (rec or {}).get("co", "")
+                if not (rec or co):
+                    continue
+                guide_new.append({"d": x["d"], "u": x["u"], "s": x["s"], "t": x["t"], "lang": x["lang"], "when": lab, "start": st, "end": en,
+                                  "snip": snip, "drug": (rec or {}).get("name", ""), "co": co, "tg": list((rec or {}).get("tg") or []),
+                                  "ta": (rec or {}).get("ta") or ta_of(x["t"] + " " + snip), "nct": (rec or {}).get("nct"), "ph": phase_of(snip) or phase_of(x["t"])})
         new = [e for e in (enrich(x, lex, groups_re) for x in cands)
                if not (e["v"] == "待判定" and not (e["ph"] or e["drug"] or e["co"]))]
         items, added = merge(old.get("items", []), new)
@@ -563,6 +869,12 @@ def main():
         json.dump({"generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d"), "items": items},
                   open(a.out, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
         weekly_md(added, a.weekly_md)
+        gpath = os.path.join(os.path.dirname(a.out), "news_guidance.json")
+        gold = json.load(open(gpath, encoding="utf-8")).get("items", []) if os.path.exists(gpath) else []
+        gall, gadd = merge_guidance(gold, guide_new)
+        json.dump({"generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d"), "items": gall},
+                  open(gpath, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+        print(f"guidance: +{gadd} (calendar {len(gall)}); bodies fetched {nb}")
         from collections import Counter
         print(f"raw {len(raw)} → readout-like {len(cands)} → new {len(added)} (library {len(items)}); "
               f"verdicts {dict(Counter(e['v'] for e in added))}; linked NCT {sum(1 for e in added if e.get('nct'))}; query errors {errs}")

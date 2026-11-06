@@ -125,9 +125,9 @@ function renderTargetPage(){
   const al = (TGS.alias[g] || []).filter(a => a.toLowerCase() !== g.toLowerCase()).slice(0, 12);
   const drugs = (TGS.drugs[g] || []);
   const tas = Object.entries(r.tas).sort((a, b) => b[1] - a[1]).map(([k]) => `<span class="tag">${esc(k)}</span>`).join("");
-  const TABS_T = [["clin", T("临床", "Clinical")], ["pat", T("专利", "Patents")], ["lit", T("文献", "Literature")], ["news", T("新闻", "News")], ["deal", T("交易", "Deals")]];
+  const TABS_T = [["clin", T("临床", "Clinical")], ["cmp", T("对比", "Compare")], ["pat", T("专利", "Patents")], ["lit", T("文献", "Literature")], ["news", T("新闻", "News")], ["deal", T("交易", "Deals")]];
   let html = `<div class="crumb"><button id="tg-back">← ${T("全部靶点", "All targets")}</button><span>/</span><span>${esc(g)}</span></div>
-    <header class="pg-head"><h2>${esc(g)}</h2>
+    <header class="pg-head"><h2>${esc(g)} ${starBtn("t", g)}</h2>
       ${al.length ? `<div class="alias">${T("别名：", "Also known as: ")}${al.map(esc).join(" · ")}</div>` : ""}
       ${drugs.length ? `<div class="alias">${T("已知药物：", "Known drugs: ")}${drugs.slice(0, 14).map(esc).join(" · ")}${drugs.length > 14 ? " …" : ""}</div>` : ""}
       <div class="tags">${tas}${r.ps.length ? tagChip(r) : ""}${r.pre ? `<span class="ls-tag" style="background:var(--accent-soft);color:var(--accent)">${T("临床前精选", "Preclinical pick")} · ${esc(r.pre.tag)}</span>` : ""}</div>
@@ -147,7 +147,7 @@ function renderTargetPage(){
 }
 function renderTgBody(){
   const g = tgCur, D_ = tgData(g), el = $("tg-body");
-  const f = {clin:tgClin, pat:tgPat, lit:tgLit, news:tgNews, deal:tgDeal}[tgTab];
+  const f = {clin:tgClin, cmp:tgCmp, pat:tgPat, lit:tgLit, news:tgNews, deal:tgDeal}[tgTab];
   el.innerHTML = f(g, D_);
   el.querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));
   el.querySelectorAll("[data-oc]").forEach(b => b.addEventListener("click", () => openDetail("c", b.dataset.oc)));
@@ -427,6 +427,7 @@ function renderAreaBody(){
     $("ta-body").querySelectorAll("[data-oc]").forEach(b => { if (b._b) return; b._b = 1; b.addEventListener("click", () => openDetail("c", b.dataset.oc)); });
   };
   draw();
+  taCmpExtra();
 }
 let rzA; window.addEventListener("resize", () => { clearTimeout(rzA); rzA = setTimeout(() => { if (taCur && curTab === "tax") renderAreaBody(); if (curTab === "ma") renderMA(); }, 250); });
 

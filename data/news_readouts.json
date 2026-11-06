@@ -1,5 +1,5 @@
 {
-"generated": "2026-11-05",
+"generated": "2026-11-06",
 "items": [
 {
 "d": "2026-08-07",
@@ -17,10 +17,13 @@
 ],
 "mod": "小分子",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "8f6ee8b976",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -37,10 +40,13 @@
 "tg": [],
 "mod": "",
 "ta": "呼吸",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "1a1341cae7",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -57,10 +63,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "db494b6544",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -77,12 +86,15 @@
 "tg": [],
 "mod": "生物制品（未细分）",
 "ta": "女性健康 / 泌尿",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07118891",
 "ncts": [
 "NCT07118891"
 ],
 "id": "1f91d23b5b",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -99,10 +111,13 @@
 "tg": [],
 "mod": "",
 "ta": "呼吸",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "40f2baec89",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -119,10 +134,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "33b7152191",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -139,10 +157,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "f91be24b3f",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -161,10 +182,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "6c89025ec1",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -181,10 +205,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2ddc48adee",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -203,10 +230,13 @@
 ],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "124a8397ef",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -223,10 +253,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2558666d42",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -243,10 +276,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "a2cd0c025b",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -263,12 +299,15 @@
 "tg": [],
 "mod": "反义寡核苷酸",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06617429",
 "ncts": [
 "NCT06617429"
 ],
 "id": "56dc460275",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -285,10 +324,13 @@
 "tg": [],
 "mod": "",
 "ta": "罕见病 / 遗传",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "921d05e1ba",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -305,10 +347,13 @@
 "tg": [],
 "mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "f1e384dce0",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -325,10 +370,13 @@
 "tg": [],
 "mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "4798ad248d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -347,10 +395,13 @@
 ],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "ERS 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "8c08d10b66",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -367,12 +418,15 @@
 "tg": [],
 "mod": "siRNA",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06846398",
 "ncts": [
 "NCT06846398"
 ],
 "id": "4762ded2ff",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -391,10 +445,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "da54517be6",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -413,10 +470,13 @@
 ],
 "mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "131193f7ab",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -433,10 +493,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "ceebcc38bf",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -455,6 +518,9 @@
 ],
 "mod": "单抗",
 "ta": "感染 / 疫苗",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": "NCT05624450",
 "ncts": [
 "NCT05624450",
@@ -462,7 +528,7 @@
 "NCT06932263"
 ],
 "id": "98b6d067c8",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "两项验证性试验迎突破性结果！阿斯利康Tozorakimab再传好消息",
@@ -496,13 +562,16 @@
 ],
 "mod": "小分子",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07150845",
 "ncts": [
 "NCT06873516",
 "NCT07150845"
 ],
 "id": "dcb7a03371",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "Evommune's EVO756 suffers second Phase IIb setback in two months with AD miss",
@@ -536,10 +605,13 @@
 ],
 "mod": "siRNA",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "71bde9d506",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "Novartis's Del-Desiran Misses Primary Endpoint in Phase 3 DM1 Trial",
@@ -566,6 +638,9 @@
 ],
 "mod": "反义寡核苷酸",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT05305664",
 "ncts": [
 "NCT05305664",
@@ -575,7 +650,7 @@
 "NCT06875973"
 ],
 "id": "0024bf3c3e",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -594,6 +669,9 @@
 ],
 "mod": "多肽 / 蛋白激素",
 "ta": "其他",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06455059",
 "ncts": [
 "NCT04554940",
@@ -602,7 +680,7 @@
 "NCT07126262"
 ],
 "id": "3f9b2547a4",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "Phase 3 study shows vosoritide improves growth in children with hypochondroplasia",
@@ -627,10 +705,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "1ca09a58f8",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -649,10 +730,13 @@
 ],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2df8b3a976",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -671,10 +755,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "8d1ee0532e",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -691,10 +778,13 @@
 "tg": [],
 "mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "29cc6de28c",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -711,10 +801,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "02deca0fed",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -733,6 +826,14 @@
 ],
 "mod": "小分子",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [
+{
+"k": "降低",
+"v": "83"
+}
+],
 "nct": "NCT06669754",
 "ncts": [
 "NCT05396105",
@@ -741,7 +842,7 @@
 "NCT07266805"
 ],
 "id": "6f38d5f4af",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -760,6 +861,9 @@
 ],
 "mod": "单抗",
 "ta": "其他",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06164704",
 "ncts": [
 "NCT06164704",
@@ -767,7 +871,7 @@
 "NCT06981078"
 ],
 "id": "2aef81e350",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -784,10 +888,13 @@
 "tg": [],
 "mod": "",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2bbf8b8ac0",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -807,12 +914,15 @@
 ],
 "mod": "小分子",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07905001",
 "ncts": [
 "NCT07905001"
 ],
 "id": "9dea09e57a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -829,10 +939,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "1399e32d73",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -849,10 +962,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "f19d5b0572",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -869,10 +985,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "02fccd4ddd",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -889,10 +1008,18 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [
+{
+"k": "ORR",
+"v": "94"
+}
+],
 "nct": null,
 "ncts": [],
 "id": "bcd9902068",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -909,10 +1036,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "1152d74691",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -929,10 +1059,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "986e7cad70",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -949,10 +1082,13 @@
 "tg": [],
 "mod": "",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "c4273e2b02",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -971,13 +1107,16 @@
 ],
 "mod": "多肽 / 蛋白激素",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": "NCT07589686",
 "ncts": [
 "NCT07589686",
 "NCT07626515"
 ],
 "id": "397cb30225",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -996,12 +1135,15 @@
 ],
 "mod": "小分子",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06794996",
 "ncts": [
 "NCT06794996"
 ],
 "id": "bac56ef78d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "Vertex posts positive Phase 2b AMPLIFIED data for inaxaplin in APOL1 kidney disease",
@@ -1033,10 +1175,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "b63b2e0fe3",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1053,10 +1198,13 @@
 "tg": [],
 "mod": "反义寡核苷酸",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "8eccc2d755",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "Sefaxersen Meets Primary Endpoint in Phase 3 IgA Nephropathy Trial",
@@ -1081,10 +1229,13 @@
 "tg": [],
 "mod": "",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "7443b69104",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1103,6 +1254,9 @@
 ],
 "mod": "融合蛋白",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06104124",
 "ncts": [
 "NCT06104124",
@@ -1110,7 +1264,7 @@
 "NCT06747949"
 ],
 "id": "4db71649c0",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1127,10 +1281,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "cd8504278e",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1149,6 +1306,9 @@
 ],
 "mod": "融合蛋白",
 "ta": "肿瘤",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": "NCT04675333",
 "ncts": [
 "NCT04675294",
@@ -1157,7 +1317,7 @@
 "NCT07007559"
 ],
 "id": "ef76a20e6b",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "Evorpacept plus trastuzumab, ramucirumab and paclitaxel in HER2-positive gastric cancer: a randomized phase 2 trial",
@@ -1184,12 +1344,15 @@
 ],
 "mod": "小分子",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07359820",
 "ncts": [
 "NCT07359820"
 ],
 "id": "bb13706e29",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1208,10 +1371,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "bad640840a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1228,10 +1394,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "016662a282",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1248,10 +1417,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "db6172aa5d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1268,10 +1440,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "a8ca2b2ac3",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1291,10 +1466,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "f1bc2567a4",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1311,10 +1489,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "290ddec6d5",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1333,6 +1514,9 @@
 ],
 "mod": "单抗",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07176390",
 "ncts": [
 "NCT05270668",
@@ -1342,7 +1526,7 @@
 "NCT07133633"
 ],
 "id": "bded01893a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1359,6 +1543,9 @@
 "tg": [],
 "mod": "小分子",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ASTRO 2026",
+"nums": [],
 "nct": "NCT04752813",
 "ncts": [
 "NCT04752813",
@@ -1366,7 +1553,7 @@
 "NCT06959082"
 ],
 "id": "8546713e99",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1383,10 +1570,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "ac9d522285",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1403,10 +1593,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "0c3699d836",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1426,6 +1619,14 @@
 ],
 "mod": "多肽 / 蛋白激素",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [
+{
+"k": "减重",
+"v": "13.1"
+}
+],
 "nct": "NCT07855900",
 "ncts": [
 "NCT06632444",
@@ -1435,7 +1636,7 @@
 "NCT07850050"
 ],
 "id": "690d501aff",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1452,10 +1653,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "f4a2f6ef0b",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1474,6 +1678,9 @@
 ],
 "mod": "单抗",
 "ta": "免疫 / 炎症",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": "NCT05531565",
 "ncts": [
 "NCT04895241",
@@ -1483,7 +1690,7 @@
 "NCT06044337"
 ],
 "id": "72fe3aa484",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1502,6 +1709,9 @@
 ],
 "mod": "单抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07154290",
 "ncts": [
 "NCT03564340",
@@ -1510,7 +1720,7 @@
 "NCT07154290"
 ],
 "id": "e73b0468c6",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1527,10 +1737,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "1f1da561a0",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1547,10 +1760,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "5bb0371641",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1567,10 +1783,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "c9f3c0567d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1587,10 +1806,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "1cc5e8049c",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1607,10 +1829,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "ebcd0e14d5",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1627,10 +1852,13 @@
 "tg": [],
 "mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "85adea9b32",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1649,6 +1877,9 @@
 ],
 "mod": "小分子",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06669754",
 "ncts": [
 "NCT05396105",
@@ -1657,7 +1888,7 @@
 "NCT07266805"
 ],
 "id": "fb74a63a81",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1674,10 +1905,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "5a80600616",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1696,6 +1930,9 @@
 ],
 "mod": "小分子",
 "ta": "免疫 / 炎症",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": "NCT06088199",
 "ncts": [
 "NCT04528082",
@@ -1705,7 +1942,7 @@
 "NCT06088199"
 ],
 "id": "7d7492404a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1724,12 +1961,15 @@
 ],
 "mod": "小分子",
 "ta": "呼吸",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06422884",
 "ncts": [
 "NCT06422884"
 ],
 "id": "7048349f2e",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1746,10 +1986,13 @@
 "tg": [],
 "mod": "多肽 / 蛋白激素",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "b84596a446",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1766,10 +2009,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "621477ff67",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1786,10 +2032,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "950e7f0b77",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1808,6 +2057,9 @@
 ],
 "mod": "单抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": "NCT04041310",
 "ncts": [
 "NCT04041310",
@@ -1817,7 +2069,7 @@
 "NCT06963814"
 ],
 "id": "c7ef3ee18d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1835,14 +2087,17 @@
 "Nectin-4",
 "TROP2"
 ],
-"mod": "未识别",
+"mod": "",
 "ta": "肿瘤",
+"tier": "pr",
+"conf": "ESMO Asia 2026",
+"nums": [],
 "nct": "NCT07299747",
 "ncts": [
 "NCT07299747"
 ],
 "id": "71268fbd42",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1859,10 +2114,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "18e784e406",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1879,10 +2137,13 @@
 "tg": [],
 "mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "1a148c7914",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1899,12 +2160,15 @@
 "tg": [],
 "mod": "单抗",
 "ta": "呼吸",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06132256",
 "ncts": [
 "NCT06132256"
 ],
 "id": "9fa6bad553",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1921,10 +2185,13 @@
 "tg": [],
 "mod": "",
 "ta": "呼吸",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "7d47098de7",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1941,10 +2208,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "a96d45ac69",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1958,9 +2228,14 @@
 "ph": "3",
 "drug": "Cemdisiran",
 "co": "Regeneron",
-"tg": [],
+"tg": [
+"补体 C5"
+],
 "mod": "单抗",
 "ta": "血液",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT05133531",
 "ncts": [
 "NCT05070858",
@@ -1970,7 +2245,7 @@
 "NCT07154745"
 ],
 "id": "3377abfc5b",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -1989,6 +2264,9 @@
 ],
 "mod": "单抗",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT05398263",
 "ncts": [
 "NCT05398263",
@@ -1998,7 +2276,7 @@
 "NCT06706817"
 ],
 "id": "20dac9c880",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2015,10 +2293,13 @@
 "tg": [],
 "mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "fe6c1d1194",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2035,10 +2316,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "c36a0abf26",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2055,10 +2339,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "05fb3c1490",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2077,12 +2364,15 @@
 ],
 "mod": "小分子",
 "ta": "呼吸",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06003426",
 "ncts": [
 "NCT06003426"
 ],
 "id": "f624ea874a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2099,15 +2389,18 @@
 "tg": [
 "Dystrophin（外显子跳跃）"
 ],
-"mod": "未识别",
+"mod": "",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07038824",
 "ncts": [
 "NCT07038824",
 "NCT07682129"
 ],
 "id": "e008a74e77",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2124,12 +2417,15 @@
 "tg": [],
 "mod": "融合蛋白",
 "ta": "感染 / 疫苗",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": "NCT07123727",
 "ncts": [
 "NCT07123727"
 ],
 "id": "c02afdb989",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2148,12 +2444,15 @@
 ],
 "mod": "单抗",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07835581",
 "ncts": [
 "NCT07835581"
 ],
 "id": "1a8d600545",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2173,10 +2472,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2af1ee5bb0",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2193,10 +2495,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "abf40aedbd",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2215,10 +2520,13 @@
 ],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "cbdd7f8171",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2235,10 +2543,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "eb5171d4a8",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2255,10 +2566,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "e5ace6bad4",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2275,10 +2589,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "26c7af18d8",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2295,10 +2612,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "cc829a295a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2315,10 +2635,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "d4d7a74717",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2335,10 +2658,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "fb45eb97de",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2357,10 +2683,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2618434b47",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2377,10 +2706,13 @@
 "tg": [],
 "mod": "",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "b75f05c682",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2397,10 +2729,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "21b24e5e84",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2420,6 +2755,9 @@
 ],
 "mod": "双抗 / 多抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07221357",
 "ncts": [
 "NCT06697197",
@@ -2429,7 +2767,7 @@
 "NCT07070232"
 ],
 "id": "b61041b078",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2446,10 +2784,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "955afcbd97",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2466,12 +2807,15 @@
 "tg": [],
 "mod": "小分子",
 "ta": "消化 / 肝",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT03678480",
 "ncts": [
 "NCT03678480"
 ],
 "id": "953c547a3d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2490,10 +2834,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "d94a161bb9",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2510,10 +2857,13 @@
 "tg": [],
 "mod": "反义寡核苷酸",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "7a6a631a2f",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2530,12 +2880,15 @@
 "tg": [],
 "mod": "ADC / 偶联药物",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07454642",
 "ncts": [
 "NCT07454642"
 ],
 "id": "6844c572a7",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2552,10 +2905,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "0ac1e57879",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2572,10 +2928,13 @@
 "tg": [],
 "mod": "多肽 / 蛋白激素",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "3a6cea14fd",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2592,10 +2951,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "0e2cc53b07",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2612,10 +2974,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "e20cffc471",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2632,6 +2997,9 @@
 "tg": [],
 "mod": "生物制品（未细分）",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06233292",
 "ncts": [
 "NCT06233292",
@@ -2641,7 +3009,7 @@
 "NCT07142837"
 ],
 "id": "338699c2eb",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2658,14 +3026,17 @@
 "tg": [
 "PARP1"
 ],
-"mod": "未识别",
+"mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06253130",
 "ncts": [
 "NCT06253130"
 ],
 "id": "ea85cab1c0",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2684,12 +3055,20 @@
 ],
 "mod": "生物制品（未细分）",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [
+{
+"k": "ORR",
+"v": "33.3"
+}
+],
 "nct": "NCT07019779",
 "ncts": [
 "NCT07019779"
 ],
 "id": "52b9e8ba95",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2708,6 +3087,9 @@
 ],
 "mod": "小分子",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT05239728",
 "ncts": [
 "NCT03401788",
@@ -2717,7 +3099,7 @@
 "NCT04626479"
 ],
 "id": "057c00977e",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2734,10 +3116,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "pr",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "613eeee9ab",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2756,10 +3141,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "a1b94c4a1f",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2776,10 +3164,13 @@
 "tg": [],
 "mod": "单抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "c24256941d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2796,10 +3187,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "c7784e017c",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2816,10 +3210,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "11c2ceb167",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2838,13 +3235,16 @@
 ],
 "mod": "单抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": "NCT07098988",
 "ncts": [
 "NCT04725474",
 "NCT07098988"
 ],
 "id": "ee78e116ff",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2863,10 +3263,13 @@
 ],
 "mod": "",
 "ta": "肿瘤",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "26119a078c",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2883,10 +3286,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "8fd703b28c",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2903,10 +3309,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "e1c7bb9621",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2925,10 +3334,13 @@
 ],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "cc01bd9d2a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "ArriVent's ARR-217 shows 44.8% response rate in late-stage colorectal cancer patients in Phase 1 trial",
@@ -2962,10 +3374,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "d7bbebe1f2",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -2982,14 +3397,17 @@
 "tg": [
 "PD-1 / PD-L1"
 ],
-"mod": "未识别",
+"mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06741644",
 "ncts": [
 "NCT06741644"
 ],
 "id": "c5a9826a97",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "基石药业-B(02616.HK)于ESMO 2026公布CS2009关键临床验证数据：逾300例患者数据同步验证作用机制、安全性及广谱抗肿瘤活性",
@@ -3014,10 +3432,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "02ea98e999",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3034,10 +3455,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "17954d5500",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3056,10 +3480,13 @@
 ],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "7a49d486c5",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3078,6 +3505,9 @@
 ],
 "mod": "小分子",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT05059236",
 "ncts": [
 "NCT03568656",
@@ -3087,7 +3517,7 @@
 "NCT06120491"
 ],
 "id": "79d825fed6",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3104,10 +3534,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "700d769396",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3124,10 +3557,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "f77166572d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3144,10 +3580,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "78e230fa6f",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3164,10 +3603,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "78b4f838f4",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3179,15 +3621,26 @@
 "v": "待判定",
 "stop": false,
 "ph": "3",
-"drug": "",
+"drug": "赛沃替尼 (Savolitinib)",
 "co": "HUTCHMED",
-"tg": [],
-"mod": "",
+"tg": [
+"c-MET"
+],
+"mod": "小分子",
 "ta": "肿瘤",
-"nct": null,
-"ncts": [],
-"id": "8d8681e240",
-"first_seen": "2026-11-05",
+"tier": "media",
+"conf": "",
+"nums": [],
+"nct": "NCT05261399",
+"ncts": [
+"NCT03091192",
+"NCT03778229",
+"NCT03944772",
+"NCT05009836",
+"NCT05043090"
+],
+"id": "c5b301be6e",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3204,10 +3657,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "d15e5b43e3",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3226,10 +3682,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "440246850e",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3248,12 +3707,15 @@
 ],
 "mod": "单抗",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07375758",
 "ncts": [
 "NCT07375758"
 ],
 "id": "95b76e8af8",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3270,10 +3732,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "e9b3afd157",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3290,10 +3755,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "c143b6df5d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3310,10 +3778,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "0ed50097bd",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3332,10 +3803,13 @@
 ],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "0c68aeb71d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3355,6 +3829,9 @@
 ],
 "mod": "双抗 / 多抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06152575",
 "ncts": [
 "NCT05020236",
@@ -3364,7 +3841,7 @@
 "NCT06152575"
 ],
 "id": "c37945c1b1",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3381,10 +3858,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "pr",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "182c74bfde",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3401,10 +3881,13 @@
 "tg": [],
 "mod": "小分子",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "d7f7949b9f",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3423,6 +3906,9 @@
 ],
 "mod": "融合蛋白",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06104124",
 "ncts": [
 "NCT06104124",
@@ -3430,7 +3916,7 @@
 "NCT06747949"
 ],
 "id": "6cd7601405",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3447,10 +3933,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "15ba5324fe",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3467,10 +3956,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "eac676ab04",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3487,10 +3979,13 @@
 "tg": [],
 "mod": "融合蛋白",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2bf6612c6f",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3507,12 +4002,15 @@
 "tg": [],
 "mod": "单抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": "NCT07750041",
 "ncts": [
 "NCT07750041"
 ],
 "id": "eff0aa11ac",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3529,10 +4027,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2edb9108c2",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3551,10 +4052,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "08ad9ef838",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3573,6 +4077,9 @@
 ],
 "mod": "ADC / 偶联药物",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": "NCT07833735",
 "ncts": [
 "NCT07241936",
@@ -3581,7 +4088,7 @@
 "NCT07833735"
 ],
 "id": "b8864f50bc",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "石药集团(01093.HK)：SYS6043(B7-H3 ADC)用于治疗晚期乳腺癌的I/II期临床研究结果于2026年ESMO年会以快速口头报告形式公布",
@@ -3615,6 +4122,9 @@
 ],
 "mod": "小分子",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06793215",
 "ncts": [
 "NCT05789082",
@@ -3624,7 +4134,7 @@
 "NCT07541170"
 ],
 "id": "025f97c8bf",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3643,10 +4153,13 @@
 ],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "91a58e453e",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3663,10 +4176,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "4892bc7415",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3683,10 +4199,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "eb72165002",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3703,10 +4222,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "9e83087c2d",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3725,13 +4247,16 @@
 ],
 "mod": "小分子",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT05968430",
 "ncts": [
 "NCT05968430",
 "NCT06785454"
 ],
 "id": "c65311df33",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": [
 {
 "t": "Mineralys Therapeutics Announces Publication of Phase 2 Explore-CKD Trial Results for Lorundrostat in Kidney International",
@@ -3756,12 +4281,15 @@
 "tg": [],
 "mod": "小分子",
 "ta": "其他",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07412288",
 "ncts": [
 "NCT07412288"
 ],
 "id": "74cc4380f8",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3780,10 +4308,13 @@
 ],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "080acc104b",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3800,10 +4331,13 @@
 "tg": [],
 "mod": "",
 "ta": "",
+"tier": "media",
+"conf": "ESMO 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "8be7074064",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3820,10 +4354,13 @@
 "tg": [],
 "mod": "",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "a3797ea5d5",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3842,10 +4379,13 @@
 ],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "4b1c34bc2a",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3864,6 +4404,9 @@
 ],
 "mod": "小分子",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT05216263",
 "ncts": [
 "NCT05216263",
@@ -3873,7 +4416,7 @@
 "NCT05861427"
 ],
 "id": "160b2dd8d3",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3890,10 +4433,18 @@
 "tg": [],
 "mod": "",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "",
+"nums": [
+{
+"k": "降低",
+"v": "46"
+}
+],
 "nct": null,
 "ncts": [],
 "id": "c48d6ebee0",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3910,10 +4461,13 @@
 "tg": [],
 "mod": "单抗",
 "ta": "肿瘤",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "b5bcab2f4f",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3930,10 +4484,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "91098ba966",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3950,10 +4507,13 @@
 "tg": [],
 "mod": "小分子",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "fa76ea600b",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3970,6 +4530,9 @@
 "tg": [],
 "mod": "小分子",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT07035041",
 "ncts": [
 "NCT07035041",
@@ -3978,7 +4541,7 @@
 "NCT07315061"
 ],
 "id": "9f1b8e8f35",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -3995,12 +4558,15 @@
 "tg": [],
 "mod": "单抗",
 "ta": "神经 / 精神 / 疼痛",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": "NCT06292923",
 "ncts": [
 "NCT06292923"
 ],
 "id": "ad3285b573",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -4017,10 +4583,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "190a8e7805",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -4037,10 +4606,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "3230b9d3ce",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -4057,10 +4629,13 @@
 "tg": [],
 "mod": "",
 "ta": "心血管 / 代谢 / 肾",
+"tier": "media",
+"conf": "ACR Convergence 2026",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "e385211435",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 },
 {
@@ -4077,10 +4652,13 @@
 "tg": [],
 "mod": "",
 "ta": "免疫 / 炎症",
+"tier": "media",
+"conf": "",
+"nums": [],
 "nct": null,
 "ncts": [],
 "id": "2021965cdc",
-"first_seen": "2026-11-05",
+"first_seen": "2026-11-06",
 "src": []
 }
 ]

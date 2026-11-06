@@ -1,0 +1,13 @@
+{
+"_about": "会议日历：读出日历和会议标签用。会议期间（开幕前 5 天到闭幕后 3 天）每周抓取会额外按 q 检索。日期按主办方官网核对（src），新增会议照这个格式加一行。ta 是治疗领域，留空表示跨领域。",
+"items": [
+{"n": "SABCS 2026", "full": "San Antonio Breast Cancer Symposium", "start": "2026-12-08", "end": "2026-12-11", "where": "San Antonio", "ta": "肿瘤", "q": "SABCS", "src": "https://www.aacr.org/meeting/san-antonio-breast-cancer-symposium/"},
+{"n": "ASH 2026", "full": "ASH Annual Meeting", "start": "2026-12-12", "end": "2026-12-15", "where": "New Orleans", "ta": "血液", "q": "ASH 2026", "src": "https://www.hematology.org/meetings/annual-meeting"},
+{"n": "ASCO GI 2027", "full": "ASCO Gastrointestinal Cancers Symposium", "start": "2027-01-21", "end": "2027-01-23", "where": "San Francisco", "ta": "肿瘤", "q": "ASCO GI", "src": "https://events.jspargo.com/gi27/Public/Enter.aspx"},
+{"n": "ASCO GU 2027", "full": "ASCO Genitourinary Cancers Symposium", "start": "2027-02-11", "end": "2027-02-13", "where": "San Francisco", "ta": "肿瘤", "q": "ASCO GU", "src": "https://moscone.com/events/american-society-clinical-oncology-gu-cancers-symposium-2027"},
+{"n": "AACR 2027", "full": "AACR Annual Meeting", "start": "2027-04-02", "end": "2027-04-07", "where": "Orlando", "ta": "肿瘤", "q": "AACR 2027", "src": "https://www.aacr.org/professionals/meetings/nav_link-aacr-annual-meeting-2027/"},
+{"n": "ASCO 2027", "full": "ASCO Annual Meeting", "start": "2027-06-04", "end": "2027-06-08", "where": "Chicago", "ta": "肿瘤", "q": "ASCO 2027", "src": "https://conferences.asco.org/am/dates-know"},
+{"n": "EHA 2027", "full": "EHA Congress", "start": "2027-06-10", "end": "2027-06-13", "where": "Barcelona", "ta": "血液", "q": "EHA 2027", "src": "https://ehaweb.org/connect-network/eha2027-congress"},
+{"n": "ADA 2027", "full": "ADA Scientific Sessions", "start": "2027-06-18", "end": "2027-06-21", "where": "Washington, DC", "ta": "心血管 / 代谢 / 肾", "q": "ADA Scientific Sessions", "src": "https://professional.diabetes.org/scientific-sessions"}
+]
+}
