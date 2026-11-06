@@ -1,1 +1,4534 @@
-{"items":{}}
+{
+"items": {
+"topicalsm04554solution": {
+"n": "Topical SM04554 solution",
+"miss": "2026-11-06"
+},
+"topicalvehiclesolution": {
+"n": "Topical vehicle solution",
+"miss": "2026-11-06"
+},
+"salmeterol": {
+"n": "Salmeterol",
+"cid": 5152,
+"smi": "C1=CC=C(C=C1)CCCCOCCCCCCNCC(C2=CC(=C(C=C2)O)CO)O",
+"ik": "GIIZNNXWQWCKIB-UHFFFAOYSA-N",
+"mw": 415.6,
+"al": [],
+"d": "2026-11-06"
+},
+"tiotropium": {
+"n": "Tiotropium",
+"cid": 5487427,
+"smi": "C[N+]1([C@@H]2CC(C[C@H]1[C@H]3[C@@H]2O3)OC(=O)C(C4=CC=CS4)(C5=CC=CS5)O)C",
+"ik": "LERNTVKEWCAPOY-FPISHFTHSA-N",
+"mw": 392.5,
+"al": [],
+"d": "2026-11-06"
+},
+"bupivacaine": {
+"n": "Bupivacaine",
+"cid": 2474,
+"smi": "CCCCN1CCCCC1C(=O)NC2=C(C=CC=C2C)C",
+"ik": "LEBVLXFERQHONN-UHFFFAOYSA-N",
+"mw": 288.4,
+"al": [],
+"d": "2026-11-06"
+},
+"mazisotine": {
+"n": "Mazisotine",
+"cid": 86294067,
+"smi": "CC1=C(N=CC=C1)OCC(C)(C)NC(=O)C2[C@H]3[C@@H]2CNC3",
+"ik": "PCINBSQTEDBZDB-FUNVUKJBSA-N",
+"mw": 289.4,
+"al": [
+"ly3556050"
+],
+"d": "2026-11-06"
+},
+"tradipitant": {
+"n": "Tradipitant",
+"cid": 9916461,
+"smi": "C1=CC=C(C(=C1)C(=O)C2=C(N=CC=C2)C3=C(N(N=N3)CC4=CC(=CC(=C4)C(F)(F)F)C(F)(F)F)C5=CC=NC=C5)Cl",
+"ik": "CAVRKWRKTNINFF-UHFFFAOYSA-N",
+"mw": 587.9,
+"al": [
+"nereus",
+"vly686"
+],
+"d": "2026-11-06"
+},
+"relugolixcombinationtherapy": {
+"n": "Relugolix Combination Therapy",
+"miss": "2026-11-06"
+},
+"paricalcitol": {
+"n": "Paricalcitol",
+"cid": 5281104,
+"smi": "C[C@H](/C=C/[C@H](C)C(C)(C)O)[C@H]1CC[C@@H]\\2[C@@]1(CCC/C2=C\\C=C3C[C@H](C[C@@H](C3)O)O)C",
+"ik": "BPKAHTKRCLCHEA-UBFJEZKGSA-N",
+"mw": 416.6,
+"al": [],
+"d": "2026-11-06"
+},
+"antihistamine": {
+"n": "Antihistamine",
+"miss": "2026-11-06"
+},
+"linsitinib": {
+"n": "Linsitinib",
+"cid": 11640390,
+"smi": "CC1(CC(C1)C2=NC(=C3N2C=CN=C3N)C4=CC5=C(C=C4)C=CC(=N5)C6=CC=CC=C6)O",
+"ik": "PKCDDUHJAFVJJB-UHFFFAOYSA-N",
+"mw": 421.5,
+"al": [],
+"d": "2026-11-06"
+},
+"nabsirolimus": {
+"n": "nab-sirolimus",
+"miss": "2026-11-06"
+},
+"soticlestat": {
+"n": "Soticlestat",
+"cid": 73437845,
+"smi": "C1CN(CCC1(CC2=CC=CC=C2)O)C(=O)C3=C(N=CC=C3)C4=CC=NC=C4",
+"ik": "XKUZMIUSBMCVPP-UHFFFAOYSA-N",
+"mw": 373.4,
+"al": [
+"tak935"
+],
+"d": "2026-11-06"
+},
+"rilzabrutinib": {
+"n": "Rilzabrutinib",
+"cid": 73388818,
+"smi": "CC(C)(/C=C(\\C#N)/C(=O)N1CCC[C@H](C1)N2C3=NC=NC(=C3C(=N2)C4=C(C=C(C=C4)OC5=CC=CC=C5)F)N)N6CCN(CC6)C7COC7",
+"ik": "LCFFREMLXLZNHE-GBOLQPHISA-N",
+"mw": 665.8,
+"al": [
+"prn1008sar444671"
+],
+"d": "2026-11-06"
+},
+"cobimetinib": {
+"n": "Cobimetinib",
+"cid": 16222096,
+"smi": "C1CCN[C@@H](C1)C2(CN(C2)C(=O)C3=C(C(=C(C=C3)F)F)NC4=C(C=C(C=C4)I)F)O",
+"ik": "BSMCAPRUBJMWDF-KRWDZBQOSA-N",
+"mw": 531.3,
+"al": [
+"cotellic"
+],
+"d": "2026-11-06"
+},
+"edp938": {
+"n": "EDP-938",
+"cid": 134461434,
+"smi": "C1COCCN1C2=C(N=CC(=C2)C(F)(F)F)C3=NN=C(O3)N[C@@H]4C(=O)NC5=CC=CC=C5C(=N4)C6=CC=CC=C6",
+"ik": "VGGNPZNYTJXPEW-HSZRJFAPSA-N",
+"mw": 549.5,
+"al": [],
+"d": "2026-11-06"
+},
+"op1250": {
+"n": "OP-1250",
+"cid": 135351887,
+"smi": "CCCN1CC(C1)OC2=CC=C(C=C2)[C@@H]3C4=C(C[C@H](N3CC(C)(C)F)C)C5=CC=CC=C5N4",
+"ik": "LBSFUBLFDCAEKV-XHCCPWGMSA-N",
+"mw": 449.6,
+"al": [],
+"d": "2026-11-06"
+},
+"licart": {
+"n": "Licart™",
+"miss": "2026-11-06"
+},
+"fingolimod": {
+"n": "Fingolimod",
+"cid": 107970,
+"smi": "CCCCCCCCC1=CC=C(C=C1)CCC(CO)(CO)N",
+"ik": "KKGQTZUTZRNORY-UHFFFAOYSA-N",
+"mw": 307.5,
+"al": [
+"gilenya"
+],
+"d": "2026-11-06"
+},
+"topicalsm04554015solution": {
+"n": "Topical SM04554 0.15% solution",
+"miss": "2026-11-06"
+},
+"topicalsm04554025solution": {
+"n": "Topical SM04554 0.25% solution",
+"miss": "2026-11-06"
+},
+"nirogacestat": {
+"n": "Nirogacestat",
+"cid": 46224413,
+"smi": "CCC[C@@H](C(=O)NC1=CN(C=N1)C(C)(C)CNCC(C)(C)C)N[C@H]2CCC3=C(C2)C(=CC(=C3)F)F",
+"ik": "VFCRKLWBYMDAED-REWPJTCUSA-N",
+"mw": 489.6,
+"al": [
+"pf03084014"
+],
+"d": "2026-11-06"
+},
+"sonrotoclax": {
+"n": "Sonrotoclax",
+"cid": 149553242,
+"smi": "CC(C)C1=CC=CC=C1[C@@H]2CCCN2C3CC4(C3)CCN(CC4)C5=CC(=C(C=C5)C(=O)NS(=O)(=O)C6=CC(=C(C=C6)NCC7CCC(CC7)(C)O)[N+](=O)[O-])OC8=CN=C9C(=C8)C=CN9",
+"ik": "ZQTKOYMWCCSKON-HCWAPQBJSA-N",
+"mw": 890.1,
+"al": [
+"bgb11417"
+],
+"d": "2026-11-06"
+},
+"lorecivivint": {
+"n": "Lorecivivint",
+"cid": 135565709,
+"smi": "CC(C)CC(=O)NC1=CN=CC(=C1)C2=CC3=C(C=C2)NN=C3C4=NC5=C(N4)C=NC=C5C6=CC(=CC=C6)F",
+"ik": "AQDWDWAYVBQMAM-UHFFFAOYSA-N",
+"mw": 505.5,
+"al": [
+"sm04690"
+],
+"d": "2026-11-06"
+},
+"niraparib": {
+"n": "Niraparib",
+"cid": 24958200,
+"smi": "C1C[C@H](CNC1)C2=CC=C(C=C2)N3C=C4C=CC=C(C4=N3)C(=O)N",
+"ik": "PCHKPVIQAHNQLW-CQSZACIVSA-N",
+"mw": 320.4,
+"al": [
+"gsk3985771mk4827"
+],
+"d": "2026-11-06"
+},
+"lenvatinib": {
+"n": "lenvatinib",
+"cid": 9823820,
+"smi": "COC1=CC2=NC=CC(=C2C=C1C(=O)N)OC3=CC(=C(C=C3)NC(=O)NC4CC4)Cl",
+"ik": "WOSKHXYHFSIKNG-UHFFFAOYSA-N",
+"mw": 426.9,
+"al": [],
+"d": "2026-11-06"
+},
+"ciprofloxacinfluocinoloneacetonide030025oticsolution": {
+"n": "Ciprofloxacin-Fluocinolone Acetonide, 0.3%-0.025% Otic Solution",
+"miss": "2026-11-06"
+},
+"ciprofloxacin03solution": {
+"n": "Ciprofloxacin 0.3% solution",
+"miss": "2026-11-06"
+},
+"ebselen": {
+"n": "Ebselen",
+"cid": 3194,
+"smi": "C1=CC=C(C=C1)N2C(=O)C3=CC=CC=C3[Se]2",
+"ik": "DYEFUKCXAQOFHX-UHFFFAOYSA-N",
+"mw": 274.2,
+"al": [
+"spi1005"
+],
+"d": "2026-11-06"
+},
+"baricitinib": {
+"n": "Baricitinib",
+"cid": 44205240,
+"smi": "CCS(=O)(=O)N1CC(C1)(CC#N)N2C=C(C=N2)C3=C4C=CNC4=NC=N3",
+"ik": "XUZMWHLSFXCVMG-UHFFFAOYSA-N",
+"mw": 371.4,
+"al": [
+"baricent",
+"ly3009104"
+],
+"d": "2026-11-06"
+},
+"vinflunine": {
+"n": "Vinflunine",
+"cid": 10629256,
+"smi": "CC[C@@]12C=CCN3[C@@H]1[C@]4(CC3)[C@H]([C@]([C@@H]2OC(=O)C)(C(=O)OC)O)N(C5=CC(=C(C=C45)[C@]6(C[C@@H]7C[C@H](CN(C7)CC8=C6NC9=CC=CC=C89)C(C)(F)F)C(=O)OC)OC)C",
+"ik": "NMDYYWFGPIMTKO-KLCPSUAYSA-N",
+"mw": 816.9,
+"al": [
+"javlor"
+],
+"d": "2026-11-06"
+},
+"orforglipron": {
+"n": "Orforglipron",
+"cid": 137319706,
+"smi": "C[C@H]1C[C@]1(C2=NOC(=O)N2)N3C4=C(C=C(C=C4)[C@H]5CCOC(C5)(C)C)C=C3C(=O)N6CCC7=NN(C(=C7[C@@H]6C)N8C=CN(C8=O)C9=C(C1=C(C=C9)N(N=C1)C)F)C1=CC(=C(C(=C1)C)F)C",
+"ik": "USUWIEBBBWHKNI-KHIFEHGGSA-N",
+"mw": 883.0,
+"al": [
+"ly3502970"
+],
+"d": "2026-11-06"
+},
+"sotorasib": {
+"n": "Sotorasib",
+"cid": 137278711,
+"smi": "C[C@H]1CN(CCN1C2=NC(=O)N(C3=NC(=C(C=C32)F)C4=C(C=CC=C4F)O)C5=C(C=CN=C5C(C)C)C)C(=O)C=C",
+"ik": "NXQKSXLFSAEQCZ-SFHVURJKSA-N",
+"mw": 560.6,
+"al": [
+"amg510",
+"amg510lumakraslumykras",
+"lumakras",
+"lumykras"
+],
+"d": "2026-11-06"
+},
+"regorafenib": {
+"n": "Regorafenib",
+"cid": 11167602,
+"smi": "CNC(=O)C1=NC=CC(=C1)OC2=CC(=C(C=C2)NC(=O)NC3=CC(=C(C=C3)Cl)C(F)(F)F)F",
+"ik": "FNHKPVJBJVTLMP-UHFFFAOYSA-N",
+"mw": 482.8,
+"al": [
+"stivarga"
+],
+"d": "2026-11-06"
+},
+"ly3549492": {
+"n": "LY3549492",
+"cid": 155433819,
+"smi": "CC1=CC(=C(C=C1C2=NC(=CC=C2)OCC3=C(C=C(C=C3)C#N)F)F)CC4=NC5=C(N4C[C@@H]6CCO6)C=C(C=C5)C(=O)O",
+"ik": "QZQFEJHDNYVBKL-DEOSSOPVSA-N",
+"mw": 580.6,
+"al": [],
+"d": "2026-11-06"
+},
+"dabrafenib": {
+"n": "Dabrafenib",
+"cid": 44462760,
+"smi": "CC(C)(C)C1=NC(=C(S1)C2=NC(=NC=C2)N)C3=C(C(=CC=C3)NS(=O)(=O)C4=C(C=CC=C4F)F)F",
+"ik": "BFSMGDJOXZAERB-UHFFFAOYSA-N",
+"mw": 519.6,
+"al": [
+"drb436"
+],
+"d": "2026-11-06"
+},
+"trametinib": {
+"n": "Trametinib",
+"cid": 11707110,
+"smi": "CC1=C2C(=C(N(C1=O)C)NC3=C(C=C(C=C3)I)F)C(=O)N(C(=O)N2C4=CC=CC(=C4)NC(=O)C)C5CC5",
+"ik": "LIRYPHYGHXZJBZ-UHFFFAOYSA-N",
+"mw": 615.4,
+"al": [
+"tmt212"
+],
+"d": "2026-11-06"
+},
+"tern601": {
+"n": "TERN-601",
+"miss": "2026-11-06"
+},
+"024fluoridedentifrice": {
+"n": "0.24% Fluoride Dentifrice",
+"miss": "2026-11-06"
+},
+"15argininedentifrice": {
+"n": "1.5% Arginine Dentifrice",
+"miss": "2026-11-06"
+},
+"40argininedentifrice": {
+"n": "4.0% Arginine Dentifrice",
+"miss": "2026-11-06"
+},
+"80argininedentifrice": {
+"n": "8.0% Arginine Dentifrice",
+"miss": "2026-11-06"
+},
+"otxticlowdosetravoprostintracameralimplant": {
+"n": "OTX-TIC low dose Travoprost Intracameral Implant",
+"miss": "2026-11-06"
+},
+"otxtichighdosetravoprostintracameralimplant": {
+"n": "OTX-TIC high dose Travoprost Intracameral Implant",
+"miss": "2026-11-06"
+},
+"durystabimatoprostintracameralimplant10g": {
+"n": "Durysta, Bimatoprost Intracameral Implant 10 µg",
+"miss": "2026-11-06"
+},
+"spi1005lowdose": {
+"n": "SPI-1005 Low dose",
+"miss": "2026-11-06"
+},
+"spi1005middledose": {
+"n": "SPI-1005 Middle dose",
+"miss": "2026-11-06"
+},
+"spi1005highdose": {
+"n": "SPI-1005 High dose",
+"miss": "2026-11-06"
+},
+"sens401": {
+"n": "SENS-401",
+"cid": 131801108,
+"smi": "CN1C(=O)COC2=C(C=C(C=C21)Cl)C(=O)N[C@H]3CN4CCC3CC4.C1=CC=C(C=C1)S(=O)(=O)O",
+"ik": "GFVBDLIBPSGFDL-ZOWNYOTGSA-N",
+"mw": 508.0,
+"al": [],
+"d": "2026-11-06"
+},
+"parsaclisib": {
+"n": "Parsaclisib",
+"cid": 86677874,
+"smi": "CCOC1=C(C(=C(C=C1[C@H](C)N2C3=NC=NC(=C3C(=N2)C)N)Cl)F)[C@H]4CC(=O)NC4",
+"ik": "ZQPDJCIXJHUERQ-QWRGUYRKSA-N",
+"mw": 432.9,
+"al": [
+"incb050465"
+],
+"d": "2026-11-06"
+},
+"doxercalciferol": {
+"n": "Doxercalciferol",
+"cid": 5281107,
+"smi": "C[C@H](/C=C/[C@H](C)C(C)C)[C@H]1CC[C@@H]\\2[C@@]1(CCC/C2=C\\C=C/3\\C[C@H](C[C@@H](C3=C)O)O)C",
+"ik": "HKXBNHCUPKIYDM-CGMHZMFXSA-N",
+"mw": 412.6,
+"al": [
+"hectorol"
+],
+"d": "2026-11-06"
+},
+"calcitriol": {
+"n": "Calcitriol",
+"cid": 5280453,
+"smi": "C[C@H](CCCC(C)(C)O)[C@H]1CC[C@@H]\\2[C@@]1(CCC/C2=C\\C=C/3\\C[C@H](C[C@@H](C3=C)O)O)C",
+"ik": "GMRQFYUYWCNGIN-NKMMMXOESA-N",
+"mw": 416.6,
+"al": [
+"rocaltrol"
+],
+"d": "2026-11-06"
+},
+"abx196": {
+"n": "ABX196",
+"cid": 42630569,
+"smi": "CCCCCCCCCCCCCCCCCCCCCCCC(=O)N[C@@H](CO[C@@H]1[C@@H]([C@H]([C@H]([C@H](O1)CNC(=O)C)O)O)O)[C@@H]([C@@H](CCCCCCCCCCCCCC)O)O",
+"ik": "VITDDUXZOHEQMU-BYSUZVQFSA-N",
+"mw": 871.3,
+"al": [
+"obefazimod"
+],
+"d": "2026-11-06"
+},
+"htx034lowdose": {
+"n": "HTX-034 low dose",
+"miss": "2026-11-06"
+},
+"htx034highdose": {
+"n": "HTX-034 high dose",
+"miss": "2026-11-06"
+},
+"atogepant": {
+"n": "Atogepant",
+"cid": 72163100,
+"smi": "C[C@@H]1[C@@H](C[C@@H](C(=O)N1CC(F)(F)F)NC(=O)C2=CC3=C(C[C@@]4(C3)C5=C(NC4=O)N=CC=C5)N=C2)C6=C(C=CC(=C6F)F)F",
+"ik": "QIVUCLWGARAQIO-OLIXTKCUSA-N",
+"mw": 603.5,
+"al": [
+"qulipta"
+],
+"d": "2026-11-06"
+},
+"topiramate": {
+"n": "Topiramate",
+"cid": 5284627,
+"smi": "CC1(O[C@@H]2CO[C@@]3([C@H]([C@@H]2O1)OC(O3)(C)C)COS(=O)(=O)N)C",
+"ik": "KJADKKWYZYXHBB-XBWDGYHZSA-N",
+"mw": 339.4,
+"al": [],
+"d": "2026-11-06"
+},
+"palbociclib": {
+"n": "Palbociclib",
+"cid": 5330286,
+"smi": "CC1=C(C(=O)N(C2=NC(=NC=C12)NC3=NC=C(C=C3)N4CCNCC4)C5CCCC5)C(=O)C",
+"ik": "AHJRHEGDXFFMBM-UHFFFAOYSA-N",
+"mw": 447.5,
+"al": [
+"ibrance"
+],
+"d": "2026-11-06"
+},
+"topotecan": {
+"n": "Topotecan",
+"cid": 60700,
+"smi": "CC[C@@]1(C2=C(COC1=O)C(=O)N3CC4=CC5=C(C=CC(=C5CN(C)C)O)N=C4C3=C2)O",
+"ik": "UCFGDBYHRUNTLO-QHCPKHFHSA-N",
+"mw": 421.4,
+"al": [
+"hycamtin"
+],
+"d": "2026-11-06"
+},
+"olaparib": {
+"n": "Olaparib",
+"cid": 23725625,
+"smi": "C1CC1C(=O)N2CCN(CC2)C(=O)C3=C(C=CC(=C3)CC4=NNC(=O)C5=CC=CC=C54)F",
+"ik": "FDLYAMZZIXQODN-UHFFFAOYSA-N",
+"mw": 434.5,
+"al": [
+"azd2281",
+"ku0059436",
+"lynparza",
+"mk7339"
+],
+"d": "2026-11-06"
+},
+"075phentolamineophthalmicsolution": {
+"n": "0.75% phentolamine ophthalmic solution",
+"miss": "2026-11-06"
+},
+"patidegibtopicalgel2": {
+"n": "Patidegib Topical Gel, 2%",
+"miss": "2026-11-06"
+},
+"patidegibtopicalgelvehicle": {
+"n": "Patidegib Topical Gel, Vehicle",
+"miss": "2026-11-06"
+},
+"ec18": {
+"n": "EC-18",
+"cid": 53827958,
+"smi": "CCCCCCCCCCCCCCCC(=O)OCC(COC(=O)C)OC(=O)CCCCCCCC=CCC=CCCCCC",
+"ik": "GAKUNXBDVGLOFS-UHFFFAOYSA-N",
+"mw": 635.0,
+"al": [
+"ec18softcapsules"
+],
+"d": "2026-11-06"
+},
+"eltrombopag": {
+"n": "Eltrombopag",
+"cid": 135449332,
+"smi": "CC1=C(C=C(C=C1)N2C(=O)C(=C(N2)C)N=NC3=CC=CC(=C3O)C4=CC(=CC=C4)C(=O)O)C",
+"ik": "SVOQIEJWJCQGDQ-UHFFFAOYSA-N",
+"mw": 442.5,
+"al": [
+"etb115"
+],
+"d": "2026-11-06"
+},
+"venetoclax": {
+"n": "venetoclax",
+"cid": 49846579,
+"smi": "CC1(CCC(=C(C1)C2=CC=C(C=C2)Cl)CN3CCN(CC3)C4=CC(=C(C=C4)C(=O)NS(=O)(=O)C5=CC(=C(C=C5)NCC6CCOCC6)[N+](=O)[O-])OC7=CN=C8C(=C7)C=CN8)C",
+"ik": "LQBVNQSMGBZMKD-UHFFFAOYSA-N",
+"mw": 868.4,
+"al": [
+"venclyxtovenclexta"
+],
+"d": "2026-11-06"
+},
+"neflamapimod": {
+"n": "Neflamapimod",
+"cid": 3038525,
+"smi": "C1=CC(=C(C(=C1)Cl)C2=C3C=CC(=NN3C=NC2=O)SC4=C(C=C(C=C4)F)F)Cl",
+"ik": "VEPKQEUBKLEPRA-UHFFFAOYSA-N",
+"mw": 436.3,
+"al": [
+"vx745"
+],
+"d": "2026-11-06"
+},
+"vgt309": {
+"n": "VGT-309",
+"cid": 178421538,
+"smi": "CC1(C2=C(C=CC(=C2)N(CCCS(=O)(=O)O)CCCS(=O)(=O)O)N(C1=C/C=C/3\\CCCC(=C3Cl)/C=C/C4=[N+](C5=C(C4(C)C)C6=C(C=C5)C=C(C=C6)S(=O)(=O)[O-])CCCCCC(=O)NCCNC(=O)C7=C(C(=C(C(=C7F)F)OCC(=O)[C@H](CCCCNC(=O)CCCCC[N+]8=C(C(C9=C8C=CC1=CC=CC=C19)(C)C)/C=C/C=C/C=C/C=C1C(C2=C(N1CCCCS(=O)(=O)[O-])C=CC1=CC=CC=C12)(C)C)NC(=O)[C@H](CC1=CC=CC=C1)NC(=O)OCC1=CC=CC=C1)F)F)CCCS(=O)(=O)O)C",
+"ik": "NSTNPRUQYXIYCN-WQLOVQMRSA-N",
+"mw": 2451.3,
+"al": [
+"abenacianine"
+],
+"d": "2026-11-06"
+},
+"poziotinib": {
+"n": "Poziotinib",
+"cid": 25127713,
+"smi": "COC1=C(C=C2C(=C1)N=CN=C2NC3=C(C(=C(C=C3)Cl)Cl)F)OC4CCN(CC4)C(=O)C=C",
+"ik": "LPFWVDIFUFFKJU-UHFFFAOYSA-N",
+"mw": 491.3,
+"al": [
+"hm78136"
+],
+"d": "2026-11-06"
+},
+"furosemidesolutionforsubcutaneousadministration": {
+"n": "Furosemide Solution for subcutaneous administration",
+"miss": "2026-11-06"
+},
+"furosemideusp": {
+"n": "Furosemide , USP",
+"miss": "2026-11-06"
+},
+"cbl514": {
+"n": "CBL-514",
+"miss": "2026-11-06"
+},
+"naproxen": {
+"n": "Naproxen",
+"cid": 156391,
+"smi": "C[C@@H](C1=CC2=C(C=C1)C=C(C=C2)OC)C(=O)O",
+"ik": "CMWTZPSULFXXJA-VIFPVBQESA-N",
+"mw": 230.3,
+"al": [],
+"d": "2026-11-06"
+},
+"acetaminophen": {
+"n": "acetaminophen",
+"cid": 1983,
+"smi": "CC(=O)NC1=CC=C(C=C1)O",
+"ik": "RZVAJINKPMORJF-UHFFFAOYSA-N",
+"mw": 151.2,
+"al": [],
+"d": "2026-11-06"
+},
+"pp405005topicalgel": {
+"n": "PP405 0.05% Topical Gel",
+"miss": "2026-11-06"
+},
+"topicalvehiclegel": {
+"n": "Topical Vehicle Gel",
+"miss": "2026-11-06"
+},
+"bivamelagon": {
+"n": "Bivamelagon",
+"cid": 165152355,
+"smi": "CC1CCC(CC1)N([C@H]2C[C@H](N(C2)C(=O)[C@@H]3CN(C[C@H]3C4=CC=C(C=C4)Cl)C(C)(C)C)C(=O)N5CCOCC5)C(=O)C(C)C",
+"ik": "QLOCFNAGHBVTJD-JBHFHXMJSA-N",
+"mw": 629.3,
+"al": [
+"lb54640"
+],
+"d": "2026-11-06"
+},
+"ralinepag": {
+"n": "Ralinepag",
+"cid": 44219292,
+"smi": "C1CC(CCC1COCC(=O)O)COC(=O)N(C2=CC=CC=C2)C3=CC=C(C=C3)Cl",
+"ik": "NPDKXVKJRHPDQT-UHFFFAOYSA-N",
+"mw": 431.9,
+"al": [
+"apd811"
+],
+"d": "2026-11-06"
+},
+"lumateperone": {
+"n": "Lumateperone",
+"cid": 21302490,
+"smi": "CN1CCN2[C@H]3CCN(C[C@H]3C4=C2C1=CC=C4)CCCC(=O)C5=CC=C(C=C5)F",
+"ik": "HOIIHACBCFLJET-SFTDATJTSA-N",
+"mw": 393.5,
+"al": [],
+"d": "2026-11-06"
+},
+"povorcitinib": {
+"n": "Povorcitinib",
+"cid": 86280672,
+"smi": "CC1=C(C(=NN1)C)C2=CN(N=C2)C3(CN(C3)C4=C(C=C(C(=C4)F)C(=O)N[C@@H](C)C(F)(F)F)F)CC#N",
+"ik": "MSGYSFWCPOBHEV-AWEZNQCLSA-N",
+"mw": 507.5,
+"al": [
+"incb054707"
+],
+"d": "2026-11-06"
+},
+"atrasentan": {
+"n": "Atrasentan",
+"cid": 159594,
+"smi": "CCCCN(CCCC)C(=O)CN1C[C@@H]([C@H]([C@@H]1C2=CC=C(C=C2)OC)C(=O)O)C3=CC4=C(C=C3)OCO4",
+"ik": "MOTJMGVDPWRKOC-QPVYNBJUSA-N",
+"mw": 510.6,
+"al": [
+"abt627",
+"atrasentanhydrochloride",
+"chk01"
+],
+"d": "2026-11-06"
+},
+"encorafenib": {
+"n": "Encorafenib",
+"cid": 50922675,
+"smi": "C[C@@H](CNC1=NC=CC(=N1)C2=CN(N=C2C3=C(C(=CC(=C3)Cl)NS(=O)(=O)C)F)C(C)C)NC(=O)OC",
+"ik": "CMJCXYNUCSMDBY-ZDUSSCGKSA-N",
+"mw": 540.0,
+"al": [
+"braftovi",
+"braftovipf07263896lgx818ono7702"
+],
+"d": "2026-11-06"
+},
+"sar302503": {
+"n": "SAR302503",
+"cid": 16722836,
+"smi": "CC1=CN=C(N=C1NC2=CC(=CC=C2)S(=O)(=O)NC(C)(C)C)NC3=CC=C(C=C3)OCCN4CCCC4",
+"ik": "JOOXLOJCABQBSG-UHFFFAOYSA-N",
+"mw": 524.7,
+"al": [],
+"d": "2026-11-06"
+},
+"reproxalapophthalmicsolution": {
+"n": "Reproxalap Ophthalmic Solution",
+"miss": "2026-11-06"
+},
+"filgotinib": {
+"n": "Filgotinib",
+"cid": 49831257,
+"smi": "C1CC1C(=O)NC2=NN3C(=N2)C=CC=C3C4=CC=C(C=C4)CN5CCS(=O)(=O)CC5",
+"ik": "RIJLVEAXPNLDTC-UHFFFAOYSA-N",
+"mw": 425.5,
+"al": [
+"glpg0634",
+"gs6034"
+],
+"d": "2026-11-06"
+},
+"vepdegestrant": {
+"n": "Vepdegestrant",
+"cid": 134562533,
+"smi": "C1CC2=C(C=CC(=C2)O)[C@H]([C@H]1C3=CC=CC=C3)C4=CC=C(C=C4)N5CCC(CC5)CN6CCN(CC6)C7=CC8=C(C=C7)C(=O)N(C8)[C@H]9CCC(=O)NC9=O",
+"ik": "TZZDVPMABRWKIZ-XMOGEVODSA-N",
+"mw": 723.9,
+"al": [
+"arv471"
+],
+"d": "2026-11-06"
+},
+"sitravatinib": {
+"n": "Sitravatinib",
+"cid": 25212148,
+"smi": "COCCNCC1=CN=C(C=C1)C2=CC3=NC=CC(=C3S2)OC4=C(C=C(C=C4)NC(=O)C5(CC5)C(=O)NC6=CC=C(C=C6)F)F",
+"ik": "WLAVZAAODLTUSW-UHFFFAOYSA-N",
+"mw": 629.7,
+"al": [
+"mgcd516"
+],
+"d": "2026-11-06"
+},
+"phentolamineophthalmicsolution10": {
+"n": "Phentolamine Ophthalmic Solution 1.0%",
+"miss": "2026-11-06"
+},
+"phentolamineophthalmicsolution05": {
+"n": "Phentolamine Ophthalmic Solution 0.5%",
+"miss": "2026-11-06"
+},
+"bpl003": {
+"n": "BPL-003",
+"miss": "2026-11-06"
+},
+"crlx101": {
+"n": "CRLX101",
+"cid": 184196,
+"smi": "CC[C@]1(C2=C(COC1=O)C(=O)N3CC4=CC5=CC=CC=C5N=C4C3=C2)O",
+"ik": "VSJKWCGYPAHWDS-HXUWFJFHSA-N",
+"mw": 348.4,
+"al": [
+"nlg207"
+],
+"d": "2026-11-06"
+},
+"infanrixhexa": {
+"n": "Infanrix hexa",
+"miss": "2026-11-06"
+},
+"antiemetic": {
+"n": "Antiemetic",
+"miss": "2026-11-06"
+},
+"alectinib": {
+"n": "Alectinib",
+"cid": 49806720,
+"smi": "CCC1=CC2=C(C=C1N3CCC(CC3)N4CCOCC4)C(C5=C(C2=O)C6=C(N5)C=C(C=C6)C#N)(C)C",
+"ik": "KDGFLJKFZUIJMX-UHFFFAOYSA-N",
+"mw": 482.6,
+"al": [
+"ro5424802alecensa"
+],
+"d": "2026-11-06"
+},
+"crizotinib": {
+"n": "Crizotinib",
+"cid": 11626560,
+"smi": "C[C@H](C1=C(C=CC(=C1Cl)F)Cl)OC2=C(N=CC(=C2)C3=CN(N=C3)C4CCNCC4)N",
+"ik": "KTEIFNKAUNYNJU-GFCCVEGCSA-N",
+"mw": 450.3,
+"al": [
+"xalkori"
+],
+"d": "2026-11-06"
+},
+"estetrol": {
+"n": "Estetrol",
+"cid": 27125,
+"smi": "C[C@]12CC[C@H]3[C@H]([C@@H]1[C@H]([C@H]([C@@H]2O)O)O)CCC4=C3C=CC(=C4)O",
+"ik": "AJIPIJNNOJSSQC-NYLIRDPKSA-N",
+"mw": 304.4,
+"al": [],
+"d": "2026-11-06"
+},
+"relugolix": {
+"n": "Relugolix",
+"cid": 10348973,
+"smi": "CN(C)CC1=C(SC2=C1C(=O)N(C(=O)N2CC3=C(C=CC=C3F)F)C4=NN=C(C=C4)OC)C5=CC=C(C=C5)NC(=O)NOC",
+"ik": "AOMXMOCNKJTRQP-UHFFFAOYSA-N",
+"mw": 623.6,
+"al": [
+"medroxyprogesteroneacetate",
+"megestrolacetate",
+"mvt601",
+"orgovyx",
+"rvt601",
+"t1331285",
+"tak385"
+],
+"d": "2026-11-06"
+},
+"pln74809": {
+"n": "PLN-74809",
+"cid": 135390719,
+"smi": "COCCN(CCCCC1=NC2=C(CCCN2)C=C1)CC[C@@H](C(=O)O)NC3=NC=NC4=CC=CC=C43",
+"ik": "CWOFQJBATWQSHL-DEOSSOPVSA-N",
+"mw": 492.6,
+"al": [],
+"d": "2026-11-06"
+},
+"ibrutinib": {
+"n": "Ibrutinib",
+"cid": 24821094,
+"smi": "C=CC(=O)N1CCC[C@H](C1)N2C3=NC=NC(=C3C(=N2)C4=CC=C(C=C4)OC5=CC=CC=C5)N",
+"ik": "XYFPWWZEPKGCCK-GOSISDBHSA-N",
+"mw": 440.5,
+"al": [
+"imbruvica",
+"pci32765"
+],
+"d": "2026-11-06"
+},
+"emb001": {
+"n": "EMB-001",
+"miss": "2026-11-06"
+},
+"fdaapprovedsteroideyedrop": {
+"n": "FDA approved steroid eye drop",
+"miss": "2026-11-06"
+},
+"sp103": {
+"n": "SP-103",
+"miss": "2026-11-06"
+},
+"lenacapavir": {
+"n": "Lenacapavir",
+"cid": 133082658,
+"smi": "CC(C)(C#CC1=NC(=C(C=C1)C2=C3C(=C(C=C2)Cl)C(=NN3CC(F)(F)F)NS(=O)(=O)C)[C@H](CC4=CC(=CC(=C4)F)F)NC(=O)CN5C6=C([C@H]7C[C@H]7C6(F)F)C(=N5)C(F)(F)F)S(=O)(=O)C",
+"ik": "BRYXUCLEHAUSDY-WEWMWRJBSA-N",
+"mw": 968.3,
+"al": [
+"gs6207",
+"yeztugo"
+],
+"d": "2026-11-06"
+},
+"bnc210": {
+"n": "BNC210",
+"cid": 24772165,
+"smi": "CCN1C=C(C(=O)C2=C1N=CC(=C2)NC3CC4=CC=CC=C4C3)C(=O)N5CCOCC5",
+"ik": "ZAEIHDZLLJCJFP-UHFFFAOYSA-N",
+"mw": 418.5,
+"al": [],
+"d": "2026-11-06"
+},
+"pirepemat": {
+"n": "Pirepemat",
+"cid": 135381565,
+"smi": "CO[C@@]1(CCNC1)C2=C(C(=CC=C2)F)F",
+"ik": "LJNFYMMXCXGFCP-LLVKDONJSA-N",
+"mw": 213.2,
+"al": [
+"irl752"
+],
+"d": "2026-11-06"
+},
+"ladarixin": {
+"n": "Ladarixin",
+"cid": 11372270,
+"smi": "C[C@H](C1=CC=C(C=C1)OS(=O)(=O)C(F)(F)F)C(=O)NS(=O)(=O)C",
+"ik": "DDLPYOCJHQSVSZ-SSDOTTSWSA-N",
+"mw": 375.3,
+"al": [
+"allostericinhibitorofcxcl8il8cxcr1andcxcr2recept"
+],
+"d": "2026-11-06"
+},
+"obeldesivir": {
+"n": "Obeldesivir",
+"cid": 162513664,
+"smi": "CC(C)C(=O)OC[C@@H]1[C@H]([C@H]([C@](O1)(C#N)C2=CC=C3N2N=CN=C3N)O)O",
+"ik": "YIHPGVCWGSURHO-VSBTWAGUSA-N",
+"mw": 361.4,
+"al": [
+"gs5245"
+],
+"d": "2026-11-06"
+},
+"aticaprant": {
+"n": "Aticaprant",
+"cid": 44129648,
+"smi": "CC1=CC(=CC(=C1)[C@@H]2CCCN2CC3=CC=C(C=C3)OC4=C(C=C(C=C4)C(=O)N)F)C",
+"ik": "ZHPMYDSXGRRERG-DEOSSOPVSA-N",
+"mw": 418.5,
+"al": [
+"jnj67953964"
+],
+"d": "2026-11-06"
+},
+"atumelnant": {
+"n": "Atumelnant",
+"cid": 146361282,
+"smi": "CC[C@@H]1CN(CCN1C2=C(N=C(C=C2)C3=CC=CC=C3OCC)C(=O)N[C@@H]4CN5CCC4CC5)C(=O)C6(CCC6)C(F)(F)F",
+"ik": "QJRFBKYETDVAJQ-ZEQKJWHPSA-N",
+"mw": 613.7,
+"al": [
+"crn04894"
+],
+"d": "2026-11-06"
+},
+"zavegepant": {
+"n": "Zavegepant",
+"cid": 53472683,
+"smi": "CC1=CC(=CC2=C1NN=C2)C[C@H](C(=O)N3CCN(CC3)C4CCN(CC4)C)NC(=O)N5CCC(CC5)C6=CC7=CC=CC=C7NC6=O",
+"ik": "JJVAPHYEOZSKJZ-JGCGQSQUSA-N",
+"mw": 638.8,
+"al": [],
+"d": "2026-11-06"
+},
+"neoadjuvantolaparibmonotherapygroup": {
+"n": "Neoadjuvant Olaparib monotherapy group",
+"miss": "2026-11-06"
+},
+"baxdrostat": {
+"n": "Baxdrostat",
+"cid": 71535962,
+"smi": "CCC(=O)N[C@@H]1CCCC2=C1C=NC=C2C3=CC4=C(C=C3)N(C(=O)CC4)C",
+"ik": "VDEUDSRUMNAXJG-LJQANCHMSA-N",
+"mw": 363.5,
+"al": [
+"cin107"
+],
+"d": "2026-11-06"
+},
+"spi1005ebselenx1": {
+"n": "SPI-1005 Ebselen x1",
+"miss": "2026-11-06"
+},
+"spi1005ebselenx2": {
+"n": "SPI-1005 Ebselen x2",
+"miss": "2026-11-06"
+},
+"spi1005ebselenx3": {
+"n": "SPI-1005 Ebselen x3",
+"miss": "2026-11-06"
+},
+"delamanid": {
+"n": "Delamanid",
+"cid": 6480466,
+"smi": "C[C@@]1(CN2C=C(N=C2O1)[N+](=O)[O-])COC3=CC=C(C=C3)N4CCC(CC4)OC5=CC=C(C=C5)OC(F)(F)F",
+"ik": "XDAOLTSRNUSPPH-XMMPIXPASA-N",
+"mw": 534.5,
+"al": [],
+"d": "2026-11-06"
+},
+"bedaquiline": {
+"n": "Bedaquiline",
+"cid": 5388906,
+"smi": "CN(C)CC[C@@](C1=CC=CC2=CC=CC=C21)([C@H](C3=CC=CC=C3)C4=C(N=C5C=CC(=CC5=C4)Br)OC)O",
+"ik": "QUIJNHUBAXPXFS-XLJNKUFUSA-N",
+"mw": 555.5,
+"al": [],
+"d": "2026-11-06"
+},
+"rifampin": {
+"n": "Rifampin",
+"cid": 135398735,
+"smi": "C[C@H]1/C=C/C=C(\\C(=O)NC2=C(C(=C3C(=C2O)C(=C(C4=C3C(=O)[C@](O4)(O/C=C/[C@@H]([C@H]([C@H]([C@@H]([C@@H]([C@@H]([C@H]1O)C)O)C)OC(=O)C)C)OC)C)C)O)O)/C=N/N5CCN(CC5)C)/C",
+"ik": "JQXXHWHPUNPDRT-WLSIYKJHSA-N",
+"mw": 822.9,
+"al": [],
+"d": "2026-11-06"
+},
+"isoniazid": {
+"n": "Isoniazid",
+"cid": 3767,
+"smi": "C1=CN=CC=C1C(=O)NN",
+"ik": "QRXWMOHMRWLFEY-UHFFFAOYSA-N",
+"mw": 137.1,
+"al": [],
+"d": "2026-11-06"
+},
+"opc167832": {
+"n": "OPC-167832",
+"cid": 118904282,
+"smi": "C1CC(=O)NC2=C(C=CC(=C21)OC[C@@]3(CCN(C[C@H]3O)C4=C(C=C(C=C4F)Cl)F)O)F",
+"ik": "XZISSTDXPBUCJA-DYESRHJHSA-N",
+"mw": 456.8,
+"al": [],
+"d": "2026-11-06"
+},
+"brigimadlin": {
+"n": "Brigimadlin",
+"cid": 129264140,
+"smi": "CC1=C(C=CC2=C3C[C@H]4[C@@H](N3N=C12)[C@@H]([C@]5(N4CC6CC6)C7=C(C=C(C=C7)Cl)NC5=O)C8=C(C(=CC=C8)Cl)F)C(=O)O",
+"ik": "AMTXDBGKYPDTTA-SJVQGLCSSA-N",
+"mw": 591.5,
+"al": [
+"bi907828"
+],
+"d": "2026-11-06"
+},
+"aficamten": {
+"n": "Aficamten",
+"cid": 139331495,
+"smi": "CCC1=NC(=NO1)C2=CC3=C(C=C2)[C@@H](CC3)NC(=O)C4=CN(N=C4)C",
+"ik": "IOVAZWDIRCRMTM-OAHLLOKOSA-N",
+"mw": 337.4,
+"al": [],
+"d": "2026-11-06"
+},
+"metoprolol": {
+"n": "Metoprolol",
+"cid": 4171,
+"smi": "CC(C)NCC(COC1=CC=C(C=C1)CCOC)O",
+"ik": "IUBSYMUCCVWXPE-UHFFFAOYSA-N",
+"mw": 267.4,
+"al": [],
+"d": "2026-11-06"
+},
+"pxs5505": {
+"n": "PXS-5505",
+"cid": 146317833,
+"smi": "C1=CC2=C(C(=C1)S(=O)(=O)C/C(=C/CN)/F)N=CC=C2",
+"ik": "DHXXLGDTPFPYRH-WDZFZDKYSA-N",
+"mw": 280.3,
+"al": [
+"amsulostat"
+],
+"d": "2026-11-06"
+},
+"vodobatinib": {
+"n": "Vodobatinib",
+"cid": 89884852,
+"smi": "CC1=C(C(=CC=C1)Cl)C(=O)NNC(=O)C2=CC(=C(C=C2)C)C#CC3=CC4=CC=CC=C4N=C3",
+"ik": "ZQOBVMHBVWNVBG-UHFFFAOYSA-N",
+"mw": 453.9,
+"al": [],
+"d": "2026-11-06"
+},
+"gadoquatrane": {
+"n": "Gadoquatrane",
+"cid": 156596411,
+"smi": "CC(C(=O)NCC(=O)NCC(CNC(=O)CNC(=O)C(C)N1CCN(CCN(CCN(CC1)CC(=O)[O-])CC(=O)[O-])CC(=O)[O-])(CNC(=O)CNC(=O)C(C)N2CCN(CCN(CCN(CC2)CC(=O)[O-])CC(=O)[O-])CC(=O)[O-])CNC(=O)CNC(=O)C(C)N3CCN(CCN(CCN(CC3)CC(=O)[O-])CC(=O)[O-])CC(=O)[O-])N4CCN(CCN(CCN(CC4)CC(=O)[O-])CC(=O)[O-])CC(=O)[O-].[Gd+3].[Gd+3].[Gd+3].[Gd+3]",
+"ik": "HGIZCBUSWUYZEQ-UHFFFAOYSA-B",
+"mw": 2579.0,
+"al": [],
+"d": "2026-11-06"
+},
+"ropanicant": {
+"n": "Ropanicant",
+"cid": 146026959,
+"smi": "C1[C@H]2C[C@H]2N[C@@H]1COC3=CN=C(C=C3)Cl",
+"ik": "PYSCVJMLJRHJGJ-OYNCUSHFSA-N",
+"mw": 224.7,
+"al": [
+"suvn911"
+],
+"d": "2026-11-06"
+},
+"sirolimus": {
+"n": "Sirolimus",
+"cid": 5284616,
+"smi": "C[C@@H]1CC[C@H]2C[C@@H](/C(=C/C=C/C=C/[C@H](C[C@H](C(=O)[C@@H]([C@@H](/C(=C/[C@H](C(=O)C[C@H](OC(=O)[C@@H]3CCCCN3C(=O)C(=O)[C@@]1(O2)O)[C@H](C)C[C@@H]4CC[C@H]([C@@H](C4)OC)O)C)/C)O)OC)C)C)/C)OC",
+"ik": "QFJCIRLUMZQUOT-HPLJOQBZSA-N",
+"mw": 914.2,
+"al": [
+"seci",
+"sirogen",
+"sirolimuselutingcollagenimplant"
+],
+"d": "2026-11-06"
+},
+"bempedoicacid": {
+"n": "Bempedoic acid",
+"cid": 10472693,
+"smi": "CC(C)(CCCCCC(CCCCCC(C)(C)C(=O)O)O)C(=O)O",
+"ik": "HYHMLYSLQUKXKP-UHFFFAOYSA-N",
+"mw": 344.5,
+"al": [
+"etc1002"
+],
+"d": "2026-11-06"
+},
+"etrasimod": {
+"n": "Etrasimod",
+"cid": 44623998,
+"smi": "C1CCC(C1)C2=C(C=C(C=C2)COC3=CC4=C(C=C3)NC5=C4CC[C@@H]5CC(=O)O)C(F)(F)F",
+"ik": "MVGWUTBTXDYMND-QGZVFWFLSA-N",
+"mw": 457.5,
+"al": [
+"apd334"
+],
+"d": "2026-11-06"
+},
+"ripasudil": {
+"n": "Ripasudil",
+"cid": 9863672,
+"smi": "C[C@H]1CNCCCN1S(=O)(=O)C2=CC=CC3=CN=CC(=C32)F",
+"ik": "QSKQVZWVLOIIEV-NSHDSACASA-N",
+"mw": 323.4,
+"al": [
+"k321"
+],
+"d": "2026-11-06"
+},
+"kpg818lowdoseinphase1b": {
+"n": "KPG-818 low dose in phase 1b",
+"miss": "2026-11-06"
+},
+"kpg818middoseinphase1b": {
+"n": "KPG-818 mid dose in phase 1b",
+"miss": "2026-11-06"
+},
+"kpg818highdoseinphase1b": {
+"n": "KPG-818 high dose in phase 1b",
+"miss": "2026-11-06"
+},
+"kpg818ultrahighdoseinphase1b": {
+"n": "KPG-818 ultra-high dose in phase 1b",
+"miss": "2026-11-06"
+},
+"kpg818lowdoseinphase2a": {
+"n": "KPG-818 low dose in phase 2a",
+"miss": "2026-11-06"
+},
+"kpg818middoseinphase2a": {
+"n": "KPG-818 mid dose in phase 2a",
+"miss": "2026-11-06"
+},
+"kpg818highdoseinphase2a": {
+"n": "KPG-818 high dose in phase 2a",
+"miss": "2026-11-06"
+},
+"sorafenib": {
+"n": "Sorafenib",
+"cid": 216239,
+"smi": "CNC(=O)C1=NC=CC(=C1)OC2=CC=C(C=C2)NC(=O)NC3=CC(=C(C=C3)Cl)C(F)(F)F",
+"ik": "MLDQJTXFUGDVEO-UHFFFAOYSA-N",
+"mw": 464.8,
+"al": [
+"nexavar"
+],
+"d": "2026-11-06"
+},
+"cenobamate": {
+"n": "Cenobamate",
+"cid": 11962412,
+"smi": "C1=CC=C(C(=C1)[C@H](CN2N=CN=N2)OC(=O)N)Cl",
+"ik": "GFHAXPJGXSQLPT-VIFPVBQESA-N",
+"mw": 267.7,
+"al": [
+"ykp3089"
+],
+"d": "2026-11-06"
+},
+"gadobutrol": {
+"n": "Gadobutrol",
+"cid": 6102852,
+"smi": "C1CN(CCN(CCN(CCN1CC(=O)[O-])CC(=O)[O-])[C@H](CO)[C@@H](CO)O)CC(=O)[O-].[Gd+3]",
+"ik": "ZPDFIIGFYAHNSK-CTHHTMFSSA-K",
+"mw": 604.7,
+"al": [],
+"d": "2026-11-06"
+},
+"gadoteratemeglumine": {
+"n": "Gadoterate meglumine",
+"cid": 6918037,
+"smi": "CNC[C@@H]([C@H]([C@@H]([C@@H](CO)O)O)O)O.C1CN(CCN(CCN(CCN1CC(=O)O)CC(=O)[O-])CC(=O)[O-])CC(=O)[O-].[Gd+3]",
+"ik": "RYHQMKVRYNEBNJ-BMWGJIJESA-K",
+"mw": 753.9,
+"al": [
+"gadotericacid"
+],
+"d": "2026-11-06"
+},
+"gadoteridol": {
+"n": "Gadoteridol",
+"cid": 60714,
+"smi": "CC(CN1CCN(CCN(CCN(CC1)CC(=O)[O-])CC(=O)[O-])CC(=O)[O-])O.[Gd+3]",
+"ik": "DPNNNPAKRZOSMO-UHFFFAOYSA-K",
+"mw": 558.7,
+"al": [],
+"d": "2026-11-06"
+},
+"cardiolrx": {
+"n": "CardiolRx",
+"cid": 644019,
+"smi": "CCCCCC1=CC(=C(C(=C1)O)[C@@H]2C=C(CC[C@H]2C(=C)C)C)O",
+"ik": "QHMBSVQNZZTUGM-ZWKOTPCHSA-N",
+"mw": 314.5,
+"al": [
+"cannabidiol"
+],
+"d": "2026-11-06"
+},
+"maralixibat": {
+"n": "Maralixibat",
+"cid": 9831643,
+"smi": "CCCCC1(CS(=O)(=O)C2=C(C=C(C=C2)N(C)C)[C@H]([C@H]1O)C3=CC=C(C=C3)OCC4=CC=C(C=C4)C[N+]56CCN(CC5)CC6)CCCC",
+"ik": "STPKWKPURVSAJF-LJEWAXOPSA-N",
+"mw": 675.0,
+"al": [
+"formerlylum001andshp625",
+"formerlylum001shp625"
+],
+"d": "2026-11-06"
+},
+"obeticholicacid": {
+"n": "Obeticholic Acid",
+"cid": 447715,
+"smi": "CC[C@@H]1[C@@H]2C[C@@H](CC[C@@]2([C@H]3CC[C@]4([C@H]([C@@H]3[C@@H]1O)CC[C@@H]4[C@H](C)CCC(=O)O)C)C)O",
+"ik": "ZXERDUOLZKYMJM-ZWECCWDJSA-N",
+"mw": 420.6,
+"al": [],
+"d": "2026-11-06"
+},
+"bezafibrate": {
+"n": "Bezafibrate",
+"cid": 39042,
+"smi": "CC(C)(C(=O)O)OC1=CC=C(C=C1)CCNC(=O)C2=CC=C(C=C2)Cl",
+"ik": "IIBYAHWJQTYFKB-UHFFFAOYSA-N",
+"mw": 361.8,
+"al": [],
+"d": "2026-11-06"
+},
+"standardchemotherapy": {
+"n": "Standard Chemotherapy",
+"miss": "2026-11-06"
+},
+"triamcinaloneacetonide": {
+"n": "Triamcinalone Acetonide",
+"miss": "2026-11-06"
+},
+"1prednisolone": {
+"n": "1% Prednisolone",
+"miss": "2026-11-06"
+},
+"levoleucovorin": {
+"n": "Levoleucovorin",
+"cid": 135398559,
+"smi": "C1[C@@H](N(C2=C(N1)N=C(NC2=O)N)C=O)CNC3=CC=C(C=C3)C(=O)N[C@@H](CCC(=O)O)C(=O)O",
+"ik": "VVIAGPKUTFNRDU-STQMWFEESA-N",
+"mw": 473.4,
+"al": [
+"calciumlevofolinate",
+"fusilev",
+"levofolinicacid"
+],
+"d": "2026-11-06"
+},
+"ars1": {
+"n": "ARS-1",
+"miss": "2026-11-06"
+},
+"rivoceranib": {
+"n": "Rivoceranib",
+"cid": 11315474,
+"smi": "C1CCC(C1)(C#N)C2=CC=C(C=C2)NC(=O)C3=C(N=CC=C3)NCC4=CC=NC=C4",
+"ik": "WPEWQEMJFLWMLV-UHFFFAOYSA-N",
+"mw": 397.5,
+"al": [
+"apatinibapatinibmesylate"
+],
+"d": "2026-11-06"
+},
+"bi1839100": {
+"n": "BI 1839100",
+"miss": "2026-11-06"
+},
+"htx011": {
+"n": "HTX-011",
+"miss": "2026-11-06"
+},
+"diphenhydramineiv": {
+"n": "Diphenhydramine IV",
+"miss": "2026-11-06"
+},
+"desloratadinegivenorally": {
+"n": "Desloratadine given orally",
+"miss": "2026-11-06"
+},
+"revumenib": {
+"n": "Revumenib",
+"cid": 132212657,
+"smi": "CCN(C(C)C)C(=O)C1=C(C=CC(=C1)F)OC2=CN=CN=C2N3CC4(C3)CCN(CC4)CC5CCC(CC5)NS(=O)(=O)CC",
+"ik": "FRVSRBKUQZKTOW-UHFFFAOYSA-N",
+"mw": 630.8,
+"al": [
+"sndx5613"
+],
+"d": "2026-11-06"
+},
+"fluconazole": {
+"n": "Fluconazole",
+"cid": 3365,
+"smi": "C1=CC(=C(C=C1F)F)C(CN2C=NC=N2)(CN3C=NC=N3)O",
+"ik": "RFHAOTPXVQNOHP-UHFFFAOYSA-N",
+"mw": 306.3,
+"al": [
+"diflucan"
+],
+"d": "2026-11-06"
+},
+"echinocandin": {
+"n": "Echinocandin",
+"miss": "2026-11-06"
+},
+"epetraborole": {
+"n": "Epetraborole",
+"cid": 46836890,
+"smi": "B1(C2=C(C=CC=C2OCCCO)[C@H](O1)CN)O",
+"ik": "FXQIIDINBDJDKL-SNVBAGLBSA-N",
+"mw": 237.1,
+"al": [
+"an2501971"
+],
+"d": "2026-11-06"
+},
+"mr100a01": {
+"n": "MR-100A-01",
+"miss": "2026-11-06"
+},
+"ecopipam": {
+"n": "Ecopipam",
+"cid": 107930,
+"smi": "CN1CCC2=CC(=C(C=C2[C@@H]3[C@@H]1CCC4=CC=CC=C34)O)Cl",
+"ik": "DMJWENQHWZZWDF-PKOBYXMFSA-N",
+"mw": 313.8,
+"al": [],
+"d": "2026-11-06"
+},
+"pretomanid": {
+"n": "Pretomanid",
+"cid": 456199,
+"smi": "C1[C@@H](COC2=NC(=CN21)[N+](=O)[O-])OCC3=CC=C(C=C3)OC(F)(F)F",
+"ik": "ZLHZLMOSPGACSZ-NSHDSACASA-N",
+"mw": 359.3,
+"al": [],
+"d": "2026-11-06"
+},
+"linezolid": {
+"n": "Linezolid",
+"cid": 441401,
+"smi": "CC(=O)NC[C@H]1CN(C(=O)O1)C2=CC(=C(C=C2)N3CCOCC3)F",
+"ik": "TYZROVQLWOKYKF-ZDUSSCGKSA-N",
+"mw": 337.4,
+"al": [],
+"d": "2026-11-06"
+},
+"moxifloxacin": {
+"n": "Moxifloxacin",
+"cid": 152946,
+"smi": "COC1=C2C(=CC(=C1N3C[C@@H]4CCCN[C@@H]4C3)F)C(=O)C(=CN2C5CC5)C(=O)O",
+"ik": "FABPRXSRWADJSP-MEDUHNTESA-N",
+"mw": 401.4,
+"al": [],
+"d": "2026-11-06"
+},
+"serdexmethylphenidate": {
+"n": "Serdexmethylphenidate",
+"cid": 134823895,
+"smi": "COC(=O)[C@@H]([C@H]1CCCCN1C(=O)OC[N+]2=CC=CC(=C2)C(=O)N[C@@H](CO)C(=O)[O-])C3=CC=CC=C3",
+"ik": "UBZPNQRBUOBBLN-PWRODBHTSA-N",
+"mw": 499.5,
+"al": [],
+"d": "2026-11-06"
+},
+"entacapone": {
+"n": "Entacapone",
+"cid": 5281081,
+"smi": "CCN(CC)C(=O)/C(=C/C1=CC(=C(C(=C1)O)O)[N+](=O)[O-])/C#N",
+"ik": "JRURYQJSLYLRLN-BJMVGYQFSA-N",
+"mw": 305.3,
+"al": [],
+"d": "2026-11-06"
+},
+"indoximod": {
+"n": "Indoximod",
+"cid": 405012,
+"smi": "CN1C=C(C2=CC=CC=C21)C[C@H](C(=O)O)N",
+"ik": "ZADWXFSZEAPBJS-SNVBAGLBSA-N",
+"mw": 218.2,
+"al": [
+"1methyldtryptophan",
+"d1mt"
+],
+"d": "2026-11-06"
+},
+"bmx010": {
+"n": "BMX-010",
+"cid": 10033875,
+"smi": "CCN\\1C=CC=C/C1=C\\2/C3=NC(=C(C4=NC(=C(C5=CC=C([N-]5)C(=C6C=CC2=N6)C7=CC=CC=[N+]7CC)C8=CC=CC=[N+]8CC)C=C4)C9=CC=CC=[N+]9CC)C=C3.[Cl-].[Cl-].[Cl-].[Cl-].[Cl-].[Mn+3]",
+"ik": "UGVOBAHBYOONQU-UHFFFAOYSA-I",
+"mw": 965.1,
+"al": [],
+"d": "2026-11-06"
+},
+"estradiol": {
+"n": "Estradiol",
+"cid": 5757,
+"smi": "C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2O)CCC4=C3C=CC(=C4)O",
+"ik": "VOXZDWNPVJITMN-ZBRFXRBCSA-N",
+"mw": 272.4,
+"al": [],
+"d": "2026-11-06"
+},
+"imvexxy": {
+"n": "Imvexxy",
+"cid": 5757,
+"smi": "C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2O)CCC4=C3C=CC(=C4)O",
+"ik": "VOXZDWNPVJITMN-ZBRFXRBCSA-N",
+"mw": 272.4,
+"al": [],
+"d": "2026-11-06"
+},
+"deucravacitinib": {
+"n": "Deucravacitinib",
+"cid": 134821691,
+"smi": "[2H]C([2H])([2H])NC(=O)C1=NN=C(C=C1NC2=CC=CC(=C2OC)C3=NN(C=N3)C)NC(=O)C4CC4",
+"ik": "BZZKEPGENYLQSC-FIBGUPNXSA-N",
+"mw": 425.5,
+"al": [
+"bms986165"
+],
+"d": "2026-11-06"
+},
+"dazostinag": {
+"n": "Dazostinag",
+"cid": 141687654,
+"smi": "C1[C@@H]2[C@H]([C@H]([C@@H](O2)N3C=C(C4=C3N=CNC4=O)F)OP(=S)(OC[C@@H]5[C@H]([C@H]([C@@H](O5)N6C=NC7=C(N=CN=C76)N)F)OP(=O)(O1)S)O)O",
+"ik": "SIIGKCBSQKWSLM-MRPAKQHUSA-N",
+"mw": 710.5,
+"al": [
+"tak676"
+],
+"d": "2026-11-06"
+},
+"platinum": {
+"n": "Platinum",
+"cid": 23939,
+"smi": "[Pt]",
+"ik": "BASFCYQUMIYNBI-UHFFFAOYSA-N",
+"mw": 195.1,
+"al": [],
+"d": "2026-11-06"
+},
+"tazemetostat": {
+"n": "Tazemetostat",
+"cid": 66558664,
+"smi": "CCN(C1CCOCC1)C2=CC(=CC(=C2C)C(=O)NCC3=C(C=C(NC3=O)C)C)C4=CC=C(C=C4)CN5CCOCC5",
+"ik": "NSQSAUGJQHDYNO-UHFFFAOYSA-N",
+"mw": 572.7,
+"al": [
+"e7438",
+"epz6438",
+"ipn60200"
+],
+"d": "2026-11-06"
+},
+"amz001diclofenacgel": {
+"n": "AMZ001 Diclofenac gel",
+"miss": "2026-11-06"
+},
+"sacrosidasesolution": {
+"n": "Sacrosidase Solution",
+"miss": "2026-11-06"
+},
+"dimethyl": {
+"n": "dimethyl",
+"cid": 6324,
+"smi": "CC",
+"ik": "OTMSDBZUPAUEDD-UHFFFAOYSA-N",
+"mw": 30.1,
+"al": [
+"bg00012",
+"tecfidera"
+],
+"d": "2026-11-06"
+},
+"imsa101": {
+"n": "IMSA101",
+"miss": "2026-11-06"
+},
+"tll018": {
+"n": "TLL-018",
+"miss": "2026-11-06"
+},
+"belapectin": {
+"n": "belapectin",
+"miss": "2026-11-06"
+},
+"naronapride": {
+"n": "Naronapride",
+"cid": 11237985,
+"smi": "CO[C@H]1CN(CC[C@H]1NC(=O)C2=CC(=C(C=C2OC)N)Cl)CCCCCC(=O)O[C@H]3CN4CCC3CC4",
+"ik": "VGDDOIZXGFJDRC-VJTSUQJLSA-N",
+"mw": 537.1,
+"al": [],
+"d": "2026-11-06"
+},
+"ly4100511": {
+"n": "LY4100511",
+"cid": 169160620,
+"smi": "CCN1C(=CC=N1)C(=O)N[C@@H](C(C2CC2)C3CC3)C(=O)NC4=C(C=C(C=C4)[C@H](C)[C@H](C(=O)N5CCN([C@@H](C5)C)C)NC(=O)[C@H](C)OC)F",
+"ik": "VINZZWRHTZGGES-MGVNFOJVSA-N",
+"mw": 667.8,
+"al": [],
+"d": "2026-11-06"
+},
+"mij821intravenous": {
+"n": "MIJ821 Intravenous",
+"miss": "2026-11-06"
+},
+"methylone": {
+"n": "Methylone",
+"cid": 45789647,
+"smi": "CC(C(=O)C1=CC2=C(C=C1)OCO2)NC",
+"ik": "VKEQBMCRQDSRET-UHFFFAOYSA-N",
+"mw": 207.2,
+"al": [],
+"d": "2026-11-06"
+},
+"piromelatine": {
+"n": "Piromelatine",
+"cid": 24815904,
+"smi": "COC1=CC2=C(C=C1)NC=C2CCNC(=O)C3=CC(=O)C=CO3",
+"ik": "PNTNBIHOAPJYDB-UHFFFAOYSA-N",
+"mw": 312.3,
+"al": [
+"neup11"
+],
+"d": "2026-11-06"
+},
+"fluoropyrimidine": {
+"n": "Fluoropyrimidine",
+"cid": 141643,
+"smi": "C1=CN=C(N=C1)F",
+"ik": "WAVYAFBQOXCGSZ-UHFFFAOYSA-N",
+"mw": 98.1,
+"al": [],
+"d": "2026-11-06"
+},
+"drugrt234vardenafilinhalationpowderdeviceaxiallyoscillatingsphered": {
+"n": "Drug: RT234 - vardenafil inhalation powder; Device: Axially Oscillating Sphere d",
+"miss": "2026-11-06"
+},
+"tucatinib": {
+"n": "Tucatinib",
+"cid": 51039094,
+"smi": "CC1=C(C=CC(=C1)NC2=NC=NC3=C2C=C(C=C3)NC4=NC(CO4)(C)C)OC5=CC6=NC=NN6C=C5",
+"ik": "SDEAXTCZPQIFQM-UHFFFAOYSA-N",
+"mw": 480.5,
+"al": [
+"tukysaont380arry380"
+],
+"d": "2026-11-06"
+},
+"pirtobrutinib": {
+"n": "Pirtobrutinib",
+"cid": 129269915,
+"smi": "C[C@@H](C(F)(F)F)N1C(=C(C(=N1)C2=CC=C(C=C2)CNC(=O)C3=C(C=CC(=C3)F)OC)C(=O)N)N",
+"ik": "FWZAWAUZXYCBKZ-NSHDSACASA-N",
+"mw": 479.4,
+"al": [
+"loxo305",
+"ly3527727"
+],
+"d": "2026-11-06"
+},
+"karxt": {
+"n": "KarXT",
+"cid": 60809,
+"smi": "CCCCCCOC1=NSN=C1C2=CCCN(C2)C",
+"ik": "JOLJIIDDOBNFHW-UHFFFAOYSA-N",
+"mw": 281.4,
+"al": [
+"bms986510"
+],
+"d": "2026-11-06"
+},
+"ibuprofen": {
+"n": "Ibuprofen",
+"cid": 3672,
+"smi": "CC(C)CC1=CC=C(C=C1)C(C)C(=O)O",
+"ik": "HEFNNWSXXWATRW-UHFFFAOYSA-N",
+"mw": 206.3,
+"al": [],
+"d": "2026-11-06"
+},
+"elacestrant": {
+"n": "Elacestrant",
+"cid": 23642301,
+"smi": "CCNCCC1=CC=C(C=C1)CN(CC)C2=C(C=CC(=C2)OC)[C@@H]3CCC4=C(C3)C=CC(=C4)O",
+"ik": "SIFNOOUKXBRGGB-AREMUKBSSA-N",
+"mw": 458.6,
+"al": [
+"rad1901"
+],
+"d": "2026-11-06"
+},
+"onapristone": {
+"n": "Onapristone",
+"cid": 5311505,
+"smi": "C[C@@]12C[C@@H](C3=C4CCC(=O)C=C4CC[C@H]3[C@@H]1CC[C@@]2(CCCO)O)C5=CC=C(C=C5)N(C)C",
+"ik": "IEXUMDBQLIVNHZ-YOUGDJEHSA-N",
+"mw": 449.6,
+"al": [],
+"d": "2026-11-06"
+},
+"ribociclib": {
+"n": "Ribociclib",
+"cid": 44631912,
+"smi": "CN(C)C(=O)C1=CC2=CN=C(N=C2N1C3CCCC3)NC4=NC=C(C=C4)N5CCNCC5",
+"ik": "RHXHGRAEPCAFML-UHFFFAOYSA-N",
+"mw": 434.5,
+"al": [
+"lee011"
+],
+"d": "2026-11-06"
+},
+"alpelisib": {
+"n": "Alpelisib",
+"cid": 56649450,
+"smi": "CC1=C(SC(=N1)NC(=O)N2CCC[C@H]2C(=O)N)C3=CC(=NC=C3)C(C)(C)C(F)(F)F",
+"ik": "STUWGJZDJHPWGZ-LBPRGKRZSA-N",
+"mw": 441.5,
+"al": [
+"byl719"
+],
+"d": "2026-11-06"
+},
+"lasmiditan": {
+"n": "Lasmiditan",
+"cid": 11610526,
+"smi": "CN1CCC(CC1)C(=O)C2=NC(=CC=C2)NC(=O)C3=C(C=C(C=C3F)F)F",
+"ik": "XEDHVZKDSYZQBF-UHFFFAOYSA-N",
+"mw": 377.4,
+"al": [
+"ly573144"
+],
+"d": "2026-11-06"
+},
+"inhaledtreprostinil": {
+"n": "Inhaled Treprostinil",
+"miss": "2026-11-06"
+},
+"gsk3915393": {
+"n": "GSK3915393",
+"miss": "2026-11-06"
+},
+"encapsulatedrapamycin": {
+"n": "Encapsulated Rapamycin",
+"miss": "2026-11-06"
+},
+"ugn103": {
+"n": "UGN-103",
+"miss": "2026-11-06"
+},
+"coartem": {
+"n": "Coartem",
+"cid": 165411903,
+"smi": "CCCCN(CC(O)C1=CC(=CC\\2=C1C3=C(/C2=C/C4=CC=C(C=C4)Cl)C=C(C=C3)Cl)Cl)CCCC.CCCCN(CC(O)C1=CC(=CC\\2=C1C3=C(/C2=C/C4=CC=C(C=C4)Cl)C=C(C=C3)Cl)Cl)CCCC.CCCCN(CC(O)C1=CC(=CC\\2=C1C3=C(/C2=C/C4=CC=C(C=C4)Cl)C=C(C=C3)Cl)Cl)CCCC.CCCCN(CC(O)C1=CC(=CC\\2=C1C3=C(/C2=C/C4=CC=C(C=C4)Cl)C=C(C=C3)Cl)Cl)CCCC.CCCCN(CC(O)C1=CC(=CC\\2=C1C3=C(/C2=C/C4=CC=C(C=C4)Cl)C=C(C=C3)Cl)Cl)CCCC.CCCCN(CC(O)C1=CC(=CC\\2=C1C3=C(/C2=C/C4=CC=C(C=C4)Cl)C=C(C=C3)Cl)Cl)CCCC.C[C@H]1[C@H]2[C@]34OOC(O[C@H]3O[C@@H]([C@@H]([C@@H]4CC1)C)OC)(CC2)C",
+"ik": "VZQXHIJHMCHBNW-AGAWRZPESA-N",
+"mw": 3472.0,
+"al": [],
+"d": "2026-11-06"
+},
+"cefepimezidebactam": {
+"n": "Cefepime-zidebactam",
+"miss": "2026-11-06"
+},
+"meropenem": {
+"n": "Meropenem",
+"cid": 441130,
+"smi": "C[C@@H]1[C@@H]2[C@H](C(=O)N2C(=C1S[C@H]3C[C@H](NC3)C(=O)N(C)C)C(=O)O)[C@@H](C)O",
+"ik": "DMJNNHOOLUXYBV-PQTSNVLCSA-N",
+"mw": 383.5,
+"al": [],
+"d": "2026-11-06"
+},
+"axs05": {
+"n": "AXS-05",
+"miss": "2026-11-06"
+},
+"diphenhydramine": {
+"n": "diphenhydramine",
+"cid": 3100,
+"smi": "CN(C)CCOC(C1=CC=CC=C1)C2=CC=CC=C2",
+"ik": "ZZVUWRFHKOJYTH-UHFFFAOYSA-N",
+"mw": 255.3,
+"al": [],
+"d": "2026-11-06"
+},
+"topicalroflumilast": {
+"n": "Topical roflumilast",
+"miss": "2026-11-06"
+},
+"nsailetrozoleoranastrazole": {
+"n": "NSAI: Letrozole or Anastrazole",
+"miss": "2026-11-06"
+},
+"acoramidis": {
+"n": "Acoramidis",
+"cid": 71464713,
+"smi": "CC1=C(C(=NN1)C)CCCOC2=C(C=CC(=C2)C(=O)O)F",
+"ik": "WBFUHHBPNXWNCC-UHFFFAOYSA-N",
+"mw": 292.3,
+"al": [
+"ag10"
+],
+"d": "2026-11-06"
+},
+"myk224": {
+"n": "MYK-224",
+"cid": 146586175,
+"smi": "CC1=CC(=C(C=C1)F)[C@H]2[C@H](CC3=C(N2)NC(=O)N(C3=O)C4CCOCC4)F",
+"ik": "NPPSFOUMKWFJKX-HOTGVXAUSA-N",
+"mw": 377.4,
+"al": [
+"bms986435"
+],
+"d": "2026-11-06"
+},
+"oveporexton": {
+"n": "Oveporexton",
+"cid": 154617563,
+"smi": "CCS(=O)(=O)N[C@@H]1[C@@H](N(CC1(F)F)C(=O)C(C)(C)O)CC2=C(C(=CC=C2)C3=CC(=CC(=C3)F)F)F",
+"ik": "KVMGAIOTUIGROS-AZUAARDMSA-N",
+"mw": 520.5,
+"al": [
+"tak861"
+],
+"d": "2026-11-06"
+},
+"osimertinib": {
+"n": "Osimertinib",
+"cid": 71496458,
+"smi": "CN1C=C(C2=CC=CC=C21)C3=NC(=NC=C3)NC4=C(C=C(C(=C4)NC(=O)C=C)N(C)CCN(C)C)OC",
+"ik": "DUYJMQONPNNFPI-UHFFFAOYSA-N",
+"mw": 499.6,
+"al": [
+"azd9291",
+"azd9291tagrisso",
+"tagrisso"
+],
+"d": "2026-11-06"
+},
+"finerenone": {
+"n": "Finerenone",
+"cid": 60150535,
+"smi": "CCOC1=NC=C(C2=C1[C@@H](C(=C(N2)C)C(=O)N)C3=C(C=C(C=C3)C#N)OC)C",
+"ik": "BTBHLEZXCOBLCY-QGZVFWFLSA-N",
+"mw": 378.4,
+"al": [],
+"d": "2026-11-06"
+},
+"reparixin": {
+"n": "Reparixin",
+"cid": 9838712,
+"smi": "C[C@H](C1=CC=C(C=C1)CC(C)C)C(=O)NS(=O)(=O)C",
+"ik": "KQDRVXQXKZXMHP-LLVKDONJSA-N",
+"mw": 283.4,
+"al": [],
+"d": "2026-11-06"
+},
+"tirbanibulin": {
+"n": "Tirbanibulin",
+"cid": 23635314,
+"smi": "C1COCCN1CCOC2=CC=C(C=C2)C3=CN=C(C=C3)CC(=O)NCC4=CC=CC=C4",
+"ik": "HUNGUWOZPQBXGX-UHFFFAOYSA-N",
+"mw": 431.5,
+"al": [
+"klisyri"
+],
+"d": "2026-11-06"
+},
+"relacorilant": {
+"n": "Relacorilant",
+"cid": 73051463,
+"smi": "CN1C=C(C=N1)S(=O)(=O)N2CCC3=CC4=C(C[C@@]3(C2)C(=O)C5=NC=CC(=C5)C(F)(F)F)C=NN4C6=CC=C(C=C6)F",
+"ik": "WANIDIGFXJFFEL-SANMLTNESA-N",
+"mw": 586.6,
+"al": [
+"lifyorli"
+],
+"d": "2026-11-06"
+},
+"dapagliflozin": {
+"n": "Dapagliflozin",
+"cid": 9887712,
+"smi": "CCOC1=CC=C(C=C1)CC2=C(C=CC(=C2)[C@H]3[C@@H]([C@H]([C@@H]([C@H](O3)CO)O)O)O)Cl",
+"ik": "JVHXJTBJCFBINQ-ADAARDCZSA-N",
+"mw": 408.9,
+"al": [],
+"d": "2026-11-06"
+},
+"ruxolitinibcream": {
+"n": "Ruxolitinib Cream",
+"miss": "2026-11-06"
+},
+"asciminib": {
+"n": "Asciminib",
+"cid": 72165228,
+"smi": "C1CN(C[C@@H]1O)C2=C(C=C(C=N2)C(=O)NC3=CC=C(C=C3)OC(F)(F)Cl)C4=CC=NN4",
+"ik": "VOVZXURTCKPRDQ-CQSZACIVSA-N",
+"mw": 449.8,
+"al": [
+"abl001"
+],
+"d": "2026-11-06"
+},
+"nilotinib": {
+"n": "Nilotinib",
+"cid": 644241,
+"smi": "CC1=C(C=C(C=C1)C(=O)NC2=CC(=CC(=C2)C(F)(F)F)N3C=C(N=C3)C)NC4=NC=CC(=N4)C5=CN=CC=C5",
+"ik": "HHZIURLSWUIHRB-UHFFFAOYSA-N",
+"mw": 529.5,
+"al": [
+"amn107"
+],
+"d": "2026-11-06"
+},
+"mavacamten": {
+"n": "Mavacamten",
+"cid": 117761397,
+"smi": "C[C@@H](C1=CC=CC=C1)NC2=CC(=O)N(C(=O)N2)C(C)C",
+"ik": "RLCLASQCAPXVLM-NSHDSACASA-N",
+"mw": 273.3,
+"al": [
+"bms986427",
+"myk461"
+],
+"d": "2026-11-06"
+},
+"capivasertib": {
+"n": "Capivasertib",
+"cid": 25227436,
+"smi": "C1CN(CCC1(C(=O)N[C@@H](CCO)C2=CC=C(C=C2)Cl)N)C3=NC=NC4=C3C=CN4",
+"ik": "JDUBGYFRJFOXQC-KRWDZBQOSA-N",
+"mw": 428.9,
+"al": [
+"azd5363"
+],
+"d": "2026-11-06"
+},
+"arq151cream03": {
+"n": "ARQ-151 cream 0.3%",
+"miss": "2026-11-06"
+},
+"incb099280": {
+"n": "INCB099280",
+"miss": "2026-11-06"
+},
+"axitinib": {
+"n": "Axitinib",
+"cid": 6450551,
+"smi": "CNC(=O)C1=CC=CC=C1SC2=CC3=C(C=C2)C(=NN3)/C=C/C4=CC=CC=N4",
+"ik": "RITAVMQDGBJQJZ-FMIVXFBMSA-N",
+"mw": 386.5,
+"al": [
+"inlyta"
+],
+"d": "2026-11-06"
+},
+"ard101": {
+"n": "ARD-101",
+"cid": 168429466,
+"smi": "CC[N+](CC)(CC1=CC=CC=C1)CC(=O)NC2=C(C=CC=C2C)C.CC(=O)[O-].O",
+"ik": "GNXLNAUMSDPCGP-UHFFFAOYSA-N",
+"mw": 402.5,
+"al": [],
+"d": "2026-11-06"
+},
+"rdx002": {
+"n": "RDX-002",
+"miss": "2026-11-06"
+},
+"abt494": {
+"n": "ABT-494",
+"cid": 58557659,
+"smi": "CC[C@@H]1CN(C[C@@H]1C2=CN=C3N2C4=C(NC=C4)N=C3)C(=O)NCC(F)(F)F",
+"ik": "WYQFJHHDOKWSHR-MNOVXSKESA-N",
+"mw": 380.4,
+"al": [
+"rinvoq",
+"upadacitinib"
+],
+"d": "2026-11-06"
+},
+"imetelstat": {
+"n": "Imetelstat",
+"cid": 72941969,
+"smi": "CCCCCCCCCCCCCCCC(=O)NCC(COP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N2C=C(C(=O)NC2=O)C)NP(=S)(O)OC[C@@H]3[C@H](C[C@@H](O3)N4C=NC5=C(N=CN=C54)N)NP(=S)(O)OC[C@@H]6[C@H](C[C@@H](O6)N7C=NC8=C7N=C(NC8=O)N)NP(=S)(O)OC[C@@H]9[C@H](C[C@@H](O9)N1C=NC2=C1N=C(NC2=O)N)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=NC2=C1N=C(NC2=O)N)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=C(C(=O)NC1=O)C)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=C(C(=O)NC1=O)C)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=NC2=C(N=CN=C21)N)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=NC2=C1N=C(NC2=O)N)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=NC2=C(N=CN=C21)N)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=CC(=NC1=O)N)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=NC2=C(N=CN=C21)N)NP(=S)(O)OC[C@@H]1[C@H](C[C@@H](O1)N1C=NC2=C(N=CN=C21)N)N)O",
+"ik": "LVZYXEALRXBLJZ-ISQYCPACSA-N",
+"mw": 4610.0,
+"al": [
+"grn163l"
+],
+"d": "2026-11-06"
+},
+"antroquinonol": {
+"n": "Antroquinonol",
+"cid": 24875259,
+"smi": "C[C@@H]1[C@H]([C@H](C(=C(C1=O)OC)OC)O)C/C=C(\\C)/CC/C=C(\\C)/CCC=C(C)C",
+"ik": "LJTSIMVOOOLKOL-FNRDIUJOSA-N",
+"mw": 390.6,
+"al": [
+"hocena"
+],
+"d": "2026-11-06"
+},
+"epirubicin": {
+"n": "Epirubicin",
+"cid": 41867,
+"smi": "C[C@H]1[C@@H]([C@H](C[C@@H](O1)O[C@H]2C[C@@](CC3=C2C(=C4C(=C3O)C(=O)C5=C(C4=O)C(=CC=C5)OC)O)(C(=O)CO)O)N)O",
+"ik": "AOJJSUZBOXZQNB-VTZDEGQISA-N",
+"mw": 543.5,
+"al": [
+"ellence"
+],
+"d": "2026-11-06"
+},
+"onvansertib": {
+"n": "Onvansertib",
+"cid": 49792852,
+"smi": "CN1CCN(CC1)C2=CC(=C(C=C2)OC(F)(F)F)NC3=NC=C4CCC5=C(C4=N3)N(N=C5C(=O)N)CCO",
+"ik": "QHLVBNKYJGBCQJ-UHFFFAOYSA-N",
+"mw": 532.5,
+"al": [
+"pcm075"
+],
+"d": "2026-11-06"
+},
+"emraclidine": {
+"n": "Emraclidine",
+"cid": 140830653,
+"smi": "CC1=CC(=NC2=C1CN(C2)C(=O)CC3CN(C3)C4=CC(=NC=C4)C(F)(F)F)C",
+"ik": "DTCZNKWBDTXEBS-UHFFFAOYSA-N",
+"mw": 390.4,
+"al": [
+"abbv1231",
+"cvl231"
+],
+"d": "2026-11-06"
+},
+"exicorilant": {
+"n": "Exicorilant",
+"cid": 118092367,
+"smi": "CN1N=CC(=N1)S(=O)(=O)N2CC[C@H]3CC4=C(C[C@@]3(C2)C(=O)C5=NC=CC(=C5)C(F)(F)F)C=NN4C6=CC=C(C=C6)F",
+"ik": "HWJYJKAURRIWJM-GKVSMKOHSA-N",
+"mw": 589.6,
+"al": [
+"cort125281"
+],
+"d": "2026-11-06"
+},
+"selexipag": {
+"n": "Selexipag",
+"cid": 9913767,
+"smi": "CC(C)N(CCCCOCC(=O)NS(=O)(=O)C)C1=CN=C(C(=N1)C2=CC=CC=C2)C3=CC=CC=C3",
+"ik": "QXWZQTURMXZVHJ-UHFFFAOYSA-N",
+"mw": 496.6,
+"al": [
+"jnj67896049"
+],
+"d": "2026-11-06"
+},
+"selinexor": {
+"n": "Selinexor",
+"cid": 71481097,
+"smi": "C1=CN=C(C=N1)NNC(=O)/C=C\\N2C=NC(=N2)C3=CC(=CC(=C3)C(F)(F)F)C(F)(F)F",
+"ik": "DEVSOMFAQLZNKR-RJRFIUFISA-N",
+"mw": 443.3,
+"al": [
+"xpovio"
+],
+"d": "2026-11-06"
+},
+"lanifibranor": {
+"n": "Lanifibranor",
+"cid": 68677842,
+"smi": "C1=CC2=C(C=C1S(=O)(=O)N3C4=C(C=C(C=C4)Cl)C=C3CCCC(=O)O)SC=N2",
+"ik": "OQDQIFQRNZIEEJ-UHFFFAOYSA-N",
+"mw": 434.9,
+"al": [],
+"d": "2026-11-06"
+},
+"empagliflozin": {
+"n": "empagliflozin",
+"cid": 11949646,
+"smi": "C1COC[C@H]1OC2=CC=C(C=C2)CC3=C(C=CC(=C3)[C@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CO)O)O)O)Cl",
+"ik": "OBWASQILIWPZMG-QZMOQZSNSA-N",
+"mw": 450.9,
+"al": [],
+"d": "2026-11-06"
+},
+"qutenza": {
+"n": "Qutenza",
+"cid": 1548943,
+"smi": "CC(C)/C=C/CCCCC(=O)NCC1=CC(=C(C=C1)O)OC",
+"ik": "YKPUWZUDDOIDPM-SOFGYWHQSA-N",
+"mw": 305.4,
+"al": [],
+"d": "2026-11-06"
+},
+"capsaicin004topicalsystem": {
+"n": "capsaicin 0.04% topical system",
+"miss": "2026-11-06"
+},
+"topicalcorticosteroid": {
+"n": "Topical Corticosteroid",
+"miss": "2026-11-06"
+},
+"prednisolone": {
+"n": "prednisolone",
+"cid": 5755,
+"smi": "C[C@]12C[C@@H]([C@H]3[C@H]([C@@H]1CC[C@@]2(C(=O)CO)O)CCC4=CC(=O)C=C[C@]34C)O",
+"ik": "OIGNJSKKLXVSLS-VWUMJDOOSA-N",
+"mw": 360.4,
+"al": [],
+"d": "2026-11-06"
+},
+"montelukast": {
+"n": "Montelukast",
+"cid": 5281040,
+"smi": "CC(C)(C1=CC=CC=C1CC[C@H](C2=CC=CC(=C2)/C=C/C3=NC4=C(C=CC(=C4)Cl)C=C3)SCC5(CC5)CC(=O)O)O",
+"ik": "UCHDWCPVSPXUMX-TZIWLTJVSA-N",
+"mw": 586.2,
+"al": [
+"singulair"
+],
+"d": "2026-11-06"
+},
+"roflumilastcream03": {
+"n": "roflumilast cream 0.3%",
+"miss": "2026-11-06"
+},
+"zoryve": {
+"n": "Zoryve",
+"cid": 449193,
+"smi": "C1CC1COC2=C(C=CC(=C2)C(=O)NC3=C(C=NC=C3Cl)Cl)OC(F)F",
+"ik": "MNDBXUUTURYVHR-UHFFFAOYSA-N",
+"mw": 403.2,
+"al": [],
+"d": "2026-11-06"
+},
+"evo756qd": {
+"n": "EVO756 QD",
+"miss": "2026-11-06"
+},
+"evo756bid": {
+"n": "EVO756 BID",
+"miss": "2026-11-06"
+},
+"seltorexant": {
+"n": "Seltorexant",
+"cid": 86278359,
+"smi": "CC1=CC(=NC(=N1)N2C[C@@H]3CN(C[C@@H]3C2)C(=O)C4=C(C=CC=C4F)N5N=CC=N5)C",
+"ik": "SQOCEMCKYDVLMM-IYBDPMFKSA-N",
+"mw": 407.4,
+"al": [
+"jnj42847922"
+],
+"d": "2026-11-06"
+},
+"darolutamide": {
+"n": "Darolutamide",
+"cid": 67171867,
+"smi": "C[C@@H](CN1C=CC(=N1)C2=CC(=C(C=C2)C#N)Cl)NC(=O)C3=NNC(=C3)C(C)O",
+"ik": "BLIJXOOIHRSQRB-PXYINDEMSA-N",
+"mw": 398.8,
+"al": [],
+"d": "2026-11-06"
+},
+"troriluzole": {
+"n": "Troriluzole",
+"cid": 121488186,
+"smi": "CN(CC(=O)NC1=NC2=C(S1)C=C(C=C2)OC(F)(F)F)C(=O)CNC(=O)CN",
+"ik": "YBZSGIWIPOUSHY-UHFFFAOYSA-N",
+"mw": 419.4,
+"al": [],
+"d": "2026-11-06"
+},
+"afabicin": {
+"n": "Afabicin",
+"cid": 72696796,
+"smi": "CC1=C(OC2=CC=CC=C12)CN(C)C(=O)/C=C/C3=CC4=C(N=C3)N(C(=O)CC4)COP(=O)(O)O",
+"ik": "HFYMDQMXVPJNTH-VQHVLOKHSA-N",
+"mw": 485.4,
+"al": [],
+"d": "2026-11-06"
+},
+"cefazolin": {
+"n": "Cefazolin",
+"cid": 33255,
+"smi": "CC1=NN=C(S1)SCC2=C(N3[C@@H]([C@@H](C3=O)NC(=O)CN4C=NN=N4)SC2)C(=O)O",
+"ik": "MLYYVTUWGNIJIB-BXKDBHETSA-N",
+"mw": 454.5,
+"al": [],
+"d": "2026-11-06"
+},
+"vancomycin": {
+"n": "Vancomycin",
+"cid": 14969,
+"smi": "C[C@H]1[C@H]([C@@](C[C@@H](O1)O[C@@H]2[C@H]([C@@H]([C@H](O[C@H]2OC3=C4C=C5C=C3OC6=C(C=C(C=C6)[C@H]([C@H](C(=O)N[C@H](C(=O)N[C@H]5C(=O)N[C@@H]7C8=CC(=C(C=C8)O)C9=C(C=C(C=C9O)O)[C@H](NC(=O)[C@H]([C@@H](C1=CC(=C(O4)C=C1)Cl)O)NC7=O)C(=O)O)CC(=O)N)NC(=O)[C@@H](CC(C)C)NC)O)Cl)CO)O)O)(C)N)O",
+"ik": "MYPYJXKWCTUITO-LYRMYLQWSA-N",
+"mw": 1449.2,
+"al": [],
+"d": "2026-11-06"
+},
+"clindamycin": {
+"n": "Clindamycin",
+"cid": 446598,
+"smi": "CCC[C@@H]1C[C@H](N(C1)C)C(=O)N[C@@H]([C@@H]2[C@@H]([C@@H]([C@H]([C@H](O2)SC)O)O)O)[C@H](C)Cl",
+"ik": "KDLRVYVGXIQJDK-AWPVFWJPSA-N",
+"mw": 425.0,
+"al": [],
+"d": "2026-11-06"
+},
+"beclomethasonedipropionateformoterol": {
+"n": "Beclomethasone Dipropionate - Formoterol",
+"miss": "2026-11-06"
+},
+"fluticasonesalmeterol": {
+"n": "Fluticasone - Salmeterol",
+"miss": "2026-11-06"
+},
+"ataluren": {
+"n": "Ataluren",
+"cid": 11219835,
+"smi": "C1=CC=C(C(=C1)C2=NC(=NO2)C3=CC(=CC=C3)C(=O)O)F",
+"ik": "OOUGLTULBSNHNF-UHFFFAOYSA-N",
+"mw": 284.2,
+"al": [
+"ptc124",
+"translarna"
+],
+"d": "2026-11-06"
+},
+"elismetrep": {
+"n": "Elismetrep",
+"cid": 66548125,
+"smi": "C1CC1C2=C(N=CC3=CC=CC=C32)N(CC4=CC=C(C=C4)OC(F)(F)F)S(=O)(=O)C5=CC=C(C=C5)C(=O)O",
+"ik": "CWEFDWIKLABKBX-UHFFFAOYSA-N",
+"mw": 542.5,
+"al": [
+"k304"
+],
+"d": "2026-11-06"
+},
+"rifaximinssd": {
+"n": "Rifaximin SSD",
+"miss": "2026-11-06"
+},
+"gleolan": {
+"n": "Gleolan",
+"cid": 123608,
+"smi": "C(CC(=O)O)C(=O)CN.Cl",
+"ik": "ZLHFONARZHCSET-UHFFFAOYSA-N",
+"mw": 167.6,
+"al": [
+"aminolevulinicacidhydrochloridealaalahci"
+],
+"d": "2026-11-06"
+},
+"acalabrutinib": {
+"n": "acalabrutinib",
+"cid": 71226662,
+"smi": "CC#CC(=O)N1CCC[C@H]1C2=NC(=C3N2C=CN=C3N)C4=CC=C(C=C4)C(=O)NC5=CC=CC=N5",
+"ik": "WDENQIQQYWYTPO-IBGZPJMESA-N",
+"mw": 465.5,
+"al": [],
+"d": "2026-11-06"
+},
+"dotinurad": {
+"n": "dotinurad",
+"cid": 51349053,
+"smi": "C1N(C2=CC=CC=C2S1(=O)=O)C(=O)C3=CC(=C(C(=C3)Cl)O)Cl",
+"ik": "VOFLAIHEELWYGO-UHFFFAOYSA-N",
+"mw": 358.2,
+"al": [],
+"d": "2026-11-06"
+},
+"allopurinol": {
+"n": "allopurinol",
+"cid": 135401907,
+"smi": "C1=NNC2=C1C(=O)NC=N2",
+"ik": "OFCNXPDARWKPPY-UHFFFAOYSA-N",
+"mw": 136.1,
+"al": [],
+"d": "2026-11-06"
+},
+"gadopiclenol": {
+"n": "Gadopiclenol",
+"cid": 16223405,
+"smi": "C1CN(CC2=NC(=CC=C2)CN(CCN1C(CCC(=O)NCC(CO)O)C(=O)[O-])C(CCC(=O)NCC(CO)O)C(=O)[O-])C(CCC(=O)NCC(CO)O)C(=O)[O-].[Gd+3]",
+"ik": "GNRQMLROZPOLDG-UHFFFAOYSA-K",
+"mw": 970.1,
+"al": [
+"eluciremvueway"
+],
+"d": "2026-11-06"
+},
+"cabozantinib": {
+"n": "Cabozantinib",
+"cid": 25102847,
+"smi": "COC1=CC2=C(C=CN=C2C=C1OC)OC3=CC=C(C=C3)NC(=O)C4(CC4)C(=O)NC5=CC=C(C=C5)F",
+"ik": "ONIQOQHATWINJY-UHFFFAOYSA-N",
+"mw": 501.5,
+"al": [],
+"d": "2026-11-06"
+},
+"vamorolone": {
+"n": "Vamorolone",
+"cid": 3035000,
+"smi": "C[C@@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@@]4(C3=CC[C@@]2([C@]1(C(=O)CO)O)C)C",
+"ik": "ZYTXTXAMMDTYDQ-DGEXFFLYSA-N",
+"mw": 356.5,
+"al": [
+"vbp15"
+],
+"d": "2026-11-06"
+},
+"tak242": {
+"n": "TAK-242",
+"cid": 11703255,
+"smi": "CCOC(=O)C1=CCCC[C@H]1S(=O)(=O)NC2=C(C=C(C=C2)F)Cl",
+"ik": "LEEIJTHMHDMWLJ-CQSZACIVSA-N",
+"mw": 361.8,
+"al": [],
+"d": "2026-11-06"
+},
+"pemigatinib": {
+"n": "Pemigatinib",
+"cid": 86705695,
+"smi": "CCN1C2=C3C=C(NC3=NC=C2CN(C1=O)C4=C(C(=CC(=C4F)OC)OC)F)CN5CCOCC5",
+"ik": "HCDMJFOHIXMBOV-UHFFFAOYSA-N",
+"mw": 487.5,
+"al": [
+"incb054828"
+],
+"d": "2026-11-06"
+},
+"pelabresib": {
+"n": "Pelabresib",
+"cid": 57389999,
+"smi": "CC1=NOC2=C1C3=CC=CC=C3C(=N[C@H]2CC(=O)N)C4=CC=C(C=C4)Cl",
+"ik": "GCWIQUVXWZWCLE-INIZCTEOSA-N",
+"mw": 365.8,
+"al": [
+"cpi0610",
+"dak539"
+],
+"d": "2026-11-06"
+},
+"ruxolitinib": {
+"n": "ruxolitinib",
+"cid": 25126798,
+"smi": "C1CCC(C1)[C@@H](CC#N)N2C=C(C=N2)C3=C4C=CNC4=NC=N3",
+"ik": "HFNKQEVNSGCOJV-OAHLLOKOSA-N",
+"mw": 306.4,
+"al": [],
+"d": "2026-11-06"
+},
+"azd2389": {
+"n": "AZD2389",
+"cid": 164532637,
+"smi": "C1COCCN1C2=CC3=C(C=CN=C3C=C2)C(=O)NCC(=O)N4CSC[C@H]4C#N",
+"ik": "GECJKRWOVGXGCO-OAHLLOKOSA-N",
+"mw": 411.5,
+"al": [],
+"d": "2026-11-06"
+},
+"bictegravir": {
+"n": "Bictegravir",
+"cid": 90311989,
+"smi": "C1C[C@@H]2C[C@H]1N3[C@H](O2)CN4C=C(C(=O)C(=C4C3=O)O)C(=O)NCC5=C(C=C(C=C5F)F)F",
+"ik": "SOLUWJRYJLAZCX-LYOVBCGYSA-N",
+"mw": 449.4,
+"al": [
+"gs9883"
+],
+"d": "2026-11-06"
+},
+"stablebaselineregimen": {
+"n": "Stable Baseline Regimen",
+"miss": "2026-11-06"
+},
+"atomoxetine": {
+"n": "Atomoxetine",
+"cid": 54841,
+"smi": "CC1=CC=CC=C1O[C@H](CCNC)C2=CC=CC=C2",
+"ik": "VHGCDTVCOLNTBX-QGZVFWFLSA-N",
+"mw": 255.3,
+"al": [],
+"d": "2026-11-06"
+},
+"spi1005": {
+"n": "SPI-1005",
+"cid": 3194,
+"smi": "C1=CC=C(C=C1)N2C(=O)C3=CC=CC=C3[Se]2",
+"ik": "DYEFUKCXAQOFHX-UHFFFAOYSA-N",
+"mw": 274.2,
+"al": [
+"ebselen"
+],
+"d": "2026-11-06"
+},
+"afuresertib": {
+"n": "Afuresertib",
+"cid": 46843057,
+"smi": "CN1C(=C(C=N1)Cl)C2=C(SC(=C2)C(=O)N[C@@H](CC3=CC(=CC=C3)F)CN)Cl",
+"ik": "AFJRDFWMXUECEW-LBPRGKRZSA-N",
+"mw": 427.3,
+"al": [
+"fulvestrant",
+"lae002"
+],
+"d": "2026-11-06"
+},
+"stn1010904ophthalmicsuspension003bid": {
+"n": "STN1010904 ophthalmic suspension 0.03% BID",
+"miss": "2026-11-06"
+},
+"stn1010904ophthalmicsuspension01bid": {
+"n": "STN1010904 ophthalmic suspension 0.1% BID",
+"miss": "2026-11-06"
+},
+"incb000928": {
+"n": "INCB000928",
+"cid": 138628908,
+"smi": "C1COCCC1N2C[C@H]3C[C@]3(C2)C4=CC=C(C=C4)C5=CC(=C(N=C5)N)C(=O)NC67CCC(CC6)(CC7)O",
+"ik": "KPRPFTOLWQQUAV-OCVAFRRMSA-N",
+"mw": 502.6,
+"al": [],
+"d": "2026-11-06"
+},
+"rimegepant": {
+"n": "Rimegepant",
+"cid": 51049968,
+"smi": "C1C[C@H](C2=C(C=CC=N2)[C@H]([C@@H]1C3=C(C(=CC=C3)F)F)N)OC(=O)N4CCC(CC4)N5C6=C(NC5=O)N=CC=C6",
+"ik": "KRNAOFGYEFKHPB-ANJVHQHFSA-N",
+"mw": 534.6,
+"al": [
+"pf07899801bhv3000"
+],
+"d": "2026-11-06"
+},
+"diazepamnasalspray": {
+"n": "Diazepam Nasal Spray",
+"miss": "2026-11-06"
+},
+"deucrictibantlowdose": {
+"n": "Deucrictibant low dose",
+"miss": "2026-11-06"
+},
+"deucrictibanthighdose": {
+"n": "Deucrictibant high dose",
+"miss": "2026-11-06"
+},
+"plocebo": {
+"n": "Plocebo",
+"miss": "2026-11-06"
+},
+"bay3723113": {
+"n": "BAY3723113",
+"miss": "2026-11-06"
+},
+"isuzinaxib": {
+"n": "Isuzinaxib",
+"cid": 51036475,
+"smi": "CCCC1=C(NN(C1=O)C2=CC=CC=N2)C3=CC=CC=C3",
+"ik": "GIWZEELPLKPYBA-UHFFFAOYSA-N",
+"mw": 279.3,
+"al": [
+"isuzinaxibhydrochloride"
+],
+"d": "2026-11-06"
+},
+"vadadustat": {
+"n": "Vadadustat",
+"cid": 23634441,
+"smi": "C1=CC(=CC(=C1)Cl)C2=CC(=C(N=C2)C(=O)NCC(=O)O)O",
+"ik": "JGRXMPYUTJLTKT-UHFFFAOYSA-N",
+"mw": 306.7,
+"al": [
+"akb6548",
+"vafseo"
+],
+"d": "2026-11-06"
+},
+"apalutamide": {
+"n": "Apalutamide",
+"cid": 24872560,
+"smi": "CNC(=O)C1=C(C=C(C=C1)N2C(=S)N(C(=O)C23CCC3)C4=CC(=C(N=C4)C#N)C(F)(F)F)F",
+"ik": "HJBWBFZLDZWPHF-UHFFFAOYSA-N",
+"mw": 477.4,
+"al": [
+"jnj56021927"
+],
+"d": "2026-11-06"
+},
+"azetukalner": {
+"n": "Azetukalner",
+"cid": 24743936,
+"smi": "CC1=CC(=CC(=C1NC(=O)CC(C)(C)C)C)N2CCC3=C(C2)C=CC(=C3)F",
+"ik": "FJNPZKZPWVVSON-UHFFFAOYSA-N",
+"mw": 368.5,
+"al": [
+"xen1101"
+],
+"d": "2026-11-06"
+},
+"cabla": {
+"n": "CAB LA",
+"miss": "2026-11-06"
+},
+"fixeddosecombination": {
+"n": "Fixed Dose Combination",
+"miss": "2026-11-06"
+},
+"xanamem": {
+"n": "Xanamem",
+"cid": 137530063,
+"smi": "C1C[C@H]2CC(C[C@@H]1N2C(=O)C3=CSC(=C3)C4=CNN=C4)(C5=NC=CC=N5)O",
+"ik": "MMZFGTAMARVHAF-RTHVDDQRSA-N",
+"mw": 381.5,
+"al": [
+"ue2343"
+],
+"d": "2026-11-06"
+},
+"furmonertinibdaily": {
+"n": "furmonertinib , daily",
+"miss": "2026-11-06"
+},
+"10aripiprazolesolutionfilm": {
+"n": "10- Aripiprazole solution film",
+"miss": "2026-11-06"
+},
+"vinorelbine": {
+"n": "Vinorelbine",
+"cid": 5311497,
+"smi": "CCC1=C[C@H]2C[C@@](C3=C(CN(C2)C1)C4=CC=CC=C4N3)(C5=C(C=C6C(=C5)[C@]78CCN9[C@H]7[C@@](C=CC9)([C@H]([C@@]([C@@H]8N6C)(C(=O)OC)O)OC(=O)C)CC)OC)C(=O)OC",
+"ik": "GBABOYUKABKIAF-IELIFDKJSA-N",
+"mw": 778.9,
+"al": [
+"navelbine"
+],
+"d": "2026-11-06"
+},
+"tyra300": {
+"n": "TYRA-300",
+"cid": 170647464,
+"smi": "C[C@H](C1=C(C=NC=C1Cl)Cl)OC2=CC3=C(C=C2)NN=C3C4=CN=C(C=C4)N5CC6(C5)CN(C6)S(=O)(=O)C",
+"ik": "JOAFWIHZEBKYQK-OAHLLOKOSA-N",
+"mw": 559.5,
+"al": [],
+"d": "2026-11-06"
+},
+"eluxadoline": {
+"n": "Eluxadoline",
+"cid": 11250029,
+"smi": "CC1=CC(=CC(=C1C[C@@H](C(=O)N(CC2=CC(=C(C=C2)OC)C(=O)O)[C@@H](C)C3=NC=C(N3)C4=CC=CC=C4)N)C)C(=O)N",
+"ik": "QFNHIDANIVGXPE-FNZWTVRRSA-N",
+"mw": 569.6,
+"al": [
+"viberzi"
+],
+"d": "2026-11-06"
+},
+"tapinarofcream1": {
+"n": "Tapinarof cream, 1%",
+"miss": "2026-11-06"
+},
+"tenapanor": {
+"n": "Tenapanor",
+"cid": 71587953,
+"smi": "CN1C[C@H](C2=C(C1)C(=CC(=C2)Cl)Cl)C3=CC(=CC=C3)S(=O)(=O)NCCOCCOCCNC(=O)NCCCCNC(=O)NCCOCCOCCNS(=O)(=O)C4=CC=CC(=C4)[C@@H]5CN(CC6=C5C=C(C=C6Cl)Cl)C",
+"ik": "DNHPDWGIXIMXSA-CXNSMIOJSA-N",
+"mw": 1145.0,
+"al": [],
+"d": "2026-11-06"
+},
+"tenapanorbid": {
+"n": "Tenapanor BID",
+"miss": "2026-11-06"
+},
+"linerixibat": {
+"n": "Linerixibat",
+"cid": 53492727,
+"smi": "CCCC[C@@]1(CS(=O)(=O)C2=C(C=C(C(=C2)CNC(CC(=O)O)CC(=O)O)OC)[C@H](N1)C3=CC=CC=C3)CC",
+"ik": "CZGVOBIGEBDYTP-VSGBNLITSA-N",
+"mw": 546.7,
+"al": [],
+"d": "2026-11-06"
+},
+"vicadrostat": {
+"n": "Vicadrostat",
+"cid": 118676295,
+"smi": "C[C@@]1(CC2=C(C(=O)O1)N(C=N2)C3=CC(=C(C=C3)C#N)Cl)CO",
+"ik": "MCVIVPZYYMNCAW-OAHLLOKOSA-N",
+"mw": 317.7,
+"al": [],
+"d": "2026-11-06"
+},
+"midazolam": {
+"n": "Midazolam",
+"cid": 4192,
+"smi": "CC1=NC=C2N1C3=C(C=C(C=C3)Cl)C(=NC2)C4=CC=CC=C4F",
+"ik": "DDLIGBOFAVUZHB-UHFFFAOYSA-N",
+"mw": 325.8,
+"al": [],
+"d": "2026-11-06"
+},
+"aleniglipron": {
+"n": "Aleniglipron",
+"cid": 164809721,
+"smi": "CCP(=O)(CC)C1=C(C=C(C=C1)N2C=CN(C2=O)C3=C4[C@@H](N(CCC4=NN3C5=CC(=C(C(=C5)C)F)C)C(=O)C6=CC7=C(N6[C@]8(C[C@@H]8C)C9=NOC(=O)N9)C=CC(=C7)C1CCOCC1)C)NC",
+"ik": "CPOJUYUGONJVPZ-WIXASUBBSA-N",
+"mw": 916.0,
+"al": [],
+"d": "2026-11-06"
+},
+"shr6390": {
+"n": "SHR6390",
+"cid": 86279927,
+"smi": "CC1=C(C(=O)N(C2=NC(=NC=C12)NC3=NC=C(C=C3)C4CCNCC4)C5CCCC5)C(=O)C",
+"ik": "SGJLSPUSUBJWHO-UHFFFAOYSA-N",
+"mw": 446.5,
+"al": [],
+"d": "2026-11-06"
+},
+"linaprazangluratetwicedaily": {
+"n": "Linaprazan glurate Twice Daily",
+"miss": "2026-11-06"
+},
+"linaprazanglurateoncedaily": {
+"n": "Linaprazan Glurate Once Daily",
+"miss": "2026-11-06"
+},
+"lansoprazoleoncedaily": {
+"n": "Lansoprazole Once Daily",
+"miss": "2026-11-06"
+},
+"vdphl01": {
+"n": "VDPHL01",
+"miss": "2026-11-06"
+},
+"corticosteroids": {
+"n": "Corticosteroids",
+"miss": "2026-11-06"
+},
+"testofen": {
+"n": "Testofen",
+"miss": "2026-11-06"
+},
+"bhv7000": {
+"n": "BHV-7000",
+"cid": 139487180,
+"smi": "CC(C)(C)CC(=O)NC1=NC2=C(C=C(C(=C2N1C(C)(C)C)F)C#N)F",
+"ik": "VOPRSHDHZUHPBT-UHFFFAOYSA-N",
+"mw": 348.4,
+"al": [],
+"d": "2026-11-06"
+},
+"danicopan": {
+"n": "Danicopan",
+"cid": 118323590,
+"smi": "CC1=NC=C(C=N1)C2=CC3=C(C=C2)N(N=C3C(=O)C)CC(=O)N4C[C@@H](C[C@H]4C(=O)NC5=NC(=CC=C5)Br)F",
+"ik": "PIBARDGJJAGJAJ-NQIIRXRSSA-N",
+"mw": 580.4,
+"al": [
+"alxn2040ach0144471"
+],
+"d": "2026-11-06"
+},
+"albuterol": {
+"n": "Albuterol",
+"cid": 2083,
+"smi": "CC(C)(C)NCC(C1=CC(=C(C=C1)O)CO)O",
+"ik": "NDAUXUAQIAJITI-UHFFFAOYSA-N",
+"mw": 239.3,
+"al": [],
+"d": "2026-11-06"
+},
+"odevixibat": {
+"n": "Odevixibat",
+"cid": 10153627,
+"smi": "CCCCC1(CN(C2=CC(=C(C=C2S(=O)(=O)N1)OCC(=O)N[C@H](C3=CC=C(C=C3)O)C(=O)N[C@@H](CC)C(=O)O)SC)C4=CC=CC=C4)CCCC",
+"ik": "XULSCZPZVQIMFM-IPZQJPLYSA-N",
+"mw": 740.9,
+"al": [
+"a4250"
+],
+"d": "2026-11-06"
+},
+"zanubrutinib": {
+"n": "Zanubrutinib",
+"cid": 135565884,
+"smi": "C=CC(=O)N1CCC(CC1)[C@@H]2CCNC3=C(C(=NN23)C4=CC=C(C=C4)OC5=CC=CC=C5)C(=O)N",
+"ik": "RNOAOAWBMHREKO-QFIPXVFZSA-N",
+"mw": 471.5,
+"al": [
+"bgb3111",
+"brukinsa"
+],
+"d": "2026-11-06"
+},
+"tasimelteon": {
+"n": "Tasimelteon",
+"cid": 10220503,
+"smi": "CCC(=O)NC[C@@H]1C[C@H]1C2=C3CCOC3=CC=C2",
+"ik": "PTOIAAWZLUQTIO-GXFFZTMASA-N",
+"mw": 245.3,
+"al": [],
+"d": "2026-11-06"
+},
+"trichostatina": {
+"n": "Trichostatin A",
+"cid": 444732,
+"smi": "C[C@H](/C=C(\\C)/C=C/C(=O)NO)C(=O)C1=CC=C(C=C1)N(C)C",
+"ik": "RTKIYFITIVXBLE-QEQCGCAPSA-N",
+"mw": 302.4,
+"al": [],
+"d": "2026-11-06"
+},
+"arpiabiraterone": {
+"n": "ARPI: Abiraterone",
+"miss": "2026-11-06"
+},
+"arpienzalutamide": {
+"n": "ARPI: Enzalutamide",
+"miss": "2026-11-06"
+},
+"eyp1901": {
+"n": "EYP-1901",
+"cid": 59215954,
+"smi": "CC1=C(NC(=C1C(=O)N[C@H]2CCN(C2)C(=O)N(C)C)C)/C=C\\3/C4=C(C=CC(=C4)F)NC3=O",
+"ik": "KMIOJWCYOHBUJS-HAKPAVFJSA-N",
+"mw": 439.5,
+"al": [],
+"d": "2026-11-06"
+},
+"tegileridinelnjection": {
+"n": "Tegileridine lnjection",
+"miss": "2026-11-06"
+},
+"remifentanilfor": {
+"n": "Remifentanil for",
+"miss": "2026-11-06"
+},
+"maribavir": {
+"n": "Maribavir",
+"cid": 471161,
+"smi": "CC(C)NC1=NC2=CC(=C(C=C2N1[C@@H]3[C@H]([C@H]([C@@H](O3)CO)O)O)Cl)Cl",
+"ik": "KJFBVJALEQWJBS-XUXIUFHCSA-N",
+"mw": 376.2,
+"al": [
+"tak620"
+],
+"d": "2026-11-06"
+},
+"quemliclustat": {
+"n": "Quemliclustat",
+"cid": 130205852,
+"smi": "C[C@@H](C1=CC=CC=C1F)NC2=CC(=NC3=C2C=NN3[C@H]4[C@@H]([C@@H]([C@H](O4)COP(=O)(CP(=O)(O)O)O)O)O)Cl",
+"ik": "MFYLCAMJNGIULC-KCVUFLITSA-N",
+"mw": 580.8,
+"al": [],
+"d": "2026-11-06"
+},
+"minoxidil": {
+"n": "Minoxidil",
+"cid": 4201,
+"smi": "C1CCN(CC1)C2=NC(=N)N(C(=C2)N)O",
+"ik": "ZIMGGGWCDYVHOY-UHFFFAOYSA-N",
+"mw": 209.2,
+"al": [],
+"d": "2026-11-06"
+},
+"minoxidiltopical": {
+"n": "Minoxidil Topical",
+"miss": "2026-11-06"
+},
+"belzutifan": {
+"n": "Belzutifan",
+"cid": 117947097,
+"smi": "CS(=O)(=O)C1=C2[C@@H]([C@@H]([C@@H](C2=C(C=C1)OC3=CC(=CC(=C3)C#N)F)F)F)O",
+"ik": "LOMMPXLFBTZENJ-ZACQAIPSSA-N",
+"mw": 383.3,
+"al": [
+"mk6482",
+"pt2977",
+"welireg"
+],
+"d": "2026-11-06"
+},
+"mc201cream": {
+"n": "MC2-01 cream",
+"miss": "2026-11-06"
+},
+"evo756": {
+"n": "EVO756",
+"miss": "2026-11-06"
+},
+"rescuemedications": {
+"n": "Rescue medications",
+"miss": "2026-11-06"
+},
+"supportivecaremeasures": {
+"n": "Supportive care measures",
+"miss": "2026-11-06"
+},
+"anvumetostat": {
+"n": "anvumetostat",
+"cid": 164536956,
+"smi": "C1COC[C@@H](N1C(=O)C2=NC=C3C(=C2)C4=C(COC4)C(=N3)N)C5=CC=C(C=C5)C(F)(F)F",
+"ik": "BFEBTMFPRJPBTK-LJQANCHMSA-N",
+"mw": 444.4,
+"al": [],
+"d": "2026-11-06"
+},
+"pirfenidone": {
+"n": "Pirfenidone （ ）",
+"miss": "2026-11-06"
+},
+"eribulin": {
+"n": "Eribulin",
+"cid": 11354606,
+"smi": "C[C@@H]1C[C@@H]2CC[C@H]3C(=C)C[C@@H](O3)CC[C@]45C[C@@H]6[C@H](O4)[C@H]7[C@@H](O6)[C@@H](O5)[C@@H]8[C@@H](O7)CC[C@@H](O8)CC(=O)C[C@H]9[C@H](C[C@H](C1=C)O2)O[C@@H]([C@@H]9OC)C[C@@H](CN)O",
+"ik": "UFNVPOGXISZXJD-JBQZKEIOSA-N",
+"mw": 729.9,
+"al": [
+"halaven"
+],
+"d": "2026-11-06"
+},
+"qls111fdc": {
+"n": "QLS-111-FDC",
+"miss": "2026-11-06"
+},
+"latanoprost": {
+"n": "Latanoprost",
+"cid": 5311221,
+"smi": "CC(C)OC(=O)CCC/C=C\\C[C@H]1[C@H](C[C@H]([C@@H]1CC[C@H](CCC2=CC=CC=C2)O)O)O",
+"ik": "GGXICVAJURFBLW-CEYXHVGTSA-N",
+"mw": 432.6,
+"al": [
+"latanoprostophthalmicsolution0005pf"
+],
+"d": "2026-11-06"
+},
+"entrectinib": {
+"n": "Entrectinib",
+"cid": 25141092,
+"smi": "CN1CCN(CC1)C2=CC(=C(C=C2)C(=O)NC3=NNC4=C3C=C(C=C4)CC5=CC(=CC(=C5)F)F)NC6CCOCC6",
+"ik": "HAYYBYPASCDWEQ-UHFFFAOYSA-N",
+"mw": 560.6,
+"al": [
+"ro7102122rozlytrek"
+],
+"d": "2026-11-06"
+},
+"ivacaftor": {
+"n": "Ivacaftor",
+"cid": 16220172,
+"smi": "CC(C)(C)C1=CC(=C(C=C1NC(=O)C2=CNC3=CC=CC=C3C2=O)O)C(C)(C)C",
+"ik": "PURKAOJPTOLRMP-UHFFFAOYSA-N",
+"mw": 392.5,
+"al": [],
+"d": "2026-11-06"
+},
+"tak788": {
+"n": "TAK-788",
+"cid": 118607832,
+"smi": "CC(C)OC(=O)C1=CN=C(N=C1C2=CN(C3=CC=CC=C32)C)NC4=C(C=C(C(=C4)NC(=O)C=C)N(C)CCN(C)C)OC",
+"ik": "AZSRSNUQCUDCGG-UHFFFAOYSA-N",
+"mw": 585.7,
+"al": [
+"ap32788"
+],
+"d": "2026-11-06"
+},
+"azeliragon": {
+"n": "Azeliragon",
+"cid": 11180124,
+"smi": "CCCCC1=NC(=CN1C2=CC=C(C=C2)OC3=CC=C(C=C3)Cl)C4=CC=C(C=C4)OCCCN(CC)CC",
+"ik": "KJNNWYBAOPXVJY-UHFFFAOYSA-N",
+"mw": 532.1,
+"al": [],
+"d": "2026-11-06"
+},
+"gm2505": {
+"n": "GM-2505",
+"miss": "2026-11-06"
+},
+"venglustat": {
+"n": "venglustat",
+"cid": 60199242,
+"smi": "CC(C)(C1=CSC(=N1)C2=CC=C(C=C2)F)NC(=O)O[C@@H]3CN4CCC3CC4",
+"ik": "YFHRCLAKZBDRHN-MRXNPFEDSA-N",
+"mw": 389.5,
+"al": [],
+"d": "2026-11-06"
+},
+"jab21822": {
+"n": "JAB-21822",
+"cid": 157827766,
+"smi": "CC1=C(C(=NC=C1)C(C)C)N2C3=NC(=C(C=C3C(=C(C2=O)C#N)N4CCN(CC4)C(=O)C=C)Cl)C5=C(C(=C(C(=C5F)F)F)F)N",
+"ik": "QRRJEUIQLZNPIO-UHFFFAOYSA-N",
+"mw": 640.0,
+"al": [
+"glecirasib"
+],
+"d": "2026-11-06"
+},
+"upadacitinib": {
+"n": "Upadacitinib",
+"cid": 58557659,
+"smi": "CC[C@@H]1CN(C[C@@H]1C2=CN=C3N2C4=C(NC=C4)N=C3)C(=O)NCC(F)(F)F",
+"ik": "WYQFJHHDOKWSHR-MNOVXSKESA-N",
+"mw": 380.4,
+"al": [
+"abt494",
+"rinvoq"
+],
+"d": "2026-11-06"
+},
+"bpm31510": {
+"n": "BPM31510",
+"cid": 5281915,
+"smi": "CC1=C(C(=O)C(=C(C1=O)OC)OC)C/C=C(\\C)/CC/C=C(\\C)/CC/C=C(\\C)/CC/C=C(\\C)/CC/C=C(\\C)/CC/C=C(\\C)/CC/C=C(\\C)/CC/C=C(\\C)/CC/C=C(\\C)/CCC=C(C)C",
+"ik": "ACTIUHUUMQJHFO-UPTCCGCDSA-N",
+"mw": 863.3,
+"al": [],
+"d": "2026-11-06"
+},
+"nexium": {
+"n": "Nexium",
+"cid": 9568613,
+"smi": "CC1=CN=C(C(=C1OC)C)C[S@](=O)C2=NC3=C([N-]2)C=CC(=C3)OC.CC1=CN=C(C(=C1OC)C)C[S@](=O)C2=NC3=C([N-]2)C=CC(=C3)OC.[Mg+2]",
+"ik": "KWORUUGOSLYAGD-YPPDDXJESA-N",
+"mw": 713.1,
+"al": [],
+"d": "2026-11-06"
+},
+"sevasemten": {
+"n": "Sevasemten",
+"cid": 149205919,
+"smi": "C1=CC(=O)N(N=C1C2=CN=C(N=C2)OCC(F)(F)F)CC3=CC(=CN=C3)F",
+"ik": "XFPJKQRXBAFXNK-UHFFFAOYSA-N",
+"mw": 381.3,
+"al": [],
+"d": "2026-11-06"
+},
+"sevasemten12": {
+"n": "Sevasemten 12.",
+"miss": "2026-11-06"
+},
+"npt2042": {
+"n": "NPT 2042",
+"miss": "2026-11-06"
+},
+"fenfluramine": {
+"n": "fenfluramine",
+"cid": 3337,
+"smi": "CCNC(C)CC1=CC(=CC=C1)C(F)(F)F",
+"ik": "DBGIVFWFUFKIQN-UHFFFAOYSA-N",
+"mw": 231.3,
+"al": [
+"fintepla"
+],
+"d": "2026-11-06"
+},
+"xcopri": {
+"n": "Xcopri",
+"cid": 11962412,
+"smi": "C1=CC=C(C(=C1)[C@H](CN2N=CN=N2)OC(=O)N)Cl",
+"ik": "GFHAXPJGXSQLPT-VIFPVBQESA-N",
+"mw": 267.7,
+"al": [],
+"d": "2026-11-06"
+},
+"apremilast": {
+"n": "Apremilast",
+"cid": 11561674,
+"smi": "CCOC1=C(C=CC(=C1)[C@@H](CS(=O)(=O)C)N2C(=O)C3=C(C2=O)C(=CC=C3)NC(=O)C)OC",
+"ik": "IMOZEMNVLZVGJZ-QGZVFWFLSA-N",
+"mw": 460.5,
+"al": [
+"amg407",
+"cc10004",
+"otezla"
+],
+"d": "2026-11-06"
+},
+"stannousfluoridedentifrice": {
+"n": "Stannous fluoride Dentifrice",
+"miss": "2026-11-06"
+},
+"nitratedentifrice": {
+"n": "nitrate Dentifrice",
+"miss": "2026-11-06"
+},
+"chloride": {
+"n": "chloride",
+"cid": 312,
+"smi": "[Cl-]",
+"ik": "VEXZGXHMUGYJMC-UHFFFAOYSA-M",
+"mw": 35.5,
+"al": [],
+"d": "2026-11-06"
+},
+"futibatinib": {
+"n": "futibatinib",
+"cid": 71621331,
+"smi": "COC1=CC(=CC(=C1)C#CC2=NN(C3=NC=NC(=C23)N)[C@H]4CCN(C4)C(=O)C=C)OC",
+"ik": "KEIPNCCJPRMIAX-HNNXBMFYSA-N",
+"mw": 418.4,
+"al": [
+"tas120"
+],
+"d": "2026-11-06"
+},
+"binimetinib": {
+"n": "Binimetinib",
+"cid": 10288191,
+"smi": "CN1C=NC2=C1C=C(C(=C2F)NC3=C(C=C(C=C3)Br)F)C(=O)NOCCO",
+"ik": "ACWZRVQXLIRSDF-UHFFFAOYSA-N",
+"mw": 441.2,
+"al": [
+"mektovi"
+],
+"d": "2026-11-06"
+},
+"bms986369": {
+"n": "BMS-986369",
+"miss": "2026-11-06"
+},
+"risdiplam": {
+"n": "Risdiplam",
+"cid": 118513932,
+"smi": "CC1=CC(=NN2C1=NC(=C2)C)C3=CC(=O)N4C=C(C=CC4=N3)N5CCNC6(C5)CC6",
+"ik": "ASKZRYGFUPSJPN-UHFFFAOYSA-N",
+"mw": 401.5,
+"al": [
+"evrysdi",
+"ro7034067"
+],
+"d": "2026-11-06"
+},
+"topicalsteroid": {
+"n": "Topical Steroid",
+"miss": "2026-11-06"
+},
+"remibrutinib": {
+"n": "Remibrutinib",
+"cid": 118107483,
+"smi": "CC1=C(C=C(C=C1NC(=O)C2=C(C=C(C=C2)C3CC3)F)F)C4=C(C(=NC=N4)N)OCCN(C)C(=O)C=C",
+"ik": "CUABMPOJOBCXJI-UHFFFAOYSA-N",
+"mw": 507.5,
+"al": [
+"lou064"
+],
+"d": "2026-11-06"
+},
+"teriflunomide": {
+"n": "Teriflunomide",
+"cid": 54684141,
+"smi": "C/C(=C(\\C#N)/C(=O)NC1=CC=C(C=C1)C(F)(F)F)/O",
+"ik": "UTNUDOFZCWSZMS-YFHOEESVSA-N",
+"mw": 270.2,
+"al": [],
+"d": "2026-11-06"
+},
+"apt001topicalophthalmicointment": {
+"n": "APT-001 topical ophthalmic ointment",
+"miss": "2026-11-06"
+},
+"palazestrant": {
+"n": "Palazestrant",
+"cid": 135351887,
+"smi": "CCCN1CC(C1)OC2=CC=C(C=C2)[C@@H]3C4=C(C[C@H](N3CC(C)(C)F)C)C5=CC=CC=C5N4",
+"ik": "LBSFUBLFDCAEKV-XHCCPWGMSA-N",
+"mw": 449.6,
+"al": [
+"op1250"
+],
+"d": "2026-11-06"
+},
+"mometasonefuroatenasalspray": {
+"n": "Mometasone furoate nasal spray",
+"miss": "2026-11-06"
+},
+"inaxaplin": {
+"n": "Inaxaplin",
+"cid": 147289591,
+"smi": "C1[C@H]([C@@H](C(=O)N1)NC(=O)CCC2=C(NC3=C2C=C(C=C3F)F)C4=CC=C(C=C4)F)O",
+"ik": "CTXLPYZCBOVVQK-UZLBHIALSA-N",
+"mw": 417.4,
+"al": [
+"vx147"
+],
+"d": "2026-11-06"
+},
+"ptc923": {
+"n": "PTC923",
+"cid": 135398579,
+"smi": "C[C@@H](C(=O)C1=NC2=C(NC1)N=C(NC2=O)N)O",
+"ik": "VPVOXUSPXFPWBN-VKHMYHEASA-N",
+"mw": 237.2,
+"al": [
+"sephience",
+"sepiapterin"
+],
+"d": "2026-11-06"
+},
+"avutometinib": {
+"n": "avutometinib",
+"cid": 16719221,
+"smi": "CC1=C(C(=O)OC2=C1C=CC(=C2)OC3=NC=CC=N3)CC4=C(C(=NC=C4)NS(=O)(=O)NC)F",
+"ik": "LMMJFBMMJUMSJS-UHFFFAOYSA-N",
+"mw": 471.5,
+"al": [
+"abraxane",
+"gemzar"
+],
+"d": "2026-11-06"
+},
+"vonoprazan": {
+"n": "Vonoprazan",
+"cid": 15981397,
+"smi": "CNCC1=CN(C(=C1)C2=CC=CC=C2F)S(=O)(=O)C3=CN=CC=C3",
+"ik": "BFDBKMOZYNOTPK-UHFFFAOYSA-N",
+"mw": 345.4,
+"al": [],
+"d": "2026-11-06"
+},
+"rescuemedication": {
+"n": "Rescue medication",
+"miss": "2026-11-06"
+},
+"ammoxetine": {
+"n": "Ammoxetine",
+"miss": "2026-11-06"
+},
+"sertraline": {
+"n": "Sertraline",
+"cid": 68617,
+"smi": "CN[C@H]1CC[C@H](C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl",
+"ik": "VGKDLMBJGBXTGI-SJCJKPOMSA-N",
+"mw": 306.2,
+"al": [],
+"d": "2026-11-06"
+},
+"dazucorilant": {
+"n": "Dazucorilant",
+"cid": 72192163,
+"smi": "C1CN(C[C@@]2(C1=CC3=C(C2)C=NN3C4=CC=C(C=C4)F)C(=O)C5=CC=CC=N5)S(=O)(=O)C6=CC=C(C=C6)C(F)(F)F",
+"ik": "VXOBXKQLNWYQPQ-NDEPHWFRSA-N",
+"mw": 582.6,
+"al": [
+"cort113176"
+],
+"d": "2026-11-06"
+},
+"obicetrapib": {
+"n": "Obicetrapib",
+"cid": 11498596,
+"smi": "CC[C@@H]1C[C@@H](C2=C(N1C(=O)OCC)C=CC(=C2)C(F)(F)F)N(CC3=CC(=CC(=C3)C(F)(F)F)C(F)(F)F)C4=NC=C(C=N4)OCCCC(=O)O",
+"ik": "NRWORBQAOQVYBJ-GJZUVCINSA-N",
+"mw": 722.6,
+"al": [],
+"d": "2026-11-06"
+},
+"lp352": {
+"n": "LP352",
+"cid": 122662787,
+"smi": "C[C@H]1CN2CCNCC3=C2C1=C(C=C3)C(=O)NCC(F)F",
+"ik": "KGOOOHQKLRUVSF-VIFPVBQESA-N",
+"mw": 295.3,
+"al": [
+"bexicaserin"
+],
+"d": "2026-11-06"
+},
+"ensifentrine": {
+"n": "Ensifentrine",
+"cid": 9934746,
+"smi": "CC1=CC(=C(C(=C1)C)N=C2C=C3C4=CC(=C(C=C4CCN3C(=O)N2CCNC(=O)N)OC)OC)C",
+"ik": "CSOBIBXVIYAXFM-UHFFFAOYSA-N",
+"mw": 477.6,
+"al": [],
+"d": "2026-11-06"
+},
+"glycopyrrolate2125mcg": {
+"n": "Glycopyrrolate 21.25 mcg",
+"miss": "2026-11-06"
+},
+"glycopyrrolate425mcg": {
+"n": "Glycopyrrolate 42.5 mcg",
+"miss": "2026-11-06"
+},
+"deucrictibant": {
+"n": "Deucrictibant",
+"cid": 154623230,
+"smi": "[2H][C@](C)(C1=C(C(=CC(=C1)F)Cl)COC2=CC=CC3=C(C=C(N=C32)C)C4=NC=NN4C)NC(=O)COC(F)F",
+"ik": "ZTCLCSCHTACERP-WTDRUJNCSA-N",
+"mw": 534.9,
+"al": [],
+"d": "2026-11-06"
+},
+"brepocitinibpoqd": {
+"n": "Brepocitinib PO QD",
+"miss": "2026-11-06"
+},
+"golexanolone": {
+"n": "golexanolone",
+"cid": 132190533,
+"smi": "C[C@]12CC[C@](C[C@@H]1CC[C@@H]3[C@@H]2CC[C@]\\4([C@H]3CC/C4=N\\O)C)(C#C)O",
+"ik": "FFIBGVYTWNPLPN-BZLGYYABSA-N",
+"mw": 329.5,
+"al": [],
+"d": "2026-11-06"
+},
+"d2570": {
+"n": "D-2570",
+"cid": 170678247,
+"smi": "[2H]C([2H])([2H])NC(=O)C1=NN=C(C=C1NC2=C(C=C(C=N2)Cl)S(=O)(=O)C)NC(=O)C3CC3",
+"ik": "QZZGWCBTIULDRA-FIBGUPNXSA-N",
+"mw": 427.9,
+"al": [],
+"d": "2026-11-06"
+},
+"mezigdomide": {
+"n": "mezigdomide",
+"cid": 137379043,
+"smi": "C1CC(=O)NC(=O)[C@H]1N2CC3=C(C2=O)C=CC=C3OCC4=CC=C(C=C4)CN5CCN(CC5)C6=C(C=C(C=C6)C#N)F",
+"ik": "YTINZZFBHWSAGL-NDEPHWFRSA-N",
+"mw": 567.6,
+"al": [
+"bms986348",
+"cc92480"
+],
+"d": "2026-11-06"
+},
+"metreleptin": {
+"n": "metreleptin",
+"miss": "2026-11-06"
+},
+"hydronidone": {
+"n": "Hydronidone",
+"cid": 11217901,
+"smi": "CC1=CN(C(=O)C=C1)C2=CC=C(C=C2)O",
+"ik": "NETTXQJYJRFTFS-UHFFFAOYSA-N",
+"mw": 201.2,
+"al": [],
+"d": "2026-11-06"
+},
+"giredestrant": {
+"n": "Giredestrant",
+"cid": 121410806,
+"smi": "C[C@@H]1CC2=C([C@H](N1CC(CO)(F)F)C3=C(C=C(C=C3F)NC4CN(C4)CCCF)F)NC5=CC=CC=C25",
+"ik": "GQCXHIKRWBIQMD-AKJBCIBTSA-N",
+"mw": 522.6,
+"al": [
+"gdc9545",
+"rg6171",
+"ro7197597"
+],
+"d": "2026-11-06"
+},
+"upadacitinibdose": {
+"n": "Upadacitinib Dose",
+"miss": "2026-11-06"
+},
+"m1774": {
+"n": "M1774",
+"cid": 90199447,
+"smi": "CN1C=NC=C1C2=C(C=NC=C2NC(=O)C3=C4N=CC(=CN4N=C3N)F)F",
+"ik": "RBQPCTBFIPVIJN-UHFFFAOYSA-N",
+"mw": 370.3,
+"al": [
+"tuvusertib"
+],
+"d": "2026-11-06"
+},
+"colgategreatregularflavortoothpaste": {
+"n": "Colgate Great Regular Flavor Toothpaste",
+"miss": "2026-11-06"
+},
+"de117beyedrops": {
+"n": "DE-117B Eye Drops",
+"miss": "2026-11-06"
+},
+"lucerastat": {
+"n": "Lucerastat",
+"cid": 501391,
+"smi": "CCCCN1C[C@@H]([C@H]([C@H]([C@H]1CO)O)O)O",
+"ik": "UQRORFVVSGFNRO-XFWSIPNHSA-N",
+"mw": 219.3,
+"al": [],
+"d": "2026-11-06"
+},
+"hrs9190underinhalationalanesthesia": {
+"n": "HRS-9190; under Inhalational Anesthesia",
+"miss": "2026-11-06"
+},
+"hrs9190underintravenousanesthesia": {
+"n": "HRS-9190; under Intravenous Anesthesia",
+"miss": "2026-11-06"
+},
+"cisatracurium": {
+"n": "Cisatracurium",
+"cid": 62887,
+"smi": "C[N@@+]1(CCC2=CC(=C(C=C2[C@H]1CC3=CC(=C(C=C3)OC)OC)OC)OC)CCC(=O)OCCCCCOC(=O)CC[N@+]4(CCC5=CC(=C(C=C5[C@H]4CC6=CC(=C(C=C6)OC)OC)OC)OC)C",
+"ik": "YXSLJKQTIDHPOT-LJCJQEJUSA-N",
+"mw": 929.1,
+"al": [],
+"d": "2026-11-06"
+},
+"tuvusertib": {
+"n": "Tuvusertib",
+"cid": 90199447,
+"smi": "CN1C=NC=C1C2=C(C=NC=C2NC(=O)C3=C4N=CC(=CN4N=C3N)F)F",
+"ik": "RBQPCTBFIPVIJN-UHFFFAOYSA-N",
+"mw": 370.3,
+"al": [
+"m1774vxc400vrt1363004substancecodemsc2584415a"
+],
+"d": "2026-11-06"
+},
+"lartesertib": {
+"n": "Lartesertib",
+"cid": 122599280,
+"smi": "CC1=NN(C=C1C2=C(C=C3C(=C2)C4=C(C=N3)N(C(=O)N4C5=C(C=NC=C5OC)F)C)OC)C",
+"ik": "WNEFOSMCGCLLJU-UHFFFAOYSA-N",
+"mw": 448.4,
+"al": [
+"m4076substancecodemsc2585823a"
+],
+"d": "2026-11-06"
+},
+"cyb003": {
+"n": "CYB003",
+"cid": 117065176,
+"smi": "[2H]C([2H])([2H])N(C([2H])([2H])[2H])C([2H])([2H])C([2H])([2H])C1=CNC2=C1C(=CC=C2)O",
+"ik": "SPCIYGNTAMCTRO-HXOHQZFQSA-N",
+"mw": 214.3,
+"al": [],
+"d": "2026-11-06"
+},
+"topicalocularbl1332lowdose": {
+"n": "Topical Ocular BL1332 low dose",
+"miss": "2026-11-06"
+},
+"topicalocularbl1332highdose": {
+"n": "Topical Ocular BL1332 high dose",
+"miss": "2026-11-06"
+},
+"colchicine": {
+"n": "Colchicine",
+"cid": 6167,
+"smi": "CC(=O)N[C@H]1CCC2=CC(=C(C(=C2C3=CC=C(C(=O)C=C13)OC)OC)OC)OC",
+"ik": "IAKHMKGGTNLKSZ-INIZCTEOSA-N",
+"mw": 399.4,
+"al": [],
+"d": "2026-11-06"
+},
+"fruquintinib": {
+"n": "fruquintinib",
+"cid": 44480399,
+"smi": "CC1=C(C2=C(O1)C=C(C=C2)OC3=NC=NC4=CC(=C(C=C43)OC)OC)C(=O)NC",
+"ik": "BALLNEJQLSTPIO-UHFFFAOYSA-N",
+"mw": 393.4,
+"al": [
+"hmpl013"
+],
+"d": "2026-11-06"
+},
+"spn812": {
+"n": "SPN-812",
+"cid": 71424,
+"smi": "CCOC1=CC=CC=C1OCC2CNCCO2.Cl",
+"ik": "HJOCKFVCMLCPTP-UHFFFAOYSA-N",
+"mw": 273.8,
+"al": [
+"viloxazineextendedreleasecapsules"
+],
+"d": "2026-11-06"
+},
+"degludec": {
+"n": "Degludec",
+"cid": 118984462,
+"smi": "CC[C@H](C)[C@H]1C(=O)N[C@H]2CSSC[C@@H](C(=O)N[C@@H](CSSC[C@@H](C(=O)NCC(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@H](C(=O)N[C@@H](CSSC[C@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC(=O)[C@@H](NC2=O)CO)CC(C)C)CC3=CC=C(C=C3)O)CCC(=O)N)CC(C)C)CCC(=O)O)CC(=O)N)CC4=CC=C(C=C4)O)C(=O)N[C@@H](CC(=O)N)C(=O)O)C(=O)NCC(=O)N[C@@H](CCC(=O)O)C(=O)N[C@@H](CCCNC(=N)N)C(=O)NCC(=O)N[C@@H](CC5=CC=CC=C5)C(=O)N[C@@H](CC6=CC=CC=C6)C(=O)N[C@@H](CC7=CC=C(C=C7)O)C(=O)N[C@@H]([C@@H](C)O)C(=O)N8CCC[C@H]8C(=O)N[C@@H](CCCCNC(=O)CC[C@@H](C(=O)O)NC(=O)CCCCCCCCCCCCCCC(=O)O)C(=O)O)C(C)C)CC(C)C)CC9=CC=C(C=C9)O)CC(C)C)C)CCC(=O)O)C(C)C)CC(C)C)CC2=CNC=N2)CO)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](CC2=CNC=N2)NC(=O)[C@H](CCC(=O)N)NC(=O)[C@H](CC(=O)N)NC(=O)[C@H](C(C)C)NC(=O)[C@H](CC2=CC=CC=C2)N)C(=O)N[C@H](C(=O)N[C@H](C(=O)N1)CO)[C@@H](C)O)NC(=O)[C@H](CCC(=O)N)NC(=O)[C@H](CCC(=O)O)NC(=O)[C@H](C(C)C)NC(=O)[C@H]([C@@H](C)CC)NC(=O)CN",
+"ik": "FYZPCMFQCNBYCY-WIWKJPBBSA-N",
+"mw": 6104.0,
+"al": [],
+"d": "2026-11-06"
+},
+"patidegibtopicalgel": {
+"n": "Patidegib Topical Gel",
+"miss": "2026-11-06"
+},
+"adagrasibdoseoftwicedaily": {
+"n": "Adagrasib dose of twice daily",
+"miss": "2026-11-06"
+},
+"nabpaclitaxel": {
+"n": "Nab paclitaxel",
+"miss": "2026-11-06"
+},
+"rilpivirine": {
+"n": "Rilpivirine",
+"cid": 6451164,
+"smi": "CC1=CC(=CC(=C1NC2=NC(=NC=C2)NC3=CC=C(C=C3)C#N)C)/C=C/C#N",
+"ik": "YIBOMRUWOWDFLG-ONEGZZNKSA-N",
+"mw": 366.4,
+"al": [
+"tmc278r278474"
+],
+"d": "2026-11-06"
+},
+"adagrasib": {
+"n": "Adagrasib",
+"cid": 138611145,
+"smi": "CN1CCC[C@H]1COC2=NC3=C(CCN(C3)C4=CC=CC5=C4C(=CC=C5)Cl)C(=N2)N6CCN([C@H](C6)CC#N)C(=O)C(=C)F",
+"ik": "PEMUGDMSUDYLHU-ZEQRLZLVSA-N",
+"mw": 604.1,
+"al": [
+"krazati",
+"mrtx849"
+],
+"d": "2026-11-06"
+},
+"radotinib": {
+"n": "Radotinib",
+"cid": 16063245,
+"smi": "CC1=C(C=C(C=C1)C(=O)NC2=CC(=CC(=C2)C(F)(F)F)N3C=C(N=C3)C)NC4=NC=CC(=N4)C5=NC=CN=C5",
+"ik": "DUPWHXBITIZIKZ-UHFFFAOYSA-N",
+"mw": 530.5,
+"al": [
+"iy5511"
+],
+"d": "2026-11-06"
+},
+"dexlansoprazole": {
+"n": "Dexlansoprazole",
+"cid": 9578005,
+"smi": "CC1=C(C=CN=C1C[S@@](=O)C2=NC3=CC=CC=C3N2)OCC(F)(F)F",
+"ik": "MJIHNNLFOKEZEW-RUZDIDTESA-N",
+"mw": 369.4,
+"al": [
+"dexilant"
+],
+"d": "2026-11-06"
+},
+"glm101": {
+"n": "GLM101",
+"miss": "2026-11-06"
+},
+"iptacopan": {
+"n": "iptacopan",
+"cid": 90467622,
+"smi": "CCO[C@H]1CCN([C@@H](C1)C2=CC=C(C=C2)C(=O)O)CC3=C(C=C(C4=C3C=CN4)C)OC",
+"ik": "RENRQMCACQEWFC-UGKGYDQZSA-N",
+"mw": 422.5,
+"al": [
+"lnp023"
+],
+"d": "2026-11-06"
+},
+"leniolisib": {
+"n": "Leniolisib",
+"cid": 57495353,
+"smi": "CCC(=O)N1CC[C@@H](C1)NC2=NC=NC3=C2CN(CC3)C4=CC(=C(N=C4)OC)C(F)(F)F",
+"ik": "MWKYMZXCGYXLPL-ZDUSSCGKSA-N",
+"mw": 450.5,
+"al": [
+"joenja"
+],
+"d": "2026-11-06"
+},
+"qls111ophthalmicsolution": {
+"n": "QLS-111 Ophthalmic Solution",
+"miss": "2026-11-06"
+},
+"milvexian": {
+"n": "Milvexian",
+"cid": 118277544,
+"smi": "C[C@@H]1CCC[C@@H](C2=NC=CC(=C2)C3=C(C=NN3C(F)F)NC1=O)N4C=NC(=CC4=O)C5=C(C=CC(=C5)Cl)N6C=C(N=N6)Cl",
+"ik": "FSWFYCYPTDLKON-CMJOXMDJSA-N",
+"mw": 626.4,
+"al": [
+"jnj70033093bms986177"
+],
+"d": "2026-11-06"
+},
+"pacritinib": {
+"n": "Pacritinib",
+"cid": 46216796,
+"smi": "C1CCN(C1)CCOC2=C3COC/C=C/COCC4=CC(=CC=C4)C5=NC(=NC=C5)NC(=C3)C=C2",
+"ik": "HWXVIOGONBBTBY-ONEGZZNKSA-N",
+"mw": 472.6,
+"al": [],
+"d": "2026-11-06"
+},
+"herombopag": {
+"n": "Herombopag",
+"miss": "2026-11-06"
+},
+"bms986278": {
+"n": "BMS-986278",
+"cid": 132232205,
+"smi": "CCCN(C)C(=O)OCC1=C(N=NN1C)C2=NC(=C(C=C2)O[C@H]3CCC[C@@H](C3)C(=O)O)C",
+"ik": "UEUNDURNLYLSNB-HOTGVXAUSA-N",
+"mw": 445.5,
+"al": [
+"admilparant"
+],
+"d": "2026-11-06"
+},
+"bbt207": {
+"n": "BBT-207",
+"miss": "2026-11-06"
+},
+"lucentis": {
+"n": "Lucentis",
+"miss": "2026-11-06"
+},
+"qrx0034lotion": {
+"n": "QRX003, 4% Lotion",
+"miss": "2026-11-06"
+},
+"xeomin": {
+"n": "Xeomin",
+"miss": "2026-11-06"
+},
+"pitolisant": {
+"n": "Pitolisant",
+"cid": 9948102,
+"smi": "C1CCN(CC1)CCCOCCCC2=CC=C(C=C2)Cl",
+"ik": "NNACHAUCXXVJSP-UHFFFAOYSA-N",
+"mw": 295.8,
+"al": [],
+"d": "2026-11-06"
+},
+"nerandomilast": {
+"n": "Nerandomilast",
+"cid": 166177189,
+"smi": "C1CC(C1)(CO)NC2=NC(=NC3=C2[S@](=O)CC3)N4CCC(CC4)C5=NC=C(C=N5)Cl",
+"ik": "UHYCLWAANUGUMN-SSEXGKCCSA-N",
+"mw": 449.0,
+"al": [
+"bi1015550jascayd",
+"jascayd"
+],
+"d": "2026-11-06"
+},
+"crofelemerpowderforsolution": {
+"n": "Crofelemer Powder for Solution",
+"miss": "2026-11-06"
+},
+"cenerimod": {
+"n": "Cenerimod",
+"cid": 49871973,
+"smi": "CCC1=C(C(=CC(=C1)C2=NOC(=N2)C3=CC(=NC(=C3)OC)C4CCCC4)C)OC[C@H](CO)O",
+"ik": "KJKKMMMRWISKRF-FQEVSTJZSA-N",
+"mw": 453.5,
+"al": [
+"act334441"
+],
+"d": "2026-11-06"
+},
+"15qlm3003ointment": {
+"n": "1.5% QLM3003 ointment",
+"miss": "2026-11-06"
+},
+"2qlm3003ointment": {
+"n": "2% QLM3003 ointment",
+"miss": "2026-11-06"
+},
+"icmadx2191": {
+"n": "ICM ADX-2191",
+"miss": "2026-11-06"
+},
+"monthlyadx2191": {
+"n": "Monthly ADX-2191",
+"miss": "2026-11-06"
+},
+"baloxavirmarboxil": {
+"n": "Baloxavir marboxil",
+"cid": 124081896,
+"smi": "COC(=O)OCOC1=C2C(=O)N3CCOC[C@H]3N(N2C=CC1=O)[C@H]4C5=C(CSC6=CC=CC=C46)C(=C(C=C5)F)F",
+"ik": "RZVPBGBYGMDSBG-GGAORHGYSA-N",
+"mw": 571.6,
+"al": [
+"xofluzaro7191686"
+],
+"d": "2026-11-06"
+},
+"hrs9190": {
+"n": "HRS-9190",
+"miss": "2026-11-06"
+},
+"rocuronium": {
+"n": "Rocuronium",
+"cid": 441290,
+"smi": "CC(=O)O[C@H]1[C@H](C[C@@H]2[C@@]1(CC[C@H]3[C@H]2CC[C@@H]4[C@@]3(C[C@@H]([C@H](C4)O)N5CCOCC5)C)C)[N+]6(CCCC6)CC=C",
+"ik": "YXRDKMPIGHSVRX-OOJCLDBCSA-N",
+"mw": 529.8,
+"al": [],
+"d": "2026-11-06"
+},
+"avtx803": {
+"n": "AVTX-803",
+"cid": 17106,
+"smi": "C[C@H]1[C@H]([C@H]([C@@H](C(O1)O)O)O)O",
+"ik": "SHZGCJCMOBCMKK-DHVFOXMCSA-N",
+"mw": 164.2,
+"al": [],
+"d": "2026-11-06"
+},
+"cyclosporin": {
+"n": "Cyclosporin",
+"cid": 5284373,
+"smi": "CC[C@H]1C(=O)N(CC(=O)N([C@H](C(=O)N[C@H](C(=O)N([C@H](C(=O)N[C@H](C(=O)N[C@@H](C(=O)N([C@H](C(=O)N([C@H](C(=O)N([C@H](C(=O)N([C@H](C(=O)N1)[C@@H]([C@H](C)C/C=C/C)O)C)C(C)C)C)CC(C)C)C)CC(C)C)C)C)C)CC(C)C)C)C(C)C)CC(C)C)C)C",
+"ik": "PMATZTZNYRCHOR-CGLBZJNRSA-N",
+"mw": 1202.6,
+"al": [],
+"d": "2026-11-06"
+},
+"lorlatanib": {
+"n": "Lorlatanib",
+"miss": "2026-11-06"
+},
+"talazoparib": {
+"n": "Talazoparib",
+"cid": 135565082,
+"smi": "CN1C(=NC=N1)[C@@H]2[C@H](NC3=CC(=CC4=C3C2=NNC4=O)F)C5=CC=C(C=C5)F",
+"ik": "HWGQMRYQVZSGDQ-HZPDHXFCSA-N",
+"mw": 380.4,
+"al": [],
+"d": "2026-11-06"
+},
+"clemizole": {
+"n": "Clemizole",
+"cid": 2782,
+"smi": "C1CCN(C1)CC2=NC3=CC=CC=C3N2CC4=CC=C(C=C4)Cl",
+"ik": "CJXAEXPPLWQRFR-UHFFFAOYSA-N",
+"mw": 325.8,
+"al": [
+"epx100"
+],
+"d": "2026-11-06"
+},
+"raloxifeneusual": {
+"n": "Raloxifene - Usual",
+"miss": "2026-11-06"
+},
+"raloxifenestudy": {
+"n": "Raloxifene - Study",
+"miss": "2026-11-06"
+},
+"dacarbazine": {
+"n": "Dacarbazine",
+"cid": 135398738,
+"smi": "CN(C)/N=N/C1=C(NC=N1)C(=O)N",
+"ik": "FDKXTQMXEQVLRF-ZHACJKMWSA-N",
+"mw": 182.2,
+"al": [
+"dticdome"
+],
+"d": "2026-11-06"
+},
+"btkinhibitor": {
+"n": "BTK inhibitor",
+"miss": "2026-11-06"
+},
+"everolimus": {
+"n": "Everolimus",
+"cid": 6442177,
+"smi": "C[C@@H]1CC[C@H]2C[C@@H](/C(=C/C=C/C=C/[C@H](C[C@H](C(=O)[C@@H]([C@@H](/C(=C/[C@H](C(=O)C[C@H](OC(=O)[C@@H]3CCCCN3C(=O)C(=O)[C@@]1(O2)O)[C@H](C)C[C@@H]4CC[C@H]([C@@H](C4)OC)OCCO)C)/C)O)OC)C)C)/C)OC",
+"ik": "HKVAMNSJSFKALM-GKUWKFKPSA-N",
+"mw": 958.2,
+"al": [],
+"d": "2026-11-06"
+},
+"my008211a": {
+"n": "MY008211A",
+"miss": "2026-11-06"
+},
+"miglustat": {
+"n": "Miglustat",
+"cid": 51634,
+"smi": "CCCCN1C[C@@H]([C@H]([C@@H]([C@H]1CO)O)O)O",
+"ik": "UQRORFVVSGFNRO-UTINFBMNSA-N",
+"mw": 219.3,
+"al": [
+"at2221"
+],
+"d": "2026-11-06"
+},
+"azathioprine": {
+"n": "Azathioprine",
+"cid": 2265,
+"smi": "CN1C=NC(=C1SC2=NC=NC3=C2NC=N3)[N+](=O)[O-]",
+"ik": "LMEKQMALGUDUQG-UHFFFAOYSA-N",
+"mw": 277.3,
+"al": [],
+"d": "2026-11-06"
+},
+"clottingfactorconcentrates": {
+"n": "Clotting factor concentrates",
+"miss": "2026-11-06"
+},
+"carisbamate": {
+"n": "Carisbamate",
+"cid": 6918474,
+"smi": "C1=CC=C(C(=C1)[C@@H](COC(=O)N)O)Cl",
+"ik": "OLBWFRRUHYQABZ-MRVPVSSYSA-N",
+"mw": 215.6,
+"al": [],
+"d": "2026-11-06"
+},
+"sotagliflozin": {
+"n": "Sotagliflozin",
+"cid": 24831714,
+"smi": "CCOC1=CC=C(C=C1)CC2=C(C=CC(=C2)[C@H]3[C@@H]([C@H]([C@@H]([C@H](O3)SC)O)O)O)Cl",
+"ik": "QKDRXGFQVGOQKS-CRSSMBPESA-N",
+"mw": 424.9,
+"al": [
+"sar439954lx4211"
+],
+"d": "2026-11-06"
+},
+"taxane": {
+"n": "Taxane",
+"cid": 9548828,
+"smi": "C[C@@H]1CCC[C@@]2([C@@H]1C[C@@H]3CC[C@H]([C@@H](C3(C)C)CC2)C)C",
+"ik": "DKPFODGZWDEEBT-QFIAKTPHSA-N",
+"mw": 276.5,
+"al": [],
+"d": "2026-11-06"
+},
+"memantine": {
+"n": "Memantine",
+"cid": 4054,
+"smi": "CC12CC3CC(C1)(CC(C3)(C2)N)C",
+"ik": "BUGYDGFZZOZRHP-UHFFFAOYSA-N",
+"mw": 179.3,
+"al": [
+"akatinolmemantine"
+],
+"d": "2026-11-06"
+},
+"bypassingagents": {
+"n": "Bypassing Agents",
+"miss": "2026-11-06"
+},
+"mn166": {
+"n": "MN-166",
+"cid": 3671,
+"smi": "CC(C)C1=NN2C=CC=CC2=C1C(=O)C(C)C",
+"ik": "ZJVFLBOZORBYFE-UHFFFAOYSA-N",
+"mw": 230.3,
+"al": [
+"ibudilast"
+],
+"d": "2026-11-06"
+},
+"olverembatinib": {
+"n": "Olverembatinib",
+"cid": 51038269,
+"smi": "CC1=C(C=C(C=C1)C(=O)NC2=CC(=C(C=C2)CN3CCN(CC3)C)C(F)(F)F)C#CC4=CC5=C(NN=C5)N=C4",
+"ik": "TZKBVRDEOITLRB-UHFFFAOYSA-N",
+"mw": 532.6,
+"al": [],
+"d": "2026-11-06"
+},
+"microbubble": {
+"n": "Microbubble",
+"miss": "2026-11-06"
+},
+"bicalutamide": {
+"n": "Bicalutamide",
+"cid": 2375,
+"smi": "CC(CS(=O)(=O)C1=CC=C(C=C1)F)(C(=O)NC2=CC(=C(C=C2)C#N)C(F)(F)F)O",
+"ik": "LKJPYSCBVHEWIU-UHFFFAOYSA-N",
+"mw": 430.4,
+"al": [],
+"d": "2026-11-06"
+},
+"futibatinibfulvestrant": {
+"n": "futibatinib, fulvestrant",
+"miss": "2026-11-06"
+},
+"topotecanfor": {
+"n": "Topotecan for",
+"miss": "2026-11-06"
+},
+"seralutinib": {
+"n": "Seralutinib",
+"cid": 91663352,
+"smi": "CC1=CC(=CN=C1)C(=O)NC2=CC=CC(=C2)[C@H](C)NC3=NC(=CN=C3)C4=CC(=C(C=C4)OC)OC",
+"ik": "JHJNPOSPVGRIAN-SFHVURJKSA-N",
+"mw": 469.5,
+"al": [],
+"d": "2026-11-06"
+},
+"cariprazine": {
+"n": "Cariprazine",
+"cid": 11154555,
+"smi": "CN(C)C(=O)NC1CCC(CC1)CCN2CCN(CC2)C3=C(C(=CC=C3)Cl)Cl",
+"ik": "KPWSJANDNDDRMB-UHFFFAOYSA-N",
+"mw": 427.4,
+"al": [
+"vraylar"
+],
+"d": "2026-11-06"
+},
+"inavolisib": {
+"n": "Inavolisib",
+"cid": 124173720,
+"smi": "C[C@@H](C(=O)N)NC1=CC2=C(C=C1)C3=NC(=CN3CCO2)N4[C@@H](COC4=O)C(F)F",
+"ik": "SGEUNORSOZVTOL-CABZTGNLSA-N",
+"mw": 407.4,
+"al": [],
+"d": "2026-11-06"
+},
+"bupropion": {
+"n": "Bupropion",
+"cid": 444,
+"smi": "CC(C(=O)C1=CC(=CC=C1)Cl)NC(C)(C)C",
+"ik": "SNPPWIUOZRMYNY-UHFFFAOYSA-N",
+"mw": 239.7,
+"al": [],
+"d": "2026-11-06"
+},
+"omeprazole": {
+"n": "Omeprazole",
+"cid": 4594,
+"smi": "CC1=CN=C(C(=C1OC)C)CS(=O)C2=NC3=C(N2)C=C(C=C3)OC",
+"ik": "SUBDBMMJDZJVOS-UHFFFAOYSA-N",
+"mw": 345.4,
+"al": [],
+"d": "2026-11-06"
+},
+"ritlecitinib": {
+"n": "Ritlecitinib",
+"cid": 118115473,
+"smi": "C[C@H]1CC[C@H](CN1C(=O)C=C)NC2=NC=NC3=C2C=CN3",
+"ik": "CBRJPFGIXUFMTM-WDEREUQCSA-N",
+"mw": 285.3,
+"al": [],
+"d": "2026-11-06"
+},
+"vicagrel": {
+"n": "Vicagrel",
+"cid": 53378151,
+"smi": "CC(=O)OC1=CC2=C(S1)CCN(C2)[C@@H](C3=CC=CC=C3Cl)C(=O)OC",
+"ik": "GNHHCBSBCDGWND-KRWDZBQOSA-N",
+"mw": 379.9,
+"al": [],
+"d": "2026-11-06"
+},
+"clopidogrel": {
+"n": "Clopidogrel",
+"cid": 60606,
+"smi": "COC(=O)[C@H](C1=CC=CC=C1Cl)N2CCC3=C(C2)C=CS3",
+"ik": "GKTWGGQPFAXNFI-HNNXBMFYSA-N",
+"mw": 321.8,
+"al": [],
+"d": "2026-11-06"
+},
+"staccatoalprazolam": {
+"n": "Staccato alprazolam",
+"miss": "2026-11-06"
+},
+"artrodar": {
+"n": "Artrodar",
+"cid": 26248,
+"smi": "CC(=O)OC1=CC=CC2=C1C(=O)C3=C(C2=O)C=C(C=C3OC(=O)C)C(=O)O",
+"ik": "TYNLGDBUJLVSMA-UHFFFAOYSA-N",
+"mw": 368.3,
+"al": [],
+"d": "2026-11-06"
+},
+"qrx003": {
+"n": "QRX003",
+"miss": "2026-11-06"
+},
+"selectiveserotoninreuptakeinhibitor": {
+"n": "Selective Serotonin Reuptake Inhibitor",
+"miss": "2026-11-06"
+},
+"reformulatedlevulankerastickcontainingaminolevulinicacid": {
+"n": "Reformulated Levulan Kerastick containing aminolevulinic acid",
+"miss": "2026-11-06"
+},
+"suzetrigine": {
+"n": "Suzetrigine",
+"cid": 156445116,
+"smi": "C[C@H]1[C@H]([C@@H](O[C@@]1(C)C(F)(F)F)C(=O)NC2=CC(=NC=C2)C(=O)N)C3=C(C(=C(C=C3)F)F)OC",
+"ik": "XSQUJFKRXZMOKA-PAFIKIDNSA-N",
+"mw": 473.4,
+"al": [
+"vx548"
+],
+"d": "2026-11-06"
+},
+"repotrectinib": {
+"n": "Repotrectinib",
+"cid": 135565923,
+"smi": "C[C@H]1CNC(=O)C2=C3N=C(C=CN3N=C2)N[C@@H](C4=C(O1)C=CC(=C4)F)C",
+"ik": "FIKPXCOQUIZNHB-WDEREUQCSA-N",
+"mw": 355.4,
+"al": [
+"bms986472"
+],
+"d": "2026-11-06"
+},
+"elafibranor": {
+"n": "Elafibranor",
+"cid": 9864881,
+"smi": "CC1=CC(=CC(=C1OC(C)(C)C(=O)O)C)/C=C/C(=O)C2=CC=C(C=C2)SC",
+"ik": "AFLFKFHDSCQHOL-IZZDOVSWSA-N",
+"mw": 384.5,
+"al": [],
+"d": "2026-11-06"
+},
+"tunlametinibplusvemurafenib": {
+"n": "Tunlametinib plus Vemurafenib",
+"miss": "2026-11-06"
+},
+"drugfurmonertinib": {
+"n": "Drug: Furmonertinib",
+"miss": "2026-11-06"
+},
+"platinumchemotherapycarboplatin": {
+"n": "Platinum chemotherapy: carboplatin",
+"miss": "2026-11-06"
+},
+"nonplatinumchemotherapyphysicianschoiceofgemcitabinetaxane": {
+"n": "Non-platinum chemotherapy: Physician's Choice of gemcitabine, taxane",
+"miss": "2026-11-06"
+},
+"sc0062strength": {
+"n": "SC0062 strength",
+"miss": "2026-11-06"
+},
+"topotecanusual": {
+"n": "Topotecan - usual",
+"miss": "2026-11-06"
+},
+"topotecanstudy": {
+"n": "Topotecan - study",
+"miss": "2026-11-06"
+},
+"etoricoxibfixeddose": {
+"n": "Etoricoxib fixed dose",
+"miss": "2026-11-06"
+},
+"basimglurant": {
+"n": "Basimglurant",
+"cid": 11438771,
+"smi": "CC1=C(N=C(N1C2=CC=C(C=C2)F)C)C#CC3=CC(=NC=C3)Cl",
+"ik": "UPZWINBEAHDTLA-UHFFFAOYSA-N",
+"mw": 325.8,
+"al": [
+"noe101"
+],
+"d": "2026-11-06"
+},
+"ritlecitinibhigherdose": {
+"n": "Ritlecitinib higher dose",
+"miss": "2026-11-06"
+},
+"ritlecitiniblowerdose": {
+"n": "Ritlecitinib lower dose",
+"miss": "2026-11-06"
+},
+"budesonide": {
+"n": "Budesonide",
+"cid": 5281004,
+"smi": "CCCC1O[C@@H]2C[C@H]3[C@@H]4CCC5=CC(=O)C=C[C@@]5([C@H]4[C@H](C[C@@]3([C@@]2(O1)C(=O)CO)C)O)C",
+"ik": "VOVIALXJUBGFJZ-KWVAZRHASA-N",
+"mw": 430.5,
+"al": [],
+"d": "2026-11-06"
+},
+"fluoropyrimidineplusleucovorin": {
+"n": "Fluoropyrimidine plus leucovorin",
+"miss": "2026-11-06"
+},
+"mitomycinc": {
+"n": "Mitomycin C",
+"cid": 5746,
+"smi": "CC1=C(C(=O)C2=C(C1=O)N3C[C@H]4[C@@H]([C@@]3([C@@H]2COC(=O)N)OC)N4)N",
+"ik": "NWIBSHFKIJFRCO-WUDYKRTCSA-N",
+"mw": 334.3,
+"al": [],
+"d": "2026-11-06"
+},
+"anlotinib": {
+"n": "Anlotinib",
+"cid": 25017411,
+"smi": "CC1=CC2=C(N1)C=CC(=C2F)OC3=C4C=C(C(=CC4=NC=C3)OCC5(CC5)N)OC",
+"ik": "KSMZEXLVHXZPEF-UHFFFAOYSA-N",
+"mw": 407.4,
+"al": [],
+"d": "2026-11-06"
+},
+"apraclonidineophthalmicsolution0125unitdosepreservativefree": {
+"n": "Apraclonidine Ophthalmic Solution, 0.125% Unit Dose Preservative Free",
+"miss": "2026-11-06"
+},
+"rezvilutamide": {
+"n": "Rezvilutamide",
+"cid": 89995232,
+"smi": "CC1(C(=O)N(C(=S)N1C2=CC=C(C=C2)OC[C@H](CO)O)C3=CC(=C(C=C3)C#N)C(F)(F)F)C",
+"ik": "KRBMOYIWQCZVHA-INIZCTEOSA-N",
+"mw": 479.5,
+"al": [],
+"d": "2026-11-06"
+},
+"cabergoline": {
+"n": "Cabergoline",
+"cid": 54746,
+"smi": "CCNC(=O)N(CCCN(C)C)C(=O)[C@@H]1C[C@H]2[C@@H](CC3=CNC4=CC=CC2=C34)N(C1)CC=C",
+"ik": "KORNTPPJEAJQIU-KJXAQDMKSA-N",
+"mw": 451.6,
+"al": [],
+"d": "2026-11-06"
+},
+"bromocriptine": {
+"n": "Bromocriptine",
+"cid": 31101,
+"smi": "CC(C)C[C@H]1C(=O)N2CCC[C@H]2[C@]3(N1C(=O)[C@](O3)(C(C)C)NC(=O)[C@H]4CN([C@@H]5CC6=C(NC7=CC=CC(=C67)C5=C4)Br)C)O",
+"ik": "OZVBMTJYIDMWIL-AYFBDAFISA-N",
+"mw": 654.6,
+"al": [],
+"d": "2026-11-06"
+},
+"gsthg141": {
+"n": "GST-HG141",
+"miss": "2026-11-06"
+},
+"lianxiaxiaopigranules": {
+"n": "Lianxiaxiaopi Granules",
+"miss": "2026-11-06"
+},
+"navtemadlin": {
+"n": "Navtemadlin",
+"cid": 58573469,
+"smi": "CC(C)[C@@H](CS(=O)(=O)C(C)C)N1[C@@H]([C@H](C[C@](C1=O)(C)CC(=O)O)C2=CC(=CC=C2)Cl)C3=CC=C(C=C3)Cl",
+"ik": "DRLCSJFKKILATL-YWCVFVGNSA-N",
+"mw": 568.6,
+"al": [
+"krt232"
+],
+"d": "2026-11-06"
+},
+"singleintravitrealofaxitinibhydrogelimplantfollowedbyamock": {
+"n": "Single intravitreal of axitinib hydrogel implant followed by a mock",
+"miss": "2026-11-06"
+},
+"intravitrealofaxitinibhydrogelimplantfollowedbyasecondintravi": {
+"n": "Intravitreal of axitinib hydrogel implant followed by a second intravi",
+"miss": "2026-11-06"
+},
+"tinengotinib": {
+"n": "Tinengotinib",
+"cid": 137279257,
+"smi": "CC1=C2C(=NN1)NC3=CC(=NC=C3C(=N2)C4=CC=CC=C4Cl)N5CCOCC5",
+"ik": "DQFCVOOFMXEPOC-UHFFFAOYSA-N",
+"mw": 394.9,
+"al": [],
+"d": "2026-11-06"
+},
+"jitongning": {
+"n": "Jitongning",
+"miss": "2026-11-06"
+},
+"resmetirom": {
+"n": "Resmetirom",
+"cid": 15981237,
+"smi": "CC(C)C1=CC(=NNC1=O)OC2=C(C=C(C=C2Cl)N3C(=O)NC(=O)C(=N3)C#N)Cl",
+"ik": "FDBYIYFVSAHJLY-UHFFFAOYSA-N",
+"mw": 435.2,
+"al": [
+"mgl3196"
+],
+"d": "2026-11-06"
+},
+"nh002": {
+"n": "NH002",
+"miss": "2026-11-06"
+},
+"vvn461ophthalmicsolution10": {
+"n": "VVN461 Ophthalmic Solution 1.0%",
+"miss": "2026-11-06"
+},
+"10prednisoloneacetate": {
+"n": "1.0% prednisolone acetate",
+"miss": "2026-11-06"
+},
+"granularpowderinunitdosefoillinedsachetmexiletine": {
+"n": "Granular powder in unit dose foil-lined sachet Mexiletine",
+"miss": "2026-11-06"
+},
+"mexiletine": {
+"n": "Mexiletine",
+"cid": 4178,
+"smi": "CC1=C(C(=CC=C1)C)OCC(C)N",
+"ik": "VLPIATFUUWWMKC-UHFFFAOYSA-N",
+"mw": 179.3,
+"al": [],
+"d": "2026-11-06"
+},
+"tqc3721suspensionforinhalation": {
+"n": "TQC3721 Suspension for Inhalation",
+"miss": "2026-11-06"
+},
+"tideglusib": {
+"n": "Tideglusib",
+"cid": 11313622,
+"smi": "C1=CC=C(C=C1)CN2C(=O)N(SC2=O)C3=CC=CC4=CC=CC=C43",
+"ik": "PMJIHLSCWIDGMD-UHFFFAOYSA-N",
+"mw": 334.4,
+"al": [],
+"d": "2026-11-06"
+},
+"mocravimod": {
+"n": "mocravimod",
+"cid": 11155874,
+"smi": "C1=CC=C(C=C1)COC2=CC(=CC=C2)SC3=CC(=C(C=C3)CCC(CO)(CO)N)Cl",
+"ik": "IINUNQPYJGJCJI-UHFFFAOYSA-N",
+"mw": 444.0,
+"al": [],
+"d": "2026-11-06"
+},
+"migalastat": {
+"n": "migalastat",
+"cid": 176077,
+"smi": "C1[C@@H]([C@H]([C@H]([C@H](N1)CO)O)O)O",
+"ik": "LXBIFEVIBLOUGU-DPYQTVNSSA-N",
+"mw": 163.2,
+"al": [
+"at1001"
+],
+"d": "2026-11-06"
+},
+"sunitinib": {
+"n": "Sunitinib",
+"cid": 5329102,
+"smi": "CCN(CC)CCNC(=O)C1=C(NC(=C1C)/C=C\\2/C3=C(C=CC(=C3)F)NC2=O)C",
+"ik": "WINHZLLDWRZWRT-ATVHPVEESA-N",
+"mw": 398.5,
+"al": [],
+"d": "2026-11-06"
+},
+"solriamfetol": {
+"n": "Solriamfetol",
+"cid": 10130337,
+"smi": "C1=CC=C(C=C1)C[C@H](COC(=O)N)N",
+"ik": "UCTRAOBQFUDCSR-SECBINFHSA-N",
+"mw": 194.2,
+"al": [],
+"d": "2026-11-06"
+},
+"picosulfate": {
+"n": "picosulfate",
+"cid": 5243,
+"smi": "C1=CC=NC(=C1)C(C2=CC=C(C=C2)OS(=O)(=O)O)C3=CC=C(C=C3)OS(=O)(=O)O",
+"ik": "UJIDKYTZIQTXPM-UHFFFAOYSA-N",
+"mw": 437.4,
+"al": [
+"picolax",
+"picoprep"
+],
+"d": "2026-11-06"
+},
+"alogliptin": {
+"n": "Alogliptin",
+"cid": 11450633,
+"smi": "CN1C(=O)C=C(N(C1=O)CC2=CC=CC=C2C#N)N3CCC[C@H](C3)N",
+"ik": "ZSBOMTDTBDDKMP-OAHLLOKOSA-N",
+"mw": 339.4,
+"al": [],
+"d": "2026-11-06"
+},
+"subcutaneous": {
+"n": "Subcutaneous",
+"miss": "2026-11-06"
+},
+"abenacianine": {
+"n": "Abenacianine",
+"cid": 171389998,
+"smi": "CC\\1(C2=C(C=CC(=C2)N(CCCS(=O)(=O)O)CCCS(=O)(=O)O)N(/C1=C/C=C/3\\CCCC(=C3Cl)/C=C/C4=[N+](C5=C(C4(C)C)C6=C(C=C5)C=C(C=C6)S(=O)(=O)[O-])CCCCCC(=O)NCCNC(=O)C7=C(C(=C(C(=C7F)F)OCC(=O)[C@H](CCCCNC(=O)CCCCC[N+]8=C(C(C9=C8C=CC1=CC=CC=C19)(C)C)/C=C/C=C/C=C/C=C/1\\C(C2=C(N1CCCCS(=O)(=O)[O-])C=CC1=CC=CC=C12)(C)C)NC(=O)[C@H](CC1=CC=CC=C1)NC(=O)OCC1=CC=CC=C1)F)F)CCCS(=O)(=O)O)C",
+"ik": "NSTNPRUQYXIYCN-WQLOVQMRSA-N",
+"mw": 2451.3,
+"al": [],
+"d": "2026-11-06"
+},
+"vc004": {
+"n": "VC004",
+"cid": 146271223,
+"smi": "C1C[C@@H]2C3=C(CCN(NC(=O)C4=C5N=C(N2C1)C=CN5N=C4)C6CC6)N=CC(=C3)F",
+"ik": "URXMBXJZRCIDQB-GOSISDBHSA-N",
+"mw": 407.4,
+"al": [],
+"d": "2026-11-06"
+},
+"camizestrant": {
+"n": "Camizestrant",
+"cid": 134453496,
+"smi": "C[C@@H]1CC2=C(C=CC3=C2C=NN3)[C@H](N1CC(F)(F)F)C4=NC=C(C=C4)NC5CN(C5)CCCF",
+"ik": "WDHOIABIERMLGY-CMJOXMDJSA-N",
+"mw": 476.5,
+"al": [
+"azd9833"
+],
+"d": "2026-11-06"
+},
+"apixaban": {
+"n": "Apixaban",
+"cid": 10182969,
+"smi": "COC1=CC=C(C=C1)N2C3=C(CCN(C3=O)C4=CC=C(C=C4)N5CCCCC5=O)C(=N2)C(=O)N",
+"ik": "QNZCBYKSOIHPEH-UHFFFAOYSA-N",
+"mw": 459.5,
+"al": [],
+"d": "2026-11-06"
+},
+"enoxaparin": {
+"n": "Enoxaparin",
+"miss": "2026-11-06"
+},
+"leriglitazone": {
+"n": "Leriglitazone",
+"cid": 4147757,
+"smi": "CC(C1=CN=C(C=C1)CCOC2=CC=C(C=C2)CC3C(=O)NC(=O)S3)O",
+"ik": "OXVFDZYQLGRLCD-UHFFFAOYSA-N",
+"mw": 372.4,
+"al": [],
+"d": "2026-11-06"
+},
+"radiprodil": {
+"n": "Radiprodil",
+"cid": 10200813,
+"smi": "C1CN(CCC1CC2=CC=C(C=C2)F)C(=O)C(=O)NC3=CC4=C(C=C3)NC(=O)O4",
+"ik": "GKGRZLGAQZPEHO-UHFFFAOYSA-N",
+"mw": 397.4,
+"al": [],
+"d": "2026-11-06"
+},
+"transdermalsystemcontainingprogestin": {
+"n": "Transdermal system containing progestin",
+"miss": "2026-11-06"
+},
+"colgatecavityprotectiontoothpaste": {
+"n": "Colgate Cavity Protection Toothpaste",
+"miss": "2026-11-06"
+},
+"zongertinib": {
+"n": "zongertinib",
+"cid": 160283094,
+"smi": "CC1=C(C=CC(=C1)NC2=NC=NC3=CN=C(N=C32)N4CCC(CC4)NC(=O)C=C)OC5=CC6=C(C=C5)N(C=N6)C",
+"ik": "YSGNGFPNTLERCR-UHFFFAOYSA-N",
+"mw": 535.6,
+"al": [
+"bi1810631hernexeos"
+],
+"d": "2026-11-06"
+},
+"chemoimmunotherapy": {
+"n": "Chemoimmunotherapy",
+"miss": "2026-11-06"
+},
+"saroglitazarmagnesium": {
+"n": "Saroglitazar Magnesium",
+"cid": 121000421,
+"smi": "CCO[C@@H](CC1=CC=C(C=C1)OCCN2C(=CC=C2C3=CC=C(C=C3)SC)C)C(=O)[O-].CCO[C@@H](CC1=CC=C(C=C1)OCCN2C(=CC=C2C3=CC=C(C=C3)SC)C)C(=O)[O-].[Mg+2]",
+"ik": "UJYFZCVPOSZDMK-YPPDDXJESA-L",
+"mw": 901.4,
+"al": [],
+"d": "2026-11-06"
+},
+"testosteronecypionate": {
+"n": "Testosterone cypionate",
+"cid": 441404,
+"smi": "C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=CC(=O)CC[C@]35C",
+"ik": "HPFVBGJFAYZEBE-ZLQWOROUSA-N",
+"mw": 412.6,
+"al": [],
+"d": "2026-11-06"
+},
+"treprostinilpalmitil": {
+"n": "Treprostinil Palmitil",
+"cid": 91617675,
+"smi": "CCCCCCCCCCCCCCCCOC(=O)COC1=CC=CC2=C1C[C@H]3C[C@H]([C@@H]([C@H]3C2)CC[C@H](CCCCC)O)O",
+"ik": "XOKCXRVJBBLBSX-HDMCCQRMSA-N",
+"mw": 614.9,
+"al": [
+"ins1009"
+],
+"d": "2026-11-06"
+},
+"abrocitinib": {
+"n": "Abrocitinib",
+"cid": 78323835,
+"smi": "CCCS(=O)(=O)NC1CC(C1)N(C)C2=NC=NC3=C2C=CN3",
+"ik": "IUEWXNHSKRWHDY-UHFFFAOYSA-N",
+"mw": 323.4,
+"al": [
+"pf04965842"
+],
+"d": "2026-11-06"
+},
+"bupizenge": {
+"n": "BupiZenge",
+"miss": "2026-11-06"
+},
+"lidocaineviscous2": {
+"n": "Lidocaine viscous 2%",
+"miss": "2026-11-06"
+},
+"prismocitrate18": {
+"n": "Prismocitrate 18",
+"miss": "2026-11-06"
+},
+"alecensaalectinib": {
+"n": "ALECENSA - alectinib",
+"miss": "2026-11-06"
+},
+"bemnifosbuvirruzasvir": {
+"n": "Bemnifosbuvir-Ruzasvir",
+"miss": "2026-11-06"
+},
+"sofosbuvirvelpatasvir": {
+"n": "Sofosbuvir-Velpatasvir",
+"miss": "2026-11-06"
+},
+"xl092": {
+"n": "XL092",
+"cid": 139350422,
+"smi": "CNC(=O)C1=CC2=C(C=CN=C2C=C1OC)OC3=CC=C(C=C3)NC(=O)C4(CC4)C(=O)NC5=CC=C(C=C5)F",
+"ik": "JSPCKALGNNVYOO-UHFFFAOYSA-N",
+"mw": 528.5,
+"al": [],
+"d": "2026-11-06"
+},
+"sunitinibmalate": {
+"n": "Sunitinib Malate",
+"cid": 6456015,
+"smi": "CCN(CC)CCNC(=O)C1=C(NC(=C1C)/C=C\\2/C3=C(C=CC(=C3)F)NC2=O)C.C([C@@H](C(=O)O)O)C(=O)O",
+"ik": "LBWFXVZLPYTWQI-IPOVEDGCSA-N",
+"mw": 532.6,
+"al": [
+"sutent"
+],
+"d": "2026-11-06"
+},
+"febuxostat": {
+"n": "Febuxostat",
+"cid": 134018,
+"smi": "CC1=C(SC(=N1)C2=CC(=C(C=C2)OCC(C)C)C#N)C(=O)O",
+"ik": "BQSJTQLCZDPROO-UHFFFAOYSA-N",
+"mw": 316.4,
+"al": [],
+"d": "2026-11-06"
+},
+"tigulixostat": {
+"n": "Tigulixostat",
+"cid": 51039100,
+"smi": "CC(C)N1C=C(C2=C1C=CC(=C2)N3C=C(C=N3)C(=O)O)C#N",
+"ik": "JLQQRYOWGCIMMZ-UHFFFAOYSA-N",
+"mw": 294.3,
+"al": [
+"ibi128"
+],
+"d": "2026-11-06"
+},
+"dapansutrile": {
+"n": "Dapansutrile",
+"cid": 12714644,
+"smi": "CS(=O)(=O)CCC#N",
+"ik": "LQFRYKBDZNPJSW-UHFFFAOYSA-N",
+"mw": 133.2,
+"al": [
+"olt1177"
+],
+"d": "2026-11-06"
+},
+"trifarotene": {
+"n": "Trifarotene",
+"cid": 11518241,
+"smi": "CC(C)(C)C1=C(C=CC(=C1)C2=C(C=CC(=C2)C3=CC=C(C=C3)C(=O)O)OCCO)N4CCCC4",
+"ik": "MFBCDACCJCDGBA-UHFFFAOYSA-N",
+"mw": 459.6,
+"al": [
+"cd5789"
+],
+"d": "2026-11-06"
+},
+"hyaluronate": {
+"n": "Hyaluronate",
+"miss": "2026-11-06"
+},
+"cebranopadol400ug": {
+"n": "Cebranopadol 400 ug",
+"miss": "2026-11-06"
+},
+"pazopanib": {
+"n": "Pazopanib",
+"cid": 10113978,
+"smi": "CC1=C(C=C(C=C1)NC2=NC=CC(=N2)N(C)C3=CC4=NN(C(=C4C=C3)C)C)S(=O)(=O)N",
+"ik": "CUIHSIWYWATEQL-UHFFFAOYSA-N",
+"mw": 437.5,
+"al": [
+"votrient"
+],
+"d": "2026-11-06"
+},
+"abexinostat": {
+"n": "Abexinostat",
+"cid": 11749858,
+"smi": "CN(C)CC1=C(OC2=CC=CC=C21)C(=O)NCCOC3=CC=C(C=C3)C(=O)NO",
+"ik": "MAUCONCHVWBMHK-UHFFFAOYSA-N",
+"mw": 397.4,
+"al": [
+"pci24781"
+],
+"d": "2026-11-06"
+},
+"ubrogepant": {
+"n": "Ubrogepant",
+"cid": 68748835,
+"smi": "C[C@@H]1[C@@H](C[C@@H](C(=O)N1CC(F)(F)F)NC(=O)C2=CC3=C(C[C@@]4(C3)C5=C(NC4=O)N=CC=C5)N=C2)C6=CC=CC=C6",
+"ik": "DDOOFTLHJSMHLN-ZQHRPCGSSA-N",
+"mw": 549.5,
+"al": [
+"ubrelvy"
+],
+"d": "2026-11-06"
+},
+"cadisegliatinqd": {
+"n": "Cadisegliatin QD",
+"miss": "2026-11-06"
+},
+"cadisegliatinbid": {
+"n": "Cadisegliatin BID",
+"miss": "2026-11-06"
+},
+"vvn001ophthalmicsolution5": {
+"n": "VVN001 Ophthalmic Solution, 5%",
+"miss": "2026-11-06"
+},
+"vvn001ophthalmicsolutionvehicle": {
+"n": "VVN001 Ophthalmic Solution, Vehicle",
+"miss": "2026-11-06"
+},
+"apatinib": {
+"n": "Apatinib",
+"cid": 45139106,
+"smi": "CS(=O)(=O)O.C1CCC(C1)(C#N)C2=CC=C(C=C2)NC(=O)C3=C(N=CC=C3)NCC4=CC=NC=C4",
+"ik": "FYJROXRIVQPKRY-UHFFFAOYSA-N",
+"mw": 493.6,
+"al": [],
+"d": "2026-11-06"
+},
+"bisphosphonate": {
+"n": "Bisphosphonate",
+"cid": 2088,
+"smi": "C(CC(O)(P(=O)(O)O)P(=O)(O)O)CN",
+"ik": "OGSPWJRAVKPPFI-UHFFFAOYSA-N",
+"mw": 249.1,
+"al": [],
+"d": "2026-11-06"
+},
+"ugn104": {
+"n": "UGN-104",
+"miss": "2026-11-06"
+},
+"filricianine": {
+"n": "filricianine",
+"cid": 172652641,
+"smi": "CC1(C2=CC=CC=C2[N+](=C1/C=C/C3=C(/C(=C/C=C\\4/C(C5=CC=CC=C5N4CCCS(=O)(=O)[O-])(C)CCCC(=O)O)/CCC3)OC6=CC=C(C=C6)S(=O)(=O)O)CCCS(=O)(=O)O)C",
+"ik": "OGIBAYOMUKQFLE-UHFFFAOYSA-N",
+"mw": 909.1,
+"al": [],
+"d": "2026-11-06"
+},
+"zilretta": {
+"n": "ZILRETTA",
+"cid": 6436,
+"smi": "C[C@]12C[C@@H]([C@]3([C@H]([C@@H]1C[C@@H]4[C@]2(OC(O4)(C)C)C(=O)CO)CCC5=CC(=O)C=C[C@@]53C)F)O",
+"ik": "YNDXUCZADRHECN-JNQJZLCISA-N",
+"mw": 434.5,
+"al": [],
+"d": "2026-11-06"
+},
+"masupirdine": {
+"n": "Masupirdine",
+"cid": 10073773,
+"smi": "CN1CCN(CC1)CC2=CN(C3=C2C=C(C=C3)OC)S(=O)(=O)C4=CC=CC=C4Br",
+"ik": "GWCYPEHWIZXYFZ-UHFFFAOYSA-N",
+"mw": 478.4,
+"al": [
+"suvn502"
+],
+"d": "2026-11-06"
+},
+"tofacitinib": {
+"n": "tofacitinib",
+"cid": 9926791,
+"smi": "C[C@@H]1CCN(C[C@@H]1N(C)C2=NC=NC3=C2C=CN3)C(=O)CC#N",
+"ik": "UJLAWZDWDVHWOW-YPMHNXCESA-N",
+"mw": 312.4,
+"al": [],
+"d": "2026-11-06"
+},
+"phesgo": {
+"n": "Phesgo",
+"miss": "2026-11-06"
+},
+"optionalendocrinetherapyofinvestigatorschoice": {
+"n": "Optional Endocrine Therapy of Investigator's Choice",
+"miss": "2026-11-06"
+},
+"raphamin": {
+"n": "Raphamin",
+"miss": "2026-11-06"
+},
+"combogesiciv": {
+"n": "Combogesic® IV",
+"miss": "2026-11-06"
+},
+"evenamidebid": {
+"n": "Evenamide bid",
+"miss": "2026-11-06"
+},
+"cinacalcet": {
+"n": "Cinacalcet",
+"cid": 156419,
+"smi": "C[C@H](C1=CC=CC2=CC=CC=C21)NCCCC3=CC(=CC=C3)C(F)(F)F",
+"ik": "VDHAWDNDOKGFTD-MRXNPFEDSA-N",
+"mw": 357.4,
+"al": [],
+"d": "2026-11-06"
+},
+"macitentan": {
+"n": "Macitentan",
+"cid": 16004692,
+"smi": "CCCNS(=O)(=O)NC1=C(C(=NC=N1)OCCOC2=NC=C(C=N2)Br)C3=CC=C(C=C3)Br",
+"ik": "JGCMEBMXRHSZKX-UHFFFAOYSA-N",
+"mw": 588.3,
+"al": [
+"jnj67896062"
+],
+"d": "2026-11-06"
+},
+"incb177054": {
+"n": "INCB177054",
+"miss": "2026-11-06"
+},
+"bay865028": {
+"n": "BAY865028",
+"miss": "2026-11-06"
+},
+"medroxyprogesteroneacetate": {
+"n": "Medroxyprogesterone acetate",
+"cid": 6279,
+"smi": "C[C@H]1C[C@@H]2[C@H](CC[C@]3([C@H]2CC[C@@]3(C(=O)C)OC(=O)C)C)[C@@]4(C1=CC(=O)CC4)C",
+"ik": "PSGAAPLEWMOORI-PEINSRQWSA-N",
+"mw": 386.5,
+"al": [],
+"d": "2026-11-06"
+},
+"valbenazine": {
+"n": "Valbenazine",
+"cid": 24795069,
+"smi": "CC(C)C[C@@H]1CN2CCC3=CC(=C(C=C3[C@H]2C[C@H]1OC(=O)[C@H](C(C)C)N)OC)OC",
+"ik": "GEJDGVNQKABXKG-CFKGEZKQSA-N",
+"mw": 418.6,
+"al": [
+"nbi98854"
+],
+"d": "2026-11-06"
+},
+"pomaglumetadmethionil": {
+"n": "Pomaglumetad methionil",
+"cid": 56842185,
+"smi": "CSCC[C@@H](C(=O)N[C@]1(CS(=O)(=O)[C@@H]2[C@H]1[C@H]2C(=O)O)C(=O)O)N.O",
+"ik": "HQMAHCKDJKNYEK-LBMFEJOUSA-N",
+"mw": 384.4,
+"al": [
+"ly2140023"
+],
+"d": "2026-11-06"
+},
+"cm4620ie": {
+"n": "CM4620-IE",
+"miss": "2026-11-06"
+},
+"dccr": {
+"n": "DCCR",
+"cid": 66625981,
+"smi": "CC1=NS(=O)(=O)C2=C(N1)C=CC(=C2)Cl.C[N+](C)(C)CCO",
+"ik": "HDPYPMDYNYTKHI-UHFFFAOYSA-N",
+"mw": 334.8,
+"al": [],
+"d": "2026-11-06"
+},
+"rintatolimod": {
+"n": "Rintatolimod",
+"cid": 135537060,
+"smi": "C1=CN(C(=O)N=C1N)[C@H]2[C@@H]([C@@H]([C@H](O2)COP(=O)(O)O)O)O.C1=CN(C(=O)NC1=O)[C@H]2[C@@H]([C@@H]([C@H](O2)COP(=O)(O)O)O)O.C1=NC2=C(C(=O)N1)N=CN2[C@H]3[C@@H]([C@@H]([C@H](O3)COP(=O)(O)O)O)O",
+"ik": "KNUXHTWUIVMBBY-JRJYXWDASA-N",
+"mw": 995.6,
+"al": [
+"ampligen",
+"polyipolyc12u"
+],
+"d": "2026-11-06"
+},
+"ursodeoxycholicacid": {
+"n": "Ursodeoxycholic Acid",
+"cid": 31401,
+"smi": "C[C@H](CCC(=O)O)[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2[C@H](C[C@H]4[C@@]3(CC[C@H](C4)O)C)O)C",
+"ik": "RUDATBOHQWOJDD-UZVSRGJWSA-N",
+"mw": 392.6,
+"al": [],
+"d": "2026-11-06"
+}
+}
+}
