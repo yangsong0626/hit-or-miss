@@ -1,4 +1,41 @@
 {
-"generated": "2026-11-06",
-"items": []
+"generated": "2026-11-09",
+"items": [
+{
+"d": "2026-11-09",
+"u": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQc0xsTE9lWGdHc0dVcjBjekhHMDhfWUdSeTNNQ3dGVHpKcm9YUWQ4N1d5SGl3MFZBclloSlhHUy1HRDNLMkw3Zlp6QTFrMHFqamx5bllSeDJ3U2xtSk1yQWphaWFKN1RYUUpybDRhWUhjeHljR0w4UHI1b2hFLVpTbHdMQUVPa2JBeWUzZ0s3eW9yZzBCVDViU0NyczBUSVhfWWtvOXZEY0lhZWpickdFdHNYZmFQZ2s?oc=5",
+"s": "Carroll County Mirror-Democrat",
+"t": "GENFIT Highlights Data from Clinical Studies of Nangibotide, Supporting Its Advancement into ACLF with Phase 2 Data Expected in 2027",
+"lang": "en",
+"when": "2027",
+"start": "2027-01-01",
+"end": "2027-12-31",
+"snip": "GENFIT Highlights Data from Clinical Studies of Nangibotide, Supporting Its Advancement into ACLF with Phase 2 Data Expected in 2027",
+"drug": "Nangibotide",
+"co": "",
+"tg": [],
+"ta": "",
+"nct": null,
+"ph": "2",
+"id": "g50a9ace16"
+},
+{
+"d": "2026-11-09",
+"u": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQazdHUTJSWThWTi1ZSkpxcWlrM05XenhieXdoMVNhanpqNGFrcUNvZHk5X1FZZHlXcXdmSE1EVzB4WTR5SDkwODVFclQ4VWNNcnFja0lIQWVNZ0ZKS1hwNUdmWUZUOW9YU201Z05UNC1PUVVfdWVvR0t0TGc1MVhkQWNpRUtudENiZGxrOW9jSWJNbEVFSjBYZlNHZXBKcDBOYWpHc2MtUEdmRDRsdUtBc3AxX0lvbkdWWTd1dHh2YUw0WFVuUGdWYi1vTmd6UmszWEdVUURhVXBzelZac0Z2dFFkaTJSYjJ3UV8w?oc=5",
+"s": "TradingView",
+"t": "AURA: Compass enrollment is complete; topline data are expected in H2 2027",
+"lang": "en",
+"when": "2027 H2",
+"start": "2027-07-01",
+"end": "2027-12-31",
+"snip": "topline data are expected in H2 2027",
+"drug": "",
+"co": "Compass",
+"tg": [],
+"ta": "",
+"nct": null,
+"ph": "",
+"id": "ged24ab9c1"
+}
+]
 }
