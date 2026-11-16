@@ -8505,6 +8505,277 @@
 "etavopivatb": {
 "n": "Etavopivat B",
 "miss": "2026-11-09"
+},
+"apraclonidineophthalmicsolution": {
+"n": "Apraclonidine Ophthalmic Solution",
+"miss": "2026-11-16"
+},
+"quetiapinexr": {
+"n": "Quetiapine XR",
+"miss": "2026-11-16"
+},
+"bimatoprost": {
+"n": "Bimatoprost",
+"cid": 5311027,
+"smi": "CCNC(=O)CCC/C=C\\C[C@H]1[C@H](C[C@H]([C@@H]1/C=C/[C@H](CCC2=CC=CC=C2)O)O)O",
+"ik": "AQOKCDNYWBIDND-FTOWTWDKSA-N",
+"mw": 415.6,
+"al": [],
+"d": "2026-11-16"
+},
+"talabostat": {
+"n": "Talabostat",
+"cid": 6918572,
+"smi": "B([C@@H]1CCCN1C(=O)[C@H](C(C)C)N)(O)O",
+"ik": "FKCMADOPPWWGNZ-YUMQZZPRSA-N",
+"mw": 214.1,
+"al": [
+"bxcl701"
+],
+"d": "2026-11-16"
+},
+"modifiedfolfox6": {
+"n": "Modified FOLFOX6",
+"miss": "2026-11-16"
+},
+"methamphetamine": {
+"n": "Methamphetamine",
+"cid": 10836,
+"smi": "C[C@@H](CC1=CC=CC=C1)NC",
+"ik": "MYWUZJCMWCOHBA-VIFPVBQESA-N",
+"mw": 149.2,
+"al": [],
+"d": "2026-11-16"
+},
+"sterilesaline": {
+"n": "Sterile Saline",
+"cid": 5234,
+"smi": "[Na+].[Cl-]",
+"ik": "FAPWRFPIFSIZLT-UHFFFAOYSA-M",
+"mw": 58.4,
+"al": [],
+"d": "2026-11-16"
+},
+"esomeprazole": {
+"n": "Esomeprazole",
+"cid": 9568614,
+"smi": "CC1=CN=C(C(=C1OC)C)C[S@](=O)C2=NC3=C(N2)C=C(C=C3)OC",
+"ik": "SUBDBMMJDZJVOS-DEOSSOPVSA-N",
+"mw": 345.4,
+"al": [],
+"d": "2026-11-16"
+},
+"latanoprost0005ophthalmicsolution": {
+"n": "Latanoprost 0.005% Ophthalmic Solution",
+"miss": "2026-11-16"
+},
+"tafenoquine": {
+"n": "Tafenoquine",
+"cid": 115358,
+"smi": "CC1=CC(=NC2=C1C(=C(C=C2NC(C)CCCN)OC)OC3=CC=CC(=C3)C(F)(F)F)OC",
+"ik": "LBHLFPGPEGDCJG-UHFFFAOYSA-N",
+"mw": 463.5,
+"al": [],
+"d": "2026-11-16"
+},
+"primaquine": {
+"n": "Primaquine",
+"cid": 4908,
+"smi": "CC(CCCN)NC1=C2C(=CC(=C1)OC)C=CC=N2",
+"ik": "INDBQLZJXZLFIT-UHFFFAOYSA-N",
+"mw": 259.4,
+"al": [],
+"d": "2026-11-16"
+},
+"chloroquine": {
+"n": "Chloroquine",
+"cid": 2719,
+"smi": "CCN(CC)CCCC(C)NC1=C2C=CC(=CC2=NC=C1)Cl",
+"ik": "WHTVZRBIWZFKQO-UHFFFAOYSA-N",
+"mw": 319.9,
+"al": [],
+"d": "2026-11-16"
+},
+"ferric": {
+"n": "ferric",
+"cid": 16048613,
+"smi": "C1[C@@H](C(=O)OC[C@@H](C(=O)OC[C@@H](C(=O)O1)NC(=O)C2=C(C(=CC=C2)[O-])[O-])NC(=O)C3=C(C(=CC=C3)[O-])[O-])NC(=O)C4=C(C(=CC=C4)[O-])[O-].[Fe+3]",
+"ik": "NGILTSZTOFYVBF-UVJOBNTFSA-H",
+"mw": 719.3,
+"al": [
+"krx0502"
+],
+"d": "2026-11-16"
+},
+"bcx9930": {
+"n": "BCX9930",
+"cid": 139560984,
+"smi": "C1=CC=C(C(=C1)CC(=O)O)OCC2=CC(=C3C(=C2)C=CO3)C4=C(C(=NC=C4)CN)F",
+"ik": "AUARNXJEAZFQCQ-UHFFFAOYSA-N",
+"mw": 406.4,
+"al": [],
+"d": "2026-11-16"
+},
+"nbi921352": {
+"n": "NBI-921352",
+"cid": 132141687,
+"smi": "CC1=CC(=C(C=C1N(C)[C@H]2CCN(C2)CC3=CC=CC=C3)F)S(=O)(=O)NC4=CSC=N4",
+"ik": "UCSHINHOAVARGQ-SFHVURJKSA-N",
+"mw": 460.6,
+"al": [],
+"d": "2026-11-16"
+},
+"cicletanine": {
+"n": "Cicletanine",
+"cid": 54910,
+"smi": "CC1=NC=C2C(OCC2=C1O)C3=CC=C(C=C3)Cl",
+"ik": "CVKNDPRBJVBDSS-UHFFFAOYSA-N",
+"mw": 261.7,
+"al": [],
+"d": "2026-11-16"
+},
+"mocaciclib": {
+"n": "Mocaciclib",
+"cid": 156358323,
+"smi": "CC(C)C1=C2N=C(N=C(N2N=C1)NCC3=CC=CC=C3C4=NC=CC5=C4C=CC(=C5)NC(=O)C(=C)F)NC[C@H]6CCNC[C@@H]6O",
+"ik": "PDKSTEKFCWNJFC-LXFBAYGMSA-N",
+"mw": 609.7,
+"al": [],
+"d": "2026-11-16"
+},
+"sterilenormalsaline": {
+"n": "Sterile Normal Saline",
+"miss": "2026-11-16"
+},
+"etavopivatlowdose": {
+"n": "Etavopivat Low dose",
+"miss": "2026-11-16"
+},
+"etavopivathighdose": {
+"n": "Etavopivat High dose",
+"miss": "2026-11-16"
+},
+"etavopivatc": {
+"n": "Etavopivat C",
+"miss": "2026-11-16"
+},
+"socrodeucitinib": {
+"n": "Socrodeucitinib",
+"cid": 157020998,
+"smi": "[2H]C([2H])([2H])NC(=O)C1=NN=C(C=C1NC2=CC=CC(=C2OC)C3=NN(C=N3)C4CC4)NC(=O)C5CC5",
+"ik": "ZERZXBOGPOPJMF-FIBGUPNXSA-N",
+"mw": 451.5,
+"al": [],
+"d": "2026-11-16"
+},
+"prt13722": {
+"n": "PRT13722",
+"miss": "2026-11-16"
+},
+"taladegib": {
+"n": "Taladegib",
+"cid": 49848070,
+"smi": "CN1C(=CC=N1)C2=NN=C(C3=CC=CC=C32)N4CCC(CC4)N(C)C(=O)C5=C(C=C(C=C5)F)C(F)(F)F",
+"ik": "SZBGQDXLNMELTB-UHFFFAOYSA-N",
+"mw": 512.5,
+"al": [],
+"d": "2026-11-16"
+},
+"admilparant": {
+"n": "Admilparant",
+"cid": 132232205,
+"smi": "CCCN(C)C(=O)OCC1=C(N=NN1C)C2=NC(=C(C=C2)O[C@H]3CCC[C@@H](C3)C(=O)O)C",
+"ik": "UEUNDURNLYLSNB-HOTGVXAUSA-N",
+"mw": 445.5,
+"al": [],
+"d": "2026-11-16"
+},
+"htd1801": {
+"n": "HTD1801",
+"cid": 137552085,
+"smi": "C[C@H](CCC(=O)[O-])[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2[C@H](C[C@H]4[C@@]3(CC[C@H](C4)O)C)O)C.COC1=C(C2=C[N+]3=C(C=C2C=C1)C4=CC5=C(C=C4CC3)OCO5)OC",
+"ik": "FHZVFXJRSFLYDY-FUXQPCDDSA-M",
+"mw": 727.9,
+"al": [],
+"d": "2026-11-16"
+},
+"sesutecan": {
+"n": "Sesutecan",
+"miss": "2026-11-16"
+},
+"kt579": {
+"n": "KT-579",
+"miss": "2026-11-16"
+},
+"nomelcitinib": {
+"n": "Nomelcitinib",
+"cid": 170678247,
+"smi": "[2H]C([2H])([2H])NC(=O)C1=NN=C(C=C1NC2=C(C=C(C=N2)Cl)S(=O)(=O)C)NC(=O)C3CC3",
+"ik": "QZZGWCBTIULDRA-FIBGUPNXSA-N",
+"mw": 427.9,
+"al": [],
+"d": "2026-11-16"
+},
+"mavorixafor": {
+"n": "Mavorixafor",
+"cid": 11256587,
+"smi": "C1C[C@@H](C2=C(C1)C=CC=N2)N(CCCCN)CC3=NC4=CC=CC=C4N3",
+"ik": "WVLHHLRVNDMIAR-IBGZPJMESA-N",
+"mw": 349.5,
+"al": [],
+"d": "2026-11-16"
+},
+"prusogliptin": {
+"n": "Prusogliptin",
+"cid": 44201003,
+"smi": "CC(C)(CC(=O)N1CCCC1)NCC(=O)N2C[C@H](C[C@H]2C#N)F",
+"ik": "VQKSCYBKUIDZEI-STQMWFEESA-N",
+"mw": 324.4,
+"al": [],
+"d": "2026-11-16"
+},
+"tagrisso": {
+"n": "Tagrisso",
+"cid": 78357807,
+"smi": "CN1C=C(C2=CC=CC=C21)C3=NC(=NC=C3)NC4=C(C=C(C(=C4)NC(=O)C=C)N(C)CCN(C)C)OC.CS(=O)(=O)O",
+"ik": "FUKSNUHSJBTCFJ-UHFFFAOYSA-N",
+"mw": 595.7,
+"al": [],
+"d": "2026-11-16"
+},
+"dt120": {
+"n": "DT120",
+"cid": 208570,
+"smi": "CCN(CC)C(=O)[C@H]1CN([C@@H]2CC3=CNC4=CC=CC(=C34)C2=C1)C.[C@H]([C@@H](C(=O)O)O)(C(=O)O)O",
+"ik": "HQMPRARIZOUKRO-JDQBHMBOSA-N",
+"mw": 473.5,
+"al": [],
+"d": "2026-11-16"
+},
+"cbt001": {
+"n": "CBT-001",
+"miss": "2026-11-16"
+},
+"vafseo": {
+"n": "Vafseo",
+"cid": 23634441,
+"smi": "C1=CC(=CC(=C1)Cl)C2=CC(=C(N=C2)C(=O)NCC(=O)O)O",
+"ik": "JGRXMPYUTJLTKT-UHFFFAOYSA-N",
+"mw": 306.7,
+"al": [],
+"d": "2026-11-16"
+},
+"product": {
+"n": "Product",
+"miss": "2026-11-16"
+},
+"lfd200": {
+"n": "LFD-200",
+"miss": "2026-11-16"
+},
+"cst3056": {
+"n": "CST-3056",
+"miss": "2026-11-16"
 }
 }
 }
