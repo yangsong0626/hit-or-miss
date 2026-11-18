@@ -52,7 +52,7 @@
 ## 目录
 
 ```
-docs/index.html          网站（GitHub Pages 从 /docs 发布）
+docs/index.html          网站（Cloudflare Pages 从 /docs 发布）
 site/template.html       网站模板，不含数据
 data/trials.json         抓取到的注册库数据（含主要终点证据和规则判定）
 data/notes.json          人工撰写的成败分析
@@ -73,6 +73,7 @@ scripts/targets.py       从注册信息自动抽取靶点
 scripts/fetch_preclinical.py  从 Open Targets 拉取癌症相关靶点，去掉已进临床的，按证据、可成药性、热度、风险打分
 scripts/check_watch.py  每周用 openFDA 核对交易候选里的药物有没有在「最后核实日期」之后获批，写 data/watch_alerts.json；有新发现时工作流自动开 GitHub issue
 scripts/build_site.py    把 trials.json 内嵌进模板，生成 docs/index.html
+scripts/build_static.py  给搜索引擎的静态页（build_site.py 最后自动调用）：docs/target/、docs/drug/、docs/trial/ 和英文版 docs/en/，加 sitemap.xml、robots.txt、404.html
 scripts/fetch_feeds.py   每周抓靶点页的文献（Europe PMC）和新闻（Google News）
 site/portals.js          靶点 / 治疗领域 / 并购三个入口的页面代码，构建时插进模板
 data/ma_deals.json       并购案例
@@ -95,6 +96,12 @@ python scripts/build_site.py site/template.html data/trials.json docs/index.html
 ```bash
 python scripts/fetch_trials.py --reclassify data/trials.json
 ```
+
+## 搜索引擎收录
+
+交互版是单页应用，`#` 后面的内容搜索引擎看不到。所以构建时另外生成普通 HTML：每个靶点 `/target/<slug>/`、药物 `/drug/<key>/`、试验 `/trial/<NCT>/` 一页，英文版加 `/en/` 前缀，三个索引页 `/targets/`、`/drugs/`、`/trials/`。每页有独立标题、描述、canonical 和中英文 hreflang，正文是由数据自动生成的摘要和表格，并链回交互版。站点地址取环境变量 `SITE_URL`（默认 `https://hit-or-miss-cz5.pages.dev/`），换域名时同时改工作流里的 `SITE_URL` 和 `site/template.html` 头部的 canonical。
+
+`docs/404.html` 的存在让 Cloudflare Pages 对不存在的路径返回 404，而不是把所有路径都当成首页。
 
 ## 说明
 

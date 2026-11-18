@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hit-or-miss-cz5.pages.dev/sitemap.xml
