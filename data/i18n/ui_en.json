@@ -1,5 +1,9 @@
 {
 "exact": {
+"浏览：": "Browse:",
+"靶点一览": "All targets",
+"药物一览": "All drugs",
+"试验一览": "All trials",
 "临床试验读出追踪：主要终点达到还是落空。同一条读出，研发、BD、医生各看各的重点。": "Clinical trial readout tracker: did the primary endpoint hit or miss? The same readout, seen through R&D, BD and clinician eyes.",
 "我是": "I work in",
 "选择视角": "Choose a view",

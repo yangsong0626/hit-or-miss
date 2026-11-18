@@ -459,8 +459,16 @@ except Exception as _e:  # noqa: BLE001
 try:
     import build_rss as _rss
     _news = json.load(open(os.path.join(os.path.dirname(out), "news.json"), encoding="utf-8")).get("items", []) if os.path.exists(os.path.join(os.path.dirname(out), "news.json")) else []
-    _site = os.environ.get("SITE_URL") or "https://yangsong0626.github.io/hit-or-miss/"
+    _site = os.environ.get("SITE_URL") or "https://hit-or-miss-cz5.pages.dev/"
     _n, _nt, _nc = _rss.build(_news, d.get("sets", {}), os.path.join(os.path.dirname(out), "rss"), _site)
     print(f"rss · {_n} items · {_nt} target feeds · {_nc} company feeds", file=sys.stderr)
 except Exception as _e:  # noqa: BLE001
     print(f"[warn] rss not rebuilt: {_e}", file=sys.stderr)
+
+# 给搜索引擎的静态页（靶点 / 药物 / 试验，中英文）+ sitemap.xml、robots.txt、404.html
+try:
+    import build_static as _bs
+    _r = _bs.build(d, os.path.dirname(out), os.environ.get("SITE_URL"))
+    print(f"static pages · {_r['targets']} targets · {_r['drugs']} drugs · {_r['trials']} trials · {_r['urls']} sitemap URLs", file=sys.stderr)
+except Exception as _e:  # noqa: BLE001
+    print(f"[warn] static pages not rebuilt: {_e}", file=sys.stderr)
