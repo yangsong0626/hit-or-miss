@@ -18,8 +18,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, ".."))
 sys.path.insert(0, HERE)
 import modality  # noqa: E402
+from molecules import core_names  # noqa: E402
 
 UA = {"User-Agent": "hit-or-miss/1.0 (https://github.com/yangsong0626/hit-or-miss)"}
+CHEMBL = "https://www.ebi.ac.uk/chembl/api/data/molecule.json"
+CODE = re.compile(r"^[A-Za-z]{1,6}[- ]?\d{2,}[A-Za-z0-9-]{0,4}$")
+PATENT = os.path.join(ROOT, "data", "structures_patent.json")
 PUG = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{}/property/{}/JSON"
 PROPS = ["SMILES,InChIKey,MolecularWeight", "CanonicalSMILES,InChIKey,MolecularWeight"]
 MAX_LOOKUPS = 600
@@ -33,7 +37,7 @@ def _norm(s):
 
 
 def _clean(name):
-    name = re.split(r"[(\[]", name or "")[0]
+    name = re.split(r"[(\[（]", name or "")[0]
     name = re.sub(r"\b(tablets?|capsules?|oral|injection|hydrochloride|hcl|mesylate|maleate|sodium|potassium|tosylate|citrate|"
                   r"fumarate|succinate|tartrate|besylate|phosphate|sulfate|monohydrate|free base|\d+\s*mg)\b", " ", name, flags=re.I)
     return re.sub(r"\s+", " ", name).strip(" ,;-")
@@ -43,34 +47,42 @@ def candidates():
     """返回 {查询名: 别名集合}。"""
     out = {}
 
-    def add(name, aliases=(), mod=""):
-        q = _clean(name)
+    def add(name, aliases=(), mod="", trial_mod=""):
+        for q in core_names(name) or [_clean(name)]:
+            add1(q, aliases, mod, trial_mod)
+
+    def add1(q, aliases=(), mod="", trial_mod=""):
+        q = _clean(q)
         if len(_norm(q)) < 4 or NOT_SMALL.search(q) or re.search(r"[+/&]| and | with |MDI|HFA|liposom|vaccine|placebo", q, re.I):
             return
         if mod and not SMALL.search(mod):
             return
         if not mod:
             m = modality.classify_one({"n": q, "ty": "DRUG"})
+            # 只有代号、按名字认不出类型的（TNO155、RMC-9805），联用试验里就看整个试验的类型
+            if m == "未识别" and CODE.match(q):
+                m = trial_mod
             if not SMALL.search(m or ""):
                 return
         out.setdefault(q, set()).update(_norm(a) for a in aliases if len(_norm(a)) >= 4)
 
     tp = os.path.join(ROOT, "data", "trials.json")
     if os.path.exists(tp):
-        for s, v in json.load(open(tp, encoding="utf-8")).get("sets", {}).items():
+        td = json.load(open(tp, encoding="utf-8"))
+        for v in list(td.get("sets", {}).values()) + [td.get("early", [])]:
             for t in v:
                 for iv in t.get("iv") or []:
                     if (iv.get("ty") or "DRUG") not in ("DRUG", "COMBINATION_PRODUCT") or modality.PLACEBO.search(iv.get("n", "")):
                         continue
                     if modality.BACKBONE.match((iv.get("n") or "").strip()):
                         continue
-                    add(iv["n"], iv.get("on") or [], t.get("mod", "") if len(t.get("iv") or []) == 1 else "")
+                    add(iv["n"], iv.get("on") or [], t.get("mod", "") if len(t.get("iv") or []) == 1 else "", t.get("mod", ""))
     for f in ("active.json",):
         p = os.path.join(ROOT, "docs", f)
         if os.path.exists(p):
             for t in json.load(open(p, encoding="utf-8")).get("trials", []):
                 for iv in t.get("iv") or []:
-                    add(iv.get("n", ""), iv.get("on") or [], t.get("mod", "") if len(t.get("iv") or []) == 1 else "")
+                    add(iv.get("n", ""), iv.get("on") or [], t.get("mod", "") if len(t.get("iv") or []) == 1 else "", t.get("mod", ""))
     np_ = os.path.join(ROOT, "data", "news_readouts.json")
     if os.path.exists(np_):
         for x in json.load(open(np_, encoding="utf-8")).get("items", []):
@@ -82,9 +94,9 @@ def candidates():
     return out
 
 
-def lookup(name):
+def _pubchem(kind, value):
     for props in PROPS:
-        url = PUG.format(urllib.parse.quote(name), props)
+        url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/{kind}/{urllib.parse.quote(value, safe='')}/property/{props}/JSON"
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=20) as r:
                 p = json.load(r)["PropertyTable"]["Properties"][0]
@@ -99,15 +111,64 @@ def lookup(name):
     return None
 
 
+def _chembl_synonym(name):
+    """ChEMBL 的同义词表收了很多研发代号和通用名的对应（PF-07220060 → atirmociclib），PubChem 查不到时用它找 InChIKey。"""
+    url = CHEMBL + "?" + urllib.parse.urlencode({"molecule_synonyms__molecule_synonym__iexact": name, "only": "molecule_structures,pref_name"})
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={**UA, "Accept": "application/json"}), timeout=90) as r:
+            ms = json.load(r).get("molecules") or []
+    except Exception:  # noqa: BLE001  ChEMBL 慢、偶尔超时，下次再试
+        return None
+    for m in ms:
+        ms_ = m.get("molecule_structures") or {}
+        if ms_.get("standard_inchi_key"):
+            return ms_["standard_inchi_key"], ms_.get("canonical_smiles")
+    return None
+
+
+def lookup(name):
+    """先按名字查 PubChem；代号再试有无连字符的写法（PF-07220060 / PF07220060）；都没有就查 ChEMBL 同义词，用 InChIKey 回 PubChem。"""
+    r = _pubchem("name", name)
+    if r or not CODE.match(name):
+        return r
+    m = re.match(r"^([A-Za-z]+)[- ]?(\d.*)$", name)
+    if m:
+        for alt in (f"{m.group(1)}-{m.group(2)}", f"{m.group(1)}{m.group(2)}", f"{m.group(1)} {m.group(2)}"):
+            if alt != name:
+                r = _pubchem("name", alt)
+                if r:
+                    return r
+    hit = _chembl_synonym(name)
+    if hit:
+        r = _pubchem("inchikey", hit[0])
+        if r:
+            return r
+        if hit[1]:
+            return {"cid": None, "smi": hit[1], "ik": hit[0], "mw": None, "src": "chembl"}
+    return None
+
+
+def load_patent():
+    """data/structures_patent.json：公开渠道没有结构的研发代号，从专利里挑最可能的那个化合物（人工核对后写入）。"""
+    if not os.path.exists(PATENT):
+        return {}
+    return {k: v for k, v in json.load(open(PATENT, encoding="utf-8")).get("items", {}).items() if v.get("smi")}
+
+
 def export(cache_path, out_path):
     if not os.path.exists(cache_path):
         return 0
     c = json.load(open(cache_path, encoding="utf-8")).get("items", {})
     m = {}
     for k, v in c.items():
-        if not v.get("cid") or (v.get("mw") or 0) > 1500:
+        if not (v.get("cid") or v.get("smi")) or (v.get("mw") or 0) > 1500:
             continue
-        row = [v["cid"], v.get("smi", ""), v.get("mw")]
+        row = [v.get("cid"), v.get("smi", ""), v.get("mw")]
+        for a in [k] + (v.get("al") or []):
+            m.setdefault(a, row)
+    # 专利推测的结构：只补确认结构查不到的药，第 4 项是专利号，页面据此标「专利推测」
+    for k, v in load_patent().items():
+        row = [None, v["smi"], v.get("mw"), v.get("pat") or "patent"]
         for a in [k] + (v.get("al") or []):
             m.setdefault(a, row)
     json.dump(m, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
@@ -120,23 +181,31 @@ def main():
     ap.add_argument("--out", default=os.path.join(ROOT, "docs", "structures.json"))
     ap.add_argument("--max", type=int, default=MAX_LOOKUPS)
     ap.add_argument("--export-only", action="store_true")
+    ap.add_argument("--retry-codes", action="store_true", help="研发代号的旧未命中也重查（加了 ChEMBL 同义词兜底之后用一次）")
     a = ap.parse_args()
     if not a.export_only:
         cache = json.load(open(a.cache, encoding="utf-8")) if os.path.exists(a.cache) else {"items": {}}
         items = cache["items"]
         today = dt.date.today()
         todo = []
+        # 先查靶点项目里的药（上次构建的 docs/molecules.json 里的药名键）
+        try:
+            targeted = set(json.load(open(os.path.join(ROOT, "docs", "molecules.json"), encoding="utf-8")).get("drugs", {}))
+        except (OSError, ValueError):
+            targeted = set()
         for q, al in candidates().items():
             k = _norm(q)
             v = items.get(k)
             if v and v.get("cid"):
                 v["al"] = sorted(set(v.get("al") or []) | (al - {k}))
                 continue
-            if v and v.get("miss") and (today - dt.date.fromisoformat(v["miss"])).days < RETRY_DAYS:
+            if v and v.get("miss") and (today - dt.date.fromisoformat(v["miss"])).days < RETRY_DAYS \
+                    and not (a.retry_codes and CODE.match(q) and not v.get("syn")):
                 continue
-            todo.append((q, k, al))
+            todo.append((0 if ({k} | al) & targeted else 1, q, k, al))
+        todo.sort(key=lambda x: x[0])
         n = hit = fails = 0
-        for q, k, al in todo[: a.max]:
+        for _, q, k, al in todo[: a.max]:
             n += 1
             try:
                 r = lookup(q)
@@ -151,7 +220,7 @@ def main():
                 items[k] = {"n": q, **r, "al": sorted(al - {k}), "d": today.isoformat()}
                 hit += 1
             else:
-                items[k] = {"n": q, "miss": today.isoformat()}
+                items[k] = {"n": q, "miss": today.isoformat(), **({"syn": 1} if CODE.match(q) else {})}
             time.sleep(0.25)
         json.dump(cache, open(a.cache, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
         print(f"structures: looked up {n} (found {hit}), pending {max(0, len(todo) - a.max)}, cached {sum(1 for v in items.values() if v.get('cid'))}")

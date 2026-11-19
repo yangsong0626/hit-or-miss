@@ -142,6 +142,10 @@ try:
 except Exception as _e:  # noqa: BLE001
     print(f"[warn] auto code→target map skipped: {_e}", file=sys.stderr)
 
+# 分子对比表用的给药方案：要在压缩干预信息（去掉描述）之前抽
+import molecules as _mol  # noqa: E402
+_regimen = _mol.regimens([t for v in d["sets"].values() for t in v] + d.get("early", []) + _act_raw)
+
 for v in d["sets"].values():
     for t in v:
         set_tg(t, t.get("tgt"))
@@ -256,6 +260,14 @@ for dn, tgs_ in _td.get("drugs", {}).items():
     for g in ([tgs_] if isinstance(tgs_, str) else tgs_):
         _drugs.setdefault(g, []).append(dn)
 d["tgsearch"] = {"alias": _alias, "drugs": _drugs}
+
+# 靶点分类、通路和关系（scripts/make_target_taxonomy.py 生成）
+try:
+    _tax = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "target_taxonomy.json"), encoding="utf-8"))
+    _tax.pop("_about", None)
+    d["taxonomy"] = _tax
+except (OSError, ValueError) as _e:
+    print(f"[warn] target_taxonomy.json not loaded: {_e}", file=sys.stderr)
 
 # 每周 FDA 核对结果（scripts/check_watch.py 生成）
 wa = os.path.join(base, "watch_alerts.json")
@@ -464,6 +476,14 @@ try:
     print(f"rss · {_n} items · {_nt} target feeds · {_nc} company feeds", file=sys.stderr)
 except Exception as _e:  # noqa: BLE001
     print(f"[warn] rss not rebuilt: {_e}", file=sys.stderr)
+
+# 分子对比表：结构 + ChEMBL + 给药方案 → docs/molecules.json（要在静态页之前生成）
+try:
+    _names = [e.get("n") for t in [t for v in d["sets"].values() for t in v] + early_out + (act_trials or []) for e in t.get("tgm") or [] if e.get("n")]
+    _nm, _nc = _mol.export(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."), os.path.dirname(out), _names, _regimen)
+    print(f"molecules.json · {_nm} drugs · {_nc} with ChEMBL data", file=sys.stderr)
+except Exception as _e:  # noqa: BLE001
+    print(f"[warn] molecules.json not rebuilt: {_e}", file=sys.stderr)
 
 # 给搜索引擎的静态页（靶点 / 药物 / 试验，中英文）+ sitemap.xml、robots.txt、404.html
 try:

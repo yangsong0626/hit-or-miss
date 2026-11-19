@@ -18,6 +18,38 @@ function loadFeeds(){
     .then(j => (FEEDS = j)).catch(() => (FEEDS = {targets:{}}));
   return feedsP;
 }
+/* 靶点分类（类别 › 家族）、通路上下游和直接关系，数据来自 data/target_taxonomy.json */
+let TAX_IX = null;
+function taxIx(){
+  if (TAX_IX) return TAX_IX;
+  const X = EMB?.taxonomy || {classes: [], pathways: [], links: [], rel_lbl: {}};
+  const of = new Map(), paths = new Map(), links = new Map(), order = new Map();
+  let i = 0;
+  X.classes.forEach(c => c.families.forEach(f => f.targets.forEach(g => { of.set(g, {c, f}); order.set(g, i++); })));
+  X.pathways.forEach(pw => pw.steps.forEach((st, k) => st.forEach(g => { if (!paths.has(g)) paths.set(g, []); paths.get(g).push({pw, k}); })));
+  X.links.forEach(([a, b, ty]) => { [[a, b], [b, a]].forEach(([x, y]) => { if (!links.has(x)) links.set(x, []); links.get(x).push({g: y, ty}); }); });
+  TAX_IX = {X, of, paths, links, order};
+  return TAX_IX;
+}
+const taxN = x => LANG === "en" ? x.en : x.zh;
+function tgTax(g){
+  const {X, of, paths, links} = taxIx();
+  const lk = h => `<button class="linkish" data-gotg="${esc(h)}">${esc(h)}</button>`;
+  const out = [];
+  const m = of.get(g);
+  if (m) {
+    const peers = m.f.targets.filter(h => h !== g);
+    out.push(`<div class="tax-row"><span class="sm">${T("分类", "Class")}</span> <b>${esc(taxN(m.c))}</b>${taxN(m.f) !== taxN(m.c) ? ` › ${esc(taxN(m.f))}` : ""}${peers.length ? ` <span class="sm">· ${T("同家族", "same family")}</span> ${peers.map(lk).join(" · ")}` : ""}</div>`);
+  }
+  (paths.get(g) || []).forEach(({pw, k}) => {
+    const chain = pw.steps.map(st => st.map(h => h === g ? `<b>${esc(h)}</b>` : lk(h)).join(" / ")).join(` <span class="arr">→</span> `);
+    out.push(`<div class="tax-row"><span class="sm">${T("通路", "Pathway")}</span> <b>${esc(taxN(pw))}</b><div class="tax-chain">${chain}</div><div class="sm">${esc(LANG === "en" ? pw.den : pw.dzh)}</div></div>`);
+  });
+  const by = {};
+  (links.get(g) || []).forEach(({g: h, ty}) => (by[ty] = by[ty] || []).push(h));
+  Object.entries(by).forEach(([ty, hs]) => out.push(`<div class="tax-row"><span class="sm">${esc((X.rel_lbl[ty] || [ty, ty])[LANG === "en" ? 1 : 0])}</span> ${hs.map(lk).join(" · ")}</div>`));
+  return out.length ? `<div class="tax-box">${out.join("")}</div>` : "";
+}
 function tgxRows(){
   if (TGX) return TGX;
   const rows = lsBuild("", "");
@@ -43,21 +75,33 @@ function renderTgx(){
     (!ph || (ph === "3" ? r.maxPh >= 2.5 : ph === "2" ? r.maxPh >= 2 && r.maxPh < 2.5 : ph === "1" ? r.maxPh > 0 && r.maxPh < 2 : !r.ps.length)) &&
     qHit(Q, [r.g, ...(TGS.alias[r.g] || []), ...r.ps.map(p => p.co + " " + p.drug)], [r.g]));
   const key = {prog:r => r.ps.length * 10 + (r.pre ? 5 : 0), co:r => r.nco, new:r => r.newN}[sort];
-  rows.sort(sort === "az" ? (a, b) => a.g.localeCompare(b.g) : (a, b) => key(b) - key(a) || a.g.localeCompare(b.g));
+  const TX = taxIx(), byCls = sort === "cls";
+  if (byCls) rows.sort((a, b) => (TX.order.has(a.g) ? TX.order.get(a.g) : 1e6) - (TX.order.has(b.g) ? TX.order.get(b.g) : 1e6) || a.g.localeCompare(b.g));
+  else rows.sort(sort === "az" ? (a, b) => a.g.localeCompare(b.g) : (a, b) => key(b) - key(a) || a.g.localeCompare(b.g));
   $("tgx-meta").textContent = T(`${rows.length} 个靶点`, `${rows.length} targets`);
-  $("tgx-grid").innerHTML = rows.slice(0, tgxLimit).map(r => {
+  let lastC = null;
+  const lim = byCls ? rows.length : tgxLimit;   // 按分类时一次全显示，分组标题才完整
+  $("tgx-grid").innerHTML = rows.slice(0, lim).map(r => {
+    const m = TX.of.get(r.g), cid = m ? m.c.id : "_";
+    const head = byCls && cid !== lastC ? `<h3 class="tgx-cls">${esc(m ? taxN(m.c) : T("未分类", "Unclassified"))} <small>${rows.filter(x => (TX.of.get(x.g)?.c.id || "_") === cid).length}</small></h3>` : "";
+    lastC = cid;
+    return head + tgxCard(r, byCls && m ? taxN(m.f) : "");
+  }).join("") || `<div class="empty">${T("没有符合条件的靶点，试试清空筛选。", "No targets match. Try clearing the filters.")}</div>`;
+  $("tgx-grid").querySelectorAll("[data-tgo]").forEach(b => b.addEventListener("click", () => openTarget(b.dataset.tgo)));
+  const more = $("tgx-more"); more.hidden = rows.length <= lim;
+  more.textContent = T(`再显示 60 个（共 ${rows.length} 个）`, `Show 60 more (${rows.length} total)`);
+}
+function tgxCard(r, fam){
+  {
     const tas = Object.entries(r.tas).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => esc(k)).join(" · ");
     const chip = r.ps.length ? tagChip(r) : `<span class="ls-tag" style="background:var(--accent-soft);color:var(--accent)">${T("临床前精选", "Preclinical pick")}</span>`;
     const ev = r.hit || r.miss || r.stop ? `<span>${T("读出", "Readouts")} <b style="color:var(--pos)">${r.hit}</b>/<b style="color:var(--neg)">${r.miss + r.stop}</b></span>` : "";
     return `<button class="tgx-card" data-tgo="${esc(r.g)}"><div class="tgx-top"><h3>${esc(r.g)}</h3>${chip}</div>
-      <div class="sm">${tas}${r.pre && r.ps.length ? ` · ${T("另有临床前精选", "also a preclinical pick")}` : ""}</div>
+      <div class="sm">${fam ? esc(fam) + " · " : ""}${tas}${r.pre && r.ps.length ? ` · ${T("另有临床前精选", "also a preclinical pick")}` : ""}</div>
       ${r.ps.length ? `<div class="nums"><span><b>${r.ps.length}</b> ${T("项目", "programs")}</span><span><b>${r.nco}</b> ${T("公司", "companies")}</span><span>${T("最高", "max Ph")} <b>${PHN(r.maxPh)}</b>${T(" 期", "")}</span>${ev}</div>
       <div class="ph">${r.bins.map((v, i) => v ? `<i style="flex:${v};background:${phCol(i)}"></i>` : "").join("")}</div>`
       : `<div class="nums"><span>${esc(r.pre?.tag || "")}</span></div>`}</button>`;
-  }).join("") || `<div class="empty">${T("没有符合条件的靶点，试试清空筛选。", "No targets match. Try clearing the filters.")}</div>`;
-  $("tgx-grid").querySelectorAll("[data-tgo]").forEach(b => b.addEventListener("click", () => openTarget(b.dataset.tgo)));
-  const more = $("tgx-more"); more.hidden = rows.length <= tgxLimit;
-  more.textContent = T(`再显示 60 个（共 ${rows.length} 个）`, `Show 60 more (${rows.length} total)`);
+  }
 }
 $("tgx-more").addEventListener("click", () => { tgxLimit += 60; renderTgx(); });
 ["tgx-q","tgx-ta","tgx-mod","tgx-ph","tgx-sort"].forEach(id => $(id).addEventListener("input", () => { tgxLimit = 60; renderTgx(); }));
@@ -125,12 +169,13 @@ function renderTargetPage(){
   const al = (TGS.alias[g] || []).filter(a => a.toLowerCase() !== g.toLowerCase()).slice(0, 12);
   const drugs = (TGS.drugs[g] || []);
   const tas = Object.entries(r.tas).sort((a, b) => b[1] - a[1]).map(([k]) => `<span class="tag">${esc(k)}</span>`).join("");
-  const TABS_T = [["clin", T("临床", "Clinical")], ["cmp", T("对比", "Compare")], ["pat", T("专利", "Patents")], ["lit", T("文献", "Literature")], ["news", T("新闻", "News")], ["deal", T("交易", "Deals")]];
+  const TABS_T = [["clin", T("临床", "Clinical")], ["mol", T("分子", "Molecules")], ["cmp", T("对比", "Compare")], ["pat", T("专利", "Patents")], ["lit", T("文献", "Literature")], ["news", T("新闻", "News")], ["deal", T("交易", "Deals")]];
   let html = `<div class="crumb"><button id="tg-back">← ${T("全部靶点", "All targets")}</button><span>/</span><span>${esc(g)}</span></div>
     <header class="pg-head"><h2>${esc(g)} ${starBtn("t", g)}</h2>
       ${al.length ? `<div class="alias">${T("别名：", "Also known as: ")}${al.map(esc).join(" · ")}</div>` : ""}
       ${drugs.length ? `<div class="alias">${T("已知药物：", "Known drugs: ")}${drugs.slice(0, 14).map(esc).join(" · ")}${drugs.length > 14 ? " …" : ""}</div>` : ""}
       <div class="tags">${tas}${r.ps.length ? tagChip(r) : ""}${r.pre ? `<span class="ls-tag" style="background:var(--accent-soft);color:var(--accent)">${T("临床前精选", "Preclinical pick")} · ${esc(r.pre.tag)}</span>` : ""}</div>
+      ${tgTax(g)}
       <div class="kpis">
         <div><div class="n">${r.ps.length}</div><div class="l">${T("临床项目", "Clinical programs")}</div></div>
         <div><div class="n">${r.nco}</div><div class="l">${T("公司", "Companies")}</div></div>
@@ -142,12 +187,13 @@ function renderTargetPage(){
     <div id="tg-body"></div>`;
   $("tgx-page").innerHTML = html;
   $("tg-back").addEventListener("click", () => closeTarget());
+  $("tgx-page").querySelectorAll(".pg-head [data-gotg]").forEach(b => b.addEventListener("click", () => openTarget(b.dataset.gotg)));
   document.querySelectorAll("[data-tgt]").forEach(b => b.addEventListener("click", () => { tgTab = b.dataset.tgt; document.querySelectorAll("[data-tgt]").forEach(x => x.setAttribute("aria-selected", x === b)); renderTgBody(); }));
   updTgTabs(); renderTgBody();
 }
 function renderTgBody(){
   const g = tgCur, D_ = tgData(g), el = $("tg-body");
-  const f = {clin:tgClin, cmp:tgCmp, pat:tgPat, lit:tgLit, news:tgNews, deal:tgDeal}[tgTab];
+  const f = {clin:tgClin, mol:tgMol, cmp:tgCmp, pat:tgPat, lit:tgLit, news:tgNews, deal:tgDeal}[tgTab];
   el.innerHTML = f(g, D_);
   if (tgTab === "clin") tgEarlyFill(g);
   el.querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));

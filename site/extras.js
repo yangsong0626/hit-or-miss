@@ -34,7 +34,17 @@ function structOf(name){
   for (const k of (Array.isArray(name) ? name : drugKeys(name))) if (STRUCT[k]) return STRUCT[k];
   return null;
 }
-const molImg = (s, size, alt) => s ? `<a class="mol-wrap" href="https://pubchem.ncbi.nlm.nih.gov/compound/${s[0]}" target="_blank" rel="noopener" title="${esc(T("PubChem 结构", "Structure on PubChem"))}"><img class="mol" style="width:${size}px;height:${size}px" loading="lazy" alt="${esc(alt || "")}" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${s[0]}/PNG?image_size=${size * 2}x${size * 2}"></a>` : "";
+// s = [CID, SMILES, 分子量, 专利号]：有 CID 用 PubChem 的图；只有 SMILES（ChEMBL 或专利推测）让 PubChem 按 SMILES 现画
+const molImg = (s, size, alt) => {
+  if (!s || !(s[0] || s[1])) return "";
+  const src = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${s[0]}/PNG?image_size=${size * 2}x${size * 2}`
+    : `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${encodeURIComponent(s[1])}/PNG?image_size=${size * 2}x${size * 2}`;
+  const pat = !s[0] && s[3];
+  const href = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/compound/${s[0]}` : pat && pat !== "patent" ? `https://patents.google.com/patent/${encodeURIComponent(pat)}` : "";
+  const title = pat ? T(`专利推测结构（${pat}），未经公司确认`, `Inferred from patent ${pat}; not confirmed by the company`) : T("PubChem 结构", "Structure on PubChem");
+  const img = `<img class="mol" style="width:${size}px;height:${size}px" loading="lazy" alt="${esc(alt || "")}" src="${src}">`;
+  return `<a class="mol-wrap" ${href ? `href="${href}" target="_blank" rel="noopener"` : ""} title="${esc(title)}">${img}</a>${pat ? `<div class="sm mol-pat">${T("专利推测", "Patent-inferred")}</div>` : ""}`;
+};
 // todayISO 已在模板里定义
 function downloadFile(name, text, type){
   const blob = new Blob([text], {type: type || "text/plain;charset=utf-8"}), a = document.createElement("a");
@@ -430,6 +440,83 @@ function tgCmp(g){
   CMP_CACHE.target = rows;
   setTimeout(() => bindCmp($("tg-body")), 0);
   return `<section class="pg-sec"><h3>${esc(g)} · ${T("对比表", "Comparison table")} ${starBtn("t", g)}</h3><p class="sub">${T("这个靶点上各试验登记的主要终点效应量、应答率、中位时间，加上新闻稿里抽出的关键数字。", "Registered primary-endpoint effects, response rates and medians for trials on this target, plus key numbers pulled from topline news.")}</p>${cmpTableHTML(rows, "target")}</section>`;
+}
+
+/* ---------- 分子对比表：靶点页「分子」分页 ----------
+   docs/molecules.json：结构（PubChem）+ ChEMBL（理化性质、机制、活性、选择性）+ 注册库登记的给药方案。 */
+let MOL = null, molP = null;
+function loadMol(){
+  if (MOL) return Promise.resolve(MOL);
+  if (!molP) molP = getJSON("molecules.json").then(j => (MOL = j)).catch(() => (MOL = {drugs: {}, err: true}));
+  return molP;
+}
+const ROUTE_EN = {"口服": "Oral", "静脉": "IV", "皮下": "SC", "肌注": "IM", "吸入": "Inhaled", "外用": "Topical", "玻璃体内": "Intravitreal", "鞘内": "Intrathecal", "鼻用": "Nasal"};
+const nM = v => { const x = Math.pow(10, 9 - v); return x < 1 ? x.toPrecision(2) : x < 100 ? x.toPrecision(2).replace(/\.0$/, "") : Math.round(x).toLocaleString(); };
+const potTxt = a => a ? `${a.ty || ""} ${nM(a.v)} nM` : "";
+function molFor(p, g){
+  const ks = new Set(drugKeys(p.drug));
+  p.trials.forEach(t => (t.tgm || []).forEach(e => { if (e.g === g && e.n) drugKeys(e.n).forEach(k => ks.add(k)); }));
+  for (const k of ks) if (MOL.drugs[k]) return {k, m: MOL.drugs[k], ks};
+  return {k: [...ks][0], m: null, ks};
+}
+function molRows(g, r){
+  return r.ps.map(p => {
+    const {k, m, ks} = molFor(p, g);
+    const news = (NEWS.items || []).filter(x => (x.nums || []).length && drugKeys(x.drug).some(z => ks.has(z))).sort((a, b) => String(b.d).localeCompare(String(a.d)));
+    return {p, k, m: m || {}, has: !!m, news: news[0]};
+  }).reduce((acc, x) => {
+    // 同一个分子多家公司（合作、授权）各算一个项目，这里并成一行
+    const y = x.has && acc.find(z => z.has && z.k === x.k);
+    if (!y) acc.push(x);
+    else { if (x.p.ph > y.p.ph) y.p = {...x.p, co: y.p.co}; const cs = y.p.co.split(" / "); if (!cs.includes(x.p.co) && cs.length < 3) y.p = {...y.p, co: y.p.co + " / " + x.p.co}; y.news = y.news || x.news; }
+    return acc;
+  }, []).sort((a, b) => b.p.ph - a.p.ph || (b.has - a.has) || a.p.co.localeCompare(b.p.co));
+}
+function molCovTag(m){
+  if (m.cov === 1) return `<span class="tag mol-cov">${T("共价", "Covalent")}</span>`;
+  if (m.cov === 2) return `<span class="tag mol-cov2" title="${esc(T("结构里有丙烯酰胺等弹头，ChEMBL 没有共价注释", "Has an acrylamide-type warhead; not annotated as covalent in ChEMBL"))}">${T("可能共价", "Likely covalent")}</span>`;
+  return "";
+}
+function regTxt(m){
+  const FL = MOL.freq_lbl || {};
+  const r = (m.route || []).map(x => EN ? (ROUTE_EN[x] || x) : x).join(" / "), f = (m.freq || []).map(x => FL[x] ? (EN ? FL[x][1] : FL[x][0]) : x).join(" / ");
+  return [r, f].filter(Boolean).join(" · ");
+}
+function tgMol(g, {r}){
+  if (!MOL || !NEWS || !STRUCT) { Promise.all([loadMol(), loadNews(), loadStruct()]).then(() => { if (tgCur === g && tgTab === "mol") renderTgBody(); }); return `<div class="empty">${T("正在加载…", "Loading…")}</div>`; }
+  if (!r.ps.length) return `<section class="pg-sec"><p class="sm">${T("这个靶点还没有临床项目。", "No clinical programs on this target yet.")}</p></section>`;
+  const rows = molRows(g, r), withData = rows.filter(x => x.has);
+  CMP_CACHE.mol = rows;
+  setTimeout(() => { const b = $("mol-csv"); if (b) b.addEventListener("click", () => molCSV(g)); }, 0);
+  const body = withData.map(({p, k, m, news}) => {
+    const sel = m.sel ? `${T(`另有 ${m.sel.off} 个`, `${m.sel.off} other`)} <span class="sm">/ ${T(`测过 ${m.sel.tested}`, `${m.sel.tested} tested`)}</span>` : "—";
+    const pr = m.p || {};
+    return `<tr>
+      <td class="mol-st">${m.cid || m.smi ? molImg([m.cid, m.smi, m.mw, m.src === "patent" ? (m.pat || "patent") : null], 84, p.drug) : `<span class="sm">${esc(p.m || "")}</span>`}${m.src === "patent" && m.pwhy ? `<div class="sm" title="${esc(m.pwhy)}">${esc(m.pex || "")}</div>` : ""}</td>
+      <td><button class="tbtn" data-od="${esc(k)}">${esc(p.drug)}</button><div class="sm">${esc(p.co)} · ${PHN(p.ph)}${T(" 期", "")}</div><div>${molCovTag(m)}</div></td>
+      <td class="sm">${esc(m.moa || "")}${m.ch ? `<div><a href="https://www.ebi.ac.uk/chembl/compound_report_card/${esc(m.ch)}/" target="_blank" rel="noopener">${esc(m.ch)}</a></div>` : ""}</td>
+      <td>${m.bio ? `<b>${esc(potTxt(m.bio))}</b><div class="sm">${esc(m.bio.n || "")}${m.bio.k > 1 ? T(` · ${m.bio.k} 次测定中位数`, ` · median of ${m.bio.k}`) : ""}</div>` : "—"}${m.cell ? `<div class="sm">${T("细胞", "Cell")} ${esc(potTxt(m.cell))} · ${esc(m.cell.n)}</div>` : ""}</td>
+      <td title="${esc((m.sel?.top || []).join(", "))}">${sel}</td>
+      <td class="sm mono">${m.mw ? `MW ${esc(m.mw)}` : ""}${pr.alogp != null ? `<br>cLogP ${esc(pr.alogp)}` : ""}${pr.psa != null ? `<br>TPSA ${esc(pr.psa)}` : ""}${pr.hbd != null ? `<br>HBD/HBA ${esc(pr.hbd)}/${esc(pr.hba)}` : ""}${pr.qed != null ? `<br>QED ${esc(pr.qed)}` : ""}</td>
+      <td class="sm">${esc(regTxt(m)) || "—"}${(m.dose || []).length ? `<div>${esc(m.dose.join(", "))}</div>` : ""}</td>
+      <td class="sm">${news ? `${esc(numsPlain(news.nums.slice(0, 3)))}<div>${news.ph ? esc(news.ph) + T(" 期 · ", " · Ph ") : ""}<a href="${esc(news.u)}" target="_blank" rel="noopener">${esc(news.d)}</a></div>` : "—"}</td></tr>`;
+  }).join("");
+  const miss = rows.length - withData.length;
+  return `<section class="pg-sec"><h3>${esc(g)} · ${T("分子对比", "Molecule comparison")} <small>${T(`${withData.length} 个有数据 · 共 ${rows.length} 个项目`, `${withData.length} with data · ${rows.length} programs`)}</small> <button class="linkish" id="mol-csv">${T("导出 CSV", "Export CSV")}</button></h3>
+    <p class="sub">${T("把各家分子放在一起：结构、机制（是否共价）、对主靶点的活性和选择性、理化性质、临床给药方案和最新公布的疗效数字。用来判断门槛在哪、差异化空间在哪。",
+      "Competing molecules side by side: structure, mechanism (covalent or not), potency and selectivity, physchem, clinical dosing and the latest reported efficacy — to see where the bar is and where there is room to differentiate.")}</p>
+    ${withData.length ? `<div class="tablewrap"><table class="mol-tab"><thead><tr><th>${T("结构", "Structure")}</th><th>${T("药物", "Drug")}</th><th>${T("机制", "Mechanism")}</th><th>${T("活性", "Potency")}</th><th>${T("选择性 ≤1 µM", "Off-targets ≤1 µM")}</th><th>${T("理化", "Physchem")}</th><th>${T("给药", "Dosing")}</th><th>${T("最新疗效数字", "Latest efficacy")}</th></tr></thead><tbody>${body}</tbody></table></div>` : `<p class="sm">${T("这个靶点的项目还没有公开结构或给药信息。", "No public structures or dosing for programs on this target yet.")}</p>`}
+    ${miss ? `<p class="sm">${T(`另有 ${miss} 个项目没有公开结构、ChEMBL 记录或登记的给药信息，多为抗体、细胞治疗或只公布了代号的早期分子。`, `${miss} more programs have no public structure, ChEMBL record or registered dosing — mostly antibodies, cell therapies or early code-only molecules.`)}</p>` : ""}
+    <p class="sm">${T("活性是 ChEMBL 里主靶点上各次测定（IC50 / Ki / Kd / EC50）的中位数，换算成 nM；选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，ChEMBL 只收录发表过的数据，「测过」少不代表选择性好。给药方案从注册库干预描述里抽取，以最常见的写法为准。「可能共价」按结构里的弹头判断，未经 ChEMBL 确认。标「专利推测」的结构是没有公开结构的研发代号，按专利挑出的最可能化合物，未经公司确认，鼠标停在下面的例号上可看判断依据。",
+      "Potency is the median ChEMBL pChEMBL (IC50 / Ki / Kd / EC50) on the primary target, converted to nM. Off-targets counts other human single proteins at ≤1 µM; ChEMBL only holds published data, so few targets tested does not mean selective. Dosing is parsed from registry intervention text, most common wording first. “Likely covalent” is inferred from a warhead in the structure and not confirmed by ChEMBL. “Patent-inferred” structures are undisclosed codes matched to the most likely patent compound, not confirmed by the company; hover the example number for the reasoning.")}</p></section>`;
+}
+function molCSV(g){
+  const FL = MOL.freq_lbl || {};
+  const rows = (CMP_CACHE.mol || []).filter(x => x.has).map(({p, m, news}) => [p.drug, p.co, p.ph, p.m || "", m.cov === 1 ? "covalent" : m.cov === 2 ? "likely covalent" : "", m.moa || "", m.ch || "",
+    m.bio ? m.bio.ty : "", m.bio ? nM(m.bio.v) : "", m.bio ? m.bio.n : "", m.cell ? nM(m.cell.v) : "", m.cell ? m.cell.n : "", m.sel ? m.sel.off : "", m.sel ? m.sel.tested : "",
+    m.mw || "", m.p?.alogp ?? "", m.p?.psa ?? "", m.p?.hbd ?? "", m.p?.hba ?? "", m.p?.qed ?? "", (m.route || []).join("/"), (m.freq || []).join("/"), (m.dose || []).join("; "),
+    news ? numsPlain(news.nums) : "", news ? news.d : "", m.smi || ""]);
+  downloadCSV(`${g.replace(/[^\w.-]+/g, "_")}_molecules.csv`, ["drug", "company", "phase", "modality", "covalent", "mechanism", "chembl_id", "potency_type", "potency_nM", "potency_target", "cell_nM", "cell_line", "off_targets_le_1uM", "targets_tested", "MW", "cLogP", "TPSA", "HBD", "HBA", "QED", "route", "frequency", "doses", "latest_efficacy", "efficacy_date", "SMILES"], rows);
 }
 
 /* ---------- 早期信号（IND、首例给药、首次人体、临床前数据、候选药物）：靶点页底部 ---------- */

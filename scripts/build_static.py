@@ -15,6 +15,7 @@ import html as H
 import json
 import os
 import re
+import urllib.parse
 import shutil
 import sys
 import unicodedata
@@ -192,7 +193,12 @@ class Site:
             self.struct = st if isinstance(st, dict) else {}
         except (OSError, ValueError):
             self.struct = {}
+        try:
+            self.mol = json.load(open(os.path.join(docs, "molecules.json"), encoding="utf-8"))
+        except (OSError, ValueError):
+            self.mol = {"drugs": {}}
         self.curated = (d.get("curated") or {}).get("readouts") or []
+        self._load_taxonomy(os.path.join(docs, "..", "data", "target_taxonomy.json"))
         self.alias = (d.get("tgsearch") or {}).get("alias") or {}
         self.known = (d.get("tgsearch") or {}).get("drugs") or {}
 
@@ -368,6 +374,26 @@ class Site:
     def abs(self, p):
         return self.site.rstrip("/") + p if p.startswith("/") else self.site + p
 
+    def _load_taxonomy(self, path):
+        """靶点分类（类别 › 家族）、通路（按上下游排的阶段）和额外关系，见 scripts/make_target_taxonomy.py。"""
+        try:
+            self.tax = json.load(open(path, encoding="utf-8"))
+        except (OSError, ValueError):
+            self.tax = {"classes": [], "pathways": [], "links": [], "rel_lbl": {}}
+        self.tax_of, self.fam_members, self.paths_of, self.links_of = {}, {}, collections.defaultdict(list), collections.defaultdict(list)
+        for c in self.tax["classes"]:
+            for f in c["families"]:
+                self.fam_members[f["id"]] = f["targets"]
+                for g in f["targets"]:
+                    self.tax_of[g] = (c, f)
+        for pw in self.tax["pathways"]:
+            for i, st in enumerate(pw["steps"]):
+                for g in st:
+                    self.paths_of[g].append((pw, i))
+        for a, b, ty in self.tax["links"]:
+            self.links_of[a].append((b, ty))
+            self.links_of[b].append((a, ty))
+
     def app(self, lang, frag=""):
         return self.base + ("?lang=en" if lang == "en" else "") + (("#" + frag) if frag else "")
 
@@ -528,6 +554,96 @@ def cur_block(S, lang, items):
     return f'<h2>{T(lang, "精选解读", "Curated readouts")}</h2>' + "".join(out)
 
 
+# ---------------- 分子对比表 ----------------
+ROUTE_EN = {"口服": "Oral", "静脉": "IV", "皮下": "SC", "肌注": "IM", "吸入": "Inhaled", "外用": "Topical", "玻璃体内": "Intravitreal",
+            "鞘内": "Intrathecal", "鼻用": "Nasal"}
+
+
+def nm_txt(v):
+    x = 10 ** (9 - v)
+    return f"{x:.2g}" if x < 100 else f"{x:,.0f}"
+
+
+def nk_txt(lang, bio):
+    k = bio.get("k") or 0
+    return T(lang, f" · {k} 次测定中位数", f" · median of {k}") if k > 1 else ""
+
+
+def num_txt(lang, n):
+    k, v = n.get("k", ""), n.get("v", "")
+    if k == "HR":
+        return f"HR {v}"
+    if k == "p":
+        return f"p{v}"
+    if k in ("mPFS", "mOS"):
+        return f"{k} {v} {T(lang, '个月', 'mo')}"
+    return f"{NUM_EN.get(k, k) if lang == 'en' else k} {v}%"
+
+
+def mol_img(lang, m, alt):
+    """有 PubChem CID 用它的图；只有 SMILES（ChEMBL、专利推测）让 PubChem 按 SMILES 现画。专利推测的加标注和专利链接。"""
+    if m.get("cid"):
+        return (f'<a href="https://pubchem.ncbi.nlm.nih.gov/compound/{m["cid"]}" rel="noopener" target="_blank"><img class="mol" loading="lazy" width="80" height="80" '
+                f'alt="{esc(alt)}" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{m["cid"]}/PNG?image_size=160x160"></a>')
+    if not m.get("smi"):
+        return ""
+    src = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/" + urllib.parse.quote(m["smi"], safe="") + "/PNG?image_size=160x160"
+    tag = ""
+    href = ""
+    if m.get("src") == "patent":
+        pat = m.get("pat") or ""
+        href = ("https://patents.google.com/patent/" + urllib.parse.quote(pat)) if pat else ""
+        tag = (f'<div class="sm" title="{esc(m.get("pwhy") or "")}">{T(lang, "专利推测", "Patent-inferred")}'
+               + (f' · {esc(pat)}' if pat else "") + (f' {esc(m["pex"])}' if m.get("pex") else "") + "</div>")
+    imgh = f'<img class="mol" loading="lazy" width="80" height="80" alt="{esc(alt)}" src="{esc(src)}">'
+    return (f'<a href="{esc(href)}" rel="noopener" target="_blank">{imgh}</a>' if href else imgh) + tag
+
+
+def mol_section(S, lang, g, progs):
+    D = S.mol.get("drugs") or {}
+    FL = S.mol.get("freq_lbl") or {}
+    rows = []
+    for p in progs:
+        ks = list(S.dinfo[p["drug"]]["keys"]) if p["drug"] in S.dinfo else []
+        for t in p["trials"]:
+            for e in t.get("tgm") or []:
+                if e.get("g") == g and e.get("n"):
+                    ks += dkeys(e["n"])
+        k = next((k for k in ks if k in D), None)
+        if not k:
+            continue
+        m = D[k]
+        kset = set(ks)
+        news = sorted([x for x in S.news if x.get("nums") and set(dkeys(x.get("drug"))) & kset], key=lambda x: x.get("d") or "", reverse=True)
+        cov = {1: T(lang, "共价", "Covalent"), 2: T(lang, "可能共价", "Likely covalent")}.get(m.get("cov"), "")
+        pr = m.get("p") or {}
+        phys = " · ".join(x for x in (f"MW {m['mw']}" if m.get("mw") else "", f"cLogP {pr['alogp']}" if pr.get("alogp") is not None else "",
+                                      f"TPSA {pr['psa']}" if pr.get("psa") is not None else "") if x)
+        route = " / ".join((ROUTE_EN.get(r, r) if lang == "en" else r) for r in m.get("route") or [])
+        freq = " / ".join((FL.get(f, [f, f])[0 if lang == "zh" else 1]) for f in m.get("freq") or [])
+        dose = ", ".join(m.get("dose") or [])
+        bio, cell, sel = m.get("bio"), m.get("cell"), m.get("sel")
+        img = mol_img(lang, m, p["name"])
+        drug = (S.dlink(lang, p["drug"]) if p["drug"] else esc(p["name"])) + f'<div class="sm">{esc(", ".join(c for c, _ in p["cos"].most_common(1) if c))} · {esc(ph_lbl(lang, p["ph"]))}</div>' \
+            + (f'<span class="v {"neg" if m.get("cov") == 1 else "mix"}">{cov}</span>' if cov else "")
+        rows.append([img, drug, esc(m.get("moa") or "—"),
+                     (f'<b>{esc(bio.get("ty") or "")} {nm_txt(bio["v"])} nM</b><div class="sm">{esc(bio.get("n") or "")}{nk_txt(lang, bio)}</div>' if bio else "—")
+                     + (f'<div class="sm">{T(lang, "细胞", "Cell")} {nm_txt(cell["v"])} nM · {esc(cell.get("n") or "")}</div>' if cell else ""),
+                     (f'{sel["off"]} <span class="sm">/ {T(lang, "测过", "tested")} {sel["tested"]}</span>' if sel else "—"),
+                     f'<span class="sm">{esc(phys) or "—"}</span>',
+                     f'<span class="sm">{esc(" · ".join(x for x in (route, freq) if x)) or "—"}{"<br>" + esc(dose) if dose else ""}</span>',
+                     (f'<span class="sm">{esc(" · ".join(num_txt(lang, n) for n in news[0]["nums"][:3]))}<br>{esc(news[0].get("d"))}</span>' if news else "—")])
+    if not rows:
+        return ""
+    head = [T(lang, "结构", "Structure"), T(lang, "药物", "Drug"), T(lang, "机制", "Mechanism"), T(lang, "活性", "Potency"),
+            T(lang, "选择性 ≤1 µM", "Off-targets ≤1 µM"), T(lang, "理化", "Physchem"), T(lang, "给药", "Dosing"), T(lang, "最新疗效数字", "Latest efficacy")]
+    note = T(lang, "结构来自 PubChem（少数研发代号没有公开结构，从专利里推测最可能的化合物，标「专利推测」，未经公司确认）；机制、活性和理化性质来自 ChEMBL（活性是主靶点上各次测定 pChEMBL 的中位数，换算成 nM，选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，只含已发表数据）；给药方案从注册库干预描述里抽取；「可能共价」按结构里的弹头判断。",
+             "Structures from PubChem (a few undisclosed codes show the most likely compound from patents, marked “patent-inferred” and not confirmed by the company); mechanism, potency and physchem from ChEMBL (median pChEMBL on the primary target as nM; off-targets are other human single proteins at ≤1 µM, published data only); dosing parsed from registry intervention text; “likely covalent” inferred from a warhead in the structure.")
+    return (f'<h2>{T(lang, "分子对比", "Molecule comparison")} <small>{len(rows)}</small></h2>'
+            f'<p>{T(lang, f"{g} 上各家分子的结构、机制、活性、选择性、理化性质、给药方案和最新疗效数字。", f"Competing {S.tr(g)} molecules: structure, mechanism, potency, selectivity, physchem, dosing and latest efficacy.")}</p>'
+            + table(head, rows, "moltab") + f'<p class="sm">{note}</p>')
+
+
 # ---------------- 靶点页 ----------------
 def target_page(S, lang, g):
     x = S.tinfo[g]
@@ -613,11 +729,13 @@ def target_page(S, lang, g):
 <h2>{T(lang, "临床项目", "Clinical programs")} <small>{len(progs)}</small></h2>
 {table([T(lang, "药物", "Drug"), T(lang, "公司", "Company"), T(lang, "药物形式", "Modality"), T(lang, "最高阶段", "Furthest phase"),
         T(lang, "试验数", "Trials"), T(lang, "代表试验", "Lead trial")], prow)}
+{mol_section(S, lang, g, progs)}
 {f'<h2>{T(lang, "试验读出与终止", "Readouts and stopped trials")} <small>{len(readouts)}</small></h2>' + table(trial_head(lang), [trial_row(S, lang, t) for t in readouts[:80]]) if readouts else ""}
 {f'<h2>{T(lang, "新闻稿读出", "Topline news")}</h2>' + table([T(lang, "日期", "Date"), T(lang, "判定", "Call"), T(lang, "标题", "Headline"), T(lang, "来源", "Source")], news_rows(S, lang, x["news"])) if x["news"] else ""}
 {f'<h2>{T(lang, "未来半年到达主要完成日", "Primary completion in the next six months")} <small>{len(up)}</small></h2>' + table(trial_head(lang), [trial_row(S, lang, t) for t in up[:60]]) if up else ""}
 {cur_block(S, lang, x["cur"])}
-{f'<h2>{T(lang, "相关靶点", "Related targets")}</h2><p class="rel">' + " · ".join(S.tlink(lang, h) for h in rel) + "</p>" if rel else ""}
+{tax_block(S, lang, g)}
+{f'<h2>{T(lang, "常在同一试验里出现的靶点", "Often in the same trials")}</h2><p class="rel">' + " · ".join(S.tlink(lang, h) for h in rel) + "</p>" if rel else ""}
 """
     title = T(lang, f"{g} 靶点临床管线：{len(progs)} 个项目、{len(cos)} 家公司 | Hit or Miss",
               f"{gn} drugs in clinical trials: {len(progs)} programs, {len(cos)} companies | Hit or Miss")
@@ -848,6 +966,50 @@ def trial_page(S, lang, t):
 
 
 # ---------------- 索引页 ----------------
+def tax_name(lang, x):
+    return x["en"] if lang == "en" else x["zh"]
+
+
+def pathway_chain(S, lang, pw, cur=None):
+    """通路画成一行：阶段之间用 →，同阶段并列用 /，当前靶点加粗。"""
+    def one(g):
+        return f"<b>{esc(S.tr(g) if lang == 'en' else g)}</b>" if g == cur else S.tlink(lang, g)
+    return ' <span class="arr">→</span> '.join('<span class="stg">' + " / ".join(one(g) for g in st) + "</span>" for st in pw["steps"])
+
+
+def tax_block(S, lang, g):
+    """靶点页上的「分类与通路」：类别 › 家族、同家族靶点、所在通路的上下游，以及配体–受体、合成致死等直接关系。"""
+    out = []
+    if g in S.tax_of:
+        c, f = S.tax_of[g]
+        peers = [h for h in S.fam_members[f["id"]] if h != g]
+        fam = tax_name(lang, f) if tax_name(lang, f) != tax_name(lang, c) else ""
+        href = S.path(lang, "targets") + "#c-" + c["id"]
+        out.append(f'<p><b>{T(lang, "分类", "Class")}</b>{T(lang, "：", ": ")}<a href="{href}">{esc(tax_name(lang, c))}</a>{" › " + esc(fam) if fam else ""}'
+                   + (f'<br><span class="sm">{T(lang, "同家族", "Same family")}{T(lang, "：", ": ")}</span>' + " · ".join(S.tlink(lang, h) for h in peers) if peers else "") + "</p>")
+    for pw, i in S.paths_of.get(g, []):
+        up = pw["steps"][i - 1] if i > 0 else []
+        dn = pw["steps"][i + 1] if i + 1 < len(pw["steps"]) else []
+        pos = []
+        if up:
+            pos.append(T(lang, "上游 ", "upstream ") + " / ".join(S.tlink(lang, h) for h in up))
+        if dn:
+            pos.append(T(lang, "下游 ", "downstream ") + " / ".join(S.tlink(lang, h) for h in dn))
+        out.append(f'<div class="pw"><b><a href="{S.path(lang, "targets")}#p-{pw["id"]}">{esc(tax_name(lang, pw))}</a></b>'
+                   + (f' <span class="sm">· {" · ".join(pos)}</span>' if pos else "")
+                   + f'<div class="chain">{pathway_chain(S, lang, pw, g)}</div><div class="sm">{esc(pw["den"] if lang == "en" else pw["dzh"])}</div></div>')
+    if S.links_of.get(g):
+        by = collections.defaultdict(list)
+        for h, ty in S.links_of[g]:
+            by[ty].append(h)
+        lbl = S.tax.get("rel_lbl") or {}
+        out.append("<p>" + "<br>".join(f'<span class="sm">{esc((lbl.get(ty) or [ty, ty])[1 if lang == "en" else 0])}{T(lang, "：", ": ")}</span>' + " · ".join(S.tlink(lang, h) for h in hs)
+                                       for ty, hs in by.items()) + "</p>")
+    if not out:
+        return ""
+    return f'<h2>{T(lang, "分类与通路", "Class and pathways")}</h2>' + "".join(out)
+
+
 def hub_targets(S, lang):
     tr = S.tr if lang == "en" else (lambda s: s)
     gs = sorted(S.tinfo, key=lambda g: (-len(S.tinfo[g]["progs"]), g))
@@ -858,10 +1020,36 @@ def hub_targets(S, lang):
         maxp = max((p["ph"] for p in x["progs"]), key=phn, default="")
         tas = collections.Counter(t.get("ta") for t in x["trials"] if t.get("ta"))
         rows.append([S.tlink(lang, g), str(len(x["progs"])), str(len(cos)), esc(ph_lbl(lang, maxp)), esc(", ".join(tr(a) for a, _ in tas.most_common(2)))])
-    desc = T(lang, f"按靶点查临床管线：{len(gs)} 个靶点，每个靶点有多少临床项目、几家公司、最高推进到哪一期、试验读出成败。",
-             f"Clinical pipelines by drug target: {len(gs)} targets, with program counts, companies, furthest phase and trial readouts.")
+    desc = T(lang, f"按靶点查临床管线：{len(gs)} 个靶点按分子类别和家族分组，附主要信号通路的上下游关系；每个靶点有多少临床项目、几家公司、最高推进到哪一期。",
+             f"Clinical pipelines by drug target: {len(gs)} targets grouped by molecular class and family, with the main signalling pathways; program counts, companies and furthest phase for each.")
+    rowof = dict(zip(gs, rows))
+    secs, toc, seen = [], [], set()
+    for c in S.tax["classes"]:
+        crow = []
+        for f in c["families"]:
+            ts = sorted([g for g in f["targets"] if g in rowof], key=lambda g: (-len(S.tinfo[g]["progs"]), g))
+            for i, g in enumerate(ts):
+                seen.add(g)
+                r = rowof[g]
+                crow.append([esc(tax_name(lang, f)) if i == 0 else ""] + r[:4])
+        if not crow:
+            continue
+        n = sum(1 for f in c["families"] for g in f["targets"] if g in rowof)
+        toc.append(f'<a href="#c-{c["id"]}">{esc(tax_name(lang, c))}</a> <span class="sm">{n}</span>')
+        secs.append(f'<h2 id="c-{c["id"]}">{esc(tax_name(lang, c))} <small>{n}</small></h2>'
+                    + table([T(lang, "家族", "Family"), T(lang, "靶点", "Target"), T(lang, "临床项目", "Programs"), T(lang, "公司", "Companies"), T(lang, "最高阶段", "Furthest phase")], crow))
+    rest = [rowof[g] for g in gs if g not in seen]
+    if rest:
+        secs.append(f'<h2 id="c-other">{T(lang, "未分类", "Unclassified")} <small>{len(rest)}</small></h2>'
+                    + table([T(lang, "靶点", "Target"), T(lang, "临床项目", "Programs"), T(lang, "公司", "Companies"), T(lang, "最高阶段", "Furthest phase"), T(lang, "领域", "Areas")], rest))
+    pws = "".join(f'<div class="pw" id="p-{pw["id"]}"><b>{esc(tax_name(lang, pw))}</b><div class="chain">{pathway_chain(S, lang, pw)}</div>'
+                  f'<div class="sm">{esc(pw["den"] if lang == "en" else pw["dzh"])}</div></div>' for pw in S.tax["pathways"])
     body = f"""<h1>{T(lang, "靶点", "Targets")} <small>{len(gs)}</small></h1><p class="lead">{esc(desc)}</p>
-{table([T(lang, "靶点", "Target"), T(lang, "临床项目", "Programs"), T(lang, "公司", "Companies"), T(lang, "最高阶段", "Furthest phase"), T(lang, "领域", "Areas")], rows)}"""
+<p class="rel">{" · ".join(toc)} · <a href="#pathways">{T(lang, "信号通路", "Pathways")}</a></p>
+{"".join(secs)}
+<h2 id="pathways">{T(lang, "信号通路与上下游", "Pathways: upstream to downstream")} <small>{len(S.tax["pathways"])}</small></h2>
+<p class="sm">{T(lang, "箭头从上游指向下游，斜杠分隔同一环节上并列的靶点；没有箭头的是同一疾病机制下的相关靶点分组。", "Arrows run upstream to downstream; slashes separate targets at the same step. Groups without arrows are related targets for one disease mechanism, not a cascade.")}</p>
+{pws}"""
     return page(S, lang, "targets", "", T(lang, "靶点临床管线一览 | Hit or Miss", "Drug targets in clinical development | Hit or Miss"), desc, body,
                 [(S.app(lang), "Hit or Miss"), (S.path(lang, "targets"), T(lang, "靶点", "Targets"))])
 
@@ -933,7 +1121,8 @@ td:last-child{white-space:nowrap}
 .facts{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0}
 .facts dt{color:var(--muted);font-size:13px}.facts dd{margin:0}
 .cur{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}.cur h3{margin:2px 0}.cur p{margin:4px 0}
-.rel{line-height:2}.az a{display:inline-block;min-width:22px;text-align:center}
+.rel{line-height:2}.pw{margin:10px 0 14px}.pw .chain{margin:4px 0;line-height:1.9}.pw .stg{white-space:normal}.pw .arr{color:#888;margin:0 4px}.az a{display:inline-block;min-width:22px;text-align:center}
+.moltab td:first-child{width:92px}.moltab img.mol{display:block}.moltab{min-width:900px}
 .dh{display:flex;gap:18px;align-items:flex-start}.mol{background:#fff;border-radius:10px;border:1px solid var(--line)}
 code{font-family:var(--f-mono);font-size:12px;word-break:break-all}
 footer{max-width:1080px;margin:0 auto;padding:14px 16px 28px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
@@ -999,6 +1188,9 @@ def build(d, docs, site_url=None):
     sm.append("</urlset>\n")
     with open(os.path.join(docs, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write("\n".join(sm))
+    untaxed = [g for g in S.tinfo if g not in S.tax_of]
+    if untaxed:
+        print(f"[warn] {len(untaxed)} targets have no class in data/target_taxonomy.json (add them in scripts/make_target_taxonomy.py): {', '.join(untaxed[:12])}", file=sys.stderr)
     return {"targets": len(S.tinfo), "drugs": len(S.dpage), "trials": len(S.main), "urls": 2 * len(urls) + 1}
 
 

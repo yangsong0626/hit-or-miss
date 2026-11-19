@@ -436,6 +436,9 @@ table.dp-t{min-width:0;font-size:13px;margin:6px 0}
 .crumb button{font:inherit;font-weight:700;background:none;border:0;color:var(--accent);cursor:pointer;padding:0}
 /* 靶点索引 */
 .tgx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.tgx-cls{grid-column:1/-1;margin:14px 0 0;font-size:15px}.tgx-cls small{color:var(--muted);font-weight:400}
+.tax-box{margin:10px 0 4px;padding:8px 12px;border-left:3px solid var(--line);font-size:13px;line-height:1.7}.tax-row{margin:3px 0}.tax-row>.sm:first-child{display:inline-block;min-width:56px}
+.tax-chain{margin:2px 0}.tax-chain .arr{color:var(--muted);margin:0 3px}.tax-box .linkish{font-size:inherit}
 .tgx-card{display:flex;flex-direction:column;gap:5px;text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:11px 12px;cursor:pointer;min-width:0}
 .tgx-card:hover{border-color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
 .tgx-card h3{margin:0;font-family:var(--f-display);font-size:21px;font-weight:600;letter-spacing:.01em;line-height:1.1;overflow-wrap:anywhere}
@@ -577,6 +580,11 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
 .tbl-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .drug-head{display:flex;gap:16px;align-items:flex-start}
 .drug-head .mol{flex:none}
+.mol-tab{width:100%;border-collapse:collapse;font-size:13px;min-width:980px}
+.mol-tab th{font-size:12px;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.mol-tab td{padding:8px;border-top:1px solid var(--line);vertical-align:top}
+.mol-tab td.mol-st{width:96px}.mol-tab .mono{font-family:var(--f-mono);font-size:11.5px;line-height:1.55;white-space:nowrap}
+.tag.mol-cov{background:var(--neg-soft);color:var(--neg)}.tag.mol-cov2{background:var(--mix-soft);color:var(--mix)}
 .smiles code{font-size:11px;word-break:break-all}
 .kpis.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.kpis.mini .n{font-size:20px;font-weight:700}.kpis.mini .l{font-size:12px;color:var(--muted)}
 .drug-tl{list-style:none;padding:0;margin:0;border-left:2px solid var(--line)}
@@ -652,7 +660,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
             <option value="放射性药物">放射性药物</option>
           </select>
           <select id="tgx-ph" aria-label="最高阶段"><option value="">全部阶段</option><option value="3">已到 III 期</option><option value="2">最高 II 期</option><option value="1">最高 I 期</option><option value="0">临床前</option></select>
-          <select id="tgx-sort" aria-label="排序"><option value="prog">按项目数</option><option value="co">按公司数</option><option value="new">按近 12 个月新进</option><option value="az">按字母</option></select>
+          <select id="tgx-sort" aria-label="排序"><option value="prog">按项目数</option><option value="co">按公司数</option><option value="new">按近 12 个月新进</option><option value="az">按字母</option><option value="cls">按分类</option></select>
         </div>
         <p class="q-hint" id="tgx-hint" hidden></p>
         <div class="tgx-grid" id="tgx-grid"></div>

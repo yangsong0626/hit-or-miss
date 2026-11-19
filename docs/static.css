@@ -34,7 +34,8 @@ td:last-child{white-space:nowrap}
 .facts{display:grid;grid-template-columns:max-content 1fr;gap:4px 18px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0}
 .facts dt{color:var(--muted);font-size:13px}.facts dd{margin:0}
 .cur{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}.cur h3{margin:2px 0}.cur p{margin:4px 0}
-.rel{line-height:2}.az a{display:inline-block;min-width:22px;text-align:center}
+.rel{line-height:2}.pw{margin:10px 0 14px}.pw .chain{margin:4px 0;line-height:1.9}.pw .stg{white-space:normal}.pw .arr{color:#888;margin:0 4px}.az a{display:inline-block;min-width:22px;text-align:center}
+.moltab td:first-child{width:92px}.moltab img.mol{display:block}.moltab{min-width:900px}
 .dh{display:flex;gap:18px;align-items:flex-start}.mol{background:#fff;border-radius:10px;border:1px solid var(--line)}
 code{font-family:var(--f-mono);font-size:12px;word-break:break-all}
 footer{max-width:1080px;margin:0 auto;padding:14px 16px 28px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}

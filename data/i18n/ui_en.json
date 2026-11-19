@@ -1,6 +1,7 @@
 {
 "exact": {
 "浏览：": "Browse:",
+"Hit or Miss · 临床试验读出追踪：靶点、药物、试验成败": "Hit or Miss · Clinical trial readout tracker: targets, drugs, wins and misses",
 "靶点一览": "All targets",
 "药物一览": "All drugs",
 "试验一览": "All trials",
@@ -337,6 +338,7 @@
 "最高 I 期": "Max phase 1",
 "最高阶段": "Furthest phase",
 "按字母": "A–Z",
+"按分类": "By class",
 "按治疗领域看最近的 II/III 期读出。点进领域可以按适应症筛选，并排比较各试验的主要终点：风险比等效应量、治疗组与对照组的应答率、中位生存时间，以及接下来半年要读出的 III 期试验。": "Recent phase 2/3 readouts by therapy area. Open an area to filter by indication and compare primary endpoints side by side: effect sizes such as hazard ratios, response rates in treatment vs control, median survival times, and the phase 3 trials reading out in the next six months.",
 "并购案例": "Acquisitions",
 "2019 年以来金额不低于 10 亿美元的创新药收购（含或有付款 CVR 和里程碑在内的总额），不含医疗器械、工具、仿制药和动物保健。每条注明收购时核心资产所处的阶段和靶点，用来看谁在买、买什么、在哪个阶段出手。点图里的柱子或买家名可以筛选下面的列表。": "Innovative-drug acquisitions since 2019 worth at least $1B (total including CVRs and milestones), excluding devices, tools, generics and animal health. Each deal notes the lead asset's stage and target at announcement, to show who is buying, what, and at which stage. Click a bar or buyer to filter the list below.",

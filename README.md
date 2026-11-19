@@ -73,6 +73,9 @@ scripts/targets.py       从注册信息自动抽取靶点
 scripts/fetch_preclinical.py  从 Open Targets 拉取癌症相关靶点，去掉已进临床的，按证据、可成药性、热度、风险打分
 scripts/check_watch.py  每周用 openFDA 核对交易候选里的药物有没有在「最后核实日期」之后获批，写 data/watch_alerts.json；有新发现时工作流自动开 GitHub issue
 scripts/build_site.py    把 trials.json 内嵌进模板，生成 docs/index.html
+scripts/fetch_chembl.py  给有结构的小分子补 ChEMBL 数据（理化性质、机制、活性、选择性），缓存在 data/chembl.json，每周增量
+scripts/make_target_taxonomy.py  靶点分类、信号通路和关系（人工维护）→ data/target_taxonomy.json
+scripts/molecules.py     分子对比表：结构 + ChEMBL + 注册库里登记的给药方案 → docs/molecules.json
 scripts/build_static.py  给搜索引擎的静态页（build_site.py 最后自动调用）：docs/target/、docs/drug/、docs/trial/ 和英文版 docs/en/，加 sitemap.xml、robots.txt、404.html
 scripts/fetch_feeds.py   每周抓靶点页的文献（Europe PMC）和新闻（Google News）
 site/portals.js          靶点 / 治疗领域 / 并购三个入口的页面代码，构建时插进模板
@@ -96,6 +99,20 @@ python scripts/build_site.py site/template.html data/trials.json docs/index.html
 ```bash
 python scripts/fetch_trials.py --reclassify data/trials.json
 ```
+
+## 分子对比表
+
+靶点页的「分子」分页（静态靶点页里也有一节）把各家分子放在一起：结构（PubChem）、作用机制和是否共价（ChEMBL 机制注释；没有注释但结构里有丙烯酰胺等弹头的标「可能共价」）、主靶点活性（ChEMBL 各次测定 pChEMBL 的中位数，换算成 nM）、细胞活性、选择性（除主靶点外 ≤1 µM 的人源单一蛋白个数 / 测过的个数）、理化性质（MW、cLogP、TPSA、HBD/HBA、QED）、注册库干预描述里抽出的给药途径、频次和剂量，以及新闻稿里最新的疗效数字。可导出 CSV（含 SMILES）。
+
+ChEMBL 接口很慢（常用药一次活性查询要一分钟以上），所以 `fetch_chembl.py` 按 InChIKey 增量查询、并发 5 个，每周最多跑约 38 分钟，优先查出现在靶点项目里的分子；第一次补齐需要几周。手动多跑几次可以更快补齐：
+
+```bash
+python scripts/fetch_chembl.py --max 400 --minutes 90 --workers 6
+```
+
+结构查找：干预名先去掉盐型、剂量、剂型和「Dose 1」之类的后缀，联用方案拆成单药（`molecules.core_names`）；PubChem 按名字查不到的研发代号，再试有无连字符的写法，最后查 ChEMBL 同义词表。
+
+没有公开结构的研发代号可以人工补进 `data/structures_patent.json`：从专利里挑最可能的临床化合物（例如单独有盐型或晶型专利、在后续联用专利里被点名的那个），写明专利号、例号和判断依据。页面上标「专利推测」并链接到专利，不查 ChEMBL。
 
 ## 搜索引擎收录
 
