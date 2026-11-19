@@ -34,16 +34,18 @@ function structOf(name){
   for (const k of (Array.isArray(name) ? name : drugKeys(name))) if (STRUCT[k]) return STRUCT[k];
   return null;
 }
-// s = [CID, SMILES, 分子量, 专利号]：有 CID 用 PubChem 的图；只有 SMILES（ChEMBL 或专利推测）让 PubChem 按 SMILES 现画
+// s = [CID, SMILES, 分子量, 来源]：有 CID 用 PubChem 的图，否则让 PubChem 按 SMILES 现画。
+// 来源 "P:专利号" = 专利推测，"V:供应商|产品页" = 供应商结构，都加标注并链接到出处
 const molImg = (s, size, alt) => {
   if (!s || !(s[0] || s[1])) return "";
   const src = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${s[0]}/PNG?image_size=${size * 2}x${size * 2}`
     : `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${encodeURIComponent(s[1])}/PNG?image_size=${size * 2}x${size * 2}`;
-  const pat = !s[0] && s[3];
-  const href = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/compound/${s[0]}` : pat && pat !== "patent" ? `https://patents.google.com/patent/${encodeURIComponent(pat)}` : "";
-  const title = pat ? T(`专利推测结构（${pat}），未经公司确认`, `Inferred from patent ${pat}; not confirmed by the company`) : T("PubChem 结构", "Structure on PubChem");
+  const tg = String(s[3] || ""), pat = tg.startsWith("P:") ? tg.slice(2) : "", ven = tg.startsWith("V:") ? tg.slice(2).split("|") : null;
+  let href = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/compound/${s[0]}` : "", title = T("PubChem 结构", "Structure on PubChem"), lbl = "";
+  if (tg.startsWith("P:")) { if (pat) href = `https://patents.google.com/patent/${encodeURIComponent(pat)}`; title = T(`专利推测结构${pat ? `（${pat}）` : ""}，未经公司确认`, `Inferred from patent ${pat}; not confirmed by the company`); lbl = T("专利推测", "Patent-inferred"); }
+  if (ven) { if (ven[1]) href = ven[1]; title = T(`试剂供应商 ${ven[0]} 给出的结构，未经公司确认`, `Structure from reagent vendor ${ven[0]}; not confirmed by the company`); lbl = T("供应商结构", "Vendor structure"); }
   const img = `<img class="mol" style="width:${size}px;height:${size}px" loading="lazy" alt="${esc(alt || "")}" src="${src}">`;
-  return `<a class="mol-wrap" ${href ? `href="${href}" target="_blank" rel="noopener"` : ""} title="${esc(title)}">${img}</a>${pat ? `<div class="sm mol-pat">${T("专利推测", "Patent-inferred")}</div>` : ""}`;
+  return `<a class="mol-wrap" ${href ? `href="${esc(href)}" target="_blank" rel="noopener"` : ""} title="${esc(title)}">${img}</a>${lbl ? `<div class="sm mol-pat">${lbl}</div>` : ""}`;
 };
 // todayISO 已在模板里定义
 function downloadFile(name, text, type){
@@ -492,7 +494,7 @@ function tgMol(g, {r}){
     const sel = m.sel ? `${T(`另有 ${m.sel.off} 个`, `${m.sel.off} other`)} <span class="sm">/ ${T(`测过 ${m.sel.tested}`, `${m.sel.tested} tested`)}</span>` : "—";
     const pr = m.p || {};
     return `<tr>
-      <td class="mol-st">${m.cid || m.smi ? molImg([m.cid, m.smi, m.mw, m.src === "patent" ? (m.pat || "patent") : null], 84, p.drug) : `<span class="sm">${esc(p.m || "")}</span>`}${m.src === "patent" && m.pwhy ? `<div class="sm" title="${esc(m.pwhy)}">${esc(m.pex || "")}</div>` : ""}</td>
+      <td class="mol-st">${m.cid || m.smi ? molImg([m.cid, m.smi, m.mw, m.src === "patent" ? "P:" + (m.pat || "") : m.src === "vendor" ? "V:" + (m.vendor || "") + "|" + (m.vurl || "") : null], 84, p.drug) : `<span class="sm">${esc(p.m || "")}</span>`}${(m.src === "patent" || m.src === "vendor") && m.pwhy ? `<div class="sm" title="${esc(m.pwhy)}">${esc(m.pex || "")}</div>` : ""}</td>
       <td><button class="tbtn" data-od="${esc(k)}">${esc(p.drug)}</button><div class="sm">${esc(p.co)} · ${PHN(p.ph)}${T(" 期", "")}</div><div>${molCovTag(m)}</div></td>
       <td class="sm">${esc(m.moa || "")}${m.ch ? `<div><a href="https://www.ebi.ac.uk/chembl/compound_report_card/${esc(m.ch)}/" target="_blank" rel="noopener">${esc(m.ch)}</a></div>` : ""}</td>
       <td>${m.bio ? `<b>${esc(potTxt(m.bio))}</b><div class="sm">${esc(m.bio.n || "")}${m.bio.k > 1 ? T(` · ${m.bio.k} 次测定中位数`, ` · median of ${m.bio.k}`) : ""}</div>` : "—"}${m.cell ? `<div class="sm">${T("细胞", "Cell")} ${esc(potTxt(m.cell))} · ${esc(m.cell.n)}</div>` : ""}</td>
@@ -507,8 +509,8 @@ function tgMol(g, {r}){
       "Competing molecules side by side: structure, mechanism (covalent or not), potency and selectivity, physchem, clinical dosing and the latest reported efficacy — to see where the bar is and where there is room to differentiate.")}</p>
     ${withData.length ? `<div class="tablewrap"><table class="mol-tab"><thead><tr><th>${T("结构", "Structure")}</th><th>${T("药物", "Drug")}</th><th>${T("机制", "Mechanism")}</th><th>${T("活性", "Potency")}</th><th>${T("选择性 ≤1 µM", "Off-targets ≤1 µM")}</th><th>${T("理化", "Physchem")}</th><th>${T("给药", "Dosing")}</th><th>${T("最新疗效数字", "Latest efficacy")}</th></tr></thead><tbody>${body}</tbody></table></div>` : `<p class="sm">${T("这个靶点的项目还没有公开结构或给药信息。", "No public structures or dosing for programs on this target yet.")}</p>`}
     ${miss ? `<p class="sm">${T(`另有 ${miss} 个项目没有公开结构、ChEMBL 记录或登记的给药信息，多为抗体、细胞治疗或只公布了代号的早期分子。`, `${miss} more programs have no public structure, ChEMBL record or registered dosing — mostly antibodies, cell therapies or early code-only molecules.`)}</p>` : ""}
-    <p class="sm">${T("活性是 ChEMBL 里主靶点上各次测定（IC50 / Ki / Kd / EC50）的中位数，换算成 nM；选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，ChEMBL 只收录发表过的数据，「测过」少不代表选择性好。给药方案从注册库干预描述里抽取，以最常见的写法为准。「可能共价」按结构里的弹头判断，未经 ChEMBL 确认。标「专利推测」的结构是没有公开结构的研发代号，按专利挑出的最可能化合物，未经公司确认，鼠标停在下面的例号上可看判断依据。",
-      "Potency is the median ChEMBL pChEMBL (IC50 / Ki / Kd / EC50) on the primary target, converted to nM. Off-targets counts other human single proteins at ≤1 µM; ChEMBL only holds published data, so few targets tested does not mean selective. Dosing is parsed from registry intervention text, most common wording first. “Likely covalent” is inferred from a warhead in the structure and not confirmed by ChEMBL. “Patent-inferred” structures are undisclosed codes matched to the most likely patent compound, not confirmed by the company; hover the example number for the reasoning.")}</p></section>`;
+    <p class="sm">${T("活性是 ChEMBL 里主靶点上各次测定（IC50 / Ki / Kd / EC50）的中位数，换算成 nM；选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，ChEMBL 只收录发表过的数据，「测过」少不代表选择性好。给药方案从注册库干预描述里抽取，以最常见的写法为准。「可能共价」按结构里的弹头判断，未经 ChEMBL 确认。标「专利推测」「供应商结构」的是没有公开结构的研发代号，分别取自专利里最可能的化合物和试剂供应商，都未经公司确认，鼠标停在结构下方可看依据。",
+      "Potency is the median ChEMBL pChEMBL (IC50 / Ki / Kd / EC50) on the primary target, converted to nM. Off-targets counts other human single proteins at ≤1 µM; ChEMBL only holds published data, so few targets tested does not mean selective. Dosing is parsed from registry intervention text, most common wording first. “Likely covalent” is inferred from a warhead in the structure and not confirmed by ChEMBL. “Patent-inferred” and “vendor structure” mark undisclosed codes filled from the most likely patent compound or a reagent vendor, neither confirmed by the company; hover below the structure for the reasoning.")}</p></section>`;
 }
 function molCSV(g){
   const FL = MOL.freq_lbl || {};

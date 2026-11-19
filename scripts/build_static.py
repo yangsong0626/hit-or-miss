@@ -581,20 +581,24 @@ def num_txt(lang, n):
 
 
 def mol_img(lang, m, alt):
-    """有 PubChem CID 用它的图；只有 SMILES（ChEMBL、专利推测）让 PubChem 按 SMILES 现画。专利推测的加标注和专利链接。"""
+    """有 PubChem CID 用它的图，否则让 PubChem 按 SMILES 现画。专利推测、供应商结构的加标注，链接到专利或供应商页面。"""
     if m.get("cid"):
-        return (f'<a href="https://pubchem.ncbi.nlm.nih.gov/compound/{m["cid"]}" rel="noopener" target="_blank"><img class="mol" loading="lazy" width="80" height="80" '
-                f'alt="{esc(alt)}" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{m["cid"]}/PNG?image_size=160x160"></a>')
-    if not m.get("smi"):
+        src = f'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{m["cid"]}/PNG?image_size=160x160'
+        href = f'https://pubchem.ncbi.nlm.nih.gov/compound/{m["cid"]}'
+    elif m.get("smi"):
+        src = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/" + urllib.parse.quote(m["smi"], safe="") + "/PNG?image_size=160x160"
+        href = ""
+    else:
         return ""
-    src = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/" + urllib.parse.quote(m["smi"], safe="") + "/PNG?image_size=160x160"
     tag = ""
-    href = ""
     if m.get("src") == "patent":
         pat = m.get("pat") or ""
-        href = ("https://patents.google.com/patent/" + urllib.parse.quote(pat)) if pat else ""
+        href = ("https://patents.google.com/patent/" + urllib.parse.quote(pat)) if pat else href
         tag = (f'<div class="sm" title="{esc(m.get("pwhy") or "")}">{T(lang, "专利推测", "Patent-inferred")}'
                + (f' · {esc(pat)}' if pat else "") + (f' {esc(m["pex"])}' if m.get("pex") else "") + "</div>")
+    elif m.get("src") == "vendor":
+        href = m.get("vurl") or href
+        tag = f'<div class="sm" title="{esc(m.get("pwhy") or "")}">{T(lang, "供应商结构", "Vendor structure")} · {esc(m.get("vendor") or "")}</div>'
     imgh = f'<img class="mol" loading="lazy" width="80" height="80" alt="{esc(alt)}" src="{esc(src)}">'
     return (f'<a href="{esc(href)}" rel="noopener" target="_blank">{imgh}</a>' if href else imgh) + tag
 
@@ -637,8 +641,8 @@ def mol_section(S, lang, g, progs):
         return ""
     head = [T(lang, "结构", "Structure"), T(lang, "药物", "Drug"), T(lang, "机制", "Mechanism"), T(lang, "活性", "Potency"),
             T(lang, "选择性 ≤1 µM", "Off-targets ≤1 µM"), T(lang, "理化", "Physchem"), T(lang, "给药", "Dosing"), T(lang, "最新疗效数字", "Latest efficacy")]
-    note = T(lang, "结构来自 PubChem（少数研发代号没有公开结构，从专利里推测最可能的化合物，标「专利推测」，未经公司确认）；机制、活性和理化性质来自 ChEMBL（活性是主靶点上各次测定 pChEMBL 的中位数，换算成 nM，选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，只含已发表数据）；给药方案从注册库干预描述里抽取；「可能共价」按结构里的弹头判断。",
-             "Structures from PubChem (a few undisclosed codes show the most likely compound from patents, marked “patent-inferred” and not confirmed by the company); mechanism, potency and physchem from ChEMBL (median pChEMBL on the primary target as nM; off-targets are other human single proteins at ≤1 µM, published data only); dosing parsed from registry intervention text; “likely covalent” inferred from a warhead in the structure.")
+    note = T(lang, "结构来自 PubChem（少数研发代号没有公开结构，用专利里最可能的化合物或试剂供应商给出的结构，分别标「专利推测」「供应商结构」，都未经公司确认）；机制、活性和理化性质来自 ChEMBL（活性是主靶点上各次测定 pChEMBL 的中位数，换算成 nM，选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，只含已发表数据）；给药方案从注册库干预描述里抽取；「可能共价」按结构里的弹头判断。",
+             "Structures from PubChem (a few undisclosed codes show the most likely patent compound or a reagent vendor’s structure, marked “patent-inferred” or “vendor structure”, neither confirmed by the company); mechanism, potency and physchem from ChEMBL (median pChEMBL on the primary target as nM; off-targets are other human single proteins at ≤1 µM, published data only); dosing parsed from registry intervention text; “likely covalent” inferred from a warhead in the structure.")
     return (f'<h2>{T(lang, "分子对比", "Molecule comparison")} <small>{len(rows)}</small></h2>'
             f'<p>{T(lang, f"{g} 上各家分子的结构、机制、活性、选择性、理化性质、给药方案和最新疗效数字。", f"Competing {S.tr(g)} molecules: structure, mechanism, potency, selectivity, physchem, dosing and latest efficacy.")}</p>'
             + table(head, rows, "moltab") + f'<p class="sm">{note}</p>')

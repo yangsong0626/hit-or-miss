@@ -144,7 +144,7 @@ def export(root, docs, targeted_names, regimen):
         for k, x in json.load(open(p, encoding="utf-8")).get("items", {}).items():
             if x.get("smi"):
                 for kk in [k] + list(x.get("al") or []):
-                    by_key.setdefault(kk, dict(x, src="patent"))
+                    by_key.setdefault(kk, dict(x, src=x.get("src") or "patent"))
     drugs = {}
     for name in targeted_names:
         ks = dkeys(name)
@@ -152,15 +152,17 @@ def export(root, docs, targeted_names, regimen):
             continue
         k = ks[0]
         # 先用原名键，对不上再用去掉盐型、剂量、剂型后的药名（「Osimertinib Mesylate Tablets」→ osimertinib）
-        sx = next((by_key[kk] for kk in ks + core_keys(name) if kk in by_key), None)
+        # 联用方案只用第一个药（「QLC1101+docetaxel」不能匹配到多西他赛）
+        sx = next((by_key[kk] for kk in ks + core_keys(name)[:1] if kk in by_key), None)
         rg = regimen.get(k)
         if not sx and not rg:
             continue
         e = {"n": re.split(r"[(（\[]", name)[0].strip()}
         if sx:
             e.update({k2: v for k2, v in {"cid": sx.get("cid"), "smi": sx.get("smi"), "mw": sx.get("mw"), "src": sx.get("src"),
-                                                    "pat": sx.get("pat"), "pex": sx.get("ex"), "pwhy": sx.get("why"), "pconf": sx.get("conf")}.items() if v})
-            ch = ch_items.get(sx.get("ik") or "") if sx.get("src") != "patent" else None
+                                                    "pat": sx.get("pat"), "pex": sx.get("ex"), "pwhy": sx.get("why"), "pconf": sx.get("conf"),
+                                                    "vendor": sx.get("vendor"), "vurl": sx.get("vurl")}.items() if v})
+            ch = ch_items.get(sx.get("ik") or "") if sx.get("src") not in ("patent", "vendor") else None
             if ch and not ch.get("miss"):
                 e["ch"] = ch["id"]
                 for f in ("ph", "fa", "p", "bio", "cell", "sel"):

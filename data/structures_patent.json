@@ -1,5 +1,5 @@
 {
- "_doc": "没有公开结构的研发代号：从专利里挑最可能的临床化合物，人工核对后写入。键是药名键（小写字母数字）。字段：n 名称、smi SMILES、mw 分子量、al 别名键、pat 专利号（如 WO2023123456A1）、ex 例号（如 Example 12）、why 判断依据（如：该化合物单独有盐型/晶型专利、在后续联用专利里被点名、分子量与公开数据一致）、conf high/medium。页面标「专利推测」，不查 ChEMBL。",
+ "_doc": "没有公开结构的研发代号：从专利里挑最可能的临床化合物，人工核对后写入。键是药名键（小写字母数字）。字段：n 名称、smi SMILES、mw 分子量、al 别名键、pat 专利号（如 WO2023123456A1）、ex 例号（如 Example 12）、why 判断依据（如：该化合物单独有盐型/晶型专利、在后续联用专利里被点名、分子量与公开数据一致）、conf high/medium。src 缺省为 patent（专利推测）；src=vendor 表示取自试剂供应商，另记 vendor 名称和 vurl 产品页，转写的结构必须和供应商标注的分子式一致。页面分别标「专利推测」「供应商结构」，都不查 ChEMBL。",
  "items": {
   "avzo021": {
    "n": "AVZO-021",
@@ -14,6 +14,50 @@
    "why": "Allorion（ARTS-021 原研方）的氘代专利 EP4731620 只围绕这一个母体化合物：4-((4-(((3S,4R)-3-羟基四氢吡喃-4-基)氧基)-5-三氟甲基嘧啶-2-基)氨基)-N-甲基苯磺酰胺。公司通常只给临床候选物申请氘代专利；母体化合物来自 WO2022111621（CDK2 抑制剂）。PubChem 只有专利来源记录（CID 167090322）。",
    "conf": "high",
    "d": "2026-11-18"
+  },
+  "vs7375": {
+   "n": "VS-7375",
+   "al": [
+    "gfh375"
+   ],
+   "src": "vendor",
+   "vendor": "Selleck",
+   "vurl": "https://www.selleckchem.com/products/vs-7375-gfh375-kras-g12d-inhibitor.html",
+   "smi": "[2H]C([2H])([2H])C1Oc2nc(-c3cc(N)cc4cccc(C#C)c34)c(F)c3nc(OCC45CCCN4CC(=C(F)F)C5)nc(c23)N2CC3CCC(N3)C12",
+   "mw": 656.7,
+   "why": "Selleck 产品页只有结构图（未给 SMILES 和 CAS），按图转写；转写结构的分子式 C36H31D3F3N7O2、分子量 656.73 与 Selleck 标注（C36H31D3F3N7O2，656.72）一致。立体化学未转写。",
+   "conf": "medium",
+   "d": "2026-11-19"
+  },
+  "eras0015": {
+   "n": "ERAS-0015",
+   "al": [
+    "panrasin2"
+   ],
+   "src": "vendor",
+   "vendor": "Selleck",
+   "vurl": "https://www.selleckchem.com/products/eras-0015.html",
+   "cid": 176804702,
+   "smi": "CCN1C2=C3C=C(C=C2)C4=CSC(=N4)C[C@@H](C(=O)N5C6CC(C6)[C@@H](N5)C(=O)OCC(CC3=C1C7=C(N=CC(=C7)N8CCN(CC8)C)[C@H](C)OC)(C)C)NC(=O)C9[C@@H]([C@@H]9C)C",
+   "mw": 837.1,
+   "why": "Selleck 标注 CAS 3034673-92-9、分子式 C46H60N8O5S；PubChem 按该 CAS 对应 CID 176804702，分子式一致。TargetMol 另以 Pan-RAS-IN-2 出售同一分子（立体标注略有差别）。",
+   "conf": "medium",
+   "d": "2026-11-19"
+  },
+  "ms553": {
+   "n": "MS-553",
+   "al": [
+    "pkcin1"
+   ],
+   "src": "vendor",
+   "vendor": "MedChemExpress",
+   "vurl": "https://www.medchemexpress.com/PKC-IN-1.html",
+   "cid": 138107668,
+   "smi": "C[C@@H]1CN([C@@H](CN1C(=O)N2CC3=C(C2(C)C)NN=C3NC4=NC(=NC=C4F)C)C)CC5CCOCC5",
+   "mw": 500.6,
+   "why": "MedChemExpress 以 PKC-IN-1 出售 MS-553，CAS 1046787-18-1，分子量 500.6；PubChem 按该 CAS 对应 CID 138107668（C25H37FN8O2）。",
+   "conf": "medium",
+   "d": "2026-11-19"
   }
  }
 }

@@ -149,7 +149,7 @@ def lookup(name):
 
 
 def load_patent():
-    """data/structures_patent.json：公开渠道没有结构的研发代号，从专利里挑最可能的那个化合物（人工核对后写入）。"""
+    """data/structures_patent.json：公开渠道没有结构的研发代号，人工核对后写入。src=patent 从专利里挑最可能的化合物；src=vendor 取自试剂供应商（分子式和供应商标注一致才收）。"""
     if not os.path.exists(PATENT):
         return {}
     return {k: v for k, v in json.load(open(PATENT, encoding="utf-8")).get("items", {}).items() if v.get("smi")}
@@ -168,7 +168,9 @@ def export(cache_path, out_path):
             m.setdefault(a, row)
     # 专利推测的结构：只补确认结构查不到的药，第 4 项是专利号，页面据此标「专利推测」
     for k, v in load_patent().items():
-        row = [None, v["smi"], v.get("mw"), v.get("pat") or "patent"]
+        # 第 4 项：P:专利号 或 V:供应商|产品页，页面据此标「专利推测」或「供应商结构」
+        tag = ("V:" + (v.get("vendor") or "") + "|" + (v.get("vurl") or "")) if v.get("src") == "vendor" else ("P:" + (v.get("pat") or ""))
+        row = [v.get("cid"), v["smi"], v.get("mw"), tag]
         for a in [k] + (v.get("al") or []):
             m.setdefault(a, row)
     json.dump(m, open(out_path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
