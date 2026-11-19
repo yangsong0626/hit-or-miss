@@ -24097,6 +24097,15 @@
 "n": "KYV-101",
 "miss": "2026-11-18",
 "syn": 1
+},
+"pralsetinib": {
+"n": "Pralsetinib",
+"cid": 129073603,
+"smi": "CC1=CC(=NN1)NC2=NC(=NC(=C2)C)C3CCC(CC3)(C(=O)N[C@@H](C)C4=CN=C(C=C4)N5C=C(C=N5)F)OC",
+"ik": "GBLBJPZSROAGMF-SIYOEGHHSA-N",
+"mw": 533.6,
+"al": [],
+"d": "2026-11-19"
 }
 }
 }

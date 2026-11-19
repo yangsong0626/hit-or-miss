@@ -221,7 +221,24 @@ if pre:
 clin = {}
 act_trials = act_out if os.path.exists(act_in) else []
 if not act_trials and os.path.exists(os.path.join(os.path.dirname(out), "active.json")):
-    act_trials = json.load(open(os.path.join(os.path.dirname(out), "active.json"), encoding="utf-8")).get("trials", [])
+    _ap = os.path.join(os.path.dirname(out), "active.json")
+    _aj = json.load(open(_ap, encoding="utf-8"))
+    act_trials = _aj.get("trials", [])
+    # 上次生成的文件里可能还有占位类干预（救援用药、「BTK inhibitor」）配出来的靶点：去掉只由它们带来的靶点，没靶点的试验删掉
+    _changed = 0
+    for _t in act_trials:
+        _old = _t.get("tgm") or []
+        _keep = [e for e in _old if not modality.is_placeholder(e.get("n"))]
+        if len(_keep) != len(_old):
+            _gone = {e.get("g") for e in _old} - {e.get("g") for e in _keep}
+            _t["tgm"], _t["tg"] = _keep, [g for g in _t.get("tg") or [] if g not in _gone]
+            _changed += 1
+    if _changed:
+        act_trials = [t for t in act_trials if t.get("tg")]
+        _aj["trials"] = act_trials
+        with open(_ap, "w", encoding="utf-8") as f:
+            json.dump(_aj, f, ensure_ascii=False, separators=(",", ":"))
+        print(f"cleaned {_changed} placeholder target links in {_ap}", file=sys.stderr)
 for t in [t for v in d["sets"].values() for t in v] + early_out + act_trials:
     for g in t.get("tg") or []:
         clin.setdefault(g, []).append({"nct": t.get("nct"), "phase": t.get("phase"), "sponsor": t.get("sponsor")})
@@ -498,6 +515,8 @@ try:
                         _pairs.add((_e["g"], _k))
     _nt, _ni = _md.build(os.path.dirname(out), sorted(_pairs))
     print(f"mol svg · {_nt} targets · {_ni} images", file=sys.stderr)
+    _na, _nn = _md.build_all(os.path.dirname(out))
+    print(f"mol svg · {_na} structures site-wide ({_nn} new)", file=sys.stderr)
 except Exception as _e:  # noqa: BLE001
     print(f"[warn] molecule svgs not rebuilt: {_e}", file=sys.stderr)
 

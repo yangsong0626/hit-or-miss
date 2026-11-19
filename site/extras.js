@@ -34,18 +34,19 @@ function structOf(name){
   for (const k of (Array.isArray(name) ? name : drugKeys(name))) if (STRUCT[k]) return STRUCT[k];
   return null;
 }
-// s = [CID, SMILES, 分子量, 来源]：有 CID 用 PubChem 的图，否则让 PubChem 按 SMILES 现画。
+// s = [CID, SMILES, 分子量, 来源, 本地图哈希]：有本地图（docs/mol/s/）就用，否则有 CID 用 PubChem 的图，再否则让 PubChem 按 SMILES 现画。
 // 来源 "P:专利号" = 专利推测，"V:供应商|产品页" = 供应商结构，都加标注并链接到出处
 // svg：本站按骨架对齐画好的图（docs/mol/，分子对比表用），有就不用 PubChem 的图
 const molImg = (s, size, alt, svg) => {
   if (!s || !(s[0] || s[1])) return "";
+  if (!svg && s[4]) svg = `mol/s/${s[4]}.svg`;   // 全站通用的本地结构图（构建时画好，docs/mol/s/）
   const src = svg ? svg : s[0] ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${s[0]}/PNG?image_size=${size * 2}x${size * 2}`
     : `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${encodeURIComponent(s[1])}/PNG?image_size=${size * 2}x${size * 2}`;
   const tg = String(s[3] || ""), pat = tg.startsWith("P:") ? tg.slice(2) : "", ven = tg.startsWith("V:") ? tg.slice(2).split("|") : null;
   let href = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/compound/${s[0]}` : "", title = T("PubChem 结构", "Structure on PubChem"), lbl = "";
   if (tg.startsWith("P:")) { if (pat) href = `https://patents.google.com/patent/${encodeURIComponent(pat)}`; title = T(`专利推测结构${pat ? `（${pat}）` : ""}，未经公司确认`, `Inferred from patent ${pat}; not confirmed by the company`); lbl = T("专利推测", "Patent-inferred"); }
   if (ven) { if (ven[1]) href = ven[1]; title = T(`试剂供应商 ${ven[0]} 给出的结构，未经公司确认`, `Structure from reagent vendor ${ven[0]}; not confirmed by the company`); lbl = T("供应商结构", "Vendor structure"); }
-  const img = `<img class="mol${svg ? " mol-al" : ""}" style="width:${svg ? Math.round(size * 1.2) : size}px;height:${size}px" loading="lazy" alt="${esc(alt || "")}" src="${esc(src)}">`;
+  const img = `<img class="mol${svg ? " mol-al" : ""}" style="width:${svg ? Math.round(size * 1.2) : size}px;height:${size}px" loading="${size >= 140 ? "eager" : "lazy"}" alt="${esc(alt || "")}" src="${esc(src)}">`;
   return `<a class="mol-wrap" ${href ? `href="${esc(href)}" target="_blank" rel="noopener"` : ""} title="${esc(title)}">${img}</a>${lbl ? `<div class="sm mol-pat">${lbl}</div>` : ""}`;
 };
 // todayISO 已在模板里定义
@@ -462,16 +463,21 @@ function molFor(p, g){
   for (const k of ks) if (MOL.drugs[k]) return {k, m: MOL.drugs[k], ks};
   return {k: [...ks][0], m: null, ks};
 }
+// 「Palbociclib 125mg」「dalpiciclib isethionate tablets; …」→ 只留药名，用来列「又名」
+const cleanDrug = n => String(n || "").split(/\s*(?:[+;,(（\[]|\s\d)/)[0].replace(/\b(tablets?|capsules?|injection|oral|isethionate|mesylate|mesilate|hydrochloride|hcl|maleate|tosylate|citrate|fumarate|sodium|potassium|dose.*|cohort.*)\b/gi, " ").replace(/\s+/g, " ").trim() || String(n || "");
+const akaOf = (aka, main) => { const mk = nk(cleanDrug(main)); const xs = [...new Set((aka || []).filter(a => nk(a) && nk(a) !== mk))]; return xs.slice(0, 3).join(", "); };
 function molRows(g, r){
   return r.ps.map(p => {
     const {k, m, ks} = molFor(p, g);
     const news = (NEWS.items || []).filter(x => (x.nums || []).length && drugKeys(x.drug).some(z => ks.has(z))).sort((a, b) => String(b.d).localeCompare(String(a.d)));
     return {p, k, m: m || {}, has: !!m, news: news[0]};
   }).reduce((acc, x) => {
-    // 同一个分子多家公司（合作、授权）各算一个项目，这里并成一行
-    const y = x.has && acc.find(z => z.has && z.k === x.k);
+    // 同一个分子多家公司（合作、授权）各算一个项目，或通用名和研发代号各算一个（Atirmociclib / PF-07220060），这里并成一行
+    const id = m => m.ch || m.cid || m.smi;
+    const y = x.has && acc.find(z => z.has && (z.k === x.k || (id(z.m) && id(z.m) === id(x.m)) || nk(cleanDrug(z.p.drug)) === nk(cleanDrug(x.p.drug))));
     if (!y) acc.push(x);
-    else { if (x.p.ph > y.p.ph) y.p = {...x.p, co: y.p.co}; const cs = y.p.co.split(" / "); if (!cs.includes(x.p.co) && cs.length < 3) y.p = {...y.p, co: y.p.co + " / " + x.p.co}; y.news = y.news || x.news; }
+    else {
+      if (y.k !== x.k) y.aka = [...new Set([...(y.aka || [cleanDrug(y.p.drug)]), cleanDrug(x.p.drug)])]; if (x.p.ph > y.p.ph) y.p = {...x.p, co: y.p.co}; const cs = y.p.co.split(" / "); if (!cs.includes(x.p.co) && cs.length < 3) y.p = {...y.p, co: y.p.co + " / " + x.p.co}; y.news = y.news || x.news; }
     return acc;
   }, []).sort((a, b) => b.p.ph - a.p.ph || (b.has - a.has) || a.p.co.localeCompare(b.p.co));
 }
@@ -497,7 +503,7 @@ function tgMol(g, {r}){
   CMP_CACHE.mol = rows;
   setTimeout(() => { const b = $("mol-csv"); if (b) b.addEventListener("click", () => molCSV(g)); }, 0);
   let curG = null;
-  const body = withData.map(({p, k, m, news}) => {
+  const body = withData.map(({p, k, m, news, aka}) => {
     let hdr = "";
     if (grouped && gid({k}) !== curG) {
       curG = gid({k});
@@ -507,8 +513,8 @@ function tgMol(g, {r}){
     const sel = m.sel ? `${T(`另有 ${m.sel.off} 个`, `${m.sel.off} other`)} <span class="sm">/ ${T(`测过 ${m.sel.tested}`, `${m.sel.tested} tested`)}</span>` : "—";
     const pr = m.p || {};
     return `${hdr}<tr>
-      <td class="mol-st">${m.cid || m.smi ? molImg([m.cid, m.smi, m.mw, m.src === "patent" ? "P:" + (m.pat || "") : m.src === "vendor" ? "V:" + (m.vendor || "") + "|" + (m.vurl || "") : null], 100, p.drug, svgOf(k)) : `<span class="sm">${esc(p.m || "")}</span>`}${(m.src === "patent" || m.src === "vendor") && m.pwhy ? `<div class="sm" title="${esc(m.pwhy)}">${esc(m.pex || "")}</div>` : ""}</td>
-      <td><button class="tbtn" data-od="${esc(k)}">${esc(p.drug)}</button><div class="sm">${esc(p.co)} · ${PHN(p.ph)}${T(" 期", "")}</div><div>${molCovTag(m)}</div></td>
+      <td class="mol-st">${m.cid || m.smi ? molImg([m.cid, m.smi, m.mw, m.src === "patent" ? "P:" + (m.pat || "") : m.src === "vendor" ? "V:" + (m.vendor || "") + "|" + (m.vurl || "") : null, m.sh], 100, p.drug, svgOf(k)) : `<span class="sm">${esc(p.m || "")}</span>`}${(m.src === "patent" || m.src === "vendor") && m.pwhy ? `<div class="sm" title="${esc(m.pwhy)}">${esc(m.pex || "")}</div>` : ""}</td>
+      <td><button class="tbtn" data-od="${esc(k)}">${esc(p.drug)}</button>${akaOf(aka, p.drug) ? `<div class="sm">${T("又名 ", "aka ")}${esc(akaOf(aka, p.drug))}</div>` : ""}<div class="sm">${esc(p.co)} · ${PHN(p.ph)}${T(" 期", "")}</div><div>${molCovTag(m)}</div></td>
       <td class="sm">${esc(m.moa || "")}${m.ch ? `<div><a href="https://www.ebi.ac.uk/chembl/compound_report_card/${esc(m.ch)}/" target="_blank" rel="noopener">${esc(m.ch)}</a></div>` : ""}</td>
       <td>${m.bio ? `<b>${esc(potTxt(m.bio))}</b><div class="sm">${esc(m.bio.n || "")}${m.bio.k > 1 ? T(` · ${m.bio.k} 次测定中位数`, ` · median of ${m.bio.k}`) : ""}</div>` : "—"}${m.cell ? `<div class="sm">${T("细胞", "Cell")} ${esc(potTxt(m.cell))} · ${esc(m.cell.n)}</div>` : ""}</td>
       <td title="${esc((m.sel?.top || []).join(", "))}">${sel}</td>

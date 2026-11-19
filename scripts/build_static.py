@@ -20,9 +20,12 @@ import shutil
 import sys
 import unicodedata
 from urllib.parse import quote, urlparse
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from molecules import core_names as _core_names  # noqa: E402
+from modality import BACKBONE as _BACKBONE  # noqa: E402
 
 DEFAULT_SITE = "https://hit-or-miss-cz5.pages.dev/"
-GEN_DIRS = ("target", "drug", "trial", "targets", "drugs", "trials", "en")
+GEN_DIRS = ("target", "drug", "trial", "targets", "drugs", "trials", "failures", "en")
 CJK = re.compile(r"[㐀-鿿]")
 PL = re.compile(r"placebo|standard of care|best supportive|saline|vehicle|sham|usual care|observation|"
                 r"investigator'?s? choice|physician'?s? choice|treatment of physician|\bSOC\b|matching|dummy", re.I)
@@ -219,6 +222,7 @@ class Site:
                     self.trials.append(t)
         self._drugs()
         self._targets()
+        self.fail = collect_failures(self)
 
     # ---- 药物：把同一个药的各种写法（通用名、代号、商品名）并成一组 ----
     def _drugs(self):
@@ -437,7 +441,8 @@ def page(S, lang, kind, slug, title, desc, body, crumbs, ld=None):
     me = zh_p if lang == "zh" else en_p
     other = en_p if lang == "zh" else zh_p
     nav = [(S.path(lang, "targets"), T(lang, "靶点", "Targets")), (S.path(lang, "drugs"), T(lang, "药物", "Drugs")),
-           (S.path(lang, "trials"), T(lang, "试验", "Trials")), (S.app(lang), T(lang, "交互版", "Interactive app"))]
+           (S.path(lang, "trials"), T(lang, "试验", "Trials")), (S.path(lang, "failures"), T(lang, "失败库", "Failures")),
+           (S.app(lang), T(lang, "交互版", "Interactive app"))]
     bc = [{"@type": "ListItem", "position": i + 1, "name": n, "item": S.abs(u)} for i, (u, n) in enumerate(crumbs)]
     lds = [{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": bc}] + ([ld] if ld else [])
     ldj = "".join('<script type="application/ld+json">' + json.dumps(x, ensure_ascii=False).replace("</", "<\\/") + "</script>" for x in lds)
@@ -491,6 +496,215 @@ def vbadge(S, lang, v):
 
 def kpis(items):
     return '<div class="kpis">' + "".join(f'<div><b>{esc(n)}</b><span>{esc(l)}</span></div>' for n, l in items) + "</div>"
+
+
+# ---------------- 失败原因库 ----------------
+# 三个来源合在一起：主要终点未达到的试验、提前终止的试验（注册库填的终止原因已归类为 why_cat）、
+# 新闻稿里的失败 / 终止（同一 NCT 已有试验记录的不重复算）。「目标已达成」的提前结束不算失败。
+FAIL_R = [("eff", "疗效不足", "Efficacy"), ("safe", "安全性", "Safety"), ("biz", "商业 / 战略", "Business / strategy"),
+          ("ops", "入组 / 运营", "Enrollment / operations"), ("reg", "监管", "Regulatory"), ("unk", "未说明 / 其他", "Not stated / other")]
+FAIL_LBL = {k: (zh, en) for k, zh, en in FAIL_R}
+FAIL_WHY = {"疗效 / 无效性": "eff", "安全性": "safe", "申办方决定 / 战略": "biz", "资金": "biz", "入组 / 运营": "ops",
+            "监管": "reg", "其他": "unk", "未填写": "unk", "": "unk"}
+FAIL_SAFE = re.compile(r"safety|adverse event|toxicit|death|died|fatal|hepatotox|clinical hold|serious adverse", re.I)
+FAIL_NOSAFE = re.compile(r"(not|no|without|unrelated|independent of)\b[^.;]{0,40}safety|safety[^.;]{0,20}(not|no)\b", re.I)
+FAIL_EFF = re.compile(r"futil|lack of efficacy|insufficient efficacy|did not meet|failed to (meet|show|demonstrate)|no (clinical )?benefit|unlikely to meet", re.I)
+# 「申办方决定」里其实是看了数据才停的：其他研究的结果、期中分析、疗效数据
+FAIL_DATA = re.compile(r"(driven by|based on|due to|following|in light of|after (review(ing)?|evaluation of))[^.;]{0,40}"
+                       r"(results?|data|findings|outcome|readout)[^.;]{0,30}(from|of|in)?[^.;]{0,40}(study|trial|analysis|stud)"
+                       r"|interim analysis|futility analysis|efficacy (data|results)", re.I)
+FAIL_NOEFF = re.compile(r"not (related to|due to|based on|driven by)[^.;]{0,20}(efficacy|data|results)", re.I)
+
+
+def fail_reason(t):
+    """(原因, 类型) 或 None。类型：miss 主要终点未达到，stop 提前终止。"""
+    if trial_verdict(t) == "未达到":
+        return "eff", "miss"
+    if t.get("_set") == "stopped" or t.get("status") in ("TERMINATED", "WITHDRAWN", "SUSPENDED"):
+        wc = t.get("why_cat") or ""
+        if wc == "目标已达成":
+            return None
+        r = FAIL_WHY.get(wc, "unk")
+        why = t.get("why") or ""
+        # 「未说明 / 其他」按原文补判：写了安全性（且不是「与安全性无关」）或无效性的改过来；
+        # 「申办方决定」里写明是看了其他研究结果、期中分析或疗效数据才停的，改归疗效不足
+        if r == "unk":
+            if FAIL_SAFE.search(why) and not FAIL_NOSAFE.search(why):
+                r = "safe"
+            elif FAIL_EFF.search(why) or (FAIL_DATA.search(why) and not FAIL_NOEFF.search(why)):
+                r = "eff"
+        elif r == "biz" and (FAIL_EFF.search(why) or FAIL_DATA.search(why)) and not FAIL_NOEFF.search(why):
+            r = "eff"
+        return r, "stop"
+    return None
+
+
+def fail_drugs(S, t):
+    """试验里的药，标准背景药（PD-1 单抗、化疗……）排后面，表格里先看到真正的受试药。"""
+    ds = list(t.get("_drugs") or [])
+    return sorted(ds, key=lambda c: bool(_BACKBONE.match((S.dinfo[c]["name"] if c in S.dinfo else c) or "")))
+
+
+def collect_failures(S):
+    by_nct = {t["nct"]: t for t in S.trials if t.get("nct")}
+    out, done = [], set()
+    for t in S.trials:
+        if t.get("_set") not in ("results", "stopped"):
+            continue
+        fr = fail_reason(t)
+        if not fr:
+            continue
+        r, kind = fr
+        done.add(t["nct"])
+        if kind == "miss":
+            why = cut("; ".join(t.get("primary") or []), 160)
+        else:
+            why = cut(t.get("why") or "", 220)
+        ds = fail_drugs(S, t)
+        out.append({"t": t, "nct": t["nct"], "r": r, "k": kind, "g": list(t.get("tg") or []), "c": (ds or [None])[0], "ds": ds,
+                    "co": t.get("group") or t.get("sponsor") or "", "ph": t.get("phase") or "", "mod": t.get("mod") or "",
+                    "ta": t.get("ta") or "", "d": trial_date(t) or "", "why": why, "cond": (t.get("conditions") or [""])[0]})
+    for x in S.news:
+        if x.get("v") not in ("未达到", "终止"):
+            continue
+        ncts = [n for n in ([x.get("nct")] + list(x.get("ncts") or [])) if n]
+        if any(n in done for n in ncts):
+            continue
+        if x.get("v") == "未达到":
+            r = "eff"
+        else:
+            tt = x.get("t") or ""
+            r = "safe" if FAIL_SAFE.search(tt) and not FAIL_NOSAFE.search(tt) else "eff" if FAIL_EFF.search(tt) else "unk"
+        gs = list(x.get("tg") or [])
+        if not gs:
+            for n in ncts:
+                for g in (by_nct.get(n) or {}).get("tg") or []:
+                    if g not in gs:
+                        gs.append(g)
+        done.update(ncts)
+        out.append({"t": None, "x": x, "nct": ncts[0] if ncts else "", "r": r, "k": "news", "g": gs, "c": S.dcl(x.get("drug")),
+                    "name": x.get("drug") or "", "co": x.get("co") or "", "ph": x.get("ph") or "", "mod": x.get("mod") or "",
+                    "ta": x.get("ta") or "", "d": x.get("d") or "", "why": x.get("t") or "", "u": x.get("u") or "", "cond": ""})
+    out.sort(key=lambda e: e["d"], reverse=True)
+    for e in out:
+        for g in e["g"]:
+            if g in S.tinfo:
+                S.tinfo[g].setdefault("fail", []).append(e)
+    return out
+
+
+def fail_counts(evs):
+    c = collections.Counter(e["r"] for e in evs)
+    return [c.get(k, 0) for k, _, _ in FAIL_R]
+
+
+def fail_chip(lang, r):
+    return f'<span class="fr fr-{r}">{esc(FAIL_LBL[r][0 if lang == "zh" else 1])}</span>'
+
+
+def fail_rows(S, lang, evs, with_target=False):
+    tr = S.tr if lang == "en" else (lambda s: s)
+    rows = []
+    for e in evs:
+        if e["t"] is not None:
+            drug = ", ".join(S.dlink(lang, c) for c in (e.get("ds") or [])[:2]) or "—"
+            src = S.nlink(lang, e["t"], e["nct"])
+            if e["k"] == "miss":
+                basis = T(lang, "主要终点未达到", "Missed primary endpoint") + (f'<div class="sm">{esc(e["why"])}</div>' if e["why"] else "")
+            else:
+                basis = esc(tr(e["t"].get("why_cat") or "")) + (f'<div class="sm">“{esc(e["why"])}”</div>' if e["why"] else "")
+        else:
+            drug = S.dlink(lang, e["c"]) if e["c"] in S.dpage else esc(e["name"])
+            src = f'<a href="{esc(e["u"])}" rel="noopener" target="_blank">{T(lang, "新闻稿", "News")}</a>' if e.get("u") else ""
+            basis = f'<span class="sm">{esc(cut(e["why"], 140))}</span>'
+        row = [esc(e["d"]), drug, esc(e["co"]), esc(ph_lbl(lang, e["ph"]))]
+        if with_target:
+            row.append(" · ".join(S.tlink(lang, g) for g in e["g"][:2]) or "—")
+        row += [esc(cut(e["cond"], 50)) or "—", fail_chip(lang, e["r"]), basis, src]
+        rows.append(row)
+    return rows
+
+
+def fail_head(lang, with_target=False):
+    h = [T(lang, "日期", "Date"), T(lang, "药物", "Drug"), T(lang, "公司", "Company"), T(lang, "阶段", "Phase")]
+    if with_target:
+        h.append(T(lang, "靶点", "Target"))
+    return h + [T(lang, "适应症", "Indication"), T(lang, "原因", "Reason"), T(lang, "依据", "Basis"), T(lang, "来源", "Source")]
+
+
+def fail_section(S, lang, g):
+    evs = S.tinfo[g].get("fail") or []
+    if not evs:
+        return ""
+    tr = S.tr if lang == "en" else (lambda s: s)
+    cnt = dict(zip([k for k, _, _ in FAIL_R], fail_counts(evs)))
+    eff = [e for e in evs if e["r"] == "eff"]
+    mods = collections.Counter(e["mod"] for e in eff if e["mod"])
+    conds = collections.Counter(e["cond"] for e in eff if e["cond"])
+    if lang == "zh":
+        s = f"本站记录到 {len(evs)} 次失败或提前终止，其中疗效不足 {cnt['eff']} 次、安全性 {cnt['safe']} 次、商业 / 战略原因 {cnt['biz']} 次。"
+        if eff and mods:
+            s += "疗效失败集中在 " + "、".join(f"{m}（{n}）" for m, n in mods.most_common(2))
+            s += ("，适应症以 " + "、".join(f"{c}（{n}）" for c, n in conds.most_common(2) if n > 1) + " 为主。") if any(n > 1 for n in conds.values()) else "。"
+    else:
+        s = f"{pl(len(evs), 'failure or early stop', 'failures or early stops')} recorded: {cnt['eff']} for efficacy, {cnt['safe']} for safety, {cnt['biz']} for business or strategy."
+        if eff and mods:
+            s += " Efficacy failures cluster in " + ", ".join(f"{tr(m)} ({n})" for m, n in mods.most_common(2))
+            s += ("; indications: " + ", ".join(f"{c} ({n})" for c, n in conds.most_common(2) if n > 1) + ".") if any(n > 1 for n in conds.values()) else "."
+    chips = " ".join(f'{fail_chip(lang, k)} {cnt[k]}' for k, _, _ in FAIL_R if cnt[k])
+    # 药物形式 × 原因（有两种以上形式时才列）
+    bym = collections.defaultdict(list)
+    for e in evs:
+        bym[e["mod"] or T(lang, "未识别", "Unclassified")].append(e)
+    mt = ""
+    if len(bym) > 1:
+        mt = table([T(lang, "药物形式", "Modality")] + [FAIL_LBL[k][0 if lang == "zh" else 1] for k, _, _ in FAIL_R] + [T(lang, "合计", "Total")],
+                   [[esc(tr(m))] + [str(n or "") for n in fail_counts(v)] + [f"<b>{len(v)}</b>"] for m, v in sorted(bym.items(), key=lambda x: -len(x[1]))], "ftab")
+    return (f'<h2 id="fail">{T(lang, "失败与终止", "Failures and early stops")} <small>{len(evs)}</small></h2>'
+            f'<p>{esc(s)}</p><p class="rel">{chips}</p>{mt}'
+            + table(fail_head(lang), fail_rows(S, lang, evs[:60]))
+            + f'<p class="sm">{T(lang, "原因来自注册库填写的终止理由（已归类）、登记的主要终点统计结果和新闻稿；「商业 / 战略」多为申办方未说明具体原因。", "Reasons come from registry stop reasons (classified), registered primary-endpoint results and topline news; “business / strategy” often means the sponsor gave no specific reason.")} '
+              f'<a href="{S.path(lang, "failures")}">{T(lang, "全部靶点的失败原因 →", "Failure reasons across all targets →")}</a></p>')
+
+
+def hub_failures(S, lang):
+    tr = S.tr if lang == "en" else (lambda s: s)
+    evs = S.fail
+    cnt = fail_counts(evs)
+    L = 0 if lang == "zh" else 1
+    head = [FAIL_LBL[k][L] for k, _, _ in FAIL_R] + [T(lang, "合计", "Total")]
+
+    def agg(key, link, min_n=1, limit=200):
+        by = collections.defaultdict(list)
+        for e in evs:
+            for k in key(e):
+                if k:
+                    by[k].append(e)
+        rows = []
+        for k, v in sorted(by.items(), key=lambda x: (-(sum(1 for e in x[1] if e["r"] in ("eff", "safe"))), -len(x[1]))):
+            if len(v) < min_n:
+                continue
+            c = fail_counts(v)
+            rows.append([link(k)] + [(f"<b>{n}</b>" if i < 2 and n else str(n or "")) for i, n in enumerate(c)] + [str(len(v)), esc(v[0]["d"])])
+        return rows[:limit]
+    tg_rows = agg(lambda e: e["g"], lambda g: (f'<a href="{S.path(lang, "target", S.tslug[g])}#fail">{esc(tr(g))}</a>' if g in S.tslug else esc(tr(g))), 2)
+    mod_rows = agg(lambda e: [e["mod"]], lambda m: esc(tr(m)))
+    ta_rows = agg(lambda e: [e["ta"]], lambda m: esc(tr(m)))
+    last = [T(lang, "最近一次", "Latest")]
+    desc = T(lang, f"临床试验为什么失败：{len(evs)} 次主要终点未达到或提前终止，按疗效、安全性、商业、入组、监管归类，并按靶点、药物形式和治疗领域汇总。立项前先看哪些路已经走不通。",
+             f"Why clinical trials fail: {len(evs)} missed primary endpoints and early stops, classified as efficacy, safety, business, enrollment or regulatory, and summarised by target, modality and therapeutic area.")
+    body = f"""<h1>{T(lang, "失败原因库", "Trial failure library")} <small>{len(evs)}</small></h1><p class="lead">{esc(desc)}</p>
+{kpis([(len(evs), T(lang, "失败 / 终止", "Failures / stops")), (cnt[0], FAIL_LBL["eff"][L]), (cnt[1], FAIL_LBL["safe"][L]), (cnt[2], FAIL_LBL["biz"][L])])}
+<p class="rel">{T(lang, "跳到：", "Jump to: ")}<a href="#by-target">{T(lang, "按靶点", "By target")}</a> · <a href="#by-mod">{T(lang, "按药物形式", "By modality")}</a> · <a href="#by-ta">{T(lang, "按治疗领域", "By therapeutic area")}</a> · <a href="#recent">{T(lang, "最近的失败", "Recent failures")}</a></p>
+<h2 id="by-target">{T(lang, "按靶点", "By target")} <small>{len(tg_rows)}</small></h2><p class="sm">{T(lang, "至少 2 次失败或终止的靶点，按疗效 + 安全性失败次数排序。点靶点看每一次的明细。", "Targets with at least two failures or stops, sorted by efficacy plus safety failures. Click a target for each event.")}</p>
+{table([T(lang, "靶点", "Target")] + head + last, tg_rows, "ftab")}
+<h2 id="by-mod">{T(lang, "按药物形式", "By modality")}</h2>{table([T(lang, "药物形式", "Modality")] + head + last, mod_rows, "ftab")}
+<h2 id="by-ta">{T(lang, "按治疗领域", "By therapeutic area")}</h2>{table([T(lang, "治疗领域", "Therapeutic area")] + head + last, ta_rows, "ftab")}
+<h2 id="recent">{T(lang, "最近的失败", "Recent failures")}</h2>{table(fail_head(lang, True), fail_rows(S, lang, evs[:80], True))}
+<p class="sm">{T(lang, "归类方法：注册库的终止理由先按关键词归成疗效 / 无效性、安全性、申办方决定 / 战略、资金、入组 / 运营、监管、其他；「其他 / 未填写」里原文写了安全性或无效性的再改归，「申办方决定」里写明是看了其他研究结果、期中分析或疗效数据才停的改归疗效不足。主要终点未达到按登记的统计结果判定。新闻稿只补注册库里没有的事件。「商业 / 战略」常常是申办方没说真实原因，不等于药物本身没问题。",
+             "Method: registry stop reasons are keyword-classified into efficacy / futility, safety, sponsor decision / strategy, funding, enrollment / operations, regulatory and other; “other / not stated” entries whose text mentions safety or futility are reassigned, and “sponsor decision” stops that cite results of another study, an interim analysis or efficacy data are counted as efficacy. Missed primary endpoints come from the registered statistical results. Topline news only adds events not in the registry. “Business / strategy” often means the sponsor gave no real reason; it does not clear the drug.")}</p>"""
+    return page(S, lang, "failures", "", T(lang, "临床试验失败原因库：按靶点、药物形式、治疗领域 | Hit or Miss", "Clinical trial failure library by target, modality and area | Hit or Miss"), desc, body,
+                [(S.app(lang), "Hit or Miss"), (S.path(lang, "failures"), T(lang, "失败原因库", "Failure library"))])
 
 
 def trial_verdict(t):
@@ -581,7 +795,8 @@ def num_txt(lang, n):
 
 
 def mol_img(lang, m, alt, svg=None):
-    """svg：本站按骨架对齐画好的图（docs/mol/）；没有就用 PubChem 的图（有 CID 用 CID，否则按 SMILES 现画）。
+    """svg：本站按骨架对齐画好的图（docs/mol/<靶点>/）；没有就用全站通用的本地图（docs/mol/s/，m["sh"]），
+    再没有才用 PubChem 的图（有 CID 用 CID，否则按 SMILES 现画）。
     专利推测、供应商结构的加标注，链接到专利或供应商页面。"""
     if m.get("cid"):
         src = f'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{m["cid"]}/PNG?image_size=160x160'
@@ -600,6 +815,7 @@ def mol_img(lang, m, alt, svg=None):
     elif m.get("src") == "vendor":
         href = m.get("vurl") or href
         tag = f'<div class="sm" title="{esc(m.get("pwhy") or "")}">{T(lang, "供应商结构", "Vendor structure")} · {esc(m.get("vendor") or "")}</div>'
+    svg = svg or (f'/mol/s/{m["sh"]}.svg' if m.get("sh") else None)   # 没有对齐图就用全站通用的本地图
     imgh = (f'<img class="mol mol-al" loading="lazy" width="120" height="100" alt="{esc(alt)}" src="{esc(svg)}">' if svg
             else f'<img class="mol" loading="lazy" width="80" height="80" alt="{esc(alt)}" src="{esc(src)}">')
     return (f'<a href="{esc(href)}" rel="noopener" target="_blank">{imgh}</a>' if href else imgh) + tag
@@ -611,6 +827,8 @@ def mol_section(S, lang, g, progs):
     SV = (S.mol.get("svg") or {}).get(g) or {}
     SM, SF = SV.get("m") or {}, SV.get("f") or {}
     rows, grp = [], []
+    # 同一个分子可能用通用名和研发代号各算一个项目（Atirmociclib / PF-07220060），按 ChEMBL ID、CID 或 SMILES 并成一行
+    plan, seen, seen_nm = [], {}, {}
     for p in progs:
         ks = list(S.dinfo[p["drug"]]["keys"]) if p["drug"] in S.dinfo else []
         for t in p["trials"]:
@@ -620,6 +838,24 @@ def mol_section(S, lang, g, progs):
         k = next((k for k in ks if k in D), None)
         if not k:
             continue
+        ident = D[k].get("ch") or D[k].get("cid") or D[k].get("smi") or k
+        nm = re.sub(r"[^a-z0-9]", "", ((_core_names(p["name"]) or [p["name"]])[0]).lower())
+        ident = seen_nm.get(nm, ident)   # 药名一样（一个有结构、一个只有给药信息）也并成一行
+        if ident in seen:
+            x = seen[ident]
+            x["ks"] += ks
+            # 只记干净的药名（去掉剂量、剂型、联用部分），和主名一样的不记
+            al = (_core_names(p["name"]) or [p["name"]])[0]
+            if re.sub(r"[^a-z0-9]", "", al.lower()) not in x["seen"]:
+                x["seen"].add(re.sub(r"[^a-z0-9]", "", al.lower()))
+                x["aka"].append(al)
+            continue
+        seen_nm.setdefault(nm, ident)
+        seen[ident] = {"p": p, "k": k, "ks": ks, "aka": [],
+                       "seen": {re.sub(r"[^a-z0-9]", "", ((_core_names(p["name"]) or [p["name"]])[0]).lower())}}
+        plan.append(seen[ident])
+    for x in plan:
+        p, k, ks = x["p"], x["k"], x["ks"]
         m = D[k]
         kset = set(ks)
         news = sorted([x for x in S.news if x.get("nums") and set(dkeys(x.get("drug"))) & kset], key=lambda x: x.get("d") or "", reverse=True)
@@ -634,7 +870,8 @@ def mol_section(S, lang, g, progs):
         svg = f'/mol/{SV["d"]}/{SF.get(k, k)}.svg' if k in SM else None
         grp.append(SM.get(k, 0))
         img = mol_img(lang, m, p["name"], svg)
-        drug = (S.dlink(lang, p["drug"]) if p["drug"] else esc(p["name"])) + f'<div class="sm">{esc(", ".join(c for c, _ in p["cos"].most_common(1) if c))} · {esc(ph_lbl(lang, p["ph"]))}</div>' \
+        drug = (S.dlink(lang, p["drug"]) if p["drug"] else esc(p["name"])) \
+            + (f'<div class="sm">{T(lang, "又名 ", "aka ")}{esc(", ".join(x["aka"][:3]))}</div>' if x["aka"] else "") + f'<div class="sm">{esc(", ".join(c for c, _ in p["cos"].most_common(1) if c))} · {esc(ph_lbl(lang, p["ph"]))}</div>' \
             + (f'<span class="v {"neg" if m.get("cov") == 1 else "mix"}">{cov}</span>' if cov else "")
         rows.append([img, drug, esc(m.get("moa") or "—"),
                      (f'<b>{esc(bio.get("ty") or "")} {nm_txt(bio["v"])} nM</b><div class="sm">{esc(bio.get("n") or "")}{nk_txt(lang, bio)}</div>' if bio else "—")
@@ -756,6 +993,7 @@ def target_page(S, lang, g):
         T(lang, "试验数", "Trials"), T(lang, "代表试验", "Lead trial")], prow)}
 {mol_section(S, lang, g, progs)}
 {f'<h2>{T(lang, "试验读出与终止", "Readouts and stopped trials")} <small>{len(readouts)}</small></h2>' + table(trial_head(lang), [trial_row(S, lang, t) for t in readouts[:80]]) if readouts else ""}
+{fail_section(S, lang, g)}
 {f'<h2>{T(lang, "新闻稿读出", "Topline news")}</h2>' + table([T(lang, "日期", "Date"), T(lang, "判定", "Call"), T(lang, "标题", "Headline"), T(lang, "来源", "Source")], news_rows(S, lang, x["news"])) if x["news"] else ""}
 {f'<h2>{T(lang, "未来半年到达主要完成日", "Primary completion in the next six months")} <small>{len(up)}</small></h2>' + table(trial_head(lang), [trial_row(S, lang, t) for t in up[:60]]) if up else ""}
 {cur_block(S, lang, x["cur"])}
@@ -860,7 +1098,7 @@ def drug_page(S, lang, c):
                 others[p["drug"]] += 10 * phn(p["ph"]) + len(p["trials"])
     rel = [d for d, _ in others.most_common(12)]
 
-    body = f"""<div class="dh">{f'<img class="mol" alt="{esc(name)}" loading="lazy" width="150" height="150" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{st[0]}/PNG?image_size=300x300">' if st else ""}<div>
+    body = f"""<div class="dh">{(f'<img class="mol" alt="{esc(name)}" loading="lazy" width="180" height="150" src="/mol/s/{st[4]}.svg">' if len(st) > 4 and st[4] else f'<img class="mol" alt="{esc(name)}" loading="lazy" width="150" height="150" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{st[0]}/PNG?image_size=300x300">' if st[0] else "") if st else ""}<div>
 <h1>{esc(name)} <small>{T(lang, "临床试验、读出与时间线", "clinical trials, results and timeline")}</small></h1>
 {f'<p class="alias">{T(lang, "其他写法：", "Also listed as: ")}{esc(" · ".join(alt))}</p>' if alt else ""}
 <p class="tags">{f'<span class="tag">{esc(tr(mod))}</span>' if mod else ""}{"".join(f'<span class="tag">{T(lang, "靶点", "Target")} {S.tlink(lang, g)}</span>' for g in tgl)}{"".join(f'<span class="tag">{esc(cc)}</span>' for cc, _ in cos.most_common(3))}</p>
@@ -1147,7 +1385,7 @@ td:last-child{white-space:nowrap}
 .facts dt{color:var(--muted);font-size:13px}.facts dd{margin:0}
 .cur{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}.cur h3{margin:2px 0}.cur p{margin:4px 0}
 .rel{line-height:2}.pw{margin:10px 0 14px}.pw .chain{margin:4px 0;line-height:1.9}.pw .stg{white-space:normal}.pw .arr{color:#888;margin:0 4px}.az a{display:inline-block;min-width:22px;text-align:center}
-.moltab td:first-child{width:128px}.moltab img.mol{display:block}.moltab tr.grp td{background:var(--bg);font-size:12px;font-weight:600;color:var(--muted);padding:5px 8px}.moltab{min-width:900px}
+.fr{display:inline-block;font-size:12px;line-height:1.5;padding:0 7px;border-radius:10px;white-space:nowrap}.fr-eff{background:var(--neg-soft);color:var(--neg)}.fr-safe{background:var(--neg);color:#fff}.fr-biz{background:var(--accent-soft);color:var(--accent)}.fr-ops{background:var(--mix-soft);color:var(--mix)}.fr-reg{border:1px solid var(--mix);color:var(--mix)}.fr-unk{background:var(--bg);color:var(--muted);border:1px solid var(--line)}.ftab td:not(:first-child){text-align:right}.ftab th:not(:first-child){text-align:right}.moltab td:first-child{width:128px}.moltab img.mol{display:block}.moltab tr.grp td{background:var(--bg);font-size:12px;font-weight:600;color:var(--muted);padding:5px 8px}.moltab{min-width:900px}
 .dh{display:flex;gap:18px;align-items:flex-start}.mol{background:#fff;border-radius:10px;border:1px solid var(--line)}
 code{font-family:var(--f-mono);font-size:12px;word-break:break-all}
 footer{max-width:1080px;margin:0 auto;padding:14px 16px 28px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
@@ -1183,7 +1421,7 @@ def build(d, docs, site_url=None):
             write(S.path(lang, kind, slug), fn(S, lang, arg))
         urls.append((S.path("zh", kind, slug), S.path("en", kind, slug), lastmod))
 
-    for kind, fn in (("targets", hub_targets), ("drugs", hub_drugs), ("trials", hub_trials)):
+    for kind, fn in (("targets", hub_targets), ("drugs", hub_drugs), ("trials", hub_trials), ("failures", hub_failures)):
         for lang in ("zh", "en"):
             write(S.path(lang, kind), fn(S, lang))
         urls.append((S.path("zh", kind), S.path("en", kind), S.asof))
@@ -1195,6 +1433,19 @@ def build(d, docs, site_url=None):
     for nct, t in S.main.items():
         emit("trial", nct, trial_page, t, min(t.get("updated") or t.get("results") or S.asof, S.asof))
 
+    # 失败原因库给交互版用：docs/failures.json
+    fl = []
+    for e in S.fail:
+        r = {"d": e["d"], "r": e["r"], "k": e["k"], "nct": e["nct"], "g": e["g"], "co": e["co"], "ph": e["ph"], "mod": e["mod"], "ta": e["ta"],
+             "n": (" + ".join(S.dinfo[c]["name"] for c in (e.get("ds") or [])[:2] if c in S.dinfo) if e.get("ds") else e.get("name") or ""),
+             "why": e["why"], "cond": e["cond"]}
+        if e["t"] is not None:
+            r["wc"] = e["t"].get("why_cat") or ""
+        if e.get("u"):
+            r["u"] = e["u"]
+        fl.append({k: v for k, v in r.items() if v not in ("", [], None)})
+    with open(os.path.join(docs, "failures.json"), "w", encoding="utf-8") as f:
+        json.dump({"generated": S.asof, "reasons": FAIL_R, "items": fl}, f, ensure_ascii=False, separators=(",", ":"))
     with open(os.path.join(docs, "static.css"), "w", encoding="utf-8") as f:
         f.write(CSS)
     with open(os.path.join(docs, "404.html"), "w", encoding="utf-8") as f:

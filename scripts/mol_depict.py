@@ -206,7 +206,7 @@ def build(docs, pairs):
         new[g] = dict(idx[g], fp=fp)
         n_img += len(svgs)
     # 不再用到的靶点目录删掉
-    keep = {v["d"] for v in new.values()}
+    keep = {v["d"] for v in new.values()} | {"s"}   # s/ 是全站通用图（build_all），不归这里管
     if os.path.isdir(root):
         for x in os.listdir(root):
             if os.path.isdir(os.path.join(root, x)) and x not in keep:
@@ -216,3 +216,60 @@ def build(docs, pairs):
     M["svg"] = idx
     json.dump(M, open(mp, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"), sort_keys=True)
     return len(idx), n_img
+
+
+def shash(smi):
+    """结构图文件名：SMILES 的哈希（内容寻址，同一个结构只画一次）。"""
+    return hashlib.md5((smi or "").encode("utf-8")).hexdigest()[:10]
+
+
+def build_all(docs):
+    """全站通用的结构图（不对齐、不上色）：docs/structures.json 里每个不同的 SMILES 画一张，存 docs/mol/s/<哈希>.svg。
+    已有的文件不重画，不再用到的删掉。structures.json 每行补第 5 项（哈希），molecules.json 每个药补 "sh"，页面据此用本地图。"""
+    if Chem is None:
+        return 0, 0
+    sp = os.path.join(docs, "structures.json")
+    if not os.path.exists(sp):
+        return 0, 0
+    S = json.load(open(sp, encoding="utf-8"))
+    mp = os.path.join(docs, "molecules.json")
+    M = json.load(open(mp, encoding="utf-8")) if os.path.exists(mp) else {"drugs": {}}
+    smis = {r[1] for r in S.values() if len(r) > 1 and r[1]} | {m["smi"] for m in M.get("drugs", {}).values() if m.get("smi")}
+    root = os.path.join(docs, "mol", "s")
+    os.makedirs(root, exist_ok=True)
+    have = {f[:-4] for f in os.listdir(root) if f.endswith(".svg")}
+    want, new = {}, 0
+    for smi in smis:
+        h = shash(smi)
+        if h in have:
+            want[smi] = h
+            continue
+        m = _prep(smi)
+        if m is None:
+            continue
+        rdDepictor.Compute2DCoords(m)
+        try:
+            svg = _svg(m)
+        except Exception:  # noqa: BLE001
+            continue
+        with open(os.path.join(root, h + ".svg"), "w", encoding="utf-8") as f:
+            f.write(svg)
+        want[smi] = h
+        new += 1
+    keep = set(want.values())
+    for h in have - keep:
+        os.remove(os.path.join(root, h + ".svg"))
+    for k, r in S.items():
+        r = list(r[:4]) + [None] * (4 - len(r[:4]))
+        h = want.get(r[1])
+        if h:
+            r.append(h)
+        while r and r[-1] is None:
+            r.pop()
+        S[k] = r
+    json.dump(S, open(sp, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    for m in M.get("drugs", {}).values():
+        if m.get("smi") and want.get(m["smi"]):
+            m["sh"] = want[m["smi"]]
+    json.dump(M, open(mp, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    return len(keep), new

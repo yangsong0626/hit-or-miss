@@ -95,6 +95,23 @@ RULES = [
 
 NONDRUG_TYPES = {"DEVICE", "PROCEDURE", "BEHAVIORAL", "DIAGNOSTIC_TEST", "RADIATION"}
 PLACEBO = re.compile(r"placebo|^sham\b|^vehicle\b|^saline\b|^normal saline\b|^dummy\b", re.I)
+# 占位类干预：救援用药、背景治疗、「最佳可用治疗」，以及只写药物类别没写药名的（「NK-1 receptor antagonist」「BTK inhibitor」）。
+# 它们的描述里常列着具体药物类别，拿来抽靶点会把止吐药的 NK1、5-HT3 配到 ADC 试验上，所以和安慰剂一样不当受试药。
+PLACEHOLDER = re.compile(
+    r"^\(?\s*(rescue|supportive|support|background|concomitant|premedications?|pre-medications?|prophylactic|antiemetic)\b"
+    r"|^best available (therapy|treatment)|^cytokine support|^standard (therapy|treatment)s?\b"
+    r"|^[\w\-/ ]{0,40}\b(inhibitors?|antagonists?|agonists?|blockers?|agents?|modulators?)(\s*\([^)]*\))?$", re.I)
+_CODE_TOK = re.compile(r"\b[A-Za-z]{1,6}-?\d{2,}[A-Za-z0-9]*\b")
+
+
+def is_placeholder(name):
+    """占位类干预名；带研发代号的（「ABC-123 inhibitor」）不算。"""
+    n = (name or "").strip()
+    if not PLACEHOLDER.search(n):
+        return False
+    return not (re.search(r"(inhibitors?|antagonists?|agonists?|blockers?|agents?|modulators?)", n, re.I)
+                and not re.match(r"(?i)^\(?\s*(rescue|supportive|support|background|concomitant|premedic|pre-medic|prophylactic|antiemetic|best available|cytokine support|standard)", n)
+                and _CODE_TOK.search(n))
 COMPARATOR_ARMS = {"ACTIVE_COMPARATOR", "PLACEBO_COMPARATOR", "SHAM_COMPARATOR", "NO_INTERVENTION"}
 
 # 常见的背景 / 联用标准治疗：有其他受试药时不拿它们来决定药物形式
@@ -206,10 +223,10 @@ def classify_one(iv):
 
 def candidates(t):
     """挑出受试药：只在试验组出现的优先，其次试验组与对照组都有的，去掉安慰剂和背景治疗。"""
-    ivs = [iv for iv in (t.get("iv") or []) if not PLACEBO.search((iv.get("n") or "").strip())]
+    ivs = [iv for iv in (t.get("iv") or []) if not PLACEBO.search((iv.get("n") or "").strip()) and not is_placeholder(iv.get("n"))]
     if not ivs:
         return [{"n": n, "ty": "", "on": [], "ds": "", "r": "x"} for n in t.get("interventions", [])
-                if not PLACEBO.search(n.strip())]
+                if not PLACEBO.search(n.strip()) and not is_placeholder(n)]
     pool = [iv for iv in ivs if iv.get("r") == "x"] or [iv for iv in ivs if iv.get("r") != "c"] or ivs
     novel = [iv for iv in pool if not BACKBONE.match((iv.get("n") or "").strip())]
     return novel or pool

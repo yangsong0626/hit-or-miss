@@ -53,17 +53,21 @@ def dkeys(name):
 
 
 SALT = (r"mesylate|mesilate|dihydrochloride|hydrochloride|hcl|maleate|sodium|potassium|tosylate|citrate|fumarate|succinate|tartrate|"
-        r"besylate|phosphate|sulfate|sulphate|monohydrate|hemihydrate|free base|malate|acetate|hydrobromide|bromide|chloride|salt")
+        r"besylate|phosphate|sulfate|sulphate|monohydrate|hemihydrate|free base|malate|acetate|hydrobromide|bromide|chloride|salt|isethionate|isetionate")
 FORM = (r"tablets?|capsules?|cream|ointment|gel|granules?|injection|infusion|solution|suspension|oral|orally|enteric|sprinkle|minitablets?|"
-        r"formulation|fdc|er|xr|sr|ir|foam|implant|inhalation|dry powder|single agent|film[- ]coated|dispersible|powder|ophthalmic|topical|iv|sc|po|is provided|administered|given")
+        r"formulation|fdc|er|xr|sr|ir|foam|implant|inhalation|dry powder|single agent|film[- ]coated|dispersible|powder|ophthalmic|topical|iv|sc|po|is provided|administered|given|therapy")
 STOP = (r"dose|doses|dosing|cohort|part|arm|level|dl\d*|ds\d*|monotherapy|escalation|expansion|high|low|higher|lower|adult|pediatric|"
-        r"continuous|optimi[sz]ed|rp2d|regimen|qd|bid|tid|daily|weekly|q\dw")
+        r"continuous|optimi[sz]ed|rp2d|regimen|qd|bid|tid|daily|weekly|q\dw|single|open|randomi[sz]ed|separate|blinded|double-blind")
 
 
 def core_names(name):
     """把干预名拆成单个药名：去掉括号、盐型、剂量、剂型和「Dose 1」之类的后缀，联用方案按 + / , 拆开。
     「Osimertinib Mesylate Tablets 80mg」→ ["Osimertinib"]，「PF-07220060 + PF-07104091 combination」→ 两个代号。"""
-    s = re.sub(r"[(（\[][^)）\]]*[)）\]]", " ", str(name or ""))
+    s = str(name or "").strip()
+    # 整个名字都包在括号里（「(Osimertinib cohort, single-arm …)」）就去掉外层括号，不然整段被当成注释删掉
+    if re.fullmatch(r"[(（\[][^()（）\[\]]*[)）\]]", s):
+        s = s[1:-1]
+    s = re.sub(r"[(（\[][^)）\]]*[)）\]]", " ", s)
     out = []
     for part in re.split(r"\s*(?:\+|/|,|;|±|&| and | with | plus | combined with | in combination with |\bcombination\b)\s*", s, flags=re.I):
         p = re.sub(r"^\s*(?:(?:oral|topical|intravenous|subcutaneous|iv|sc)\s+)+", "", part, flags=re.I)

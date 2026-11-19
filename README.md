@@ -116,7 +116,9 @@ python scripts/fetch_chembl.py --max 400 --minutes 90 --workers 6
 
 找候选可以先跑 `python scripts/patent_structures.py --missing --out /tmp/patent_candidates.json`（或 `python scripts/patent_structures.py 代号 --sponsor 公司名`）：它用 SureChEMBL 全文检索代号、确认正文里真的出现代号，再用 Leadmine 把代号附近的化学名解析成 SMILES 并打分。结果只是候选，要核对申请人是不是申办方、化学类型和靶点是否吻合，再手工写进 structures_patent.json。
 
-分子对比表的结构图由 `scripts/mol_depict.py` 在构建时本地画（需要 RDKit）：同一靶点的分子按化学骨架分组（Morgan 指纹粗分 + 最大公共子结构校验），公共骨架摆成同一朝向，差异部分用橙色标出，输出到 `docs/mol/`，索引在 `docs/molecules.json` 的 `svg` 字段。分子集合没变的靶点不重画；改了画法就把文件里的 `VER` 加一。没有 RDKit 时跳过，页面退回 PubChem 图片。
+分子对比表的结构图由 `scripts/mol_depict.py` 在构建时本地画（需要 RDKit）：同一靶点的分子按化学骨架分组（Morgan 指纹粗分 + 最大公共子结构校验），公共骨架摆成同一朝向，差异部分用橙色标出，输出到 `docs/mol/`，索引在 `docs/molecules.json` 的 `svg` 字段。分子集合没变的靶点不重画；改了画法就把文件里的 `VER` 加一。没有 RDKit 时跳过，页面退回 PubChem 图片。全站其他地方（药物页、新闻卡片、详情面板）用 `build_all` 画的通用结构图，存在 `docs/mol/s/<SMILES 哈希>.svg`，只画新增的结构；`docs/structures.json` 每行第 5 项是这个哈希。CI 里装了 RDKit（见 `.github/workflows/update-data.yml`）。
+
+失败原因库在 `scripts/build_static.py` 里汇总（`collect_failures`）：主要终点未达到的试验、提前终止的试验（注册库终止原因已归类，「其他 / 未填写」和写明看了其他研究结果才停的「申办方决定」会按原文补判）、新闻稿里的失败；输出 `/failures/` 汇总页、每个靶点页的「失败与终止」区块和交互版用的 `docs/failures.json`。
 
 ## 搜索引擎收录
 

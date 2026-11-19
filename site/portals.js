@@ -161,7 +161,7 @@ function tgData(g){
 function updTgTabs(){
   if (!tgCur) return;
   const {r, ma, cand, fd} = tgData(tgCur);
-  const n = {clin: r.ps.length, pat: "", lit: fd?.lit?.total != null ? fd.lit.total.toLocaleString() : "", news: fd ? (fd.news?.en?.length || 0) + (fd.news?.zh?.length || 0) : "", deal: ma.length + cand.length || ""};
+  const n = {clin: r.ps.length, pat: "", lit: fd?.lit?.total != null ? fd.lit.total.toLocaleString() : "", news: fd ? (fd.news?.en?.length || 0) + (fd.news?.zh?.length || 0) : "", deal: ma.length + cand.length || "", fail: FAIL ? ((FAIL.items || []).filter(e => (e.g || []).includes(tgCur)).length || "") : ""};
   document.querySelectorAll("[data-tgt]").forEach(b => { const k = b.dataset.tgt; const el = b.querySelector("b"); if (el) el.textContent = n[k] === "" || n[k] == null ? "" : n[k]; });
 }
 function renderTargetPage(){
@@ -169,7 +169,7 @@ function renderTargetPage(){
   const al = (TGS.alias[g] || []).filter(a => a.toLowerCase() !== g.toLowerCase()).slice(0, 12);
   const drugs = (TGS.drugs[g] || []);
   const tas = Object.entries(r.tas).sort((a, b) => b[1] - a[1]).map(([k]) => `<span class="tag">${esc(k)}</span>`).join("");
-  const TABS_T = [["clin", T("临床", "Clinical")], ["mol", T("分子", "Molecules")], ["cmp", T("对比", "Compare")], ["pat", T("专利", "Patents")], ["lit", T("文献", "Literature")], ["news", T("新闻", "News")], ["deal", T("交易", "Deals")]];
+  const TABS_T = [["clin", T("临床", "Clinical")], ["mol", T("分子", "Molecules")], ["cmp", T("对比", "Compare")], ["pat", T("专利", "Patents")], ["lit", T("文献", "Literature")], ["news", T("新闻", "News")], ["deal", T("交易", "Deals")], ["fail", T("失败", "Failures")]];
   let html = `<div class="crumb"><button id="tg-back">← ${T("全部靶点", "All targets")}</button><span>/</span><span>${esc(g)}</span></div>
     <header class="pg-head"><h2>${esc(g)} ${starBtn("t", g)}</h2>
       ${al.length ? `<div class="alias">${T("别名：", "Also known as: ")}${al.map(esc).join(" · ")}</div>` : ""}
@@ -190,10 +190,11 @@ function renderTargetPage(){
   $("tgx-page").querySelectorAll(".pg-head [data-gotg]").forEach(b => b.addEventListener("click", () => openTarget(b.dataset.gotg)));
   document.querySelectorAll("[data-tgt]").forEach(b => b.addEventListener("click", () => { tgTab = b.dataset.tgt; document.querySelectorAll("[data-tgt]").forEach(x => x.setAttribute("aria-selected", x === b)); renderTgBody(); }));
   updTgTabs(); renderTgBody();
+  if (!FAIL) loadFail().then(updTgTabs);
 }
 function renderTgBody(){
   const g = tgCur, D_ = tgData(g), el = $("tg-body");
-  const f = {clin:tgClin, mol:tgMol, cmp:tgCmp, pat:tgPat, lit:tgLit, news:tgNews, deal:tgDeal}[tgTab];
+  const f = {clin:tgClin, mol:tgMol, cmp:tgCmp, pat:tgPat, lit:tgLit, news:tgNews, deal:tgDeal, fail:tgFail}[tgTab];
   el.innerHTML = f(g, D_);
   if (tgTab === "clin") tgEarlyFill(g);
   el.querySelectorAll("[data-ot]").forEach(b => b.addEventListener("click", () => openDetail("t", b.dataset.ot)));
@@ -203,6 +204,36 @@ function renderTgBody(){
   el.querySelectorAll("[data-pyr]").forEach(b => b.addEventListener("click", () => { tgPatYr = b.dataset.pyr; renderTgBody(); }));
   el.querySelectorAll("[data-progall]").forEach(b => b.addEventListener("click", () => { b.closest(".pg-sec").querySelectorAll("tr[hidden]").forEach(tr => tr.hidden = false); b.remove(); }));
   el.querySelectorAll("[data-gotg]").forEach(b => b.addEventListener("click", () => { closeDetail(true); openTarget(b.dataset.gotg); }));
+}
+/* ---------- 失败原因：docs/failures.json（构建时汇总：主要终点未达到 + 提前终止 + 新闻稿里的失败） ---------- */
+let FAIL = null, failP = null;
+function loadFail(){
+  if (FAIL) return Promise.resolve(FAIL);
+  if (!failP) failP = getJSON("failures.json").then(j => (FAIL = j)).catch(() => (FAIL = {reasons: [], items: [], err: true}));
+  return failP;
+}
+const frChip = (r) => { const x = (FAIL.reasons || []).find(z => z[0] === r) || [r, r, r]; return `<span class="fr fr-${esc(r)}">${esc(EN ? x[2] : x[1])}</span>`; };
+function tgFail(g){
+  if (!FAIL) { loadFail().then(() => { if (tgCur === g && tgTab === "fail") renderTgBody(); updTgTabs(); }); return `<div class="empty">${T("正在加载…", "Loading…")}</div>`; }
+  const evs = (FAIL.items || []).filter(e => (e.g || []).includes(g));
+  const link = `<a href="${EN ? "en/" : ""}failures/">${T("全部靶点的失败原因 →", "Failure reasons across all targets →")}</a>`;
+  if (!evs.length) return `<section class="pg-sec"><p class="sm">${T("本站还没有记录到这个靶点的失败或提前终止。", "No failures or early stops recorded for this target yet.")} ${link}</p></section>`;
+  const R = (FAIL.reasons || []).map(x => x[0]), cnt = Object.fromEntries(R.map(k => [k, evs.filter(e => e.r === k).length]));
+  const bym = {}; evs.forEach(e => { const m = e.mod || T("未识别", "Unclassified"); (bym[m] = bym[m] || []).push(e); });
+  const mods = Object.entries(bym).sort((a, b) => b[1].length - a[1].length);
+  const effMods = {}; evs.filter(e => e.r === "eff" && e.mod).forEach(e => effMods[e.mod] = (effMods[e.mod] || 0) + 1);
+  const topEff = Object.entries(effMods).sort((a, b) => b[1] - a[1]).slice(0, 2);
+  const sum = T(`记录到 ${evs.length} 次失败或提前终止：疗效不足 ${cnt.eff || 0} 次、安全性 ${cnt.safe || 0} 次、商业 / 战略 ${cnt.biz || 0} 次。`, `${evs.length} failures or early stops: ${cnt.eff || 0} efficacy, ${cnt.safe || 0} safety, ${cnt.biz || 0} business / strategy.`)
+    + (topEff.length ? T(`疗效失败集中在 ${topEff.map(([m, n]) => `${m}（${n}）`).join("、")}。`, ` Efficacy failures cluster in ${topEff.map(([m, n]) => `${m} (${n})`).join(", ")}.`) : "");
+  const mtab = mods.length > 1 ? `<div class="tablewrap"><table class="mol-tab ftab" style="min-width:560px"><thead><tr><th>${T("药物形式", "Modality")}</th>${R.map(k => `<th>${frChip(k)}</th>`).join("")}<th>${T("合计", "Total")}</th></tr></thead><tbody>${mods.map(([m, v]) => `<tr><td>${esc(m)}</td>${R.map(k => `<td>${v.filter(e => e.r === k).length || ""}</td>`).join("")}<td><b>${v.length}</b></td></tr>`).join("")}</tbody></table></div>` : "";
+  const rows = evs.slice(0, 80).map(e => `<tr><td class="sm mono">${esc(e.d || "")}</td>
+      <td>${e.k !== "news" && e.nct ? `<button class="tbtn" data-ot="${esc(e.nct)}">${esc(e.n || e.nct)}</button>` : esc(e.n || "")}<div class="sm">${esc(e.co || "")} · ${esc(e.ph || "")}${T(" 期", "")}</div></td>
+      <td class="sm">${esc(e.cond || "")}</td><td>${frChip(e.r)}</td>
+      <td class="sm">${e.k === "miss" ? `<b>${T("主要终点未达到", "Missed primary endpoint")}</b>${e.why ? `<div>${esc(e.why)}</div>` : ""}` : e.k === "news" ? `<a href="${esc(e.u || "")}" target="_blank" rel="noopener">${esc(e.why || "")}</a>` : `${esc(e.wc || "")}${e.why ? `<div>“${esc(e.why)}”</div>` : ""}`}</td></tr>`).join("");
+  return `<section class="pg-sec"><h3>${esc(g)} · ${T("失败与终止", "Failures and early stops")} <small>${evs.length}</small></h3>
+    <p class="sub">${esc(sum)}</p><p>${R.filter(k => cnt[k]).map(k => `${frChip(k)} ${cnt[k]}`).join(" &nbsp; ")}</p>${mtab}
+    <div class="tablewrap"><table class="mol-tab" style="min-width:760px"><thead><tr><th>${T("日期", "Date")}</th><th>${T("药物", "Drug")}</th><th>${T("适应症", "Indication")}</th><th>${T("原因", "Reason")}</th><th>${T("依据", "Basis")}</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="sm">${T("原因来自注册库填写的终止理由（已归类）、登记的主要终点统计结果和新闻稿；「商业 / 战略」多为申办方未说明具体原因，不等于药物本身没问题。", "Reasons come from registry stop reasons (classified), registered primary-endpoint results and topline news; “business / strategy” often means the sponsor gave no specific reason and does not clear the drug.")} ${link}</p></section>`;
 }
 function tgClin(g, {r, up, cur}){
   const ps = r.ps.slice().sort((a, b) => b.ph - a.ph || a.co.localeCompare(b.co));

@@ -83,6 +83,10 @@ def candidates():
             for t in json.load(open(p, encoding="utf-8")).get("trials", []):
                 for iv in t.get("iv") or []:
                     add(iv.get("n", ""), iv.get("on") or [], t.get("mod", "") if len(t.get("iv") or []) == 1 else "", t.get("mod", ""))
+                # 这个文件每个试验只存前 3 个干预，靶点项目（tgm）里的药名也要查
+                for e in t.get("tgm") or []:
+                    if e.get("n") and not modality.is_placeholder(e["n"]):
+                        add(e["n"], (), e.get("m") or "", t.get("mod", ""))
     np_ = os.path.join(ROOT, "data", "news_readouts.json")
     if os.path.exists(np_):
         for x in json.load(open(np_, encoding="utf-8")).get("items", []):
