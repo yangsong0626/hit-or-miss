@@ -53,7 +53,7 @@ def dkeys(name):
 
 
 SALT = (r"mesylate|mesilate|dihydrochloride|hydrochloride|hcl|maleate|sodium|potassium|tosylate|citrate|fumarate|succinate|tartrate|"
-        r"besylate|phosphate|sulfate|sulphate|monohydrate|hemihydrate|free base|malate|acetate|hydrobromide|bromide|chloride")
+        r"besylate|phosphate|sulfate|sulphate|monohydrate|hemihydrate|free base|malate|acetate|hydrobromide|bromide|chloride|salt")
 FORM = (r"tablets?|capsules?|cream|ointment|gel|granules?|injection|infusion|solution|suspension|oral|orally|enteric|sprinkle|minitablets?|"
         r"formulation|fdc|er|xr|sr|ir|foam|implant|inhalation|dry powder|single agent|film[- ]coated|dispersible|powder|ophthalmic|topical|iv|sc|po|is provided|administered|given")
 STOP = (r"dose|doses|dosing|cohort|part|arm|level|dl\d*|ds\d*|monotherapy|escalation|expansion|high|low|higher|lower|adult|pediatric|"

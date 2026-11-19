@@ -58,6 +58,22 @@
    "why": "MedChemExpress 以 PKC-IN-1 出售 MS-553，CAS 1046787-18-1，分子量 500.6；PubChem 按该 CAS 对应 CID 138107668（C25H37FN8O2）。",
    "conf": "medium",
    "d": "2026-11-19"
+  },
+  "abt301": {
+   "n": "ABT-301",
+   "al": [
+    "imofinostat",
+    "mpt0e028"
+   ],
+   "cid": 53464642,
+   "smi": "O=C(/C=C/c1ccc2c(c1)CCN2S(=O)(=O)c1ccccc1)NO",
+   "ik": "MGTIFSBCGGAZDB-VQHVLOKHSA-N",
+   "mw": 344.4,
+   "pat": "EP4735421A1",
+   "ex": "标题化合物",
+   "why": "Anbogen（ABT-301 申办方）及其发明人的晶型专利 EP4735421 只讲这一个化合物：(E)-N-羟基-3-(1-苯磺酰基吲哚啉-5-基)丙烯酰胺（即 MPT0E028，HDAC 抑制剂），正文在 ABT-301 旁边写出该化学名；SureChEMBL 检索 + Leadmine 解析得到，PubChem CID 53464642。",
+   "conf": "high",
+   "d": "2026-11-19"
   }
  }
 }

@@ -479,7 +479,7 @@ def table(head, rows, cls=""):
     if not rows:
         return ""
     return (f'<div class="tw"><table class="{cls}"><thead><tr>{"".join(f"<th>{h}</th>" for h in head)}</tr></thead><tbody>'
-            + "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows) + "</tbody></table></div>")
+            + "".join(r if isinstance(r, str) else "<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in rows) + "</tbody></table></div>")
 
 
 def vbadge(S, lang, v):
@@ -580,8 +580,9 @@ def num_txt(lang, n):
     return f"{NUM_EN.get(k, k) if lang == 'en' else k} {v}%"
 
 
-def mol_img(lang, m, alt):
-    """有 PubChem CID 用它的图，否则让 PubChem 按 SMILES 现画。专利推测、供应商结构的加标注，链接到专利或供应商页面。"""
+def mol_img(lang, m, alt, svg=None):
+    """svg：本站按骨架对齐画好的图（docs/mol/）；没有就用 PubChem 的图（有 CID 用 CID，否则按 SMILES 现画）。
+    专利推测、供应商结构的加标注，链接到专利或供应商页面。"""
     if m.get("cid"):
         src = f'https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{m["cid"]}/PNG?image_size=160x160'
         href = f'https://pubchem.ncbi.nlm.nih.gov/compound/{m["cid"]}'
@@ -599,14 +600,17 @@ def mol_img(lang, m, alt):
     elif m.get("src") == "vendor":
         href = m.get("vurl") or href
         tag = f'<div class="sm" title="{esc(m.get("pwhy") or "")}">{T(lang, "供应商结构", "Vendor structure")} · {esc(m.get("vendor") or "")}</div>'
-    imgh = f'<img class="mol" loading="lazy" width="80" height="80" alt="{esc(alt)}" src="{esc(src)}">'
+    imgh = (f'<img class="mol mol-al" loading="lazy" width="120" height="100" alt="{esc(alt)}" src="{esc(svg)}">' if svg
+            else f'<img class="mol" loading="lazy" width="80" height="80" alt="{esc(alt)}" src="{esc(src)}">')
     return (f'<a href="{esc(href)}" rel="noopener" target="_blank">{imgh}</a>' if href else imgh) + tag
 
 
 def mol_section(S, lang, g, progs):
     D = S.mol.get("drugs") or {}
     FL = S.mol.get("freq_lbl") or {}
-    rows = []
+    SV = (S.mol.get("svg") or {}).get(g) or {}
+    SM, SF = SV.get("m") or {}, SV.get("f") or {}
+    rows, grp = [], []
     for p in progs:
         ks = list(S.dinfo[p["drug"]]["keys"]) if p["drug"] in S.dinfo else []
         for t in p["trials"]:
@@ -627,7 +631,9 @@ def mol_section(S, lang, g, progs):
         freq = " / ".join((FL.get(f, [f, f])[0 if lang == "zh" else 1]) for f in m.get("freq") or [])
         dose = ", ".join(m.get("dose") or [])
         bio, cell, sel = m.get("bio"), m.get("cell"), m.get("sel")
-        img = mol_img(lang, m, p["name"])
+        svg = f'/mol/{SV["d"]}/{SF.get(k, k)}.svg' if k in SM else None
+        grp.append(SM.get(k, 0))
+        img = mol_img(lang, m, p["name"], svg)
         drug = (S.dlink(lang, p["drug"]) if p["drug"] else esc(p["name"])) + f'<div class="sm">{esc(", ".join(c for c, _ in p["cos"].most_common(1) if c))} · {esc(ph_lbl(lang, p["ph"]))}</div>' \
             + (f'<span class="v {"neg" if m.get("cov") == 1 else "mix"}">{cov}</span>' if cov else "")
         rows.append([img, drug, esc(m.get("moa") or "—"),
@@ -639,10 +645,25 @@ def mol_section(S, lang, g, progs):
                      (f'<span class="sm">{esc(" · ".join(num_txt(lang, n) for n in news[0]["nums"][:3]))}<br>{esc(news[0].get("d"))}</span>' if news else "—")])
     if not rows:
         return ""
+    # 按骨架分组排：同组的挨在一起（组内保持原来的顺序），每组前加一行说明；单独成组的放最后
+    gi = {a: (b, c) for a, b, c in SV.get("g") or []}
+    if gi:
+        out, cur = [], None
+        for gid, r in sorted(zip(grp, rows), key=lambda x: (x[0] == 0, x[0])):
+            if gid != cur:
+                cur = gid
+                if gid:
+                    n, nc = gi.get(gid, (0, 0))
+                    lbl = chr(64 + gid) if gid <= 26 else str(gid)
+                    out.append(f'<tr class="grp"><td colspan="8">{T(lang, f"骨架 {lbl} · {n} 个分子共用 {nc} 个重原子的骨架", f"Scaffold {lbl} · {n} molecules share a {nc}-atom core")}</td></tr>')
+                else:
+                    out.append(f'<tr class="grp"><td colspan="8">{T(lang, "其他结构", "Other scaffolds")}</td></tr>')
+            out.append(r)
+        rows = out
     head = [T(lang, "结构", "Structure"), T(lang, "药物", "Drug"), T(lang, "机制", "Mechanism"), T(lang, "活性", "Potency"),
             T(lang, "选择性 ≤1 µM", "Off-targets ≤1 µM"), T(lang, "理化", "Physchem"), T(lang, "给药", "Dosing"), T(lang, "最新疗效数字", "Latest efficacy")]
-    note = T(lang, "结构来自 PubChem（少数研发代号没有公开结构，用专利里最可能的化合物或试剂供应商给出的结构，分别标「专利推测」「供应商结构」，都未经公司确认）；机制、活性和理化性质来自 ChEMBL（活性是主靶点上各次测定 pChEMBL 的中位数，换算成 nM，选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，只含已发表数据）；给药方案从注册库干预描述里抽取；「可能共价」按结构里的弹头判断。",
-             "Structures from PubChem (a few undisclosed codes show the most likely patent compound or a reagent vendor’s structure, marked “patent-inferred” or “vendor structure”, neither confirmed by the company); mechanism, potency and physchem from ChEMBL (median pChEMBL on the primary target as nM; off-targets are other human single proteins at ≤1 µM, published data only); dosing parsed from registry intervention text; “likely covalent” inferred from a warhead in the structure.")
+    note = T(lang, "结构按化学骨架分组，同组分子的公共骨架摆成同一朝向，橙色底色是和同组其他分子不同的部分（取代基或换了元素的原子）。结构来自 PubChem（少数研发代号没有公开结构，用专利里最可能的化合物或试剂供应商给出的结构，分别标「专利推测」「供应商结构」，都未经公司确认）；机制、活性和理化性质来自 ChEMBL（活性是主靶点上各次测定 pChEMBL 的中位数，换算成 nM，选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，只含已发表数据）；给药方案从注册库干预描述里抽取；「可能共价」按结构里的弹头判断。",
+             "Structures are grouped by scaffold: molecules in a group share the same orientation of their common core, and orange shading marks what differs (substituents or swapped atoms). Structures from PubChem (a few undisclosed codes show the most likely patent compound or a reagent vendor’s structure, marked “patent-inferred” or “vendor structure”, neither confirmed by the company); mechanism, potency and physchem from ChEMBL (median pChEMBL on the primary target as nM; off-targets are other human single proteins at ≤1 µM, published data only); dosing parsed from registry intervention text; “likely covalent” inferred from a warhead in the structure.")
     return (f'<h2>{T(lang, "分子对比", "Molecule comparison")} <small>{len(rows)}</small></h2>'
             f'<p>{T(lang, f"{g} 上各家分子的结构、机制、活性、选择性、理化性质、给药方案和最新疗效数字。", f"Competing {S.tr(g)} molecules: structure, mechanism, potency, selectivity, physchem, dosing and latest efficacy.")}</p>'
             + table(head, rows, "moltab") + f'<p class="sm">{note}</p>')
@@ -1126,7 +1147,7 @@ td:last-child{white-space:nowrap}
 .facts dt{color:var(--muted);font-size:13px}.facts dd{margin:0}
 .cur{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0}.cur h3{margin:2px 0}.cur p{margin:4px 0}
 .rel{line-height:2}.pw{margin:10px 0 14px}.pw .chain{margin:4px 0;line-height:1.9}.pw .stg{white-space:normal}.pw .arr{color:#888;margin:0 4px}.az a{display:inline-block;min-width:22px;text-align:center}
-.moltab td:first-child{width:92px}.moltab img.mol{display:block}.moltab{min-width:900px}
+.moltab td:first-child{width:128px}.moltab img.mol{display:block}.moltab tr.grp td{background:var(--bg);font-size:12px;font-weight:600;color:var(--muted);padding:5px 8px}.moltab{min-width:900px}
 .dh{display:flex;gap:18px;align-items:flex-start}.mol{background:#fff;border-radius:10px;border:1px solid var(--line)}
 code{font-family:var(--f-mono);font-size:12px;word-break:break-all}
 footer{max-width:1080px;margin:0 auto;padding:14px 16px 28px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}

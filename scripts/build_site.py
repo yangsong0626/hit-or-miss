@@ -485,6 +485,22 @@ try:
 except Exception as _e:  # noqa: BLE001
     print(f"[warn] molecules.json not rebuilt: {_e}", file=sys.stderr)
 
+# 分子对比表的结构图：同一靶点按骨架分组、对齐朝向、差异上色 → docs/mol/（要在静态页之前生成）
+try:
+    import mol_depict as _md
+    _D = json.load(open(os.path.join(os.path.dirname(out), "molecules.json"), encoding="utf-8")).get("drugs", {})
+    _pairs = set()
+    for _t in [t for v in d["sets"].values() for t in v] + early_out + (act_trials or []):
+        for _e in _t.get("tgm") or []:
+            if _e.get("g") and _e.get("n"):
+                for _k in _mol.dkeys(_e["n"]) + _mol.core_keys(_e["n"])[:1]:
+                    if _k in _D:
+                        _pairs.add((_e["g"], _k))
+    _nt, _ni = _md.build(os.path.dirname(out), sorted(_pairs))
+    print(f"mol svg · {_nt} targets · {_ni} images", file=sys.stderr)
+except Exception as _e:  # noqa: BLE001
+    print(f"[warn] molecule svgs not rebuilt: {_e}", file=sys.stderr)
+
 # 给搜索引擎的静态页（靶点 / 药物 / 试验，中英文）+ sitemap.xml、robots.txt、404.html
 try:
     import build_static as _bs

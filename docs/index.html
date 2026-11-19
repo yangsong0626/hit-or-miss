@@ -583,7 +583,7 @@ footer{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-si
 .mol-tab{width:100%;border-collapse:collapse;font-size:13px;min-width:980px}
 .mol-tab th{font-size:12px;color:var(--muted);font-weight:600;text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
 .mol-tab td{padding:8px;border-top:1px solid var(--line);vertical-align:top}
-.mol-tab td.mol-st{width:96px}.mol-tab .mono{font-family:var(--f-mono);font-size:11.5px;line-height:1.55;white-space:nowrap}
+.mol-tab td.mol-st{width:132px}.mol-tab tr.mol-grp td{background:var(--bg);font-size:12px;font-weight:600;color:var(--muted);padding:5px 8px}.mol-hl{background:#FFC672;color:#14202e;border-radius:3px;padding:0 3px}.mol-tab .mono{font-family:var(--f-mono);font-size:11.5px;line-height:1.55;white-space:nowrap}
 .tag.mol-cov{background:var(--neg-soft);color:var(--neg)}.tag.mol-cov2{background:var(--mix-soft);color:var(--mix)}
 .smiles code{font-size:11px;word-break:break-all}
 .kpis.mini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.kpis.mini .n{font-size:20px;font-weight:700}.kpis.mini .l{font-size:12px;color:var(--muted)}
@@ -2858,15 +2858,16 @@ function structOf(name){
 }
 // s = [CID, SMILES, 分子量, 来源]：有 CID 用 PubChem 的图，否则让 PubChem 按 SMILES 现画。
 // 来源 "P:专利号" = 专利推测，"V:供应商|产品页" = 供应商结构，都加标注并链接到出处
-const molImg = (s, size, alt) => {
+// svg：本站按骨架对齐画好的图（docs/mol/，分子对比表用），有就不用 PubChem 的图
+const molImg = (s, size, alt, svg) => {
   if (!s || !(s[0] || s[1])) return "";
-  const src = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${s[0]}/PNG?image_size=${size * 2}x${size * 2}`
+  const src = svg ? svg : s[0] ? `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${s[0]}/PNG?image_size=${size * 2}x${size * 2}`
     : `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${encodeURIComponent(s[1])}/PNG?image_size=${size * 2}x${size * 2}`;
   const tg = String(s[3] || ""), pat = tg.startsWith("P:") ? tg.slice(2) : "", ven = tg.startsWith("V:") ? tg.slice(2).split("|") : null;
   let href = s[0] ? `https://pubchem.ncbi.nlm.nih.gov/compound/${s[0]}` : "", title = T("PubChem 结构", "Structure on PubChem"), lbl = "";
   if (tg.startsWith("P:")) { if (pat) href = `https://patents.google.com/patent/${encodeURIComponent(pat)}`; title = T(`专利推测结构${pat ? `（${pat}）` : ""}，未经公司确认`, `Inferred from patent ${pat}; not confirmed by the company`); lbl = T("专利推测", "Patent-inferred"); }
   if (ven) { if (ven[1]) href = ven[1]; title = T(`试剂供应商 ${ven[0]} 给出的结构，未经公司确认`, `Structure from reagent vendor ${ven[0]}; not confirmed by the company`); lbl = T("供应商结构", "Vendor structure"); }
-  const img = `<img class="mol" style="width:${size}px;height:${size}px" loading="lazy" alt="${esc(alt || "")}" src="${src}">`;
+  const img = `<img class="mol${svg ? " mol-al" : ""}" style="width:${svg ? Math.round(size * 1.2) : size}px;height:${size}px" loading="lazy" alt="${esc(alt || "")}" src="${esc(src)}">`;
   return `<a class="mol-wrap" ${href ? `href="${esc(href)}" target="_blank" rel="noopener"` : ""} title="${esc(title)}">${img}</a>${lbl ? `<div class="sm mol-pat">${lbl}</div>` : ""}`;
 };
 // todayISO 已在模板里定义
@@ -3309,14 +3310,26 @@ function regTxt(m){
 function tgMol(g, {r}){
   if (!MOL || !NEWS || !STRUCT) { Promise.all([loadMol(), loadNews(), loadStruct()]).then(() => { if (tgCur === g && tgTab === "mol") renderTgBody(); }); return `<div class="empty">${T("正在加载…", "Loading…")}</div>`; }
   if (!r.ps.length) return `<section class="pg-sec"><p class="sm">${T("这个靶点还没有临床项目。", "No clinical programs on this target yet.")}</p></section>`;
-  const rows = molRows(g, r), withData = rows.filter(x => x.has);
+  const rows = molRows(g, r), SV = (MOL.svg || {})[g] || {}, SM = SV.m || {}, SF = SV.f || {}, GI = Object.fromEntries((SV.g || []).map(x => [x[0], x]));
+  const svgOf = k => k in SM ? `mol/${SV.d}/${SF[k] || k}.svg` : null;
+  // 按骨架分组排：同组的挨在一起（组内保持阶段顺序），单独成组的放最后
+  const gid = x => SM[x.k] || 0;
+  const withData = rows.filter(x => x.has).map((x, i) => [x, i]).sort((a, b) => (gid(a[0]) === 0) - (gid(b[0]) === 0) || gid(a[0]) - gid(b[0]) || a[1] - b[1]).map(a => a[0]);
+  const grouped = (SV.g || []).length > 0;
   CMP_CACHE.mol = rows;
   setTimeout(() => { const b = $("mol-csv"); if (b) b.addEventListener("click", () => molCSV(g)); }, 0);
+  let curG = null;
   const body = withData.map(({p, k, m, news}) => {
+    let hdr = "";
+    if (grouped && gid({k}) !== curG) {
+      curG = gid({k});
+      const gg = GI[curG], lbl = curG <= 26 ? String.fromCharCode(64 + curG) : String(curG);
+      hdr = `<tr class="mol-grp"><td colspan="8">${curG ? T(`骨架 ${lbl} · ${gg[1]} 个分子共用 ${gg[2]} 个重原子的骨架`, `Scaffold ${lbl} · ${gg[1]} molecules share a ${gg[2]}-atom core`) : T("其他结构", "Other scaffolds")}</td></tr>`;
+    }
     const sel = m.sel ? `${T(`另有 ${m.sel.off} 个`, `${m.sel.off} other`)} <span class="sm">/ ${T(`测过 ${m.sel.tested}`, `${m.sel.tested} tested`)}</span>` : "—";
     const pr = m.p || {};
-    return `<tr>
-      <td class="mol-st">${m.cid || m.smi ? molImg([m.cid, m.smi, m.mw, m.src === "patent" ? "P:" + (m.pat || "") : m.src === "vendor" ? "V:" + (m.vendor || "") + "|" + (m.vurl || "") : null], 84, p.drug) : `<span class="sm">${esc(p.m || "")}</span>`}${(m.src === "patent" || m.src === "vendor") && m.pwhy ? `<div class="sm" title="${esc(m.pwhy)}">${esc(m.pex || "")}</div>` : ""}</td>
+    return `${hdr}<tr>
+      <td class="mol-st">${m.cid || m.smi ? molImg([m.cid, m.smi, m.mw, m.src === "patent" ? "P:" + (m.pat || "") : m.src === "vendor" ? "V:" + (m.vendor || "") + "|" + (m.vurl || "") : null], 100, p.drug, svgOf(k)) : `<span class="sm">${esc(p.m || "")}</span>`}${(m.src === "patent" || m.src === "vendor") && m.pwhy ? `<div class="sm" title="${esc(m.pwhy)}">${esc(m.pex || "")}</div>` : ""}</td>
       <td><button class="tbtn" data-od="${esc(k)}">${esc(p.drug)}</button><div class="sm">${esc(p.co)} · ${PHN(p.ph)}${T(" 期", "")}</div><div>${molCovTag(m)}</div></td>
       <td class="sm">${esc(m.moa || "")}${m.ch ? `<div><a href="https://www.ebi.ac.uk/chembl/compound_report_card/${esc(m.ch)}/" target="_blank" rel="noopener">${esc(m.ch)}</a></div>` : ""}</td>
       <td>${m.bio ? `<b>${esc(potTxt(m.bio))}</b><div class="sm">${esc(m.bio.n || "")}${m.bio.k > 1 ? T(` · ${m.bio.k} 次测定中位数`, ` · median of ${m.bio.k}`) : ""}</div>` : "—"}${m.cell ? `<div class="sm">${T("细胞", "Cell")} ${esc(potTxt(m.cell))} · ${esc(m.cell.n)}</div>` : ""}</td>
@@ -3331,6 +3344,7 @@ function tgMol(g, {r}){
       "Competing molecules side by side: structure, mechanism (covalent or not), potency and selectivity, physchem, clinical dosing and the latest reported efficacy — to see where the bar is and where there is room to differentiate.")}</p>
     ${withData.length ? `<div class="tablewrap"><table class="mol-tab"><thead><tr><th>${T("结构", "Structure")}</th><th>${T("药物", "Drug")}</th><th>${T("机制", "Mechanism")}</th><th>${T("活性", "Potency")}</th><th>${T("选择性 ≤1 µM", "Off-targets ≤1 µM")}</th><th>${T("理化", "Physchem")}</th><th>${T("给药", "Dosing")}</th><th>${T("最新疗效数字", "Latest efficacy")}</th></tr></thead><tbody>${body}</tbody></table></div>` : `<p class="sm">${T("这个靶点的项目还没有公开结构或给药信息。", "No public structures or dosing for programs on this target yet.")}</p>`}
     ${miss ? `<p class="sm">${T(`另有 ${miss} 个项目没有公开结构、ChEMBL 记录或登记的给药信息，多为抗体、细胞治疗或只公布了代号的早期分子。`, `${miss} more programs have no public structure, ChEMBL record or registered dosing — mostly antibodies, cell therapies or early code-only molecules.`)}</p>` : ""}
+    ${grouped ? `<p class="sm">${T("结构按化学骨架分组：同组分子的公共骨架摆成同一朝向，<span class=\"mol-hl\">橙色底色</span>是和同组其他分子不同的部分（取代基或换了元素的原子）。", "Grouped by scaffold: molecules in a group share the same orientation of their common core; <span class=\"mol-hl\">orange shading</span> marks what differs (substituents or swapped atoms).")}</p>` : ""}
     <p class="sm">${T("活性是 ChEMBL 里主靶点上各次测定（IC50 / Ki / Kd / EC50）的中位数，换算成 nM；选择性是除主靶点外 ≤1 µM 的人源单一蛋白个数，ChEMBL 只收录发表过的数据，「测过」少不代表选择性好。给药方案从注册库干预描述里抽取，以最常见的写法为准。「可能共价」按结构里的弹头判断，未经 ChEMBL 确认。标「专利推测」「供应商结构」的是没有公开结构的研发代号，分别取自专利里最可能的化合物和试剂供应商，都未经公司确认，鼠标停在结构下方可看依据。",
       "Potency is the median ChEMBL pChEMBL (IC50 / Ki / Kd / EC50) on the primary target, converted to nM. Off-targets counts other human single proteins at ≤1 µM; ChEMBL only holds published data, so few targets tested does not mean selective. Dosing is parsed from registry intervention text, most common wording first. “Likely covalent” is inferred from a warhead in the structure and not confirmed by ChEMBL. “Patent-inferred” and “vendor structure” mark undisclosed codes filled from the most likely patent compound or a reagent vendor, neither confirmed by the company; hover below the structure for the reasoning.")}</p></section>`;
 }

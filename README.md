@@ -114,6 +114,10 @@ python scripts/fetch_chembl.py --max 400 --minutes 90 --workers 6
 
 没有公开结构的研发代号可以人工补进 `data/structures_patent.json`：从专利里挑最可能的临床化合物（例如单独有盐型或晶型专利、在后续联用专利里被点名的那个），写明专利号、例号和判断依据。页面上标「专利推测」并链接到专利，不查 ChEMBL。
 
+找候选可以先跑 `python scripts/patent_structures.py --missing --out /tmp/patent_candidates.json`（或 `python scripts/patent_structures.py 代号 --sponsor 公司名`）：它用 SureChEMBL 全文检索代号、确认正文里真的出现代号，再用 Leadmine 把代号附近的化学名解析成 SMILES 并打分。结果只是候选，要核对申请人是不是申办方、化学类型和靶点是否吻合，再手工写进 structures_patent.json。
+
+分子对比表的结构图由 `scripts/mol_depict.py` 在构建时本地画（需要 RDKit）：同一靶点的分子按化学骨架分组（Morgan 指纹粗分 + 最大公共子结构校验），公共骨架摆成同一朝向，差异部分用橙色标出，输出到 `docs/mol/`，索引在 `docs/molecules.json` 的 `svg` 字段。分子集合没变的靶点不重画；改了画法就把文件里的 `VER` 加一。没有 RDKit 时跳过，页面退回 PubChem 图片。
+
 ## 搜索引擎收录
 
 交互版是单页应用，`#` 后面的内容搜索引擎看不到。所以构建时另外生成普通 HTML：每个靶点 `/target/<slug>/`、药物 `/drug/<key>/`、试验 `/trial/<NCT>/` 一页，英文版加 `/en/` 前缀，三个索引页 `/targets/`、`/drugs/`、`/trials/`。每页有独立标题、描述、canonical 和中英文 hreflang，正文是由数据自动生成的摘要和表格，并链回交互版。站点地址取环境变量 `SITE_URL`（默认 `https://hit-or-miss-cz5.pages.dev/`），换域名时同时改工作流里的 `SITE_URL` 和 `site/template.html` 头部的 canonical。
