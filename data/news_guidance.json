@@ -1,5 +1,5 @@
 {
-"generated": "2026-11-16",
+"generated": "2026-11-23",
 "items": [
 {
 "d": "",
@@ -128,6 +128,60 @@
 "nct": null,
 "ph": "",
 "id": "gb35727975"
+},
+{
+"d": "2026-11-18",
+"u": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxQYzVnZkUtYjFIVnlXSGNIOVJCekVkYy1kS2YzenA5YzZiYWwxRUFGNTItUDBoVEpsWWZKSjE3bkhoR0ZEQUU1a0w2S1RVdVdBUVZjX1UtYTd2SWlJc01jZUVpM29fV19mNlR2VnVjNjhvSlo3MnVRQVJrZXpzN2hEa2VTaUFxN3FheWl0bGhwTEdnOVVtRW9XOWx4Ujc2NEtxc2hLMGJjQWVsTGlJVkFyamQ5OEpiZEV5cWJwYlMxdGFZcUIyMExSS016R01oTHVJelZnY0tydjgyZkpVbDdhOWh6VXZYc3o2RXF3OUVpRHZ6VGJwekJB?oc=5",
+"s": "TradingView",
+"t": "RTSN: IPO proceeds fund RTN-001 development, with Phase 2b data expected in H1 2027",
+"lang": "en",
+"when": "2027 H1",
+"start": "2027-01-01",
+"end": "2027-06-30",
+"snip": "RTSN: IPO proceeds fund RTN-001 development, with Phase 2b data expected in H1 2027",
+"drug": "RTN-001",
+"co": "Retension",
+"tg": [],
+"ta": "心血管 / 代谢 / 肾",
+"nct": "NCT07142356",
+"ph": "2",
+"id": "g262a6c112"
+},
+{
+"d": "2026-11-19",
+"u": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPTk9mWlNFRE0xS3IzbS0zcW42X243YTRZeXJxcnY2cUxaeFBnLTZiSjdTRG85WkJqc1RqdlBWckpDdkVsY3lxbXVEX3lYTGxmWnBKTkZqMm1QQU15eEFUbEMwQ1lSbFRUSmVGVG1KbThmekUwLXBJMUJOUDBCbE1xRGFEVUtvUk1iNE91UTRST3FnNXN0VmJTUlRsV1lETGVzaHV5NGU2RXlWa29Vam5NMlNWUlFZbkpoZlF1WWQ1TXplY0pYWTM5M2tEdUdKM1kxYkRNUEFHRnNINnJUUXc?oc=5",
+"s": "Kalkine",
+"t": "Neurizon Therapeutics Limited (ASX: NUZ) — NUZ-001 Phase 2/3 ALS Trial on Track for Late Q2 2027 Topline Readout",
+"lang": "en",
+"when": "2027 Q2",
+"start": "2027-04-01",
+"end": "2027-06-30",
+"snip": "Neurizon Therapeutics Limited (ASX: NUZ) — NUZ-001 Phase 2/3 ALS Trial on Track for Late Q2 2027 Topline Readout",
+"drug": "NUZ-001",
+"co": "",
+"tg": [],
+"ta": "神经 / 精神 / 疼痛",
+"nct": null,
+"ph": "2/3",
+"id": "g366d38447"
+},
+{
+"d": "2026-11-19",
+"u": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNUkVCdTZyQWlNdlp2NEVhekZCdGZyN3BPTzdYVU1nenNZelJOSWNobF91N3FGeWJ4YzdnS2VvN1Q0dUdIU0ZDSTlabENHNHp6VFJHQW1ZaGowcG1PMWV4QUFwc1lHelNuM2pKekRidXMzazA3WGlPWGM0X1Y3dEtvaTBtSDNwZ3VpN09ENFUyMlFBV3dhaGJ4TnhHMEprSmdSZ2lhSWl0UlNRTU1BYlByMTBreFJSTVFPYnRJUzFGNGM4NUJwdWJnNVBJZng5WmtVUFBEeUVyV0JTOFE?oc=5",
+"s": "TradingView",
+"t": "Pyxis Oncology Reports Updated MICVO Phase 1 Data, Plans Phase 3 Start in Mid-2027",
+"lang": "en",
+"when": "2027 年中",
+"start": "2027-05-01",
+"end": "2027-08-31",
+"snip": "Pyxis Oncology Reports Updated MICVO Phase 1 Data, Plans Phase 3 Start in Mid-2027",
+"drug": "",
+"co": "Pyxis Oncology",
+"tg": [],
+"ta": "肿瘤",
+"nct": null,
+"ph": "3",
+"id": "gb6e813ef8"
 },
 {
 "d": "2026-11-09",

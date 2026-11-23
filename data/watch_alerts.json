@@ -1,5 +1,16 @@
 {
- "asof": "2026-11-16",
+ "asof": "2026-11-23",
  "source": "openFDA Drugs@FDA",
- "alerts": []
+ "alerts": [
+  {
+   "co": "Cytokinetics",
+   "asset": "aficamten（Myqorzo）",
+   "inn": "aficamten",
+   "date": "2026-11-13",
+   "app": "NDA219083",
+   "sub": "SUPPL2",
+   "brand": "MYQORZO",
+   "kind": "fda"
+  }
+ ]
 }

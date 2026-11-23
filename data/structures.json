@@ -674,7 +674,8 @@
 "ik": "MSGYSFWCPOBHEV-AWEZNQCLSA-N",
 "mw": 507.5,
 "al": [
-"incb054707"
+"incb054707",
+"incb54707"
 ],
 "d": "2026-11-06"
 },
@@ -2381,6 +2382,7 @@
 "ik": "SOLUWJRYJLAZCX-LYOVBCGYSA-N",
 "mw": 449.4,
 "al": [
+"biktarvy",
 "bixlenvo",
 "gs9883"
 ],
@@ -3013,6 +3015,7 @@
 "al": [
 "amg407",
 "cc10004",
+"cc10004otezla",
 "otezla"
 ],
 "d": "2026-11-06"
@@ -3095,7 +3098,8 @@
 "ik": "CUABMPOJOBCXJI-UHFFFAOYSA-N",
 "mw": 507.5,
 "al": [
-"lou064"
+"lou064",
+"lou64"
 ],
 "d": "2026-11-06"
 },
@@ -4868,7 +4872,8 @@
 "mw": 504.4,
 "al": [
 "hybryte",
-"sgx301"
+"sgx301",
+"sgx302"
 ],
 "d": "2026-11-09"
 },
@@ -8604,7 +8609,9 @@
 "smi": "CNS(=O)(=O)NC1=CC=CC(=C1F)CC2=C(C3=C(C=C(C=C3)OC(=O)N(C)C)OC2=O)CN(C)C",
 "ik": "VGDONWMTHHBKMZ-UHFFFAOYSA-N",
 "mw": 506.5,
-"al": [],
+"al": [
+"imm1104"
+],
 "d": "2026-11-09"
 },
 "remibrutinibtreatment": {
@@ -9914,6 +9921,7 @@
 "ik": "XQSPYNMVSIKCOC-NTSWFWBYSA-N",
 "mw": 247.2,
 "al": [
+"biktarvy",
 "descovy",
 "truvada"
 ],
@@ -16421,7 +16429,15 @@
 "smi": "CC1=C(C=CC(=C1)NC2=NC=NN3C2=C(C=C3)C4CCN(CC4)C(=O)/C=C/CN(C)C)OC5=CC6=NC=NN6C=C5",
 "ik": "ILNQLWGODADTLL-SNAWJCMRSA-N",
 "mw": 551.6,
-"al": [],
+"al": [
+"capecitabine",
+"carboplatin",
+"pembrolizumab",
+"pemetrexed",
+"tdxd",
+"trastuzumab",
+"zanidatamab"
+],
 "d": "2026-11-18"
 },
 "tqb3455": {
@@ -16940,7 +16956,9 @@
 "smi": "C[C@H](CN1C=NC2=C(N=CN=C21)N)OC[P@@](=O)(N[C@@H](C)C(=O)OC(C)C)OC3=CC=CC=C3",
 "ik": "LDEKQSIMHVQZJK-CAQYMETFSA-N",
 "mw": 476.5,
-"al": [],
+"al": [
+"biktarvy"
+],
 "d": "2026-11-18"
 },
 "olaptesedpegol": {
@@ -24106,6 +24124,392 @@
 "mw": 533.6,
 "al": [],
 "d": "2026-11-19"
+},
+"bhs10561": {
+"n": "B: HS-10561",
+"miss": "2026-11-23"
+},
+"js207": {
+"n": "JS207",
+"miss": "2026-11-23",
+"syn": 1
+},
+"otxtki": {
+"n": "OTX-TKI",
+"miss": "2026-11-23"
+},
+"sacituzumabtirumotecan": {
+"n": "Sacituzumab tirumotecan",
+"miss": "2026-11-23"
+},
+"gpc100": {
+"n": "GPC-100",
+"miss": "2026-11-23",
+"syn": 1
+},
+"propranolol": {
+"n": "Propranolol",
+"cid": 4946,
+"smi": "CC(C)NCC(COC1=CC=CC2=CC=CC=C21)O",
+"ik": "AQHHHDLHHXJYJD-UHFFFAOYSA-N",
+"mw": 259.3,
+"al": [],
+"d": "2026-11-23"
+},
+"ar1001": {
+"n": "AR1001",
+"cid": 7669,
+"smi": "CNCC1=CC=CC=C1",
+"ik": "RIWRFSMVIUAEBX-UHFFFAOYSA-N",
+"mw": 121.2,
+"al": [
+"mirodenafil10mg",
+"mirodenafil30mg"
+],
+"d": "2026-11-23"
+},
+"vtx958": {
+"n": "VTX958",
+"cid": 156338076,
+"smi": "CNC1=CC(=NC2=C(C=NN12)NC(=O)N[C@@H]3C[C@@H]3F)NC4=C5C(=CC(=C4)F)OCCO5",
+"ik": "WMXUGUJEUBVMSQ-WDEREUQCSA-N",
+"mw": 431.4,
+"al": [],
+"d": "2026-11-23"
+},
+"t817ma": {
+"n": "T-817MA",
+"cid": 11338749,
+"smi": "C1C(CN1CCCOCCC2=CC3=C(C=C2)SC=C3)O.C(=C\\C(=O)O)\\C(=O)O",
+"ik": "RLUCYBFCLXANSO-BTJKTKAUSA-N",
+"mw": 407.5,
+"al": [],
+"d": "2026-11-23"
+},
+"asundexian": {
+"n": "Asundexian",
+"cid": 135206011,
+"smi": "CC[C@@H](C(=O)NC1=CC(=C(C=C1)C(=O)N)F)N2C=C(C(=CC2=O)C3=C(C=CC(=C3)Cl)N4C=C(N=N4)C(F)(F)F)OC",
+"ik": "XYWIPYBIIRTJMM-IBGZPJMESA-N",
+"mw": 592.9,
+"al": [],
+"d": "2026-11-23"
+},
+"cocainenasal": {
+"n": "Cocaine Nasal",
+"miss": "2026-11-23"
+},
+"combinedmetabolicactivators": {
+"n": "Combined metabolic activators",
+"miss": "2026-11-23"
+},
+"urcosimod": {
+"n": "Urcosimod",
+"cid": 172990717,
+"smi": "CCCCCCCCCCCCCCCC(=O)NCCOCCOCCOCCOCCOCCOCCOCCOCCC(=O)NCC(=O)NCC(=O)N[C@H](CC1=CC=C(C=C1)O)C(=O)N[C@@H](CC2=CC=CC=C2)C(=O)N[C@@H](CC(C)C)C(=O)N3CCC[C@H]3C(=O)N[C@H](CO)C(=O)N[C@@H](CCC(=O)N)C(=O)N[C@@H](CC4=CC=CC=C4)C(=O)N[C@H](C)C(=O)N5CC6=CC=CC=C6C[C@H]5C(=O)N[C@@H](CO)C(=O)O",
+"ik": "ZTHJLYVWKNLZAD-QZPNKMJMSA-N",
+"mw": 1994.4,
+"al": [],
+"d": "2026-11-23"
+},
+"brc201": {
+"n": "BRC-201",
+"miss": "2026-11-23",
+"syn": 1
+},
+"optionalendocrine": {
+"n": "Optional Endocrine",
+"miss": "2026-11-23"
+},
+"lepetegravir": {
+"n": "Lepetegravir",
+"cid": 164590400,
+"smi": "C[C@H]1C=C[C@H](N2CN1C(=O)C3=C(C(=O)C(=CN32)C(=O)NCC4=C(C=C(C=C4F)F)F)O)C",
+"ik": "AFHGIULBHAXDDI-WDEREUQCSA-N",
+"mw": 448.4,
+"al": [
+"gs1720",
+"gs1720gs4182fdc"
+],
+"d": "2026-11-23"
+},
+"lenacapavirpacfosacil": {
+"n": "Lenacapavir pacfosacil",
+"cid": 168826121,
+"smi": "CC1=CC(=C(C(=C1)OP(=O)(O)O)C(C)(C)CC(=O)N(C2=NN(C3=C(C=CC(=C32)Cl)C4=C(N=C(C=C4)C#CC(C)(C)S(=O)(=O)C)[C@H](CC5=CC(=CC(=C5)F)F)NC(=O)CN6C7=C([C@H]8C[C@H]8C7(F)F)C(=N6)C(F)(F)F)CC(F)(F)F)S(=O)(=O)C)CC(=O)O",
+"ik": "XXPJRIWJFUQOCT-LFBNJJMOSA-N",
+"mw": 1296.5,
+"al": [
+"gs1720gs4182fdc",
+"gs4182"
+],
+"d": "2026-11-23"
+},
+"iti007": {
+"n": "ITI-007",
+"cid": 21302490,
+"smi": "CN1CCN2[C@H]3CCN(C[C@H]3C4=C2C1=CC=C4)CCCC(=O)C5=CC=C(C=C5)F",
+"ik": "HOIIHACBCFLJET-SFTDATJTSA-N",
+"mw": 393.5,
+"al": [],
+"d": "2026-11-23"
+},
+"blu5937": {
+"n": "BLU-5937",
+"cid": 76955630,
+"smi": "CC1=CC2=NC(=C(N2C=C1)C[C@H]3CN(CCO3)C(=O)OC)C4=C(C=C(C=C4F)C(=O)NC)F",
+"ik": "SEHLMRJSQFAPCJ-HNNXBMFYSA-N",
+"mw": 458.5,
+"al": [
+"camlipixant"
+],
+"d": "2026-11-23"
+},
+"conventionaltreatment": {
+"n": "conventional treatment",
+"miss": "2026-11-23"
+},
+"singleascendingdose": {
+"n": "Single Ascending Dose",
+"miss": "2026-11-23"
+},
+"sequentially": {
+"n": "sequentially",
+"miss": "2026-11-23"
+},
+"existingstrengthsof611": {
+"n": "existing strengths of 611",
+"miss": "2026-11-23"
+},
+"singledoseg1090n": {
+"n": "Single Dose G1090N",
+"miss": "2026-11-23"
+},
+"uncoatedgal101": {
+"n": "Uncoated GAL-101",
+"miss": "2026-11-23"
+},
+"singledose": {
+"n": "single dose",
+"miss": "2026-11-23"
+},
+"ro7673396": {
+"n": "RO7673396",
+"miss": "2026-11-23",
+"syn": 1
+},
+"act201": {
+"n": "ACT201",
+"miss": "2026-11-23",
+"syn": 1
+},
+"abs169": {
+"n": "ABS-169",
+"miss": "2026-11-23",
+"syn": 1
+},
+"yy524051": {
+"n": "YY524051",
+"miss": "2026-11-23",
+"syn": 1
+},
+"weeklysubcutaneousadministrationofmigaldendranib": {
+"n": "Weekly subcutaneous administration of Migaldendranib",
+"miss": "2026-11-23"
+},
+"int1868": {
+"n": "INT-1868",
+"miss": "2026-11-23",
+"syn": 1
+},
+"fmxin002": {
+"n": "FMXIN002",
+"miss": "2026-11-23",
+"syn": 1
+},
+"backgroundprednisone": {
+"n": "Background prednisone",
+"miss": "2026-11-23"
+},
+"ratutrelvirnon": {
+"n": "Ratutrelvir non",
+"miss": "2026-11-23"
+},
+"indacaterol": {
+"n": "Indacaterol",
+"cid": 6918554,
+"smi": "CCC1=C(C=C2CC(CC2=C1)NC[C@@H](C3=C4C=CC(=O)NC4=C(C=C3)O)O)CC",
+"ik": "QZZUEBNBZAPZLX-QFIPXVFZSA-N",
+"mw": 392.5,
+"al": [],
+"d": "2026-11-23"
+},
+"glycopyrronium": {
+"n": "Glycopyrronium",
+"cid": 3494,
+"smi": "C[N+]1(CCC(C1)OC(=O)C(C2CCCC2)(C3=CC=CC=C3)O)C",
+"ik": "ANGKOCUUWGHLCE-UHFFFAOYSA-N",
+"mw": 318.4,
+"al": [],
+"d": "2026-11-23"
+},
+"mometasone": {
+"n": "Mometasone",
+"cid": 441335,
+"smi": "C[C@@H]1C[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@@]4([C@]3([C@H](C[C@@]2([C@]1(C(=O)CCl)O)C)O)Cl)C",
+"ik": "QLIIKPVHVRXHRI-CXSFZGCWSA-N",
+"mw": 427.4,
+"al": [],
+"d": "2026-11-23"
+},
+"induction": {
+"n": "Induction",
+"miss": "2026-11-23"
+},
+"qr01019": {
+"n": "QR01019",
+"cid": 137091385,
+"smi": "CCOC1=NC2=CC=CC(=C2N1CC3=CC=C(C=C3)C4=CC=CC=C4C5=NOC(=O)N5)C(=O)OC(C)OC(=O)OCC6=NC(=C(N=C6C)C)C",
+"ik": "JXSDNNVNQNYJSP-UHFFFAOYSA-N",
+"mw": 678.7,
+"al": [],
+"d": "2026-11-23"
+},
+"backgroundpah": {
+"n": "Background PAH",
+"miss": "2026-11-23"
+},
+"shr4610": {
+"n": "SHR-4610",
+"miss": "2026-11-23",
+"syn": 1
+},
+"hw201877": {
+"n": "HW201877",
+"miss": "2026-11-23",
+"syn": 1
+},
+"sal0167": {
+"n": "SAL0167",
+"miss": "2026-11-23",
+"syn": 1
+},
+"singleascendingdosesofmt1013": {
+"n": "Single ascending doses of MT1013",
+"miss": "2026-11-23"
+},
+"antidepressant": {
+"n": "Antidepressant",
+"miss": "2026-11-23"
+},
+"acousticcluster": {
+"n": "Acoustic Cluster",
+"miss": "2026-11-23"
+},
+"hsk55879": {
+"n": "HSK55879",
+"miss": "2026-11-23",
+"syn": 1
+},
+"srp001": {
+"n": "SRP-001",
+"miss": "2026-11-23",
+"syn": 1
+},
+"singlearmnonrandomizedablationtreatment": {
+"n": "Single Arm non-Randomized Ablation Treatment",
+"miss": "2026-11-23"
+},
+"nerofe": {
+"n": "Nerofe",
+"cid": 91801207,
+"smi": "C[C@H]([C@H](C(=O)N[C@H](CC1=CC=CC=C1)C(=O)N[C@H](CC2=CC=CC=C2)C(=O)N[C@H](CC(C)C)C(=O)N3CCC[C@@H]3C(=O)N[C@H](CO)C(=O)N[C@H]([C@@H](C)O)C(=O)N[C@H](CC(C)C)C(=O)N[C@H](CC4=CNC5=CC=CC=C54)C(=O)N[C@H](CCC(=O)O)C(=O)N[C@H](CCCNC(=N)N)C(=O)N[C@H](CCCCN)C(=O)O)NC(=O)[C@@H](CC6=CNC7=CC=CC=C76)NC(=O)[C@@H](CC8=CNC9=CC=CC=C98)N)O",
+"ik": "FNQVICDIQNFNHD-AXBBNSRTSA-N",
+"mw": 1897.2,
+"al": [],
+"d": "2026-11-23"
+},
+"hormonal": {
+"n": "hormonal",
+"miss": "2026-11-23"
+},
+"dalpiciclib": {
+"n": "Dalpiciclib",
+"cid": 86279927,
+"smi": "CC1=C(C(=O)N(C2=NC(=NC=C12)NC3=NC=C(C=C3)C4CCNCC4)C5CCCC5)C(=O)C",
+"ik": "SGJLSPUSUBJWHO-UHFFFAOYSA-N",
+"mw": 446.5,
+"al": [],
+"d": "2026-11-23"
+},
+"tht140": {
+"n": "THT140",
+"miss": "2026-11-23",
+"syn": 1
+},
+"prophylacticimmunomodulatory": {
+"n": "Prophylactic immunomodulatory",
+"miss": "2026-11-23"
+},
+"pf07850327": {
+"n": "PF-07850327",
+"cid": 134562533,
+"smi": "C1CC2=C(C=CC(=C2)O)[C@H]([C@H]1C3=CC=CC=C3)C4=CC=C(C=C4)N5CCC(CC5)CN6CCN(CC6)C7=CC8=C(C=C7)C(=O)N(C8)[C@H]9CCC(=O)NC9=O",
+"ik": "TZZDVPMABRWKIZ-XMOGEVODSA-N",
+"mw": 723.9,
+"al": [],
+"d": "2026-11-23"
+},
+"xelox": {
+"n": "XELOX",
+"cid": 71301229,
+"smi": "CCCCCOC(=O)NC1=NC(=O)N(C=C1F)[C@H]2[C@@H]([C@@H]([C@H](O2)C)O)O.C1CC[C@H]([C@@H](C1)[NH-])[NH-].C(=O)(C(=O)[O-])[O-].[Pt+4]",
+"ik": "ZSTCHQOKNUXHLZ-PIRIXANTSA-L",
+"mw": 754.6,
+"al": [],
+"d": "2026-11-23"
+},
+"fixed": {
+"n": "Fixed",
+"miss": "2026-11-23"
+},
+"js001": {
+"n": "JS001",
+"miss": "2026-11-23",
+"syn": 1
+},
+"platinumbaseddoubletchemotherapy": {
+"n": "platinum-based doublet chemotherapy",
+"miss": "2026-11-23"
+},
+"concomitantantibiotic": {
+"n": "Concomitant Antibiotic",
+"miss": "2026-11-23"
+},
+"karxec": {
+"n": "KarX-EC",
+"miss": "2026-11-23"
+},
+"leuprolide": {
+"n": "Leuprolide",
+"cid": 657181,
+"smi": "CCNC(=O)[C@@H]1CCCN1C(=O)[C@H](CCCN=C(N)N)NC(=O)[C@H](CC(C)C)NC(=O)[C@@H](CC(C)C)NC(=O)[C@H](CC2=CC=C(C=C2)O)NC(=O)[C@H](CO)NC(=O)[C@H](CC3=CNC4=CC=CC=C43)NC(=O)[C@H](CC5=CN=CN5)NC(=O)[C@@H]6CCC(=O)N6",
+"ik": "GFIJNRVAKGFPGQ-LIJARHBVSA-N",
+"mw": 1209.4,
+"al": [],
+"d": "2026-11-23"
+},
+"androgendeprivation": {
+"n": "Androgen Deprivation",
+"miss": "2026-11-23"
+},
+"1monthdapt": {
+"n": "1-month DAPT",
+"miss": "2026-11-23"
+},
+"endocrine": {
+"n": "Endocrine",
+"miss": "2026-11-23"
 }
 }
 }

@@ -1,6 +1,249 @@
 {
-"generated": "2026-11-16",
+"generated": "2026-11-23",
 "items": [
+{
+"d": "2026-11-22",
+"t": "Huaixiang Hao: PT0253 KRAS G12D Degrader Preclinical and Clinical Data Featured at ENA 2026",
+"s": "Oncodaily",
+"u": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4wNkRranQ3ajBxUmFZRGVFOHkwNDVMRG9OUjF3VWJxaVRiQ1BVU3ppTHNlVzRRcExRWllWNkV2Um1oQ2dEUEVtUnp0S1pDVzFLeTZhVVpuYXJoTkk?oc=5",
+"lang": "en",
+"type": "临床前数据",
+"drug": "PT0253",
+"co": "PAQ",
+"tg": [
+"KRAS（泛 / 其他突变）"
+],
+"mod": "降解剂",
+"ta": "肿瘤",
+"tier": "media",
+"id": "e4e1b5098e"
+},
+{
+"d": "2026-11-20",
+"t": "Fierce Pharma Asia—Ivonescimab’s FDA snub; Pfizer’s in vivo CAR-T deal; China fires scientists in fatal gene trial",
+"s": "Fierce Pharma",
+"u": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOZ3YwWVl0YmtXNElRdWc0cjBjU1BEWHVfMldNeWpqOFhqcEZQUFU1b29JX0ZXeFFUTDJlcGlSODh0WXFVU2Y2bW8yaHF3ZzJYUVZNT1RIZmhIRVJQUkcwdWtqUTZWMUZFZjRMS3FuSndzQndXQ25qVWN3a3JESWJLR29HYkFnR1QxY0NMN09UVFRXRTRsSWR3bzJna1VMUzdnRmJINnJibnBTb1VhV0xUT05iNl8yaXRGUmQ4Nnp3SmdiQQ?oc=5",
+"lang": "en",
+"type": "临床前数据",
+"drug": "Ivonescimab",
+"co": "Pfizer",
+"tg": [
+"PD-1 / PD-L1",
+"VEGF / VEGFR"
+],
+"mod": "ADC / 偶联药物",
+"ta": "肿瘤",
+"tier": "media",
+"id": "e0e3d97225"
+},
+{
+"d": "2026-11-20",
+"t": "Caliway's CBL-514 Receives Early IND Clearance in China, Accelerating Development in the World's Fastest-Growing Body Contouring Market",
+"s": "Morningstar",
+"u": "https://news.google.com/rss/articles/CBMingJBVV95cUxQWVZaVUdUeWQ0MEszZEJCQUxJSDJzd0E0RUZhazF0d1VaMmpCVEo5OUdlSE5tMUgxZ3hYcmFvSFhKZ2MwWHNKSFpfckdiUEI1eEZHLVFmZUhQZ3ZKSnlnUkx4SGRzbkRxU21Sd01RbWw0T0x1Um16QU1PYUZ2WFlHLTc4b196QXlaYjBqNkVDb1ZxQjd3UzZRa2J0VVBCR3BuRTlZOGM1Y0NxeEIwWXB6VjQ3SWc4T3Y2YlJxX0g0UHFMV2l1RVRJUzRVSlpoWlZhRHFQczlpNnpxZGlXeGpqbzdmLWlVYUxuVDlKZ09lQWxnRlhiWUFMeDFpcndjZ1RXcVRWVHJrZ01Xd2R3cVFLOVBuTTlFT0pXQTBBN2pn?oc=5",
+"lang": "en",
+"type": "IND",
+"drug": "CBL-514",
+"co": "Caliway",
+"tg": [],
+"mod": "小分子",
+"ta": "",
+"tier": "media",
+"id": "ebbe4512a9"
+},
+{
+"d": "2026-11-20",
+"t": "Purple Biotech presents preclinical data on IM1240 antibody",
+"s": "Investing.com",
+"u": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQVklNS3pNdkh1dW5scXJDUWNuRDhDM01LMW8xd090YmdkTWNxQ1FURDc4MWNQS1R5OHJSRXVhb0cwdDQ3djZqd3dyVlhaZVhyNGwtbU42VE9WM1VIUzFxZm5JNUVlVkdxd3hmRzBOQlpqX2NMREdTRVZxUy12VFBlLXJOSnlJVEVFZFdMY2QtWU5qdDV1SzZtdmdudUZFc1RBbk4tb0hzM2pvZTk2UFRULWlNT3hRZlE?oc=5",
+"lang": "en",
+"type": "临床前数据",
+"drug": "IM1240",
+"co": "",
+"tg": [],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "ea37e7608c"
+},
+{
+"d": "2026-11-19",
+"t": "First patient dosed in EMERALD trial of EO2002 for corneal edema",
+"s": "Optometry Times",
+"u": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPLXpZb056WklhV2lCbHQyUmhsY3F0M0N2am5CSHhaTXdJRE9hMHJfTE42THdRb3FqNXFCemRiSlBOcUp2VG9Hb1JKMUNSamx6dWxBQVdycDFtQllvMnVzR1lhTUwtOTJqX2lvTDFyaVBoNWtMdFg0RUs3SEMtNGJ0WFFVXzgtVVhabXhiU2Zzei1aU2RrYUhSbk14allkOERYZ1E?oc=5",
+"lang": "en",
+"type": "首例给药",
+"drug": "EO2002",
+"co": "",
+"tg": [],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "ea44fa81b3"
+},
+{
+"d": "2026-11-19",
+"t": "Adagene doses first patient in phase 1 trial of ADG138 By Investing.com",
+"s": "Investing.com South Africa",
+"u": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNS1FqWnhWaEJlUGJ1d0xLelVuMGtQTmxhZmQ2ckNMUHgtNzBlUl8zdVJQMTRmTDNMQ1g4eWdVVlhFbTV3bEVZem83N0pMMnBDVl9GVGVoUG5ranJSVDlrVTNEcnVmaVM0eVB2Mko5SVA5ampjX1NHRFc3ZVpHbFpFWFZ1RmtBcVpRa2RpdEdTSTFOZmR3eE9Kd2NLOU1XaV9ZdVFUMWdld2UxSV9yNVhiWXpxY1U5UQ?oc=5",
+"lang": "en",
+"type": "首例给药",
+"drug": "ADG138",
+"co": "Adagene",
+"tg": [],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "efd665e766"
+},
+{
+"d": "2026-11-19",
+"t": "HUTCHMED Highlights HMPL-A830 Pre-Clinical Data Presented at the...",
+"s": "Quantisnow",
+"u": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPMWZlREhUNlVPUHZlNWptOHgzOXFGN3JsbHZ2Q0tFeDBKWXVjMEpuWlJDdHpUUFlNT0wteW4tbE1VenRmLUVlOEh2ZXNJVVFQeTgzLXl3c3lzdlNxNnNVMk56cHFRQUZyWGtYWmZ1SXdtSjRPaHlTSnVTSWFac09QS1hjSHEyNkw1S0pRSW1SVnZKb1pVOGRIS1doUFdCZmQ4V1BySlh4SlFsZjhTbjZWQkx6OEk4QnpJLVBsSkxMWTI4TTNqLWc?oc=5",
+"lang": "en",
+"type": "临床前数据",
+"drug": "HMPL-A830",
+"co": "Hutchmed",
+"tg": [],
+"mod": "",
+"ta": "肿瘤",
+"tier": "media",
+"id": "ea4fc228d4"
+},
+{
+"d": "2026-11-19",
+"t": "Olema Oncology Reports KAT6A Degrader Preclinical Data",
+"s": "Wisevoter",
+"u": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOZXc3LWp5NTVRYUhTZGNwdmIwbzBueTFfUFduVDJESE9NQkkzejVfNVBxNHJvRU1EODJ0X3diZmd6Sk1WX19lbWxnTmFBVVBTRWpZMTNLZU92empqeExOdFN2ZWlDUVVQcnFmVURwNk1kbGRvVVBoOC1PZmUtVFF4M1MtLWNOUmtkbWVEYl9XTQ?oc=5",
+"lang": "en",
+"type": "临床前数据",
+"drug": "",
+"co": "Olema Oncology",
+"tg": [
+"KAT6"
+],
+"mod": "降解剂",
+"ta": "肿瘤",
+"tier": "media",
+"id": "e8983a2dff"
+},
+{
+"d": "2026-11-19",
+"t": "和誉-B(02256)附属于2026年ENA会议公布新型选择性CDK4抑制剂 ABSK192单药及联合治疗临床前研究成果",
+"s": "证券之星",
+"u": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE8tQmR2cVRXSHMzLUZkYXNUaGxZSkZQc09IT2tReTVYM29pcm1XSUVtb1k4S0tzT2M0QlkwNU9fZ2I3ckx6M19oZ0lQbjVCNEFMYkYxMDF0Sno5UDF6SzNSMA?oc=5",
+"lang": "zh",
+"type": "临床前数据",
+"drug": "ABSK192",
+"co": "",
+"tg": [],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "e0eb567a31"
+},
+{
+"d": "2026-11-19",
+"t": "港股异动| 亿腾嘉和(06998)涨近2% GB268治疗NSCLC及BTC相关新药临床试验申请获国家药监局批准",
+"s": "凤凰网",
+"u": "https://news.google.com/rss/articles/CBMiTEFVX3lxTFBQSUUyRG5wbkhlSzF5UV9mamdIbkltQ1JQRHZjaEozRW1rN3UzZkY1eWUycktNTmRjOGtYY1cydGtnclY3TE9aeXpwUno?oc=5",
+"lang": "zh",
+"type": "IND",
+"drug": "GB268",
+"co": "Eddingpharm (Zhuhai)",
+"tg": [
+"PD-1 / PD-L1",
+"CTLA-4",
+"TROP2"
+],
+"mod": "双抗 / 多抗",
+"ta": "肿瘤",
+"tier": "media",
+"id": "eb2340c5ed"
+},
+{
+"d": "2026-11-18",
+"t": "Visara Doses First Patient in Phase 2b Trial Pitting Bispecific VIS-101 Against Aflibercept in Wet AMD",
+"s": "BioPharm International",
+"u": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPNEMwVFc4am5wQlZXVFpVLVhoS0tFS1pLR25TbndwbElCdlpieE85MTMzbTBfOXJFOHd2cG1aRXBpaC1OM04wSzN4Q0J5cmZfeGxaV2hOdHR6TlVLS0lmaTdqVDNKUEw0RXBTNi1JTGZINW10ZFNxMHVqT0FVbE9veG8tV1J1bmRJQm13THZzZXQ3c1dqcm5WYlVyOEJtR2hkZ3hpa1lxdmtNX3ZmQnpBeE0zQS1tOHZtMTlRQzBJdVpreTNyRklaTGM5cHZHMzEzdGVwcXBJNFhncFVfdkE?oc=5",
+"lang": "en",
+"type": "首例给药",
+"drug": "VIS-101",
+"co": "",
+"tg": [],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "e944301e65"
+},
+{
+"d": "2026-11-18",
+"t": "MAXONA PHARMACEUTICALS ANNOUNCES FIRST PATIENT DOSED IN MAX-001 CLINICAL TRIAL FOR ACUTE PAIN",
+"s": "PR Newswire",
+"u": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNYVVhVUliaGtZZm5DdU5GcTJQeElNSmVOcEg0dzJtYkF0RVVjbGdlT0ktbkZxaEpmZ2JFazRMNW5YZmpHZXNiSi1pTVVfczMxV3VvYnF4cjkyR0RyNklsOUlicmhUaTNhRXlESlpvdkl1SEMwNXhPSkp6Z19IYUowaHRVSXZVaTI4b3BVTjIzU1FSMVFFNGw3bDhZTmxKYzJlYUV2bU4xSXljaTExZzBfTDllaXdxa2dUcFI4QVNHYWI2U0JIR3JkSU5rLTdmd2xrRi1lWFR1YTRDQXgtT1dTR1hHNA?oc=5",
+"lang": "en",
+"type": "首例给药",
+"drug": "MAX-001",
+"co": "Maxona",
+"tg": [],
+"mod": "小分子",
+"ta": "神经 / 精神 / 疼痛",
+"tier": "pr",
+"id": "eca002e888"
+},
+{
+"d": "2026-11-18",
+"t": "Ensem Therapeutics doses first patients in Phase 1/2 trial of pan-KRAS inhibitor ETX-929",
+"s": "Dealroom",
+"u": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOMmllV3VDMnlOX3lOLS1RcFZrZ19WaEo1d29NRFpDYi1vODZmaEpsLTBRWThKZFNqZjdxbGZiSDNTSnpDek9ac3FuM3FkT0JadUpXWW5RWU5WZGowY0tfWmFnWDRlZnE5V192OEdJc1lYVDF2RHhnbVM5eXAtWGsxakY0TkRnY1JlOGczc1VTOWxQZXdtbWo2d1cwdTVLUjRIbUVXSlc0NG1HcXlnU0k2d1hVSTR2UWVhaHlvMUFWUQ?oc=5",
+"lang": "en",
+"type": "首例给药",
+"drug": "ETX-929",
+"co": "",
+"tg": [
+"KRAS（泛 / 其他突变）"
+],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "e121415c54"
+},
+{
+"d": "2026-11-18",
+"t": "Iambic Presents Preclinical Data for CDK2/4 Inhibitor IAM-C1 and Brain-Penetrant KIF18A Inhibitor IAM217 at 2026 EORTC-NCI-AACR Symposium",
+"s": "Yahoo! Finance Canada",
+"u": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPMjFQSVRXdk40ZFNKUTlKcFpmbWVZT0lQVEVfMDB6Y0lTSWstOGFTdEc5TTd1aXdWcy13bVotdWdwNk5tdVl2STN1M3htZG9sVmIzcEJtZzhjNWlOYUZxRzl0MTBDTG9Pd3owVGQ4SXNDbWstUWNDbHo2Y1ZxZDJLQnhudG9uMmlkX0tTSmprQQ?oc=5",
+"lang": "en",
+"type": "临床前数据",
+"drug": "IAM217",
+"co": "Iambic",
+"tg": [
+"CDK2",
+"KIF18A"
+],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "e34807c507"
+},
+{
+"d": "2026-11-18",
+"t": "Olema Oncology (OLMA) Reports Promising Preclinical KAT6A Degrader Data in Breast Cancer Models",
+"s": "GuruFocus",
+"u": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNOWl3WER5aDhVSlE3bVg2MGNtWnQ5VUkzOHgwQ1hEcUloWHJubzFKS0FFUUNJdlhjWi0tM0RuQ05yNkE1QUZwYkNkcEhqUGtJWU5sc01Yb2VXSTY4dWlGYkw1N0hOUEJZZlQxbGlJREJ5amtCeVZDSGRhVGlSbm5sUjJLaTZHNXJPbkZqZnNtRFlPRzJmbGV5eWZWRE5hSzd1Tml6bHB3YTk1S3JGWEFMS0JGalRlTG9uRGpkOEQwLVRHV2hYNUVBcW5Wa2E?oc=5",
+"lang": "en",
+"type": "临床前数据",
+"drug": "",
+"co": "Olema Oncology",
+"tg": [
+"KAT6"
+],
+"mod": "降解剂",
+"ta": "肿瘤",
+"tier": "media",
+"id": "ebd0dc5195"
+},
 {
 "d": "2026-11-16",
 "t": "IDEAYA Nominates IDE101 as Development Candidate for CDKN2A-Deficient Solid Tumours",
@@ -32,6 +275,23 @@
 "ta": "肿瘤",
 "tier": "media",
 "id": "e67f752923"
+},
+{
+"d": "2026-11-16",
+"t": "Rakuten Medical Initiates First-in-Human Phase 1 Trial of PD-L1-Targeted RM-0256 Photoimmunotherapy in Japan",
+"s": "Rakuten Medical",
+"u": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YQVF3M1lHU21ObkxsSHFJam1XM1d6VU1HRkZkRWMzZ20zaWVZM2szVllCVzV3aGR4UWI3SWNoMlNhckNYNTdZN1dZMjZ2S2ZHTjBNak5FUVFwdkhwbE1qZlJWY2RreDg2UktiN0pUQm4?oc=5",
+"lang": "en",
+"type": "首次人体",
+"drug": "RM-0256",
+"co": "Rakuten Medical",
+"tg": [
+"PD-1 / PD-L1"
+],
+"mod": "",
+"ta": "",
+"tier": "media",
+"id": "e06007443e"
 },
 {
 "d": "2026-11-13",
