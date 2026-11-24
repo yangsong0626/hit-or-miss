@@ -907,6 +907,219 @@ def mol_section(S, lang, g, progs):
 
 
 # ---------------- 靶点页 ----------------
+# ---------------- 靶点小结 ----------------
+# fact_pack 把一个靶点在本站的数据压成一小包：既用来算「数据要点」，也是 scripts/target_briefs.py 给模型的唯一临床依据。
+_COND_SYN = {"carcinoma": "cancer", "carcinomas": "cancer", "neoplasm": "cancer", "neoplasms": "cancer", "tumor": "cancer",
+             "tumors": "cancer", "tumour": "cancer", "tumours": "cancer", "cancers": "cancer", "malignancies": "cancer",
+             "malignancy": "cancer", "nsclc": "non small cell lung cancer", "sclc": "small cell lung cancer",
+             "crc": "colorectal cancer", "hcc": "hepatocellular cancer", "aml": "acute myeloid leukemia",
+             "mcrpc": "prostate cancer", "crpc": "prostate cancer", "tnbc": "triple negative breast cancer",
+             "leukaemia": "leukemia", "diseases": "disease", "disorders": "disorder", "uc": "ulcerative colitis",
+             "cd": "", "t2d": "type2 diabetes", "t2dm": "type2 diabetes", "ad": "", "s": ""}
+_COND_DROP = {"advanced", "metastatic", "recurrent", "refractory", "relapsed", "locally", "unresectable", "stage", "iv", "iii",
+              "iiib", "iiic", "patients", "with", "in", "of", "the", "and", "or", "adult", "adults", "participants", "previously",
+              "treated", "untreated", "newly", "diagnosed", "active", "moderately", "severely", "moderate", "severe",
+              "mild", "to", "subjects", "a", "an", "mellitus"}
+
+
+_COND_SKIP = re.compile(r"healthy|volunteer", re.I)
+
+
+def cond_key(s):
+    """把「Carcinoma, Non-Small-Cell Lung」「NSCLC」「Advanced Non-small Cell Lung Cancer」归到同一个键；健康受试者不算适应症。"""
+    if _COND_SKIP.search(s or ""):
+        return ""
+    s = re.sub(r"(?i)\btype\s*(1|2|i|ii)\b", lambda m: " type" + {"i": "1", "ii": "2"}.get(m.group(1).lower(), m.group(1)) + " ", s or "")
+    ws = []
+    for w in re.findall(r"[a-z0-9]+", s.lower()):
+        ws.extend(_COND_SYN.get(w, w).split())
+    ws = [w for w in ws if w not in _COND_DROP]
+    return " ".join(sorted(set(ws)))
+
+
+class CondNames:
+    """键 → 最常见的原始写法，用来显示。"""
+    def __init__(self):
+        self.c = collections.defaultdict(collections.Counter)
+
+    def key(self, raw):
+        k = cond_key(raw)
+        if k:
+            self.c[k][cut(raw, 60)] += 1
+        return k
+
+    def name(self, k):
+        return self.c[k].most_common(1)[0][0] if self.c.get(k) else k
+
+
+VERD_OK, VERD_MISS, VERD_STOP, VERD_PART = "达到", "未达到", "终止", "部分达到"
+
+
+def fact_pack(S, g):
+    x = S.tinfo[g]
+    progs = x["progs"]
+    tax = S.tax_of.get(g)
+    readouts = sorted([t for t in x["trials"] if trial_verdict(t) and t["_set"] in ("results", "stopped")],
+                      key=lambda t: trial_date(t), reverse=True)
+    up = sorted([t for t in x["trials"] if t["_set"] in ("upcoming", "completed") and (t.get("pcd") or "") <= S.h6],
+                key=lambda t: t.get("pcd") or "")
+    fails = x.get("fail") or []
+    cn = CondNames()
+    conds = collections.Counter()
+    for p in progs:
+        ks = {cn.key(c) for t in p["trials"] for c in (t.get("conditions") or [])[:2]} - {""}
+        for k in ks:
+            conds[k] += 1
+    mine = {p["drug"] for p in progs if p["drug"]}
+
+    def dn(n):
+        cs = _core_names(n or "")
+        return cs[0] if cs else (n or "")
+
+    def drugs_of(t):
+        # 只列这个靶点自己的药，不列联用的化疗、对照药
+        return list(dict.fromkeys(dn(S.dinfo[c]["name"]) for c in (t.get("_drugs") or []) if c in mine and c in S.dinfo))[:3]
+
+    def cond_of(t):
+        c = (t.get("conditions") or [""])[0]
+        return cn.name(cn.key(c)) if c else ""
+
+    def mod_of(p):
+        return p["mods"].most_common(1)[0][0] if p["mods"] else ""
+    return {
+        "target": g, "target_en": S.tr(g), "asof": S.asof,
+        "aliases": [a for a in S.alias.get(g, []) if a.lower() != g.lower()][:6],
+        "class": [tax[0].get("en"), tax[1].get("en")] if tax else [],
+        "pathways": [pw.get("en") or pw.get("zh") for pw, _ in S.paths_of.get(g, [])][:3],
+        "programs_total": len(progs),
+        "companies_total": len({c for p in progs for c in p["cos"] if c}),
+        "programs_by_phase": dict(collections.Counter(p["ph"] or "?" for p in progs).most_common()),
+        "programs_by_modality": dict(collections.Counter(mod_of(p) or "unknown" for p in progs).most_common(6)),
+        "trials_by_area": dict(collections.Counter(t.get("ta") for t in x["trials"] if t.get("ta")).most_common(4)),
+        "programs_by_condition": {cn.name(k): n for k, n in conds.most_common(8)},
+        "programs": [{"drug": dn(p["name"]) or "(unnamed)", "company": ", ".join(c for c, _ in p["cos"].most_common(2) if c),
+                      "modality": mod_of(p), "phase": p["ph"], "trials": len(p["trials"]),
+                      "first_posted": p["fp"] if p["fp"] != "9999" else ""} for p in progs[:18]],
+        "readouts": [{"nct": t["nct"], "acronym": t.get("acronym") or "", "drugs": drugs_of(t), "phase": t.get("phase") or "",
+                      "condition": cond_of(t), "verdict": trial_verdict(t), "date": trial_date(t),
+                      "sponsor": t.get("group") or t.get("sponsor") or "", "n": t.get("n"),
+                      "primary_endpoint": cut("; ".join(t.get("primary") or []), 140),
+                      "stop_reason": cut(t.get("why") or "", 160)} for t in readouts[:16]],
+        "news": [{"date": n.get("d") or "", "drug": n.get("drug") or "", "verdict": n.get("v") or "", "headline": cut(n.get("t"), 160)}
+                 for n in sorted(x["news"], key=lambda n: n.get("d") or "", reverse=True)[:8]],
+        "curated": [{"drug": c.get("drug") or "", "trial": c.get("trial") or "", "indication": c.get("ind") or "",
+                     "outcome": c.get("out") or "", "fact": cut(c.get("fact"), 260)}
+                    for c in sorted(x["cur"], key=lambda c: c.get("date") or "", reverse=True)[:6]],
+        "failures_by_reason": {k: n for (k, _, _), n in zip(FAIL_R, fail_counts(fails)) if n},
+        "failures": [{"date": e["d"], "drug": (" + ".join(dn(S.dinfo[c]["name"]) for c in (e.get("ds") or [])[:2] if c in S.dinfo)
+                                              if e.get("ds") else e.get("name") or ""),
+                      "reason": e["r"], "phase": e["ph"], "nct": e["nct"], "detail": cut(e["why"], 140)} for e in fails[:10]],
+        "upcoming_6m": [{"nct": t["nct"], "drugs": drugs_of(t), "phase": t.get("phase") or "", "pcd": t.get("pcd") or "",
+                         "condition": cond_of(t)} for t in up[:8]],
+        "upcoming_6m_total": len(up),
+    }
+
+
+def pack_hash(pk):
+    """只看会改变结论的部分：项目和读出的变化，不看日期、计数里的小波动。"""
+    core = {k: pk[k] for k in ("readouts", "news", "curated", "failures", "failures_by_reason")}
+    core["progs"] = sorted((p["drug"], p["phase"]) for p in pk["programs"] if phn(p["phase"]) >= 3)
+    core["n"] = len(pk["programs"]) // 5
+    return hashlib.md5(json.dumps(core, ensure_ascii=False, sort_keys=True).encode()).hexdigest()[:10]
+
+
+FR_ZH = {k: z for k, z, _ in FAIL_R}
+FR_EN = {k: e for k, _, e in FAIL_R}
+
+
+def key_facts(S, lang, pk):
+    """数据要点：只从本站数据算，不做判断。"""
+    tr = S.tr if lang == "en" else (lambda s: s)
+    out = []
+    rd = pk["readouts"]
+    if rd:
+        def bucket(v):
+            return {VERD_OK: "ok", VERD_PART: "ok", VERD_MISS: "miss", VERD_STOP: "stop"}.get(v, "nt")
+
+        def fmt(c):
+            parts = [(c["ok"], T(lang, "达到", "met")), (c["miss"], T(lang, "未达到", "missed")),
+                     (c["stop"], T(lang, "提前终止", "stopped early")), (c["nt"], T(lang, "无统计检验或描述性", "no formal test"))]
+            return T(lang, "、", ", ").join(f"{T(lang, l + ' ' + str(n), str(n) + ' ' + l)}" for n, l in parts if n)
+        vc = collections.Counter(bucket(r["verdict"]) for r in rd)
+        byc = collections.defaultdict(collections.Counter)
+        for r in rd:
+            if r["condition"]:
+                byc[r["condition"]][bucket(r["verdict"])] += 1
+        split = [(c, v) for c, v in sorted(byc.items(), key=lambda kv: -sum(kv[1].values()))
+                 if sum(v.values()) >= 2 and (v["ok"] + v["miss"] + v["stop"])][:3]
+        s = T(lang, f"最近 {len(rd)} 项读出：", f"Latest {len(rd)} readouts: ") + fmt(vc)
+        if split and len(byc) > 1:
+            s += T(lang, "；按适应症：", "; by indication: ") + T(lang, "；", "; ").join(f"{c} {fmt(v)}" for c, v in split)
+        out.append(s + T(lang, "。", "."))
+    fr = pk["failures_by_reason"]
+    if sum(fr.values()) >= 2:
+        lbl = FR_ZH if lang == "zh" else FR_EN
+        top = sorted(fr.items(), key=lambda kv: -kv[1])
+        out.append(T(lang, f"失败与终止 {sum(fr.values())} 次，原因：", f"{sum(fr.values())} failures or stops, by reason: ")
+                   + T(lang, "、", ", ").join(f"{lbl[k]} {n}" for k, n in top) + T(lang, "。", "."))
+    cd = [(c, n) for c, n in pk["programs_by_condition"].items() if n >= 3][:3]
+    if cd:
+        out.append(T(lang, "项目最集中的适应症：", "Most crowded indications: ")
+                   + T(lang, "、", ", ").join(T(lang, f"{c}（{n} 个项目）", f"{c} ({n} programs)") for c, n in cd) + T(lang, "。", "."))
+    p3 = [p for p in pk["programs"] if phn(p["phase"]) >= 3]
+    if p3:
+        names = [p["drug"] for p in p3 if p["drug"] != "(unnamed)"][:5]
+        out.append(T(lang, f"{len(p3)} 个项目进入 3 期或以上", f"{len(p3)} program{'s' if len(p3) > 1 else ''} at phase 3 or later")
+                   + (T(lang, "：", ": ") + ", ".join(names) if names else "") + T(lang, "。", "."))
+    if pk["upcoming_6m_total"]:
+        ds = list(dict.fromkeys(d for u in pk["upcoming_6m"] for d in u["drugs"]))[:4]
+        out.append(T(lang, f"未来半年 {pk['upcoming_6m_total']} 项试验到达主要完成日", f"{pk['upcoming_6m_total']} trial{'s' if pk['upcoming_6m_total'] > 1 else ''} reach primary completion in the next six months")
+                   + (T(lang, "，涉及 ", ", including ") + ", ".join(ds) if ds else "") + T(lang, "。", "."))
+    return out
+
+
+NCT_RE = re.compile(r"\bNCT\d{8}\b")
+
+
+def brief_html(S, lang, g, b):
+    """模型写的小结；NCT 号换成本站试验页链接（只链本站有页面的）。"""
+    if not b:
+        return ""
+    L = b.get(lang) or {}
+    if not L.get("why"):
+        return ""
+
+    def link(s):
+        out, last = [], 0
+        for m in NCT_RE.finditer(s):
+            out.append(esc(s[last:m.start()]))
+            n = m.group(0)
+            out.append(f'<a href="{S.path(lang, "trial", n)}">{n}</a>' if n in S.main else esc(n))
+            last = m.end()
+        out.append(esc(s[last:]))
+        return "".join(out)
+    sec = [f'<h3>{T(lang, "为什么重要", "Why it matters")}</h3><p>{link(L["why"])}</p>']
+    if L.get("learned"):
+        sec.append(f'<h3>{T(lang, "从临床结果学到了什么", "What the clinic has taught so far")}</h3><ul>'
+                   + "".join(f"<li>{link(s)}</li>" for s in L["learned"]) + "</ul>")
+    if L.get("opps"):
+        sec.append(f'<h3>{T(lang, "剩下的机会", "Where the openings are")}</h3><ul>'
+                   + "".join(f"<li>{link(s)}</li>" for s in L["opps"]) + "</ul>")
+    note = T(lang, f"由 AI 根据本站 {b.get('asof', '')} 的数据撰写；临床部分只引用本站收录的试验，生物学背景未逐条人工核实。",
+             f"Written by AI from this site's data as of {b.get('asof', '')}. Clinical points cite only trials tracked here; the biology background has not been checked line by line.")
+    return f'<section class="brief" id="brief"><h2>{T(lang, "靶点小结", "Target brief")}</h2>{"".join(sec)}<p class="sm note">{note}</p></section>'
+
+
+BRIEFS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "target_briefs.json")
+
+
+def load_briefs(path=BRIEFS):
+    try:
+        return json.load(open(path, encoding="utf-8")).get("targets") or {}
+    except (OSError, ValueError):
+        return {}
+
+
 def target_page(S, lang, g):
     x = S.tinfo[g]
     tr = S.tr if lang == "en" else (lambda s: s)
@@ -955,6 +1168,7 @@ def target_page(S, lang, g):
         if up:
             s.append(f"{pl(len(up), 'trial')} {'reaches' if len(up) == 1 else 'reach'} primary completion in the next six months.")
     summary = " ".join(s)
+    kf = key_facts(S, lang, fact_pack(S, g))
 
     prow = []
     for p in progs:
@@ -987,6 +1201,8 @@ def target_page(S, lang, g):
 {kpis([(len(progs), T(lang, "临床项目", "Programs")), (len(cos), T(lang, "公司", "Companies")), (ph_lbl(lang, maxp), T(lang, "最高阶段", "Furthest phase")),
        (len(new12), T(lang, "近 12 个月新进", "New in 12 months")), (f"{hit} / {miss}", T(lang, "读出 成 / 败", "Readouts hit / miss"))])}
 <p class="lead">{esc(summary)}</p>
+{brief_html(S, lang, g, S.briefs.get(g))}
+{f'<h2 id="facts">{T(lang, "数据要点", "Key facts from the data")}</h2><ul class="kf">' + "".join(f"<li>{esc(f)}</li>" for f in kf) + "</ul>" if kf else ""}
 <p><a class="btn" href="{S.app(lang, "target/" + quote(g, safe=""))}">{T(lang, "在交互版里看专利、文献、新闻和交易 →", "Open in the app for patents, literature, news and deals →")}</a></p>
 <h2>{T(lang, "临床项目", "Clinical programs")} <small>{len(progs)}</small></h2>
 {table([T(lang, "药物", "Drug"), T(lang, "公司", "Company"), T(lang, "药物形式", "Modality"), T(lang, "最高阶段", "Furthest phase"),
@@ -1366,7 +1582,7 @@ main{max-width:1080px;margin:0 auto;padding:8px 16px 32px}
 h1{font-size:28px;line-height:1.25;margin:8px 0 10px}h1 small{display:block;font-size:15px;font-weight:500;color:var(--muted);margin-top:4px}
 h2{font-size:19px;margin:30px 0 10px;padding-top:12px;border-top:1px solid var(--line)}h2 small,h1 small.n{color:var(--muted);font-weight:500;font-size:14px}
 h3{font-size:15px;margin:16px 0 4px}
-.lead{font-size:16px;max-width:820px}.sub{color:var(--muted);margin:-4px 0 8px}.sm{font-size:12.5px;color:var(--muted)}
+.lead{font-size:16px;max-width:820px}.brief{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:4px 18px 10px;margin:16px 0;max-width:860px}.brief h2{margin-top:12px;border-top:0;padding-top:0}.brief h3{font-size:14.5px;margin:14px 0 4px}.brief p,.brief li{line-height:1.6}.brief ul{margin:4px 0;padding-left:20px}.brief .note{margin-top:12px}ul.kf{max-width:860px;padding-left:20px}ul.kf li{margin:3px 0;line-height:1.55}.sub{color:var(--muted);margin:-4px 0 8px}.sm{font-size:12.5px;color:var(--muted)}
 .alias{color:var(--muted);font-size:13.5px;margin:2px 0}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.tag{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:1px 10px;font-size:12.5px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
@@ -1404,6 +1620,7 @@ def not_found(S):
 def build(d, docs, site_url=None):
     site_url = site_url or os.environ.get("SITE_URL") or DEFAULT_SITE
     S = Site(d, docs, site_url)
+    S.briefs = load_briefs()
     for sub in GEN_DIRS:
         p = os.path.join(docs, sub)
         if os.path.isdir(p):
@@ -1446,6 +1663,10 @@ def build(d, docs, site_url=None):
         fl.append({k: v for k, v in r.items() if v not in ("", [], None)})
     with open(os.path.join(docs, "failures.json"), "w", encoding="utf-8") as f:
         json.dump({"generated": S.asof, "reasons": FAIL_R, "items": fl}, f, ensure_ascii=False, separators=(",", ":"))
+    # 靶点小结给交互版用：docs/briefs.json（只发布页面要用的字段）
+    with open(os.path.join(docs, "briefs.json"), "w", encoding="utf-8") as f:
+        json.dump({"targets": {g: {k: b[k] for k in ("zh", "en", "asof") if k in b} for g, b in S.briefs.items() if g in S.tinfo}},
+                  f, ensure_ascii=False, separators=(",", ":"))
     with open(os.path.join(docs, "static.css"), "w", encoding="utf-8") as f:
         f.write(CSS)
     with open(os.path.join(docs, "404.html"), "w", encoding="utf-8") as f:

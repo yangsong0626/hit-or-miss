@@ -120,6 +120,28 @@ python scripts/fetch_chembl.py --max 400 --minutes 90 --workers 6
 
 失败原因库在 `scripts/build_static.py` 里汇总（`collect_failures`）：主要终点未达到的试验、提前终止的试验（注册库终止原因已归类，「其他 / 未填写」和写明看了其他研究结果才停的「申办方决定」会按原文补判）、新闻稿里的失败；输出 `/failures/` 汇总页、每个靶点页的「失败与终止」区块和交互版用的 `docs/failures.json`。
 
+## 靶点小结
+
+每个靶点页顶部有两块：
+
+- **数据要点**（`build_static.key_facts`）：只从本站数据算，每次构建都更新。包括读出分布（按适应症拆开）、失败原因、项目最集中的适应症、进入 3 期的项目、未来半年的读出。
+- **靶点小结**（为什么重要 / 从临床结果学到了什么 / 剩下的机会）：由 `scripts/target_briefs.py` 调用 Claude 撰写，中英文各一份，存在 `data/target_briefs.json`，构建时渲染到静态页，并发布 `docs/briefs.json` 给交互版用。
+  - 给模型的临床依据只有 `build_static.fact_pack` 算出的事实包。
+  - 引用了事实包之外 NCT 号的条目会被丢掉。
+  - 页面上注明是 AI 撰写、生物学背景未逐条人工核实。
+  - 只有事实包有实质变化（`pack_hash`）的靶点才会重写。
+
+这个脚本需要 Python ≥ 3.10、`pip install anthropic`，以及 API 凭据（`ANTHROPIC_API_KEY` 或 `ant auth login`）。其余脚本仍兼容 3.8。
+
+```
+python3.12 scripts/target_briefs.py --dry-run --only EGFR   # 只看会发给模型的事实包
+python3.12 scripts/target_briefs.py --sync --only EGFR      # 同步写一个，先看效果
+python3.12 scripts/target_briefs.py --wait                  # 全部有变化的靶点走 Batch API（半价），等结果回来
+python3 scripts/build_static.py docs                        # 重新生成静态页和 docs/briefs.json
+```
+
+CI 不会自动跑这个脚本（会花钱），需要时手动运行后提交 `data/target_briefs.json`。
+
 ## 搜索引擎收录
 
 交互版是单页应用，`#` 后面的内容搜索引擎看不到。所以构建时另外生成普通 HTML：每个靶点 `/target/<slug>/`、药物 `/drug/<key>/`、试验 `/trial/<NCT>/` 一页，英文版加 `/en/` 前缀，三个索引页 `/targets/`、`/drugs/`、`/trials/`。每页有独立标题、描述、canonical 和中英文 hreflang，正文是由数据自动生成的摘要和表格，并链回交互版。站点地址取环境变量 `SITE_URL`（默认 `https://hit-or-miss-cz5.pages.dev/`），换域名时同时改工作流里的 `SITE_URL` 和 `site/template.html` 头部的 canonical。

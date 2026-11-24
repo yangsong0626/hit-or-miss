@@ -182,7 +182,8 @@ function renderTargetPage(){
         <div><div class="n">${r.ps.length ? PHN(r.maxPh) : "—"}</div><div class="l">${T("最高阶段", "Furthest phase")}</div></div>
         <div><div class="n">${r.newN}</div><div class="l">${T("近 12 个月新进", "New in last 12 months")}</div></div>
         <div><div class="n"><span style="color:var(--pos)">${r.hit}</span> / <span style="color:var(--neg)">${r.miss + r.stop}</span></div><div class="l">${T("II/III 期读出 成 / 败", "Ph 2/3 readouts hit / miss")}</div></div>
-      </div></header>
+      </div>
+      <div id="tg-brief"></div></header>
     <div class="pg-tabs" role="tablist">${TABS_T.map(([k, l]) => `<button role="tab" data-tgt="${k}" aria-selected="${tgTab === k}">${l}<b></b></button>`).join("")}</div>
     <div id="tg-body"></div>`;
   $("tgx-page").innerHTML = html;
@@ -191,6 +192,28 @@ function renderTargetPage(){
   document.querySelectorAll("[data-tgt]").forEach(b => b.addEventListener("click", () => { tgTab = b.dataset.tgt; document.querySelectorAll("[data-tgt]").forEach(x => x.setAttribute("aria-selected", x === b)); renderTgBody(); }));
   updTgTabs(); renderTgBody();
   if (!FAIL) loadFail().then(updTgTabs);
+  loadBriefs().then(() => { if (tgCur === g) fillBrief(g); });
+}
+/* ---------- 靶点小结：docs/briefs.json（scripts/target_briefs.py 用 AI 根据本站数据写，build_static.py 发布） ---------- */
+let BRIEFS = null, briefsP = null;
+function loadBriefs(){
+  if (BRIEFS) return Promise.resolve(BRIEFS);
+  if (!briefsP) briefsP = getJSON("briefs.json").then(j => (BRIEFS = j.targets || {})).catch(() => (BRIEFS = {}));
+  return briefsP;
+}
+function fillBrief(g){
+  const el = $("tg-brief"); if (!el) return;
+  const b = BRIEFS[g], L = b && b[EN ? "en" : "zh"];
+  if (!L || !L.why) { el.innerHTML = ""; return; }
+  const M = byNct();
+  const lk = s => esc(s).replace(/\bNCT\d{8}\b/g, n => M.has(n) ? `<button class="lnk" data-ot="${n}">${n}</button>` : `<a href="${esc(regUrl(n))}" target="_blank" rel="noopener">${n}</a>`);
+  const ul = (h, xs) => xs && xs.length ? `<h4>${h}</h4><ul>${xs.map(x => `<li>${lk(x)}</li>`).join("")}</ul>` : "";
+  el.innerHTML = `<details class="tg-brief" open><summary>${T("靶点小结", "Target brief")}<span class="sm">${T("AI 撰写", "AI-written")}</span></summary>
+    <h4>${T("为什么重要", "Why it matters")}</h4><p>${lk(L.why)}</p>
+    ${ul(T("从临床结果学到了什么", "What the clinic has taught so far"), L.learned)}
+    ${ul(T("剩下的机会", "Where the openings are"), L.opps)}
+    <p class="sm">${T(`由 AI 根据本站 ${esc(b.asof || "")} 的数据撰写；临床部分只引用本站收录的试验，生物学背景未逐条人工核实。`, `Written by AI from this site's data as of ${esc(b.asof || "")}. Clinical points cite only trials tracked here; the biology background has not been checked line by line.`)}</p></details>`;
+  el.querySelectorAll("[data-ot]").forEach(x => x.addEventListener("click", () => openDetail("t", x.dataset.ot)));
 }
 function renderTgBody(){
   const g = tgCur, D_ = tgData(g), el = $("tg-body");

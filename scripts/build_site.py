@@ -30,6 +30,13 @@ for v in d["sets"].values():
         if "modg" not in t:
             t["mod"], t["mods"] = modality.classify_trial(t)
             t["modg"] = modality.GROUPS.get(t["mod"], "未识别")
+        else:
+            # 已存的判断是旧规则算的：首个受试药后来加进了对照表，就以表为准
+            _c = modality.candidates(t)
+            _lk = modality.lookup(_c[0].get("n")) if _c else None
+            if _lk and _lk != t.get("mod"):
+                t["mod"], t["modg"] = _lk, modality.GROUPS.get(_lk, "未识别")
+                t["mods"] = list(dict.fromkeys([_lk] + [x for x in t.get("mods") or [] if x != _lk]))
 d["mod_order"] = modality.ORDER
 d["mod_groups"] = modality.GROUPS
 
@@ -66,6 +73,14 @@ def sponsor_norm(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())[:12]
 
 
+_BIO_HINT = re.compile(r"injection|infusion|intravenous|\bi\.?v\.?\b|subcutaneous|\bs\.?c\.?\b|mg/kg|\bQ[1-6]W\b", re.I)
+
+
+def borrowed_sm(mod, others, txt):
+    """整条试验判成小分子、这个判断来自别的受试药、而这个代号看起来是注射给药的生物药。"""
+    return modality.GROUPS.get(mod) == "小分子" and mod in others and bool(_BIO_HINT.search(txt or ""))
+
+
 def set_tg(t, manual):
     """t.tg：靶点列表；t.tgm：[{g 靶点, n 药名, m 药物形式}]，靶点赛道按它把项目和形式对上。"""
     cands = modality.candidates(t)
@@ -82,7 +97,12 @@ def set_tg(t, manual):
     for iv, gs in pairs:
         m = modality.classify_one(iv) if iv else t.get("mod")
         if iv and modality.GROUPS.get(m) == "未识别":
-            m = t.get("mod")      # 单个干预认不出形式时，用整条试验的判断
+            # 单个干预认不出形式时，用整条试验的判断；但「JMT101 Injection + 奥希替尼」这种，
+            # 小分子的判断来自联用药、而代号本身是注射/按体重给药，就不借用，宁可标未识别
+            others = {modality.classify_one(x) for x in cands if x is not iv}
+            m = t.get("mod")
+            if borrowed_sm(m, others, (iv.get("n") or "") + " " + (iv.get("ds") or "")):
+                m = "未识别"
         if not iv and len(cand_groups) > 1:
             m = "未识别"          # 靶点只在标题里出现、受试药又有几种形式时，对不上是哪一个
         for g in gs:
@@ -233,12 +253,32 @@ if not act_trials and os.path.exists(os.path.join(os.path.dirname(out), "active.
             _gone = {e.get("g") for e in _old} - {e.get("g") for e in _keep}
             _t["tgm"], _t["tg"] = _keep, [g for g in _t.get("tg") or [] if g not in _gone]
             _changed += 1
+        # 药物形式也按新规则重算：对照表里有的代号直接用表；认不出的干预不再借用联用药的形式
+        _ivm = {iv.get("n"): iv for iv in _t.get("iv") or []}
+        for iv in _ivm.values():
+            _lk = modality.lookup(iv.get("n"))
+            if _lk and iv.get("m") != _lk:
+                iv["m"] = _lk
+                _changed += 1
+        for e in _t.get("tgm") or []:
+            _lk = modality.lookup(e.get("n"))
+            _iv = _ivm.get(e.get("n"))
+            if _lk:
+                _new = _lk
+            elif _iv and modality.GROUPS.get(_iv.get("m")) == "未识别" and e.get("m") == _t.get("mod") and \
+                    borrowed_sm(_t.get("mod"), {x.get("m") for x in _ivm.values() if x is not _iv}, e.get("n")):
+                _new = "未识别"
+            else:
+                continue
+            if e.get("m") != _new:
+                e["m"] = _new
+                _changed += 1
     if _changed:
         act_trials = [t for t in act_trials if t.get("tg")]
         _aj["trials"] = act_trials
         with open(_ap, "w", encoding="utf-8") as f:
             json.dump(_aj, f, ensure_ascii=False, separators=(",", ":"))
-        print(f"cleaned {_changed} placeholder target links in {_ap}", file=sys.stderr)
+        print(f"cleaned {_changed} placeholder target links / modality labels in {_ap}", file=sys.stderr)
 for t in [t for v in d["sets"].values() for t in v] + early_out + act_trials:
     for g in t.get("tg") or []:
         clin.setdefault(g, []).append({"nct": t.get("nct"), "phase": t.get("phase"), "sponsor": t.get("sponsor")})
