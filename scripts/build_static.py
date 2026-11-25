@@ -23,9 +23,10 @@ from urllib.parse import quote, urlparse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from molecules import core_names as _core_names  # noqa: E402
 from modality import BACKBONE as _BACKBONE  # noqa: E402
+from drug_aliases import INN_STEM, CODE_TOK, OUT as ALIASES  # noqa: E402
 
 DEFAULT_SITE = "https://hit-or-miss-cz5.pages.dev/"
-GEN_DIRS = ("target", "drug", "trial", "targets", "drugs", "trials", "failures", "en")
+GEN_DIRS = ("target", "drug", "trial", "targets", "drugs", "trials", "failures", "codes", "en")
 CJK = re.compile(r"[㐀-鿿]")
 PL = re.compile(r"placebo|standard of care|best supportive|saline|vehicle|sham|usual care|observation|"
                 r"investigator'?s? choice|physician'?s? choice|treatment of physician|\bSOC\b|matching|dummy", re.I)
@@ -272,19 +273,24 @@ class Site:
             note(x.get("drug"), 2)
         for c in self.curated:
             note(c.get("drug"), 3)
+        self._apply_aliases(par, find)
         groups = collections.defaultdict(list)
         for k in list(par):
             groups[find(k)].append(k)
         self.dcanon = {}
         self.dinfo = {}
         for root, ks in groups.items():
-            ks.sort(key=lambda k: (-prim[k], not k.isalpha(), k))
+            # 主键：「enlicitide / enlicitidedecanoate」「sacituzumabgovitecan / …hziy」这种同名加后缀的，用短的那个
+            longer = {k for k in ks if k.isalpha() and any(j != k and j.isalpha() and len(j) >= 6 and k.startswith(j) for j in ks)}
+            ks.sort(key=lambda k: (k in longer, -prim[k], not k.isalpha(), k))
             c = ks[0]
             for k in ks:
                 self.dcanon[k] = c
-            nm = collections.Counter()
-            for k in ks:
-                nm.update(names[k])
+            # 显示名优先用主键自己的写法，网址和标题对得上
+            nm = collections.Counter(names[c])
+            if not nm:
+                for k in ks:
+                    nm.update(names[k])
             self.dinfo[c] = {"key": c, "keys": ks, "name": (nm.most_common(1)[0][0] if nm else c), "trials": [],
                              "news": [], "cur": [], "guide": []}
 
@@ -321,6 +327,58 @@ class Site:
         for c in self.dpage:
             x = self.dinfo[c]
             x["trials"].sort(key=lambda t: (-phn(t.get("phase")), str(t.get("results") or t.get("pcd") or "")), reverse=False)
+
+    def _apply_aliases(self, par, find):
+        """别名表（scripts/drug_aliases.py 生成）：CT.gov 登记的 Other Names，加上自由文本里经模型确认是同一个药的配对。
+        两个组各自已有不同的 INN（带典型词干的名字）时不合并，防止登记时填错的别名把两个药并成一页。"""
+        try:
+            al = json.load(open(ALIASES, encoding="utf-8"))
+        except (OSError, ValueError):
+            al = {}
+        self.prefixes = al.get("prefixes") or {}
+        self.akas = collections.defaultdict(list)
+        pairs = [(p["a"], p["b"], "ctgov", p.get("ev") or [], p.get("t", p.get("n", 1))) for p in (al.get("pairs") or {}).values()]
+        pairs += [(p["a"], p["b"], "text", p.get("ev") or [], len(p.get("ev") or [])) for p in (al.get("llm") or {}).values()
+                  if p.get("verdict") == "same"]
+
+        def is_stem(k):
+            return bool(re.fullmatch(r"[a-z]{6,}", k)) and bool(INN_STEM.search(k))
+        def code_pre(k):
+            return re.match(r"[a-z]+", k).group(0) if CODE.match(k) else None
+        stems, codes = collections.defaultdict(set), collections.defaultdict(lambda: collections.defaultdict(set))
+        for k in list(par):
+            r = find(k)
+            if is_stem(k):
+                stems[r].add(k)
+            if code_pre(k):
+                codes[r][code_pre(k)].add(k)
+        self.alias_stats = collections.Counter()
+        pairs.sort(key=lambda x: -x[4])   # 证据多的先合并，单个试验的弱配对和它冲突时被挡掉，结果不依赖顺序
+        for a, b, src, ev, ntr in pairs:
+            ka, kb = (dkeys(a) or [None])[0], (dkeys(b) or [None])[0]
+            if not ka or not kb or ka == kb or (ka not in par and kb not in par):
+                continue
+            ra, rb = find(ka), find(kb)
+            if ra != rb:
+                sa, sb = stems[ra] | ({ka} if is_stem(ka) else set()), stems[rb] | ({kb} if is_stem(kb) else set())
+                ca, cb = dict(codes[ra]), dict(codes[rb])
+                for k_, c_ in ((ka, ca), (kb, cb)):
+                    if code_pre(k_):
+                        c_[code_pre(k_)] = c_.get(code_pre(k_), set()) | {k_}
+                # 两组各有不同的 INN；或同一公司前缀下各有不同代号（ABX196 / ABX464）而证据只有一个试验：不合并
+                clash = any(ca[x].isdisjoint(cb[x]) for x in set(ca) & set(cb))
+                if (sa and sb and not (sa & sb)) or (clash and ntr < 2):
+                    self.alias_stats["conflict"] += 1
+                    continue
+                par[rb] = ra
+                stems[ra] = sa | sb
+                for x, v in cb.items():
+                    codes[ra][x] |= v
+                for x, v in ca.items():
+                    codes[ra][x] |= v
+                self.alias_stats["merged"] += 1
+            self.akas[ka].append((b, src, ev))
+            self.akas[kb].append((a, src, ev))
 
     # ---- 靶点 ----
     def _targets(self):
@@ -1223,6 +1281,56 @@ def target_page(S, lang, g):
 
 
 # ---------------- 药物页 ----------------
+def aka_note(lang, srcs):
+    parts = []
+    if "ctgov" in srcs:
+        parts.append(T(lang, "ClinicalTrials.gov 登记的别名", "names registered on ClinicalTrials.gov"))
+    if "text" in srcs:
+        parts.append(T(lang, "试验和新闻文本，经 AI 核对", "trial and news text, checked by AI"))
+    return T(lang, "来源：", "Source: ") + T(lang, "、", ", ").join(parts)
+
+
+def prefix_line(S, lang, pres):
+    """代号前缀 → 公司。一个药有几家公司的代号（授权或合作开发常见），都列出来。"""
+    out = []
+    for pre in pres[:3]:
+        p = S.prefixes[pre]
+        share, n = round(p["share"] * 100), p["codes"]
+        note = T(lang, f"本站该前缀 {n} 个代号，{share}% 属于这家", f"{share}% of {n} codes with this prefix")
+        out.append(f'<a href="{S.path(lang, "codes")}#p-{esc(pre)}">{esc(pre)}</a> → {esc(p["co"])} <span class="sm">({note})</span>')
+    lbl = T(lang, "代号前缀：", "Code prefix: " if len(pres) == 1 else "Code prefixes: ")
+    return f'<p class="alias">{lbl}{" · ".join(out)}</p>'
+
+
+def hub_codes(S, lang):
+    P = S.prefixes
+    desc = T(lang, f"研发代号前缀对应哪家公司：从本站收录的注册库试验里统计出 {len(P)} 个前缀（SHR- 恒瑞、BGB- 百济神州、IBI- 信达……）。"
+                   "看到一个陌生代号时，先按前缀查公司。",
+             f"Which company a development-code prefix belongs to: {len(P)} prefixes learned from the registry trials on this site "
+             "(SHR- Hengrui, BGB- BeOne, IBI- Innovent…). Look up an unfamiliar code by its prefix.")
+    rows = []
+    for pre, p in P.items():
+        ex = []
+        for code in p.get("ex") or []:
+            c_ = S.dcl(code)
+            ex.append(S.dlink(lang, c_, code) if c_ in S.dpage else esc(code))
+        rows.append([f'<span id="p-{esc(pre)}"><b>{esc(pre)}</b></span>', esc(p["co"]), str(p["codes"]), f'{round(p["share"] * 100)}%',
+                     " · ".join(ex)])
+    body = (f'<h1>{T(lang, "研发代号前缀", "Development code prefixes")} <small>{len(P)}</small></h1><p class="lead">{esc(desc)}</p>'
+            + f'<p class="sm">{T(lang, "统计方法：一个前缀下至少 3 个不同代号，七成以上来自同一家申办方才列出。授权出去的资产由合作方申办时会拉低占比；占比是这个前缀在本站数据里的情况，不是公司官方说明。", "Method: a prefix is listed when it has at least 3 distinct codes and at least 70% come from one sponsor. Licensed assets run by partners lower the share; shares describe this site’s data, not official company statements.")}</p>'
+            + table([T(lang, "前缀", "Prefix"), T(lang, "公司", "Company"), T(lang, "代号数", "Codes"), T(lang, "占比", "Share"),
+                     T(lang, "例子", "Examples")], rows))
+    return page(S, lang, "codes", "", T(lang, "研发代号前缀查公司：SHR、BGB、IBI… | Hit or Miss", "Drug development code prefixes by company | Hit or Miss"),
+                desc, body, [(S.app(lang), "Hit or Miss"), (S.path(lang, "codes"), T(lang, "代号前缀", "Code prefixes"))])
+
+
+def redirect_page(S, to):
+    u = esc(S.abs(to))
+    return (f'<!doctype html><html><head><meta charset="utf-8"><title>Redirect</title><link rel="canonical" href="{u}">'
+            f'<meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={esc(to)}"></head>'
+            f'<body><a href="{esc(to)}">{u}</a></body></html>')
+
+
 def drug_page(S, lang, c):
     x = S.dinfo[c]
     tr = S.tr if lang == "en" else (lambda s: s)
@@ -1261,6 +1369,20 @@ def drug_page(S, lang, c):
     stop = sum(1 for t in trials if t["_set"] == "stopped")
     conds = collections.Counter(cd for t in trials for cd in (t.get("conditions") or [])[:1])
     alt = sorted({main_name(iv["n"]) for t in trials for iv in t.get("iv") or [] if S.dcl(iv.get("n")) == c} - {name})[:6]
+    # 别名表里的名字（CT.gov 登记的 Other Names、试验文本里确认过的「通用名 (代号)」）
+    seen_nk, aka, aka_src = {nk(a) for a in alt} | {nk(name)}, [], set()
+    for k in x["keys"]:
+        for nm, src, _ in S.akas.get(k, []):
+            if nk(nm) not in seen_nk and not CJK.search(nm) and len(aka) < 10:
+                seen_nk.add(nk(nm))
+                aka.append(nm)
+                aka_src.add(src)
+    # 研发代号前缀 → 公司
+    pre = []
+    for nm in [name] + alt + aka:
+        m = CODE_TOK.match(str(nm).strip())
+        if m and m.group(1) in S.prefixes and m.group(1) not in pre:
+            pre.append(m.group(1))
     st = next((S.struct[k] for k in x["keys"] if k in S.struct), None)
 
     cotxt = T(lang, "、", ", ").join(cc for cc, _ in cos.most_common(3))
@@ -1317,6 +1439,8 @@ def drug_page(S, lang, c):
     body = f"""<div class="dh">{(f'<img class="mol" alt="{esc(name)}" loading="lazy" width="180" height="150" src="/mol/s/{st[4]}.svg">' if len(st) > 4 and st[4] else f'<img class="mol" alt="{esc(name)}" loading="lazy" width="150" height="150" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{st[0]}/PNG?image_size=300x300">' if st[0] else "") if st else ""}<div>
 <h1>{esc(name)} <small>{T(lang, "临床试验、读出与时间线", "clinical trials, results and timeline")}</small></h1>
 {f'<p class="alias">{T(lang, "其他写法：", "Also listed as: ")}{esc(" · ".join(alt))}</p>' if alt else ""}
+{f'<p class="alias">{T(lang, "又名：", "Also known as: ")}{esc(" · ".join(aka))} <span class="sm">{aka_note(lang, aka_src)}</span></p>' if aka else ""}
+{prefix_line(S, lang, pre) if pre else ""}
 <p class="tags">{f'<span class="tag">{esc(tr(mod))}</span>' if mod else ""}{"".join(f'<span class="tag">{T(lang, "靶点", "Target")} {S.tlink(lang, g)}</span>' for g in tgl)}{"".join(f'<span class="tag">{esc(cc)}</span>' for cc, _ in cos.most_common(3))}</p>
 {f'<p class="sm">SMILES <code>{esc(cut(st[1], 160))}</code>{" · MW " + esc(st[2]) if len(st) > 2 and st[2] else ""}</p>' if st else ""}
 </div></div>
@@ -1542,6 +1666,7 @@ def hub_drugs(S, lang):
     desc = T(lang, f"按药物查临床试验和读出：{len(ds)} 个药物，每个药物一条时间线，串起注册库试验、新闻稿读出和公司读出指引。",
              f"Clinical trials and readouts by drug: {len(ds)} drugs, each with a timeline of registry trials, topline news and company guidance.")
     body = f"""<h1>{T(lang, "药物", "Drugs")} <small>{len(ds)}</small></h1><p class="lead">{esc(desc)}</p>
+<p><a href="{S.path(lang, "codes")}">{T(lang, "看到陌生代号？按研发代号前缀查公司 →", "Unfamiliar code? Look up the company by code prefix →")}</a></p>
 <p class="az">{" ".join(f'<a href="#l-{esc(k)}">{esc(k)}</a>' for k in by)}</p>
 {"".join(f'<h2 id="l-{esc(k)}">{esc(k)}</h2><p class="rel">' + " · ".join(S.dlink(lang, c) + f' <span class="sm">{len(S.dinfo[c]["trials"])}</span>' for c in v) + "</p>" for k, v in by.items())}"""
     return page(S, lang, "drugs", "", T(lang, "药物临床试验一览 | Hit or Miss", "Drugs in clinical trials, A–Z | Hit or Miss"), desc, body,
@@ -1638,7 +1763,7 @@ def build(d, docs, site_url=None):
             write(S.path(lang, kind, slug), fn(S, lang, arg))
         urls.append((S.path("zh", kind, slug), S.path("en", kind, slug), lastmod))
 
-    for kind, fn in (("targets", hub_targets), ("drugs", hub_drugs), ("trials", hub_trials), ("failures", hub_failures)):
+    for kind, fn in (("targets", hub_targets), ("drugs", hub_drugs), ("trials", hub_trials), ("failures", hub_failures), ("codes", hub_codes)):
         for lang in ("zh", "en"):
             write(S.path(lang, kind), fn(S, lang))
         urls.append((S.path("zh", kind), S.path("en", kind), S.asof))
@@ -1647,6 +1772,14 @@ def build(d, docs, site_url=None):
     for c in S.dpage:
         lm = max([trial_date(t) for t in S.dinfo[c]["trials"]] + [n.get("d") or "" for n in S.dinfo[c]["news"]] or [S.asof])
         emit("drug", c, drug_page, c, min(lm, S.asof) if lm else S.asof)
+    # 同一个药的其他代号 / 通用名也给一个网址，跳到主页面（别名合并后旧网址不至于 404，搜代号也能落到这里）
+    nred = 0
+    for c in S.dpage:
+        for k in S.dinfo[c]["keys"]:
+            if k != c and k not in S.dpage and (CODE.match(k) or INN.match(k)):
+                for lang in ("zh", "en"):
+                    write(S.path(lang, "drug", k), redirect_page(S, S.path(lang, "drug", c)))
+                nred += 1
     for nct, t in S.main.items():
         emit("trial", nct, trial_page, t, min(t.get("updated") or t.get("results") or S.asof, S.asof))
 

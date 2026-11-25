@@ -120,6 +120,22 @@ python scripts/fetch_chembl.py --max 400 --minutes 90 --workers 6
 
 失败原因库在 `scripts/build_static.py` 里汇总（`collect_failures`）：主要终点未达到的试验、提前终止的试验（注册库终止原因已归类，「其他 / 未填写」和写明看了其他研究结果才停的「申办方决定」会按原文补判）、新闻稿里的失败；输出 `/failures/` 汇总页、每个靶点页的「失败与终止」区块和交互版用的 `docs/failures.json`。
 
+## 药物别名与代号前缀
+
+`scripts/drug_aliases.py` 生成 `data/drug_aliases.json`，构建时用来把同一个药的不同写法（研发代号、通用名、商品名、旧代号）并成一个药物页。
+
+- **CT.gov 登记的别名**（Other Names）：确定性规则，CI 每周跑。只收单个药名之间的配对；两边都不是代号的至少要在两个试验里出现；泛称（platinum、vaccine 之类）不收。
+- **自由文本里的「通用名 (代号)」**（试验标题、受试药描述、新闻标题）：规则先找候选，再用 `claude -p`（订阅额度）判断是不是同一个药，制剂、产品、联用药、试验编号都会被排除。只在本地手动跑，判断结果缓存在文件里，不会重复问。
+- **合并时的保护**：两组各有不同的 INN（带典型词干），或同一公司前缀下各有不同代号而证据只有一个试验时，不合并；证据多的配对先合并。
+- **旧网址**：合并后不再是主键的代号和通用名，各生成一个跳转页（`noindex` + canonical），旧链接和直接搜代号都能落到主页面。
+- **代号前缀**（`prefixes`）：一个前缀下至少 3 个不同代号、七成以上来自同一申办方才收，列在 `/codes/`，药物页上标出前缀对应的公司。
+
+```
+python3 scripts/drug_aliases.py                    # CT.gov 别名 + 代号前缀
+python3 scripts/drug_aliases.py --llm --dry-run    # 看有哪些新的自由文本候选
+python3 scripts/drug_aliases.py --llm              # 用 claude -p 判断（默认 Sonnet，medium）
+```
+
 ## 靶点小结
 
 每个靶点页顶部有两块：
@@ -131,16 +147,21 @@ python scripts/fetch_chembl.py --max 400 --minutes 90 --workers 6
   - 页面上注明是 AI 撰写、生物学背景未逐条人工核实。
   - 只有事实包有实质变化（`pack_hash`）的靶点才会重写。
 
-这个脚本需要 Python ≥ 3.10、`pip install anthropic`，以及 API 凭据（`ANTHROPIC_API_KEY` 或 `ant auth login`）。其余脚本仍兼容 3.8。
+这个脚本需要 Python ≥ 3.10（其余脚本仍兼容 3.8）。有两种跑法：
+
+- `--cli`：调用本机已登录的 Claude Code（`claude -p`），消耗 claude.ai 订阅的每周用量，不花 API 余额，也不需要 SDK。子进程会去掉 `ANTHROPIC_API_KEY`，避免 Claude Code 改走 API 计费。`--jobs` 控制并行数（默认 2）；额度用完会自动停下，之后重跑会从没写完的靶点继续。
+- 默认 / `--sync`：走 Claude API，需要 `pip install anthropic` 和 API 凭据（`ANTHROPIC_API_KEY` 或 `ant auth login`）。
 
 ```
 python3.12 scripts/target_briefs.py --dry-run --only EGFR   # 只看会发给模型的事实包
+python3.12 scripts/target_briefs.py --cli --only EGFR       # 用订阅额度写一个
+python3.12 scripts/target_briefs.py --cli --limit 40        # 用订阅额度写项目最多的 40 个（有变化的）
 python3.12 scripts/target_briefs.py --sync --only EGFR      # 同步写一个，先看效果
 python3.12 scripts/target_briefs.py --wait                  # 全部有变化的靶点走 Batch API（半价），等结果回来
 python3 scripts/build_static.py docs                        # 重新生成静态页和 docs/briefs.json
 ```
 
-CI 不会自动跑这个脚本（会花钱），需要时手动运行后提交 `data/target_briefs.json`。
+CI 不会自动跑这个脚本（会花钱或占用额度），需要时手动运行后提交 `data/target_briefs.json`。
 
 ## 搜索引擎收录
 

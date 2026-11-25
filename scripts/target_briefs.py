@@ -6,10 +6,14 @@
 
 只重算事实包有实质变化的靶点（pack_hash 变了），没变的保留上次的结果。
 
-需要 Python ≥ 3.10 和 anthropic SDK（pip install anthropic），以及 API 凭据（ANTHROPIC_API_KEY 或 `ant auth login`）。
+两种跑法：
+- --cli：调用本机已登录的 Claude Code（claude -p），用 claude.ai 订阅的每周额度，不花 API 余额，不需要 SDK。
+- 默认 / --sync：走 Claude API，需要 anthropic SDK（pip install anthropic）和 API 凭据（ANTHROPIC_API_KEY 或 `ant auth login`）。
 本仓库其余脚本兼容 3.8，这个脚本单独用新版 Python 跑，例如：
 
     python3.12 scripts/target_briefs.py --dry-run --only "EGFR,TL1A"   # 只打印给模型的输入，不调用 API
+    python3.12 scripts/target_briefs.py --cli --only EGFR               # 用订阅额度跑一个
+    python3.12 scripts/target_briefs.py --cli                           # 用订阅额度跑全部有变化的靶点
     python3.12 scripts/target_briefs.py --sync --only EGFR              # 同步跑一个，先看效果
     python3.12 scripts/target_briefs.py                                 # 批量跑全部有变化的靶点（Batch API，半价）
 
@@ -21,8 +25,12 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
+import tempfile
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -109,10 +117,14 @@ def cid(g):
     return "t" + hashlib.md5(g.encode()).hexdigest()[:16]
 
 
+def user_msg(pk):
+    return "FACTS:\n" + json.dumps(pk, ensure_ascii=False, separators=(",", ":"))
+
+
 def params(pk, model, effort):
     return {"model": model, "max_tokens": 16000, "system": SYSTEM,
             "output_config": {"effort": effort, "format": {"type": "json_schema", "schema": SCHEMA}},
-            "messages": [{"role": "user", "content": "FACTS:\n" + json.dumps(pk, ensure_ascii=False, separators=(",", ":"))}]}
+            "messages": [{"role": "user", "content": user_msg(pk)}]}
 
 
 def known_ncts(pk):
@@ -158,10 +170,14 @@ def record(d, g, pk, msg, model):
         out = json.loads(text_of(msg))
     except ValueError:
         return "invalid JSON"
+    return store(d, g, pk, out, getattr(msg, "model", None) or model)
+
+
+def store(d, g, pk, out, model):
     out, issues = validate(pk, out)
     if out is None:
         return "; ".join(issues)
-    out.update({"asof": pk["asof"], "fh": B.pack_hash(pk), "model": getattr(msg, "model", None) or model,
+    out.update({"asof": pk["asof"], "fh": B.pack_hash(pk), "model": model,
                 "generated": datetime.date.today().isoformat()})
     if issues:
         out["issues"] = issues
@@ -209,6 +225,47 @@ def run_sync(client, d, items, args):
         save_out(d)
 
 
+def run_cli(d, items, args):
+    """用本机的 Claude Code（claude -p）逐个生成，走 claude.ai 订阅的用量额度，不花 API 余额。
+    子进程里去掉 ANTHROPIC_API_KEY，否则 Claude Code 会改用 API key 计费。"""
+    env = {k: v for k, v in os.environ.items() if k not in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN")}
+    cmd = ["claude", "-p", "--output-format", "json", "--json-schema", json.dumps(SCHEMA),
+           "--system-prompt", SYSTEM, "--tools", "", "--no-session-persistence", "--strict-mcp-config",
+           "--disable-slash-commands", "--model", args.model, "--effort", args.effort]
+    lock, stop, n = threading.Lock(), threading.Event(), [0]
+
+    def one(g, pk):
+        if stop.is_set():
+            return
+        try:
+            r = subprocess.run(cmd, input=user_msg(pk), capture_output=True, text=True, env=env,
+                               cwd=tempfile.gettempdir(), timeout=1200)
+            res = json.loads(r.stdout or "{}")
+        except (subprocess.TimeoutExpired, ValueError) as e:
+            res, err = {}, f"{type(e).__name__}"
+        else:
+            err = None
+        with lock:
+            n[0] += 1
+            tag = f"[{n[0]}/{len(items)}] {g}"
+            if err or res.get("is_error") or not isinstance(res.get("structured_output"), dict):
+                why = err or res.get("result") or res.get("subtype") or (r.stderr or "").strip()[-300:] or "no output"
+                print(f"{tag}: FAILED {str(why)[:300]}", file=sys.stderr)
+                if res.get("api_error_status") == 429 or re.search(r"limit|quota", str(why), re.I):
+                    print("usage limit reached, stopping; rerun later to continue", file=sys.stderr)
+                    stop.set()
+                return
+            model = next(iter(res.get("modelUsage") or {}), args.model)
+            e2 = store(d, g, pk, res["structured_output"], model)
+            u = res.get("usage") or {}
+            print(f"{tag}: {'ok' if not e2 else 'FAILED ' + e2} · out {u.get('output_tokens')} · "
+                  f"{(res.get('duration_ms') or 0) // 1000}s", file=sys.stderr)
+            save_out(d)
+
+    with ThreadPoolExecutor(max_workers=max(1, args.jobs)) as ex:
+        list(ex.map(lambda it: one(*it), items))
+
+
 def collect_batch(client, d, S, args):
     """取回上次提交的批次。没结束就返回 False。"""
     pend = d.get("pending")
@@ -254,6 +311,9 @@ def main():
     ap.add_argument("--force", action="store_true", help="regenerate even when the facts have not changed")
     ap.add_argument("--sync", action="store_true", help="call the API one target at a time instead of the Batch API")
     ap.add_argument("--dry-run", action="store_true", help="print the facts that would be sent and exit")
+    ap.add_argument("--cli", action="store_true",
+                    help="generate through the local Claude Code CLI (claude -p) on your claude.ai plan instead of API credits")
+    ap.add_argument("--jobs", type=int, default=2, help="parallel claude -p processes with --cli (default 2)")
     ap.add_argument("--wait", action="store_true", help="after submitting a batch, poll until it ends and collect it")
     ap.add_argument("--model", default=MODEL)
     ap.add_argument("--effort", default=EFFORT, choices=["low", "medium", "high", "xhigh", "max"])
@@ -267,6 +327,14 @@ def main():
             print(f"===== {g} · fh {B.pack_hash(pk)} · {len(json.dumps(pk, ensure_ascii=False))} chars")
             print(json.dumps(pk, ensure_ascii=False, indent=1))
         print(f"{len(items)} targets would be sent ({len(d['targets'])} briefs on file)", file=sys.stderr)
+        return
+
+    if args.cli:
+        items = todo(S, d, args)
+        if not items:
+            print(f"nothing to do · {len(d['targets'])} briefs on file", file=sys.stderr)
+            return
+        run_cli(d, items, args)
         return
 
     import anthropic
